@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 public class CcSystemApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CcSystemApplication.class, args);
+		SpringApplication.run(CcSystemApplication.class, args); //
 	}
 
 }
