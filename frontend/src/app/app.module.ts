@@ -5,10 +5,10 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgwWowModule } from 'ngx-wow';
-import { DemoV2Component } from './demo-v2/demo-v2.component';
+import { DemoV2Component } from './components/demo-v2/demo-v2.component';
 import { HttpClientModule } from '@angular/common/http';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { HttpDemoService } from './service/http-demo.service';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { HttpDemoService } from './services/http-demo.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { HttpDemoService } from './service/http-demo.service';
     AppRoutingModule,
     NgwWowModule
   ],
-  providers: [HttpDemoService],
+  providers: [HttpDemoService],  // Services go here because of DI
   bootstrap: [AppComponent]
 })
 export class AppModule { }
