@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DemoVComponent } from './demo-v/demo-v.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { DemoV2Component } from './demo-v2/demo-v2.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 const routes: Routes = [
-  {path: 'demov', component: DemoVComponent}
+  { path: '', redirectTo: 'homepage', pathMatch: 'full' }, // Don't use prefix becasue empty path is a prefix to any path
+  { path: 'homepage', component: HomePageComponent },
+  { path: 'demov2', component: DemoV2Component },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -12,4 +17,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [DemoVComponent]
+export const routingComponents = [HomePageComponent, DemoV2Component]

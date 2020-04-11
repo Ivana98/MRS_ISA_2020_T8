@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NgwWowService } from 'ngx-wow';
 
 @Component({
-  selector: 'app-demo-v',
-  templateUrl: './demo-v.component.html',
-  styleUrls: ['./demo-v.component.css']
+  selector: 'app-home-page',
+  templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.css']
 })
-export class DemoVComponent implements OnInit {
+export class HomePageComponent implements OnInit {
 
   constructor(private wowService: NgwWowService) { 
     //Pokrece animacije
