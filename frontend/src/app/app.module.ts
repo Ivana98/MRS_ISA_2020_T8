@@ -8,7 +8,7 @@ import { NgwWowModule } from 'ngx-wow';
 import { DemoV2Component } from './components/demo-v2/demo-v2.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { HttpDemoService } from './services/http-demo.service';
+import { HttpDemoService } from './services/http_demo/http-demo.service';
 
 @NgModule({
   declarations: [

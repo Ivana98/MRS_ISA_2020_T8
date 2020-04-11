@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpDemoService } from '../../services/http-demo.service';
+import { HttpDemoService } from '../../services/http_demo/http-demo.service';
 
 @Component({
   selector: 'app-demo-v2',
