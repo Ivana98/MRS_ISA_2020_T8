@@ -21,6 +21,7 @@ public class UserControler {
 		
 		if(!initialized) {
 			user = new User("123", "user@gmail.com", "Imenko", "Prezimenic", "Street 12", "My City", "Heaven Country", "063132456");
+			this.initialized = true;
 			return user;
 		}
 		else {
@@ -29,7 +30,7 @@ public class UserControler {
 	}
 	
 	@PostMapping("/savechanges")
-	public void create(@RequestBody User user) {
+	public void create(@RequestBody User user) { 
 		this.user = user;
 	}
 

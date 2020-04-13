@@ -5,7 +5,8 @@ export interface IUser {
         surname:string,
         adress:string,
         city:string,
-        country:string
+        country:string,
+        phone:string
 }
 
 export class User{
@@ -17,5 +18,6 @@ export class User{
         public adress:string,
         public city:string,
         public country:string,
+        public phone:string,
     ) {} 
 }

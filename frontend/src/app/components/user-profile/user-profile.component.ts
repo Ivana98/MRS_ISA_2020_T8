@@ -9,7 +9,7 @@ import { HttpUserService } from 'src/app/services/user-service/http-user.service
 })
 export class UserProfileComponent implements OnInit {
 
-  user: IUser = new User("","","","", "", "", "");
+  user: IUser = new User("","","","", "", "", "", "");
 
   constructor(
     private httpClientService: HttpUserService
@@ -27,7 +27,7 @@ export class UserProfileComponent implements OnInit {
   saveChanges(): void {
     this.httpClientService.changeUserData(this.user)
         .subscribe( data => {
-          alert("Canges saved!");
+          alert("Changes saved!");
         });
 
   };
