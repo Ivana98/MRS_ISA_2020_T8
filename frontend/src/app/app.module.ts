@@ -12,6 +12,7 @@ import { HttpDemoService } from './services/http_demo/http-demo.service';
 import { DemoV3Component } from './components/demo-v3/demo-v3.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { FormsModule } from '@angular/forms';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     DemoV2Component,
     PageNotFoundComponent,
     DemoV3Component,
-    AddEmployeeComponent
+    AddEmployeeComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
