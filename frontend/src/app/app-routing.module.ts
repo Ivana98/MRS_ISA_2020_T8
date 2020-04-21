@@ -6,6 +6,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { DemoV3Component } from './components/demo-v3/demo-v3.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'homepage', pathMatch: 'full' }, // Don't use prefix becasue empty path is a prefix to any path
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'demov3', component: DemoV3Component },
   { path: 'adde', component: AddEmployeeComponent },
   { path: 'userprofile', component: UserProfileComponent },
+  { path: 'adminLogin', component: AdminLoginComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -22,4 +24,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [HomePageComponent, DemoV2Component, DemoV3Component, AddEmployeeComponent, UserProfileComponent]
+export const routingComponents = [HomePageComponent, DemoV2Component, DemoV3Component, AddEmployeeComponent, UserProfileComponent,AdminLoginComponent]

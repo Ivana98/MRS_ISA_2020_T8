@@ -1,0 +1,18 @@
+<h1>Login forma</h1>
+<br>
+<p>Name</p>
+<input #name type = "text" >
+
+
+<p>Password</p>
+<input #pass type = "text" >
+<br>
+<br>
+<input type = "button" value = "Posalji" (click)="saveAdmin(name.value , pass.value)">
+<br>
+<div *ngFor="let admin of adminAr">
+    <h3>{{admin.name}}<h3>
+    
+    
+   
+<div>
