@@ -12,20 +12,23 @@
                   <span class="sr-only">(current)</span>
                 </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="#">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Services</a>
-          </li>
-          <li class="nav-item">
+          </li> -->
+          <!-- <li class="nav-item">
             <a class="nav-link" href="#">Contact</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" routerLink="#" (click)="salji()">Lekar1</a> <!--First way to share data-->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/demov2">DemoV2</a>
+            <a class="nav-link" [routerLink]="['/homepage/user-page', this.message2]">Lekar2</a> <!--Second way to share data-->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/adde">Add emp</a>
+            <a class="nav-link" href="/homepage/adde">Add emp</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/userprofile">User profile</a>

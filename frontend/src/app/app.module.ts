@@ -13,6 +13,7 @@ import { DemoV3Component } from './components/demo-v3/demo-v3.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { FormsModule } from '@angular/forms';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UserPageComponent } from './components/user-page/user-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     PageNotFoundComponent,
     DemoV3Component,
     AddEmployeeComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UserPageComponent
   ],
   imports: [
     BrowserModule,
