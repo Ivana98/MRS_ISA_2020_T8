@@ -40,4 +40,70 @@ public class ExaminationType {
 	
 	@Enumerated
 	private Specialisation specialisation;
+
+	/**
+	 * @param id
+	 * @param price
+	 * @param duration
+	 * @param interventionType
+	 * @param specialisation
+	 */
+	public ExaminationType(Integer id, double price, int duration, InterventionType interventionType,
+			Specialisation specialisation) {
+		super();
+		this.id = id;
+		this.price = price;
+		this.duration = duration;
+		this.interventionType = interventionType;
+		this.specialisation = specialisation;
+	}
+
+	/**
+	 * 
+	 */
+	public ExaminationType() {
+		super();
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	public InterventionType getInterventionType() {
+		return interventionType;
+	}
+
+	public void setInterventionType(InterventionType interventionType) {
+		this.interventionType = interventionType;
+	}
+
+	public Specialisation getSpecialisation() {
+		return specialisation;
+	}
+
+	public void setSpecialisation(Specialisation specialisation) {
+		this.specialisation = specialisation;
+	}
+	
+	
 }

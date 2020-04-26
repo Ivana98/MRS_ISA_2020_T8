@@ -42,4 +42,94 @@ public class Doctor extends User {
 	
 	@Column(name="averageMark", unique=false, nullable=false)
 	private float averageMark;
+
+	/**
+	 * @param id
+	 * @param email
+	 * @param name
+	 * @param surname
+	 * @param address
+	 * @param phone
+	 * @param password
+	 * @param absences
+	 * @param clinic
+	 * @param specialisation
+	 * @param examinations
+	 * @param marks
+	 * @param averageMark
+	 */
+	public Doctor(Integer id, String email, String name, String surname, Address address, String phone, String password,
+			Set<Absence> absences, Clinic clinic, Specialisation specialisation, Set<Examination> examinations,
+			Set<DoctorMark> marks, float averageMark) {
+		super(id, email, name, surname, address, phone, password);
+		this.absences = absences;
+		this.clinic = clinic;
+		this.specialisation = specialisation;
+		this.examinations = examinations;
+		this.marks = marks;
+		this.averageMark = averageMark;
+	}
+
+	/**
+	 * @param id
+	 * @param email
+	 * @param name
+	 * @param surname
+	 * @param address
+	 * @param phone
+	 * @param password
+	 */
+	public Doctor(Integer id, String email, String name, String surname, Address address, String phone,
+			String password) {
+		super(id, email, name, surname, address, phone, password);
+	}
+
+	public Set<Absence> getAbsences() {
+		return absences;
+	}
+
+	public void setAbsences(Set<Absence> absences) {
+		this.absences = absences;
+	}
+
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
+
+	public Specialisation getSpecialisation() {
+		return specialisation;
+	}
+
+	public void setSpecialisation(Specialisation specialisation) {
+		this.specialisation = specialisation;
+	}
+
+	public Set<Examination> getExaminations() {
+		return examinations;
+	}
+
+	public void setExaminations(Set<Examination> examinations) {
+		this.examinations = examinations;
+	}
+
+	public Set<DoctorMark> getMarks() {
+		return marks;
+	}
+
+	public void setMarks(Set<DoctorMark> marks) {
+		this.marks = marks;
+	}
+
+	public float getAverageMark() {
+		return averageMark;
+	}
+
+	public void setAverageMark(float averageMark) {
+		this.averageMark = averageMark;
+	}
+	
 }

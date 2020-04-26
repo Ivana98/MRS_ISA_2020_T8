@@ -35,4 +35,69 @@ public class ClinicalCenter {
 	
 	@OneToMany(mappedBy = "clinicalCenter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ClinicalCenterAdmin> admins = new HashSet<>();
+
+	/**
+	 * @param id
+	 * @param name
+	 * @param clinics
+	 * @param patients
+	 * @param admins
+	 */
+	public ClinicalCenter(Integer id, String name, Set<Clinic> clinics, Set<Patient> patients,
+			Set<ClinicalCenterAdmin> admins) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.clinics = clinics;
+		this.patients = patients;
+		this.admins = admins;
+	}
+
+	/**
+	 * 
+	 */
+	public ClinicalCenter() {
+		super();
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Set<Clinic> getClinics() {
+		return clinics;
+	}
+
+	public void setClinics(Set<Clinic> clinics) {
+		this.clinics = clinics;
+	}
+
+	public Set<Patient> getPatients() {
+		return patients;
+	}
+
+	public void setPatients(Set<Patient> patients) {
+		this.patients = patients;
+	}
+
+	public Set<ClinicalCenterAdmin> getAdmins() {
+		return admins;
+	}
+
+	public void setAdmins(Set<ClinicalCenterAdmin> admins) {
+		this.admins = admins;
+	}
+	
 }

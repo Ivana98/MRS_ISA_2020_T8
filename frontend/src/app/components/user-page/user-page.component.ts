@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit, NgModule } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HomePageComponent } from '../home-page/home-page.component';
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';

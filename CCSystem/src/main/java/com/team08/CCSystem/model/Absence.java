@@ -102,6 +102,4 @@ public class Absence {
 		this.absenceType = absenceType;
 	}
 	
-	
-	
 }

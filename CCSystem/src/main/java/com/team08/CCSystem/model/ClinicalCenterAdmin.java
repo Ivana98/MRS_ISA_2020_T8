@@ -29,6 +29,57 @@ public class ClinicalCenterAdmin extends User {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private ClinicalCenter clinicalCenter;
-	
+
+	/**
+	 * Constructor
+	 * 
+	 * @param id
+	 * @param email
+	 * @param name
+	 * @param surname
+	 * @param address
+	 * @param phone
+	 * @param password
+	 * @param absences
+	 * @param clinicalCenter
+	 */
+	public ClinicalCenterAdmin(Integer id, String email, String name, String surname, Address address, String phone,
+			String password, Set<Absence> absences, ClinicalCenter clinicalCenter) {
+		super(id, email, name, surname, address, phone, password);
+		this.absences = absences;
+		this.clinicalCenter = clinicalCenter;
+	}
+
+	/**
+	 * Empty constructor
+	 * 
+	 * @param id
+	 * @param email
+	 * @param name
+	 * @param surname
+	 * @param address
+	 * @param phone
+	 * @param password
+	 */
+	public ClinicalCenterAdmin(Integer id, String email, String name, String surname, Address address, String phone,
+			String password) {
+		super(id, email, name, surname, address, phone, password);
+	}
+
+	public Set<Absence> getAbsences() {
+		return absences;
+	}
+
+	public void setAbsences(Set<Absence> absences) {
+		this.absences = absences;
+	}
+
+	public ClinicalCenter getClinicalCenter() {
+		return clinicalCenter;
+	}
+
+	public void setClinicalCenter(ClinicalCenter clinicalCenter) {
+		this.clinicalCenter = clinicalCenter;
+	}
 	
 }

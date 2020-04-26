@@ -65,6 +65,130 @@ public class Examination {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Patient patient;
-	
+
+	/**
+	 * @param id
+	 * @param date
+	 * @param wasOnExamination
+	 * @param description
+	 * @param discount
+	 * @param examinationType
+	 * @param prescriptions
+	 * @param diseases
+	 * @param medicalRoom
+	 * @param doctor
+	 * @param patient
+	 */
+	public Examination(Integer id, Date date, boolean wasOnExamination, String description, float discount,
+			ExaminationType examinationType, Set<Prescription> prescriptions, Set<Disease> diseases,
+			MedicalRoom medicalRoom, Doctor doctor, Patient patient) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.wasOnExamination = wasOnExamination;
+		this.description = description;
+		this.discount = discount;
+		this.examinationType = examinationType;
+		this.prescriptions = prescriptions;
+		this.diseases = diseases;
+		this.medicalRoom = medicalRoom;
+		this.doctor = doctor;
+		this.patient = patient;
+	}
+
+	/**
+	 * 
+	 */
+	public Examination() {
+		super();
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public boolean isWasOnExamination() {
+		return wasOnExamination;
+	}
+
+	public void setWasOnExamination(boolean wasOnExamination) {
+		this.wasOnExamination = wasOnExamination;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public float getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(float discount) {
+		this.discount = discount;
+	}
+
+	public ExaminationType getExaminationType() {
+		return examinationType;
+	}
+
+	public void setExaminationType(ExaminationType examinationType) {
+		this.examinationType = examinationType;
+	}
+
+	public Set<Prescription> getPrescriptions() {
+		return prescriptions;
+	}
+
+	public void setPrescriptions(Set<Prescription> prescriptions) {
+		this.prescriptions = prescriptions;
+	}
+
+	public Set<Disease> getDiseases() {
+		return diseases;
+	}
+
+	public void setDiseases(Set<Disease> diseases) {
+		this.diseases = diseases;
+	}
+
+	public MedicalRoom getMedicalRoom() {
+		return medicalRoom;
+	}
+
+	public void setMedicalRoom(MedicalRoom medicalRoom) {
+		this.medicalRoom = medicalRoom;
+	}
+
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
 	
 }

@@ -42,7 +42,7 @@ public class Nurse extends User {
 	public Nurse(Integer id, String email, String name, String surname, Address address, String phone, String password,
 			Clinic clinic, Set<Absence> absences) {
 		super(id, email, name, surname, address, phone, password);
-//		this.clinic = clinic;
+		this.clinic = clinic;
 		this.absences = absences;
 	}
 
@@ -60,13 +60,13 @@ public class Nurse extends User {
 		super(id, email, name, surname, address, phone, password);
 	}
 
-//	public Clinic getClinic() {
-//		return clinic;
-//	}
-//
-//	public void setClinic(Clinic clinic) {
-//		this.clinic = clinic;
-//	}
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
 
 	public Set<Absence> getAbsences() {
 		return absences;
@@ -75,6 +75,6 @@ public class Nurse extends User {
 	public void setAbsences(Set<Absence> absences) {
 		this.absences = absences;
 	}
-	
+
 	
 }

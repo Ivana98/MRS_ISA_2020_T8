@@ -36,6 +36,58 @@ public class DoctorMark {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Patient patient;
-	
+
+	/**
+	 * @param id
+	 * @param mark
+	 * @param doctor
+	 * @param patient
+	 */
+	public DoctorMark(Integer id, float mark, Doctor doctor, Patient patient) {
+		super();
+		this.id = id;
+		this.mark = mark;
+		this.doctor = doctor;
+		this.patient = patient;
+	}
+
+	/**
+	 * 
+	 */
+	public DoctorMark() {
+		super();
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public float getMark() {
+		return mark;
+	}
+
+	public void setMark(float mark) {
+		this.mark = mark;
+	}
+
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
 	
 }

@@ -30,5 +30,48 @@ public class Medication {
 	
 	@Column(name = "description", nullable = true, unique = false)
 	private String description;
+
+	/**
+	 * @param id
+	 * @param name
+	 * @param description
+	 */
+	public Medication(Integer id, String name, String description) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+	}
+
+	/**
+	 * 
+	 */
+	public Medication() {
+		super();
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	
 }

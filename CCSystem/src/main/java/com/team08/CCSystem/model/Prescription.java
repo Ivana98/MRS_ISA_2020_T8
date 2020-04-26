@@ -59,6 +59,99 @@ public class Prescription {
 	@ManyToMany
 	@JoinTable(name = "prescriptioning", joinColumns = @JoinColumn(name = "prescription_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "examination_id", referencedColumnName = "id"))
 	private Set<Examination> examinations = new HashSet<Examination>();
-	
+
+	/**
+	 * @param id
+	 * @param validated
+	 * @param quantity
+	 * @param expirationDate
+	 * @param nurse
+	 * @param medication
+	 * @param description
+	 * @param examinations
+	 */
+	public Prescription(Integer id, boolean validated, int quantity, Date expirationDate, Nurse nurse,
+			Medication medication, String description, Set<Examination> examinations) {
+		super();
+		this.id = id;
+		this.validated = validated;
+		this.quantity = quantity;
+		this.expirationDate = expirationDate;
+		this.nurse = nurse;
+		this.medication = medication;
+		this.description = description;
+		this.examinations = examinations;
+	}
+
+	/**
+	 * 
+	 */
+	public Prescription() {
+		super();
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public boolean isValidated() {
+		return validated;
+	}
+
+	public void setValidated(boolean validated) {
+		this.validated = validated;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+
+	public void setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
+	}
+
+	public Nurse getNurse() {
+		return nurse;
+	}
+
+	public void setNurse(Nurse nurse) {
+		this.nurse = nurse;
+	}
+
+	public Medication getMedication() {
+		return medication;
+	}
+
+	public void setMedication(Medication medication) {
+		this.medication = medication;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Set<Examination> getExaminations() {
+		return examinations;
+	}
+
+	public void setExaminations(Set<Examination> examinations) {
+		this.examinations = examinations;
+	}
 	
 }

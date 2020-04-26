@@ -39,5 +39,58 @@ public class MedicalRoom {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Clinic clinic;
-	
+
+	/**
+	 * @param id
+	 * @param roomNumber
+	 * @param intervensionType
+	 * @param clinic
+	 */
+	public MedicalRoom(Integer id, int roomNumber, InterventionType intervensionType, Clinic clinic) {
+		super();
+		this.id = id;
+		this.roomNumber = roomNumber;
+		this.intervensionType = intervensionType;
+		this.clinic = clinic;
+	}
+
+	/**
+	 * 
+	 */
+	public MedicalRoom() {
+		super();
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public int getRoomNumber() {
+		return roomNumber;
+	}
+
+	public void setRoomNumber(int roomNumber) {
+		this.roomNumber = roomNumber;
+	}
+
+	public InterventionType getIntervensionType() {
+		return intervensionType;
+	}
+
+	public void setIntervensionType(InterventionType intervensionType) {
+		this.intervensionType = intervensionType;
+	}
+
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
+
 }
