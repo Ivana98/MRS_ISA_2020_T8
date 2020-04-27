@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule, routingComponents } from './app-routing.module';
@@ -14,6 +15,7 @@ import { AddEmployeeComponent } from './components/add-employee/add-employee.com
 import { FormsModule } from '@angular/forms';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserPageComponent } from './components/user-page/user-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { UserPageComponent } from './components/user-page/user-page.component';
     HttpClientModule,
     AppRoutingModule,
     NgwWowModule,
-    FormsModule
+    FormsModule,
+    MDBBootstrapModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [HttpDemoService],  // Services go here because of DI
   bootstrap: [AppComponent]
