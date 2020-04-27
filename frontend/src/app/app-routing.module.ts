@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'homepage', component: HomePageComponent },
   { path: 'demov2', component: DemoV2Component },
   { path: 'demov3', component: DemoV3Component },
-  { path: 'homepage/adde', component: AddEmployeeComponent },
+  { path: 'homepage/adde', component: AddEmployeeComponent},
   { path: 'userprofile', component: UserProfileComponent },
   { path: 'homepage/user-page/:id', component: UserPageComponent },
   { path: 'homepage/user-page', component: UserPageComponent },
@@ -25,5 +25,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [HomePageComponent, DemoV2Component, 
+export const routingComponents = [HomePageComponent, DemoV2Component,
   DemoV3Component, AddEmployeeComponent, UserProfileComponent, UserPageComponent]

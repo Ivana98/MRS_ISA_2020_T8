@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HomePageComponent } from '../home-page/home-page.component';
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 import { MdbTableDirective } from 'angular-bootstrap-md';
+import { SomeLogicService } from 'src/app/some-logic.service';
 
 @Component({
   selector: 'app-user-page',
@@ -31,8 +32,20 @@ export class UserPageComponent implements OnInit {
   @ViewChild(MdbTableDirective, { static: true }) mdbTable:
 MdbTableDirective; elements: any = []; headElements = ['ID', 'First',
 'Last', 'Handle']; searchText: string = ''; previous: string;
-constructor() { } @HostListener('input') oninput() { this.searchItems();
-} ngOnInit() { for (let i = 1; i <= 10; i++) { this.elements.push({ id:
+constructor( private _someLogic: SomeLogicService) { } @HostListener('input') oninput() { this.searchItems();
+} ngOnInit() {
+  console.log("Aha2");
+    this._someLogic._user$.subscribe(
+      message => {
+        if (message === 'PACIJENT') {
+          alert('PACIJENT!');
+        } else if (message === 'Well Done') {
+          alert('Thank you Teacher!');
+        }
+      }
+    )
+  
+  for (let i = 1; i <= 10; i++) { this.elements.push({ id:
 i.toString(), first: 'Wpis' + (Math.floor(Math.random() * i *
 10)).toString(), last: 'Last' + (Math.floor(Math.random() * i *
 10)).toString(), handle: 'Handle' + (Math.floor(Math.random() * i *
