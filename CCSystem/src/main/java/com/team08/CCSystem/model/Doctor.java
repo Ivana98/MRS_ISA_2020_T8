@@ -17,11 +17,14 @@ import javax.persistence.Table;
 
 import com.team08.CCSystem.model.enums.Specialisation;
 
+import lombok.Data;
+
 /**
  * @author Veljko
  *
  */
 @Entity
+@Data
 @Table(name = "Doctor")
 public class Doctor extends User {
 

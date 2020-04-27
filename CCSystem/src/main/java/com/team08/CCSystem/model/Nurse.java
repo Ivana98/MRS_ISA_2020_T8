@@ -14,11 +14,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 /**
  * @author Veljko
  *
  */
 @Entity
+@Data
 @Table(name = "Nurse")
 public class Nurse extends User {
 	
