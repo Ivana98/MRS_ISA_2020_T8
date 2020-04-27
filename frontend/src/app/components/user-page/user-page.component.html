@@ -3,12 +3,43 @@
 
 
 
-<button type="button" mdbBtn color="primary" mdbWavesEffect>Primary</button>
-<button type="button" mdbBtn color="secondary" mdbWavesEffect>Secondary</button>
-<button type="button" mdbBtn color="success" mdbWavesEffect>Success</button>
-<button type="button" mdbBtn color="danger" mdbWavesEffect>Danger</button>
-<button type="button" mdbBtn color="warning" mdbWavesEffect>Warning</button>
-<button type="button" mdbBtn color="info" mdbWavesEffect>Info</button>
-<button type="button" mdbBtn color="light" mdbWavesEffect>Light</button>
-<button type="button" mdbBtn color="dark" mdbWavesEffect>Dark</button>
-<button type="button" mdbBtn color="link">Link</button>
+
+<mat-slider min="1" max="100" step="1" value="1"></mat-slider>
+<br>
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-12 mx-auto">
+        <div class="md-form">
+          <input
+            type="text"
+            [(ngModel)]="searchText"
+            class="form-control"
+            id="search"
+            mdbInput
+          />
+          <label for="search">Search</label>
+        </div>
+      </div>
+    </div>
+    <table mdbTable class="z-depth-1">
+      <thead>
+        <tr>
+          <th
+            *ngFor="let head of headElements; let i = index"
+            scope="col"
+          >
+            {{head}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let el of elements; let i = index">
+          <th scope="row">{{el.id}}</th>
+          <td class="red-text">{{el.first}}</td>
+          <td>{{el.last}}</td>
+          <td>{{el.handle}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
