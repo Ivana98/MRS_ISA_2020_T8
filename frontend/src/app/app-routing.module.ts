@@ -5,7 +5,6 @@ import { DemoV2Component } from './components/demo-v2/demo-v2.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { DemoV3Component } from './components/demo-v3/demo-v3.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserPageComponent } from './components/user-page/user-page.component';
 
 const routes: Routes = [
@@ -14,7 +13,6 @@ const routes: Routes = [
   { path: 'demov2', component: DemoV2Component },
   { path: 'demov3', component: DemoV3Component },
   { path: 'homepage/adde', component: AddEmployeeComponent},
-  { path: 'userprofile', component: UserProfileComponent },
   { path: 'homepage/user-page/:id', component: UserPageComponent },
   { path: 'homepage/user-page', component: UserPageComponent },
   { path: '**', component: PageNotFoundComponent }
@@ -26,4 +24,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const routingComponents = [HomePageComponent, DemoV2Component,
-  DemoV3Component, AddEmployeeComponent, UserProfileComponent, UserPageComponent]
+  DemoV3Component, AddEmployeeComponent, UserPageComponent]

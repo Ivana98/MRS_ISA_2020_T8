@@ -14,7 +14,6 @@ import { HttpDemoService } from './services/http_demo/http-demo.service';
 import { DemoV3Component } from './components/demo-v3/demo-v3.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { FormsModule } from '@angular/forms';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -26,7 +25,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PageNotFoundComponent,
     DemoV3Component,
     AddEmployeeComponent,
-    UserProfileComponent,
     UserPageComponent
   ],
   imports: [
