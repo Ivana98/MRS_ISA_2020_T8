@@ -6,6 +6,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { DemoV3Component } from './components/demo-v3/demo-v3.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { UserPageComponent } from './components/user-page/user-page.component';
+import { DisplayClinicsComponent } from './components/patient/display-clinics/display-clinics.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'homepage', pathMatch: 'full' }, // Don't use prefix becasue empty path is a prefix to any path
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'homepage/adde', component: AddEmployeeComponent},
   { path: 'homepage/user-page/:id', component: UserPageComponent },
   { path: 'homepage/user-page', component: UserPageComponent },
+  { path: 'clinics-table', component: DisplayClinicsComponent},
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -24,4 +26,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const routingComponents = [HomePageComponent, DemoV2Component,
-  DemoV3Component, AddEmployeeComponent, UserPageComponent]
+  DemoV3Component, AddEmployeeComponent, UserPageComponent, DisplayClinicsComponent]

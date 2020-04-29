@@ -4,17 +4,19 @@ public class ClinicForTableDTO {
 	private Integer id;
 	private String name;
 	private String addressStreet; //how to share whole adress, is it needed
+	private String adressCity;
 	private double averageMark;
 	
 	public ClinicForTableDTO() {
 		super();
 	}
 	
-	public ClinicForTableDTO(Integer id, String name, String addressStreet, double averageMark) {
+	public ClinicForTableDTO(Integer id, String name, String addressStreet, String adressCity, double averageMark) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.addressStreet = addressStreet;
+		this.adressCity = adressCity;
 		this.averageMark = averageMark;
 	}
 	
@@ -41,6 +43,12 @@ public class ClinicForTableDTO {
 	}
 	public void setAverageMark(double averageMark) {
 		this.averageMark = averageMark;
+	}
+	public String getAdressCity() {
+		return adressCity;
+	}
+	public void setAdressCity(String adressCity) {
+		this.adressCity = adressCity;
 	}
 	
 	

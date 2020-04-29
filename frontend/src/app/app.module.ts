@@ -16,6 +16,8 @@ import { AddEmployeeComponent } from './components/add-employee/add-employee.com
 import { FormsModule } from '@angular/forms';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DisplayClinicsComponent } from './components/patient/display-clinics/display-clinics.component';
+import { ListClinicsService } from './services/patient/clinics/list-clinics.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PageNotFoundComponent,
     DemoV3Component,
     AddEmployeeComponent,
-    UserPageComponent
+    UserPageComponent,
+    DisplayClinicsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +38,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
-    MatSliderModule
+    MatSliderModule,
   ],
-  providers: [HttpDemoService],  // Services go here because of DI
+  providers: [HttpDemoService, ListClinicsService],  // Services go here because of DI
   bootstrap: [AppComponent]
 })
 export class AppModule { }

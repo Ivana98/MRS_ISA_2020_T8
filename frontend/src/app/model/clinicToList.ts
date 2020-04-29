@@ -1,7 +1,8 @@
 export interface IClinic {
     id:number,
-    ame:string,
+    name:string,
     addressStreet:string,
+    adressCity:string,
     averageMark:number
 }
 
@@ -10,6 +11,7 @@ export class Clinic{
         public id:number,
         public name:string,
         public addressStreet:string,
+        public addressCity:string,
         public averageMark:number,
     ) {} 
 }

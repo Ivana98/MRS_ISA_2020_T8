@@ -18,11 +18,11 @@ public class ClinicControler {
 		List<ClinicForTableDTO> clinics = new ArrayList<ClinicForTableDTO>();
 		
 		//add dummy data to list
-		ClinicForTableDTO cft1 = new ClinicForTableDTO(1, "Hirurgija", "Adresa 1", 4.5);
-		ClinicForTableDTO cft2 = new ClinicForTableDTO(2, "Rehabilitacioni centar", "Adresa 2", 4.3);
-		ClinicForTableDTO cft3 = new ClinicForTableDTO(3, "Psihijatrija", "Adresa 3", 3.5);
-		ClinicForTableDTO cft4 = new ClinicForTableDTO(4, "Porodiliste", "Adresa 4", 2.3);
-		ClinicForTableDTO cft5 = new ClinicForTableDTO(4, "Decija bolnica", "Adresa 5", 4.5);
+		ClinicForTableDTO cft1 = new ClinicForTableDTO(1, "Hirurgija", "Adresa 1", "Novi Sad", 4.5);
+		ClinicForTableDTO cft2 = new ClinicForTableDTO(2, "Rehabilitacioni centar", "Adresa 2", "Novi Sad",4.3);
+		ClinicForTableDTO cft3 = new ClinicForTableDTO(3, "Psihijatrija", "Adresa 3", "Beograd", 3.5);
+		ClinicForTableDTO cft4 = new ClinicForTableDTO(4, "Porodiliste", "Adresa 4", "Novi Sad", 2.3);
+		ClinicForTableDTO cft5 = new ClinicForTableDTO(4, "Decija bolnica", "Adresa 5", "Beograd", 4.5);
 		
 		clinics.add(cft1);
 		clinics.add(cft2);
