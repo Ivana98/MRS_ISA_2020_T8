@@ -14,9 +14,10 @@ import { HttpDemoService } from './services/http_demo/http-demo.service';
 import { DemoV3Component } from './components/demo-v3/demo-v3.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { FormsModule } from '@angular/forms';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DisplayClinicsComponent } from './components/patient/display-clinics/display-clinics.component';
+import { ListClinicsService } from './services/patient/clinics/list-clinics.service';
 import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
 import { AddMedicalRoomComponent } from './components/add-medical-room/add-medical-room.component';
 
@@ -28,7 +29,7 @@ import { AddMedicalRoomComponent } from './components/add-medical-room/add-medic
     PageNotFoundComponent,
     DemoV3Component,
     AddEmployeeComponent,
-    UserProfileComponent,
+    DisplayClinicsComponent,
     UserPageComponent,
     AddDoctorComponent,
     AddMedicalRoomComponent
@@ -41,9 +42,9 @@ import { AddMedicalRoomComponent } from './components/add-medical-room/add-medic
     FormsModule,
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
-    MatSliderModule
+    MatSliderModule,
   ],
-  providers: [HttpDemoService],  // Services go here because of DI
+  providers: [HttpDemoService, ListClinicsService],  // Services go here because of DI
   bootstrap: [AppComponent]
 })
 export class AppModule { }
