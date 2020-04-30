@@ -77,7 +77,7 @@ public class Patient extends User {
 	 * @param clinicsMarks
 	 * @param doctorsMarks
 	 */
-	public Patient(Integer id, String email, String name, String surname, Address address, String phone,
+	public Patient(Long id, String email, String name, String surname, Address address, String phone,
 			String password, String policyholder, int height, int weight, BloodType bloodType, String allergy,
 			String diopter, ClinicalCenter clinicalCenter, Set<Examination> examinations, Set<ClinicMark> clinicsMarks,
 			Set<DoctorMark> doctorsMarks) {
@@ -103,7 +103,7 @@ public class Patient extends User {
 	 * @param phone
 	 * @param password
 	 */
-	public Patient(Integer id, String email, String name, String surname, Address address, String phone,
+	public Patient(Long id, String email, String name, String surname, Address address, String phone,
 			String password) {
 		super(id, email, name, surname, address, phone, password);
 	}

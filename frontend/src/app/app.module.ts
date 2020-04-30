@@ -18,6 +18,8 @@ import { UserPageComponent } from './components/user-page/user-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DisplayClinicsComponent } from './components/patient/display-clinics/display-clinics.component';
 import { ListClinicsService } from './services/patient/clinics/list-clinics.service';
+import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
+import { AddMedicalRoomComponent } from './components/add-medical-room/add-medical-room.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +29,10 @@ import { ListClinicsService } from './services/patient/clinics/list-clinics.serv
     PageNotFoundComponent,
     DemoV3Component,
     AddEmployeeComponent,
+    DisplayClinicsComponent,
     UserPageComponent,
-    DisplayClinicsComponent
+    AddDoctorComponent,
+    AddMedicalRoomComponent
   ],
   imports: [
     BrowserModule,

@@ -42,7 +42,7 @@ public class Nurse extends User {
 	 * @param clinic
 	 * @param absences
 	 */
-	public Nurse(Integer id, String email, String name, String surname, Address address, String phone, String password,
+	public Nurse(Long id, String email, String name, String surname, Address address, String phone, String password,
 			Clinic clinic, Set<Absence> absences) {
 		super(id, email, name, surname, address, phone, password);
 		this.clinic = clinic;
@@ -58,7 +58,7 @@ public class Nurse extends User {
 	 * @param phone
 	 * @param password
 	 */
-	public Nurse(Integer id, String email, String name, String surname, Address address, String phone,
+	public Nurse(Long id, String email, String name, String surname, Address address, String phone,
 			String password) {
 		super(id, email, name, surname, address, phone, password);
 	}

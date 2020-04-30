@@ -20,7 +20,7 @@ public abstract class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	private Integer id;
+	private Long id;
 	
 	@Column(name="email", unique=true, nullable=false)
 	private String email;
@@ -49,7 +49,7 @@ public abstract class User {
 	 * @param phone
 	 * @param password
 	 */
-	public User(Integer id, String email, String name, String surname, Address address, String phone, String password) {
+	public User(Long id, String email, String name, String surname, Address address, String phone, String password) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -67,11 +67,11 @@ public abstract class User {
 		super();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

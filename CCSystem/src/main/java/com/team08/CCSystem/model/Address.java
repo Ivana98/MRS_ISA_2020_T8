@@ -23,7 +23,7 @@ public class Address {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "street", nullable = false, unique = false)
 	private String street;
@@ -40,7 +40,7 @@ public class Address {
 	 * @param city
 	 * @param country
 	 */
-	public Address(Integer id, String street, String city, String country) {
+	public Address(Long id, String street, String city, String country) {
 		super();
 		this.id = id;
 		this.street = street;
@@ -55,11 +55,11 @@ public class Address {
 		super();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -85,6 +85,11 @@ public class Address {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [id=" + id + ", street=" + street + ", city=" + city + ", country=" + country + "]";
 	}
 	
 }

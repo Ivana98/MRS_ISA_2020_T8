@@ -1,22 +1,27 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './components/home-page/home-page.component';
-import { DemoV2Component } from './components/demo-v2/demo-v2.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { DemoV3Component } from './components/demo-v3/demo-v3.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { DisplayClinicsComponent } from './components/patient/display-clinics/display-clinics.component';
+import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
+import { AddMedicalRoomComponent } from './components/add-medical-room/add-medical-room.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'homepage', pathMatch: 'full' }, // Don't use prefix becasue empty path is a prefix to any path
-  { path: 'homepage', component: HomePageComponent },
-  { path: 'demov2', component: DemoV2Component },
-  { path: 'demov3', component: DemoV3Component },
-  { path: 'homepage/adde', component: AddEmployeeComponent},
-  { path: 'homepage/user-page/:id', component: UserPageComponent },
-  { path: 'homepage/user-page', component: UserPageComponent },
+  { path: 'homepage', component: HomePageComponent},
+  //{ path: 'homepage/adde', component: AddEmployeeComponent},
   { path: 'clinics-table', component: DisplayClinicsComponent},
+  //{ path: 'addDoctor', component: AddDoctorComponent },
+  //{ path: 'homepage/user-page/:id', component: UserPageComponent },
+  { path: 'user-page', component: UserPageComponent,
+    children: [
+      { path: 'addDoctor', component: AddDoctorComponent },
+      { path: 'addMedicalRoom', component: AddMedicalRoomComponent }
+    ]
+  },
+ 
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -25,5 +30,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [HomePageComponent, DemoV2Component,
-  DemoV3Component, AddEmployeeComponent, UserPageComponent, DisplayClinicsComponent]
+export const routingComponents = [HomePageComponent, AddEmployeeComponent, 
+  UserPageComponent, AddDoctorComponent, AddMedicalRoomComponent, DisplayClinicsComponent]

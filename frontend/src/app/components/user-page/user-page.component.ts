@@ -4,6 +4,8 @@ import { HomePageComponent } from '../home-page/home-page.component';
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 import { MdbTableDirective } from 'angular-bootstrap-md';
 import { SomeLogicService } from 'src/app/some-logic.service';
+declare var $: any;
+// import $ from 'jquery';
 
 @Component({
   selector: 'app-user-page',
@@ -15,46 +17,37 @@ export class UserPageComponent implements OnInit {
   message:string;
   sub:string;
 
-  // @ViewChild(HomePageComponent) childReference;
-
-  // exampleParent: string;
-
-  // constructor(private route: ActivatedRoute) { }
-
-  // ngOnInit(): void {
-  //   /* First way to retrieve data */
-  //   this.sub = this.route.snapshot.paramMap.get('id');
-  //   /* second way to retreive data */
-  //   this.route.params.subscribe(params => {
-  //     this.message = params['id'];
-  //   });
-  // }
-  @ViewChild(MdbTableDirective, { static: true }) mdbTable:
-MdbTableDirective; elements: any = []; headElements = ['ID', 'First',
-'Last', 'Handle']; searchText: string = ''; previous: string;
-constructor( private _someLogic: SomeLogicService) { } @HostListener('input') oninput() { this.searchItems();
-} ngOnInit() {
-  console.log("Aha2");
-    this._someLogic._user$.subscribe(
-      message => {
-        if (message === 'PACIJENT') {
-          alert('PACIJENT!');
-        } else if (message === 'Well Done') {
-          alert('Thank you Teacher!');
-        }
+constructor( private _someLogic: SomeLogicService) { } @HostListener('input') oninput() { } 
+ngOnInit() {
+  this._someLogic._user$.subscribe(
+    message => {
+      if (message === 'PACIJENT') {
+        alert('PACIJENT!');
+      } else if (message === 'Well Done') {
+        alert('Thank you Teacher!');
       }
-    )
+    }
+  )
+
+  /* JQuery function for open and close side bar */
+  $(function(){
+    "use strict";
   
-  for (let i = 1; i <= 10; i++) { this.elements.push({ id:
-i.toString(), first: 'Wpis' + (Math.floor(Math.random() * i *
-10)).toString(), last: 'Last' + (Math.floor(Math.random() * i *
-10)).toString(), handle: 'Handle' + (Math.floor(Math.random() * i *
-10)).toString() }); } this.mdbTable.setDataSource(this.elements);
-this.previous = this.mdbTable.getDataSource(); } searchItems() { const
-prev = this.mdbTable.getDataSource(); if (!this.searchText) {
-this.mdbTable.setDataSource(this.previous); this.elements =
-this.mdbTable.getDataSource(); } if (this.searchText) { this.elements =
-this.mdbTable.searchLocalDataByMultipleFields(this.searchText, ['first',
-'last']); this.mdbTable.setDataSource(prev); } }
+    var fullHeight = function() {
+  
+      $('.js-fullheight').css('height', $(window).height());
+      $(window).resize(function(){
+        $('.js-fullheight').css('height', $(window).height());
+      });
+  
+    };
+    fullHeight();
+  
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+  
+  });
+}
 
 }
