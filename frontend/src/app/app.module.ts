@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
+import { AddMedicalRoomComponent } from './components/add-medical-room/add-medical-room.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DemoV3Component,
     AddEmployeeComponent,
     UserProfileComponent,
-    UserPageComponent
+    UserPageComponent,
+    AddDoctorComponent,
+    AddMedicalRoomComponent
   ],
   imports: [
     BrowserModule,

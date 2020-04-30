@@ -1,0 +1,90 @@
+<div class="container">
+    <div class="row" style="padding-bottom: 1.5rem;">
+        <div class="col-4">
+            <h2>New doctor</h2>
+        </div>
+        <div class="col-4">
+            <h2>Address</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input [(ngModel)]="doctor.firstName" mdbInput type="text" id="form1" class="form-control">
+                <label for="form1" class="">First name</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="md-form">
+                <input [(ngModel)]="doctor.country" mdbInput type="text" id="form1-1" class="form-control">
+                <label for="form1-1" class="">Country</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input [(ngModel)]="doctor.lastName" mdbInput type="text" id="form2" class="form-control">
+                <label for="form2" class="">Last name</label>
+              </div>
+        </div>
+        <div class="col-4">
+            <div class="md-form">
+                <input [(ngModel)]="doctor.city" mdbInput type="text" id="form1-2" class="form-control">
+                <label for="form1-2" class="">City</label>
+              </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input [(ngModel)]="doctor.email" mdbInput type="text" id="form3" class="form-control">
+                <label for="form3" class="">Email doctor</label>
+              </div>
+        </div>
+        <div class="col-4">
+            <div class="md-form">
+                <input [(ngModel)]="doctor.street" mdbInput type="text" id="form1-3" class="form-control">
+                <label for="form1-3" class="">Street</label>
+              </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input [(ngModel)]="doctor.phone" mdbInput type="text" id="form4" class="form-control">
+                <label for="form4" class="">Phone number</label>
+              </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input [(ngModel)]="doctor.password" mdbInput type="text" id="form8" class="form-control">
+                <label for="form5" class="">Password</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <button type="button" mdbBtn col-4or="light" mdbWavesEffect (click)="addDoctor();">Add</button>
+        </div>
+    </div>
+
+    
+    <!-- <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input mdbInput type="text" id="form8" class="form-control">
+                <label for="form1" class="">Example label</label>
+              </div>
+        </div>
+    </div> -->
+
+</div>

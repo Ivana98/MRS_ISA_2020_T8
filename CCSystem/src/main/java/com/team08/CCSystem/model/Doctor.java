@@ -61,7 +61,7 @@ public class Doctor extends User {
 	 * @param marks
 	 * @param averageMark
 	 */
-	public Doctor(Integer id, String email, String name, String surname, Address address, String phone, String password,
+	public Doctor(Long id, String email, String name, String surname, Address address, String phone, String password,
 			Set<Absence> absences, Clinic clinic, Specialisation specialisation, Set<Examination> examinations,
 			Set<DoctorMark> marks, float averageMark) {
 		super(id, email, name, surname, address, phone, password);
@@ -82,7 +82,7 @@ public class Doctor extends User {
 	 * @param phone
 	 * @param password
 	 */
-	public Doctor(Integer id, String email, String name, String surname, Address address, String phone,
+	public Doctor(Long id, String email, String name, String surname, Address address, String phone,
 			String password) {
 		super(id, email, name, surname, address, phone, password);
 	}
@@ -134,5 +134,5 @@ public class Doctor extends User {
 	public void setAverageMark(float averageMark) {
 		this.averageMark = averageMark;
 	}
-	
+
 }

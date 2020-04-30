@@ -43,7 +43,7 @@ public class ClinicalCenterAdmin extends User {
 	 * @param absences
 	 * @param clinicalCenter
 	 */
-	public ClinicalCenterAdmin(Integer id, String email, String name, String surname, Address address, String phone,
+	public ClinicalCenterAdmin(Long id, String email, String name, String surname, Address address, String phone,
 			String password, Set<Absence> absences, ClinicalCenter clinicalCenter) {
 		super(id, email, name, surname, address, phone, password);
 		this.absences = absences;
@@ -61,7 +61,7 @@ public class ClinicalCenterAdmin extends User {
 	 * @param phone
 	 * @param password
 	 */
-	public ClinicalCenterAdmin(Integer id, String email, String name, String surname, Address address, String phone,
+	public ClinicalCenterAdmin(Long id, String email, String name, String surname, Address address, String phone,
 			String password) {
 		super(id, email, name, surname, address, phone, password);
 	}

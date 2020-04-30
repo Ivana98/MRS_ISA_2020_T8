@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <h2>New medical room</h2>
+        </div>
+    </div>
+
+    <!-- Input for room number -->
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input [(ngModel)]="room.number" mdbInput type="text" id="form1" class="form-control">
+                <label for="form1" class="">Room number</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Choose inversion type -->
+    <div class="row" style="padding-top: 1.5rem; padding-bottom: 2.7rem;">
+        <div class="col-4">
+            <h3>Choose inversion type</h3>
+
+            <!-- Default inline 1-->
+            <mdb-checkbox [inline]="true" [default]="true">Examination</mdb-checkbox>
+
+            <!-- Default inline 2-->
+            <mdb-checkbox [inline]="true" [default]="true">Operation</mdb-checkbox>
+        </div>
+    </div>
+
+    <!-- button which call function to send request to server -->
+    <div class="row">
+        <div class="col-4">
+            <button type="button" mdbBtn col-4or="light" mdbWavesEffect (click)="addRoom();">Add</button>
+        </div>
+    </div>
+
+</div>
