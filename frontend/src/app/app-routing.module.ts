@@ -12,13 +12,13 @@ const routes: Routes = [
   { path: '', redirectTo: 'homepage', pathMatch: 'full' }, // Don't use prefix becasue empty path is a prefix to any path
   { path: 'homepage', component: HomePageComponent},
   //{ path: 'homepage/adde', component: AddEmployeeComponent},
-  { path: 'clinics-table', component: DisplayClinicsComponent},
   //{ path: 'addDoctor', component: AddDoctorComponent },
   //{ path: 'homepage/user-page/:id', component: UserPageComponent },
   { path: 'user-page', component: UserPageComponent,
     children: [
       { path: 'addDoctor', component: AddDoctorComponent },
-      { path: 'addMedicalRoom', component: AddMedicalRoomComponent }
+      { path: 'addMedicalRoom', component: AddMedicalRoomComponent },
+      { path: 'clinicsTable', component: DisplayClinicsComponent}
     ]
   },
  
