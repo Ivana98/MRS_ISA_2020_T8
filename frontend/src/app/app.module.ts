@@ -14,11 +14,19 @@ import { HttpDemoService } from './services/http_demo/http-demo.service';
 import { DemoV3Component } from './components/demo-v3/demo-v3.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { FormsModule } from '@angular/forms';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
 import { AddMedicalRoomComponent } from './components/add-medical-room/add-medical-room.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { LoginComponent } from './components/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+// MDB Angular Free
+import { CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule } from 'angular-bootstrap-md';
+import { RegisterComponent } from './components/register/register.component'
+
 
 @NgModule({
   declarations: [
@@ -28,10 +36,11 @@ import { AddMedicalRoomComponent } from './components/add-medical-room/add-medic
     PageNotFoundComponent,
     DemoV3Component,
     AddEmployeeComponent,
-    UserProfileComponent,
     UserPageComponent,
     AddDoctorComponent,
-    AddMedicalRoomComponent
+    AddMedicalRoomComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +50,12 @@ import { AddMedicalRoomComponent } from './components/add-medical-room/add-medic
     FormsModule,
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
-    MatSliderModule
+    MatSliderModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    ReactiveFormsModule,
+    CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule
   ],
   providers: [HttpDemoService],  // Services go here because of DI
   bootstrap: [AppComponent]

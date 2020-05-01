@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IMedicalRoom, MedicalRoom } from 'src/app/model/medicalRoom';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatCardModule} from '@angular/material/card';
+
 import { MedicalRoomService } from 'src/app/services/medical-room-services/medical-room.service';
 
 @Component({
@@ -11,6 +15,9 @@ export class AddMedicalRoomComponent implements OnInit {
 
   room: IMedicalRoom = new MedicalRoom("", "");
 
+  labelValue: 'Operation' | 'Examination' = 'Examination';
+  disabled = false;
+
   constructor(
     private httpClientService: MedicalRoomService
   ) { }
@@ -20,6 +27,7 @@ export class AddMedicalRoomComponent implements OnInit {
 
   /* Method to send request and save doctor in database if all ok */
   addRoom(): void {
+    
     this.httpClientService.addRoom(this.room)
       .subscribe(
         data => {
@@ -31,6 +39,10 @@ export class AddMedicalRoomComponent implements OnInit {
     
     /* clean input fields */
     // this.room.number = "";
+  }
+
+  onChange(inType): void {
+    this.room.inversionType = inType;
   }
 
 }

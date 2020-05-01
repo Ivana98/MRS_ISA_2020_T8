@@ -1,7 +1,9 @@
+
+
 <div class="container">
     <div class="row">
         <div class="col-4">
-            <h2>New medical room</h2>
+            <h2 class="example-h2">New medical room</h2>
         </div>
     </div>
 
@@ -17,14 +19,27 @@
 
     <!-- Choose inversion type -->
     <div class="row" style="padding-top: 1.5rem; padding-bottom: 2.7rem;">
-        <div class="col-4">
-            <h3>Choose inversion type</h3>
+        <div class="col-6">
+            <!-- <h3>Choose inversion type</h3> -->
 
             <!-- Default inline 1-->
-            <mdb-checkbox [inline]="true" [default]="true">Examination</mdb-checkbox>
+            <!-- <mdb-checkbox [inline]="true" [default]="true" [id]="'my-checkbox-1'" (change)="onChange($event, 'Examination')">Examination</mdb-checkbox> -->
 
             <!-- Default inline 2-->
-            <mdb-checkbox [inline]="true" [default]="true">Operation</mdb-checkbox>
+            <!-- <mdb-checkbox [inline]="true" [default]="true" [id]="'my-checkbox-2'" (change)="onChange($event, 'Operation')">Operation</mdb-checkbox> -->
+        
+        
+            <!-- <mat-card>
+                <mat-card-content> -->
+            <h2 class="example-h2">Choose inversion type</h2>
+            <section class="example-section">
+                <mat-radio-group [(ngModel)]="labelValue">
+                    <mat-radio-button (change)="onChange('Examination')" class="example-margin" value="Examination">Examination</mat-radio-button>
+                    <mat-radio-button (change)="onChange('Operation')" class="example-margin" value="Operation">Operation</mat-radio-button>
+                </mat-radio-group>
+            </section>
+                <!-- </mat-card-content>
+              </mat-card> -->
         </div>
     </div>
 
