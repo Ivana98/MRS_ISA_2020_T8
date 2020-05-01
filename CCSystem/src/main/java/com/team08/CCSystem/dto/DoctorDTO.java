@@ -19,6 +19,7 @@ public class DoctorDTO {
 	private String city;
 	private String country;
 	private String street;
+//	private String clinic_id;
 	
 	public DoctorDTO() {
 		

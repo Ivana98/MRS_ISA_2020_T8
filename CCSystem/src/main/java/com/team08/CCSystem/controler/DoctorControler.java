@@ -28,11 +28,16 @@ public class DoctorControler {
 	@Autowired
 	private DoctorService doctorService;
 	
+//	@Autowired
+//	private ClinicService clinicService;
+	
 	@PostMapping(path = "/save", consumes = "application/json")
 	public ResponseEntity<DoctorDTO> saveDoctor(@RequestBody DoctorDTO doctorDTO) {
 		Address address = new Address(null, doctorDTO.getStreet(), doctorDTO.getCity(), doctorDTO.getCountry());
 		Doctor doctor = new Doctor(doctorDTO.getId(), doctorDTO.getEmail(), doctorDTO.getFirstName(), doctorDTO.getLastName(), address, doctorDTO.getPhone(), doctorDTO.getPassword());
 		//TODO: Add to database.
+		
+		
 		
 		return null;
 	}
