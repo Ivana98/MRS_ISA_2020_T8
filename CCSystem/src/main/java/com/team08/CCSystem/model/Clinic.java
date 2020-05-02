@@ -172,5 +172,11 @@ public class Clinic {
 	public void setAverageMark(float averageMark) {
 		this.averageMark = averageMark;
 	}
+
+	@Override
+	public String toString() {
+		return "Clinic [id=" + id + ", name=" + name + ", address=" + address
+				+ ", rooms=" + rooms + ", marks=" + marks + ", averageMark=" + averageMark + "]";
+	}
 	
 }
