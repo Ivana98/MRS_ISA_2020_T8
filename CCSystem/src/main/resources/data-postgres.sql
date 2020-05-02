@@ -1,15 +1,15 @@
 insert into address (city, country, street) values ('Novi Sad', 'Srbija', 'Velje Veljkovica 23');
 insert into address (city, country, street) values ('Novi Sad', 'Srbija', 'Futoski Put 56b');
-insert into address (city, country, street) values ('Beograd', 'Srbija', 'Dusana radovica 2');
-insert into address (city, country, street) values ('Nis', 'Srbija', 'Katarine Preradov 1');
+insert into address (city, country, street) values ('Novi Sad', 'Srbija', 'Dusana radovica 2');
+insert into address (city, country, street) values ('Novi Sad', 'Srbija', 'Katarine Grujic 1');
 
-insert into clinical_center (name) values ('clinical center Vojvodina');
-insert into clinical_center (name) values ('clinical center Beograd');
-insert into clinical_center (name) values ('clinical center Nis');
+insert into clinical_center (name) values ('clinical center Vojvodina'); --We have, I think, just one clinical center.
+-- insert into clinical_center (name) values ('clinical center Beograd');
+-- insert into clinical_center (name) values ('clinical center Nis');
 
 insert into clinic (average_mark, name, address_id, clinical_center_id) values (0, 'klinika 1', 1, 1);
 insert into clinic (average_mark, name, address_id, clinical_center_id) values (0, 'klinika 2', 2, 1);
-insert into clinic (average_mark, name, address_id, clinical_center_id) values (0, 'klinika 3', 3, 2);
+-- insert into clinic (average_mark, name, address_id, clinical_center_id) values (0, 'klinika 3', 3, 2);
 
 insert into clinic_admin (id, email, name, password, phone, surname, address_id, clinic_id) values (nextval('cust_seq_user'), 'clinic.admin@gmail', 'Nikola', 'sifra1', '0653355', 'Plecas', 1, 1);
 

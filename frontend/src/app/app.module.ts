@@ -21,11 +21,14 @@ import { AddMedicalRoomComponent } from './components/add-medical-room/add-medic
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 // MDB Angular Free
 import { CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule } from 'angular-bootstrap-md';
 import { RegisterComponent } from './components/register/register.component'
+
 
 
 @NgModule({
@@ -50,10 +53,7 @@ import { RegisterComponent } from './components/register/register.component'
     FormsModule,
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
-    MatSliderModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatRadioModule,
+    MatRadioModule, MatSelectModule, MatCardModule, MatCheckboxModule, MatSliderModule, MatButtonModule,
     ReactiveFormsModule,
     CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule
   ],
