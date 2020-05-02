@@ -21,6 +21,7 @@ import { ListClinicsService } from './services/patient/clinics/list-clinics.serv
 import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
 import { AddMedicalRoomComponent } from './components/add-medical-room/add-medical-room.component';
 import { UserProfileService } from './services/user-profile-service/user-profile.service';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { UserProfileService } from './services/user-profile-service/user-profile
     DisplayClinicsComponent,
     UserPageComponent,
     AddDoctorComponent,
-    AddMedicalRoomComponent
+    AddMedicalRoomComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,121 @@
+<div class="container">
+    <div class="row" style="padding-bottom: 1.5rem;">
+        <div class="col-4">
+            <h2><i class="fas fa-hospital-user"></i>&nbsp; About me</h2>
+        </div>
+        <div class="col-4">
+            <h2><i class="fas fa-key"></i>&nbsp; Change password</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input mdbInput type="text" class="form-control" name="name" [(ngModel)]="user.name">
+                <label for="name" class="">First name</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="md-form">
+                <input  mdbInput type="text" class="form-control"  name="password" [(ngModel)]="userPassword.password">
+                <label for="current-password" class="">Current password</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input mdbInput type="text" class="form-control"  name="surname" [(ngModel)]="user.surname">
+                <label for="surname" class="">Last name</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="md-form">
+                <input  mdbInput type="text" class="form-control"  name="newPassword" [(ngModel)]="userPassword.newPassword">
+                <label for="new-password" class="">New password</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <h4>Adress</h4>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="md-form">
+                <input  mdbInput type="text" class="form-control"  name="confirmedPassword" [(ngModel)]="userPassword.confirmedPassword">
+                <label for="confirm-password" class="">Confirm new password</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input mdbInput type="text" class="form-control"  name="street" [(ngModel)]="user.street">
+                <label for="street" class="">Street</label>
+            </div>
+        </div>
+        
+        <div class="col-4">
+            <div class="md-form">
+                <button type="button" mdbBtn col-4or="light" mdbWavesEffect>Change password</button>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input mdbInput type="text" class="form-control"  name="city" [(ngModel)]="user.city">
+                <label for="city" class="">City</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input mdbInput type="text" class="form-control"  name="country" [(ngModel)]="user.country">
+                <label for="country" class="">Country</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <h4>Contact</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input mdbInput type="text" class="form-control"  name="phone" [(ngModel)]="user.phone">
+                <label for="phone" class="">Phone</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input mdbInput type="text" class="form-control" disabled  name="name" [ngModel]="user.email">
+                <label for="email" class="">Email</label>
+            </div>
+        </div>
+    </div>
+   
+    <div class="col-4">
+        <div class="md-form">
+            <button type="button" mdbBtn col-4or="light" mdbWavesEffect>Save changes</button>
+        </div>
+    </div>
+
+</div>
