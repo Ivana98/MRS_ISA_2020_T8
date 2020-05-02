@@ -27,6 +27,7 @@ export class Doctor {
 
     /* If any of fields are empty return false */
     public filled(): boolean {
+        
         if (this.firstName == "" || this.lastName == "" || this.email == "" || this.phone == "" || this.password == "" || this.country == "" || this.city == "" || this.street == "" || this.clinic_id == "" || this.specialisation == "") 
         {
             return false;

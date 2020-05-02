@@ -25,10 +25,6 @@ public class DoctorDTO {
 	public DoctorDTO() {
 		
 	}
-	
-//	public DoctorDTO(Doctor doctor) {
-//		this(doctor.getId(), doctor.getName(), doctor.getSurname(), doctor.getEmail(), doctor.getPhone(), doctor.getPassword(), doctor.getAddress().getCity(), doctor.getAddress().getCountry(), doctor.getAddress().getStreet());
-//	}
 
 	/**
 	 * @param id

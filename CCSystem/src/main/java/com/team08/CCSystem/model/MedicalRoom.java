@@ -29,10 +29,10 @@ public class MedicalRoom {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "roomNumber", nullable = false, unique = true)
-	private int roomNumber;
+	private String roomNumber;
 	
 	@Enumerated
 	private InterventionType intervensionType;
@@ -46,7 +46,7 @@ public class MedicalRoom {
 	 * @param intervensionType
 	 * @param clinic
 	 */
-	public MedicalRoom(Integer id, int roomNumber, InterventionType intervensionType, Clinic clinic) {
+	public MedicalRoom(Long id, String roomNumber, InterventionType intervensionType, Clinic clinic) {
 		super();
 		this.id = id;
 		this.roomNumber = roomNumber;
@@ -61,19 +61,19 @@ public class MedicalRoom {
 		super();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public int getRoomNumber() {
+	public String getRoomNumber() {
 		return roomNumber;
 	}
 
-	public void setRoomNumber(int roomNumber) {
+	public void setRoomNumber(String roomNumber) {
 		this.roomNumber = roomNumber;
 	}
 

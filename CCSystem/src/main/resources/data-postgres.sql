@@ -31,7 +31,7 @@ insert into doctor_mark (mark, doctor_id, patient_id) values (0, 4, 2);
 
 insert into examination_type (duration, intervention_type, price, specialisation) values (3, 0, 3000.00, 1);
 
-insert into medical_room (intervension_type, room_number, clinic_id) values (1, 1, 1);
+insert into medical_room (intervension_type, room_number, clinic_id) values (1, '1', 1);
 
 insert into examination (date, description, discount, was_on_examination, doctor_id, examination_type_id, medical_room_id, patient_id) values ('2020-04-26 07:00', 'Obican rutinski pregled', 10.0, true, 4, 1, 1, 2);
 

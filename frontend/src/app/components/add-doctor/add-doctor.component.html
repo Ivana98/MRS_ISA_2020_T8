@@ -26,13 +26,13 @@
         </div>
         <div class="col-4" style="padding-top: 0.1rem;">
             <div class="md-form">
-            <mat-form-field>
-                <mat-label>Clinic</mat-label>
-                <mat-select [(ngModel)]="doctor.clinic_id"> <!-- (selectionChange)="changeClinic($event.value)" -->
-                    <!-- <mat-option>None</mat-option> -->
-                    <mat-option *ngFor="let clinic of clinics" [value]="clinic.id">{{clinic.name}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Clinic</mat-label>
+                    <mat-select [(ngModel)]="doctor.clinic_id"> <!-- (selectionChange)="changeClinic($event.value)" -->
+                        <!-- <mat-option>None</mat-option> -->
+                        <mat-option *ngFor="let clinic of clinics" [value]="clinic.id">{{clinic.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </div>
     </div>

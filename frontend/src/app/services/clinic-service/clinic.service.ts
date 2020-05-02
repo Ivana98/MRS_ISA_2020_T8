@@ -13,7 +13,7 @@ export class ClinicService {
   constructor(private _httpClient: HttpClient) { }
 
   /*
-    return id and name of clinic 
+    return list of id and name of all clinics
   */
   public getAll(): Observable<Array<ICLinicToDisplay>>
   {
