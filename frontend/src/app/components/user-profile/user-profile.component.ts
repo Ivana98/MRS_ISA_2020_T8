@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IUserProfile, UserProfile } from 'src/app/model/userProfile';
 import { UserProfileService } from 'src/app/services/user-profile-service/user-profile.service';
 import { UserPassword, IUserPassword } from 'src/app/model/userPassword';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,7 +10,7 @@ import { UserPassword, IUserPassword } from 'src/app/model/userPassword';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  user: IUserProfile = new UserProfile(0,"","","", "", "", "", "", "");
+  user = new UserProfile(0,"","","", "", "", "", "", "");
   userPassword: IUserPassword = new UserPassword(0, "", "", "");
 
   constructor(
@@ -18,6 +19,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this._httpUserService.getUserData().subscribe(response => this.user = response);
+    console.log(this.user);
   }
 
 }

@@ -1,43 +1,69 @@
+<!--
+    [class.is-invalid]="<control-name>.invalid && <control-name>.touched"
+        we are using validation with visual feedback provided by Angular
+        this will add red border to form-control if it is touched and left empty
+-->
 <div class="container">
-    <div class="row" style="padding-bottom: 1.5rem;">
-        <div class="col-4">
-            <h2><i class="fas fa-hospital-user"></i>&nbsp; About me</h2>
+    <form #userProfileForm="ngForm">
+        <div class="row" style="padding-bottom: 1.5rem;">
+            <div class="col-4">
+                <h2><i class="fas fa-hospital-user"></i>&nbsp; About me</h2>
+            </div>
+            <div class="col-4">
+                <h2><i class="fas fa-key"></i>&nbsp; Change password</h2>
+            </div>
         </div>
-        <div class="col-4">
-            <h2><i class="fas fa-key"></i>&nbsp; Change password</h2>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-4">
             <div class="md-form">
-                <input mdbInput type="text" class="form-control" name="name" [(ngModel)]="user.name">
+                <input required mdbInput class="form-control" type="text" 
+                    #name="ngModel" [(ngModel)]="user.name" name="name"
+                    [class.is-invalid]="name.invalid && name.touched">
                 <label for="name" class="">First name</label>
+                <div *ngIf="name.invalid && name.touched">
+                    <small class="text-danger" *ngIf="name.errors.required"> First name is required. </small>
+                </div>
             </div>
         </div>
         <div class="col-4">
             <div class="md-form">
-                <input  mdbInput type="text" class="form-control"  name="password" [(ngModel)]="userPassword.password">
+                <input required mdbInput class="form-control" type="password" 
+                    #password="ngModel" [(ngModel)]="userPassword.password" name="password"
+                    [class.is-invalid]="password.invalid && password.touched">
                 <label for="current-password" class="">Current password</label>
+                <div *ngIf="password.invalid && password.touched">
+                    <small class="text-danger" *ngIf="password.errors.required"> Current password is required for setting new password. </small>
+                </div>
             </div>
         </div>
     </div>
-
+    
     <div class="row">
         <div class="col-4">
             <div class="md-form">
-                <input mdbInput type="text" class="form-control"  name="surname" [(ngModel)]="user.surname">
+                <input required mdbInput class="form-control" type="text" 
+                    #surname="ngModel" [(ngModel)]="user.surname" name="surname"
+                    [class.is-invalid]="surname.invalid && surname.touched">
                 <label for="surname" class="">Last name</label>
+                <div *ngIf="surname.invalid && surname.touched">
+                    <small class="text-danger" *ngIf="surname.errors.required"> Last name is required. </small>
+                </div>
             </div>
         </div>
         <div class="col-4">
             <div class="md-form">
-                <input  mdbInput type="text" class="form-control"  name="newPassword" [(ngModel)]="userPassword.newPassword">
+                <input required mdbInput class="form-control" type="password" 
+                    #newPassword="ngModel" [(ngModel)]="userPassword.newPassword" name="newPassword"
+                    [class.is-invalid]="newPassword.invalid && newPassword.touched">
                 <label for="new-password" class="">New password</label>
+                <div *ngIf="newPassword.invalid && newPassword.touched">
+                    <small class="text-danger" *ngIf="newPassword.errors.required"> New password is required. </small>
+                </div>
             </div>
         </div>
     </div>
-
+    
     <div class="row">
         <div class="col-4">
             <div class="md-form">
@@ -46,33 +72,46 @@
         </div>
         <div class="col-4">
             <div class="md-form">
-                <input  mdbInput type="text" class="form-control"  name="confirmedPassword" [(ngModel)]="userPassword.confirmedPassword">
+                <input required mdbInput class="form-control" type="password" 
+                    #confirmedPassword="ngModel" [(ngModel)]="userPassword.confirmedPassword" name="confirmedPassword"
+                    [class.is-invalid]="confirmedPassword.invalid && confirmedPassword.touched">
                 <label for="confirm-password" class="">Confirm new password</label>
+                <div *ngIf="confirmedPassword.invalid && confirmedPassword.touched">
+                    <small class="text-danger" *ngIf="confirmedPassword.errors.required"> Please, confirm new password. </small>
+                </div>
             </div>
         </div>
-    </div>
+    </div>  
 
     <div class="row">
         <div class="col-4">
             <div class="md-form">
-                <input mdbInput type="text" class="form-control"  name="street" [(ngModel)]="user.street">
+                <input required mdbInput class="form-control" type="text" 
+                    #street="ngModel" [(ngModel)]="user.street" name="street"
+                    [class.is-invalid]="street.invalid && street.touched">
                 <label for="street" class="">Street</label>
+                <div *ngIf="street.invalid && street.touched">
+                    <small class="text-danger" *ngIf="street.errors.required"> Street is required. </small>
+                </div>
             </div>
         </div>
-        
         <div class="col-4">
             <div class="md-form">
                 <button type="button" mdbBtn col-4or="light" mdbWavesEffect>Change password</button>
             </div>
         </div>
-        
     </div>
 
     <div class="row">
         <div class="col-4">
             <div class="md-form">
-                <input mdbInput type="text" class="form-control"  name="city" [(ngModel)]="user.city">
+                <input required mdbInput class="form-control" type="text" 
+                    #city="ngModel" [(ngModel)]="user.city" name="city"
+                    [class.is-invalid]="city.invalid && city.touched">
                 <label for="city" class="">City</label>
+                <div *ngIf="city.invalid && city.touched">
+                    <small class="text-danger" *ngIf="city.errors.required"> City is required. </small>
+                </div>
             </div>
         </div>
     </div>
@@ -80,8 +119,13 @@
     <div class="row">
         <div class="col-4">
             <div class="md-form">
-                <input mdbInput type="text" class="form-control"  name="country" [(ngModel)]="user.country">
+                <input required mdbInput class="form-control" type="text" 
+                    #country="ngModel" [(ngModel)]="user.country" name="country"
+                    [class.is-invalid]="country.invalid && country.touched">
                 <label for="country" class="">Country</label>
+                <div *ngIf="country.invalid && country.touched">
+                    <small class="text-danger" *ngIf="country.errors.required"> Country is required. </small>
+                </div>
             </div>
         </div>
     </div>
@@ -97,8 +141,15 @@
     <div class="row">
         <div class="col-4">
             <div class="md-form">
-                <input mdbInput type="text" class="form-control"  name="phone" [(ngModel)]="user.phone">
-                <label for="phone" class="">Phone</label>
+                <!-- This pattern allows + sign followed by digits -->
+                <input required mdbInput class="form-control" type="text" 
+                    #phone="ngModel" [(ngModel)]="user.phone" name="phone"
+                    [class.is-invalid]="phone.invalid && phone.touched" pattern="\+\d+">
+                <label for="phone" class="">Phone number</label>
+                <div *ngIf="phone.errors && (phone.invalid && phone.touched)">
+                    <small class="text-danger" *ngIf="phone.errors.required"> Phone number is required. </small>
+                    <small class="text-danger" *ngIf="phone.errors.pattern"> Phone number must be in format +381611231233.</small>
+                </div>
             </div>
         </div>
     </div>
@@ -106,16 +157,17 @@
     <div class="row">
         <div class="col-4">
             <div class="md-form">
-                <input mdbInput type="text" class="form-control" disabled  name="name" [ngModel]="user.email">
+                <input mdbInput type="email" class="form-control" disabled name="email" [ngModel]="user.email">
                 <label for="email" class="">Email</label>
             </div>
         </div>
     </div>
-   
+
     <div class="col-4">
         <div class="md-form">
             <button type="button" mdbBtn col-4or="light" mdbWavesEffect>Save changes</button>
         </div>
     </div>
 
+    </form>
 </div>
