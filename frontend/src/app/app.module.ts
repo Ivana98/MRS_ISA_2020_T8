@@ -22,6 +22,8 @@ import { AddDoctorComponent } from './components/add-doctor/add-doctor.component
 import { AddMedicalRoomComponent } from './components/add-medical-room/add-medical-room.component';
 import { UserProfileService } from './services/user-profile-service/user-profile.service';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { MedicalRecordsService } from './services/patient/medical-records/medical-records.service';
+import { MedicalRecordsComponent } from './components/patient/medical-records/medical-records.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     UserPageComponent,
     AddDoctorComponent,
     AddMedicalRoomComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    MedicalRecordsComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     BrowserAnimationsModule,
     MatSliderModule,
   ],
-  providers: [HttpDemoService, ListClinicsService, UserProfileService],  // Services go here because of DI
+  providers: [HttpDemoService, ListClinicsService, UserProfileService, MedicalRecordsService],  // Services go here because of DI
   bootstrap: [AppComponent]
 })
 export class AppModule { }

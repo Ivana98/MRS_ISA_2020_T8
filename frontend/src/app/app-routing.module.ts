@@ -8,6 +8,7 @@ import { DisplayClinicsComponent } from './components/patient/display-clinics/di
 import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
 import { AddMedicalRoomComponent } from './components/add-medical-room/add-medical-room.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { MedicalRecordsComponent } from './components/patient/medical-records/medical-records.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'homepage', pathMatch: 'full' }, // Don't use prefix becasue empty path is a prefix to any path
@@ -20,7 +21,8 @@ const routes: Routes = [
       { path: 'addDoctor', component: AddDoctorComponent },
       { path: 'addMedicalRoom', component: AddMedicalRoomComponent },
       { path: 'clinicsTable', component: DisplayClinicsComponent},
-      { path: 'myProfile', component: UserProfileComponent}
+      { path: 'myProfile', component: UserProfileComponent},
+      { path: 'medicalRecords', component: MedicalRecordsComponent}
     ]
   },
  
@@ -33,4 +35,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const routingComponents = [HomePageComponent, AddEmployeeComponent, 
-  UserPageComponent, AddDoctorComponent, AddMedicalRoomComponent, DisplayClinicsComponent]
+  UserPageComponent, AddDoctorComponent, AddMedicalRoomComponent, DisplayClinicsComponent, MedicalRecordsComponent]
