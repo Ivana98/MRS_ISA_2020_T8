@@ -7,7 +7,7 @@ import { IClinic } from 'src/app/model/clinicToList';
 })
 export class ListClinicsService {
   
-  private _ulrListForTable: string = "http://localhost:8080/api/patient/sendListForTable";
+  private _ulrListForTable: string = "http://localhost:8080/api/clinics/sendListForTable";
 
   constructor(private _httpClient:HttpClient) {  }
 

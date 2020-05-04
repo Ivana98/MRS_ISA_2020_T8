@@ -16,7 +16,7 @@ import com.team08.CCSystem.dto.UserProfileDTO;
 @RestController
 public class UserProfileControler {
 	//dummy user data
-	private UserProfileDTO user = new UserProfileDTO((long) 1, "pera@gmail.com", "Pera", "Peric", "Paunova 24", "Beograd", "Srbija", "0631236544", "pera");
+	private UserProfileDTO user = new UserProfileDTO((long) 1, "pera@gmail.com", "Pera", "Peric", "Paunova 24", "Beograd", "Srbija", "+381631236544", "pera");
 	
 	@GetMapping("/getUserData")  
 	private UserProfileDTO getUserData() {

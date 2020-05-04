@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationClinicAdminServiceService } from '../../../services/clinical-center-administrator/registration-clinic-admin/registration-clinic-admin-service.service';
 import { ClinicAdmin } from '../../../model/clinicAdmin';
-import { ClinicService } from 'src/app/services/clinic-service/clinic-service.service';
 import { ICLinicToDisplay } from 'src/app/model/clinic';
+import { ClinicService } from 'src/app/services/clinic-service/clinic.service';
 
 @Component({
   selector: 'app-registration-clinic-admin',
