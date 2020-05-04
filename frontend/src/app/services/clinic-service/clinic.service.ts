@@ -8,7 +8,7 @@ import { ICLinicToDisplay } from 'src/app/model/clinic';
 })
 export class ClinicService {
 
-  private _url: string = "http://localhost:8080/api/clinics/getAll";
+  private _url: string = "http://localhost:8080/api/clinics/sendListForTable";
 
   constructor(private _httpClient: HttpClient) { }
 

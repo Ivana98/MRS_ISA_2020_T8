@@ -1,0 +1,29 @@
+.top-container {
+    width: 33.33333%;
+    float: left;
+}
+.padding-16 {
+    padding-top: 16px!important;
+    padding-bottom: 16px!important;
+}
+.padding-32 {
+    padding-top: 8px!important;
+    padding-bottom: 32px!important;
+}
+.text-align{
+    text-align: left;
+}
+.allergies{
+    width: 65%;
+    float: left;
+    padding: 16px 16px 16px 16px;
+}
+.others{
+    width: 35%;
+    float: left;
+    padding: 16px 16px 16px 16px;
+}
+.full-width{
+    width: 100%;
+    display: inline-block ;
+}

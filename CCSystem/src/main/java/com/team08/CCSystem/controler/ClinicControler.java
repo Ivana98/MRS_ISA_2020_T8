@@ -19,10 +19,6 @@ import com.team08.CCSystem.dto.ClinicForTableDTO;
 import com.team08.CCSystem.model.Clinic;
 import com.team08.CCSystem.service.ClinicService;
 
-/**
- * @author Veljko
- *
- */
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "api/clinics")
