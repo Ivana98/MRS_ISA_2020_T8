@@ -32,7 +32,7 @@ import { AddMedicalRoomComponent } from './components/add-medical-room/add-medic
     DisplayClinicsComponent,
     UserPageComponent,
     AddDoctorComponent,
-    AddMedicalRoomComponent
+    AddMedicalRoomComponent,
   ],
   imports: [
     BrowserModule,

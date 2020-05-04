@@ -30,7 +30,7 @@ export class HomePageComponent implements OnInit {
 
 
   sentUser() {
-    console.log("Aha");
+    //console.log("Aha");
     this._someLogic.sentType('PACIJENT');
   }
 }
