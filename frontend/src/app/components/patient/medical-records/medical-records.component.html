@@ -1,0 +1,60 @@
+<div class="container-fluid padding-32">
+    <h2><i class="fas fa-notes-medical"></i>&nbsp;Medical records</h2>
+</div>
+<div class="full-width">
+    <h4><i class="fas fa-hospital-user"></i>&nbsp;Basic informations about patient</h4>
+    <div class="top-container paddng-16">
+        <table mdbTable borderless="true" small=true class="text-align">
+            <tbody>
+              <tr mdbTableCol>
+                <td><b>First name:</b></td>
+                <td>{{records.name}}</td>
+              </tr>
+              <tr>
+                <td><b>Last name:</b></td>
+                <td>{{records.surname}}</td>
+              </tr>
+              <tr>
+                <td><b>Policyholder:</b></td>
+                <td>{{records.policyholder}}</td>
+              </tr>
+              <tr>
+                <td><b>Blood type:</b></td>
+                <td>{{records.bloodType}}</td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="full-width">
+    <div class="others">
+        <h4><i class="fas fa-plus-circle"></i>&nbsp;Other informations</h4>   
+        <table mdbTable borderless="true" small=true class="text-align">
+            <tbody>  
+                <tr>
+                    <td><b>Height:</b></td>
+                    <td>{{records.height}}</td>
+                </tr>
+                <tr>
+                    <td><b>Weight:</b></td>
+                    <td>{{records.weight}}</td>
+                </tr>
+                <tr>
+                    <td><b>Diopter:</b></td>
+                    <td>{{records.diopter}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="allergies">
+        <h4><i class="fas fa-allergies"></i>&nbsp;Allergies</h4>   
+            <ul>
+                <li>{{records.allergies}}</li>
+            </ul>
+    </div>
+</div>
+
+
+            
+         

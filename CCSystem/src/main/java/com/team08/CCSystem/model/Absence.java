@@ -44,7 +44,7 @@ public class Absence {
 	private Date endDate;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private User user;
+	private User user; //TODO: Proveriti da li ce biti neka greska ovde vezana za bazu. Da li da stavim mozda vise atributa -> za doktora, sestru i admine
 	
 	@Enumerated
 	private AbsenceType absenceType;

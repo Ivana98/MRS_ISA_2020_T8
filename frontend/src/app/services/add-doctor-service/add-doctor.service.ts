@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Doctor2 } from 'src/app/model/doctor';
+import { Doctor } from 'src/app/model/doctor';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,6 @@ export class AddDoctorService {
   constructor(private _httpClient: HttpClient) { }
 
   public addDoctor(doctor) {
-    return this._httpClient.post<Doctor2>(this._url, doctor);
+    return this._httpClient.post<Doctor>(this._url, doctor);
   }
 }

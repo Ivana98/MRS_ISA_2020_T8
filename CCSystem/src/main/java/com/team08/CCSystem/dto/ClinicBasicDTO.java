@@ -63,4 +63,6 @@ public class ClinicBasicDTO {
 		return "ClinicBasicDTO [id=" + id + ", name=" + name + "]";
 	}
 	
+
 }
+

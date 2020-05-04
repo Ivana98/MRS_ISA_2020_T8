@@ -18,7 +18,7 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name = "Adress")
+@Table(name = "Address")
 public class Address {
 
 	@Id

@@ -1,0 +1,68 @@
+<div class="container">
+    
+    <div class="row">
+        <div class="col-4">
+            <h2>New examination type</h2>
+        </div>
+    </div>
+
+    <!-- Price intput -->
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input [(ngModel)]="examination_type.price" type="number" class="form-control" id="priceInput" mdbInput>
+                <label for="priceInput">Price</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Duration select form input -->
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <mat-form-field>
+                    <mat-label>Duration</mat-label>
+                    <mat-select [(ngModel)]="examination_type.duration"> <!-- (selectionChange)="changeClinic($event.value)" -->
+                        <!-- <mat-option>None</mat-option> -->
+                        <mat-option *ngFor="let dur of duration" [value]="dur">{{dur}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <!-- Specialisation select form input -->
+    <div class="row">
+        <div class="col-4" style="padding-top: 0.1rem;">
+            <div class="md-form">
+                <mat-form-field>
+                    <mat-label>Specialisation</mat-label>
+                    <mat-select [(ngModel)]="examination_type.specialisation">
+                        <mat-option *ngFor="let spec of specialisations" [value]="spec">{{spec}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <!-- INtervension type checkbox input -->
+    <div class="row" style="padding-top: 1.5rem; padding-bottom: 2.7rem;">
+        <div class="col-6">
+            <h2 class="example-h2">Choose intervention type</h2>
+            <section class="example-section">
+                <mat-radio-group [(ngModel)]="labelValue">
+                    <mat-radio-button (change)="onChange('Examination')" class="example-margin" value="Examination">Examination</mat-radio-button>
+                    <mat-radio-button (change)="onChange('Operation')" class="example-margin" value="Operation">Operation</mat-radio-button>
+                </mat-radio-group>
+            </section>
+        </div>
+    </div>
+
+    <!-- button which call function to send request to server -->
+    <div class="row">
+        <div class="col-4">
+            <button type="button" mdbBtn col-4or="light" mdbWavesEffect (click)="addExaminationType();">Add</button>
+        </div>
+    </div>
+
+</div>

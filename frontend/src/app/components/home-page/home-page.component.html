@@ -12,41 +12,27 @@
                   <span class="sr-only">(current)</span>
                 </a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
-          </li> -->
-          <li class="nav-item">
-            <a class="nav-link" routerLink="addDoctor">add doc</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="#" (click)="salji()">Lekar1</a> <!--First way to share data-->
-          </li>
-          <!-- <li class="nav-item"> -->
-            <!-- <a class="nav-link" [routerLink]="['/homepage/user-page', this.message2]">Lekar2</a> Second way to share data -->
-          <!-- </li> -->
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/user-page" (click)="sentUser()">user page</a>
-          </li>
           
           <li class="nav-item">
-            <a class="nav-link" href="/homepage/adde">Add emp</a>
+            <a class="nav-link" routerLink="/user-page" (click)="sentUser()">User page</a>
           </li>
+          
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="/homepage/adde">Add emp</a>
+          </li>-->
         </ul>
       </div>
       
       <div class="collapse navbar-collapse" id="navbarResponsive2">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Login
+            <a class="nav-link" routerLink="/login">Login
                   <span class="sr-only">(current)</span>
                 </a>
           </li>
           
           <li class="nav-item">
-            <a class="nav-link" href="#">Register</a>
+            <a class="nav-link" routerLink="/register">Register</a>
           </li>
         </ul>
       </div>

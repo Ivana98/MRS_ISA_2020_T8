@@ -1,0 +1,57 @@
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <section class="form-simple">
+
+            <!--Form with header-->
+            <mdb-card style="width: 28rem;">
+          
+              <!--Header-->
+              <div class="header pt-3 grey lighten-2">
+          
+                <div class="row d-flex justify-content-start">
+                  <h3 class="deep-grey-text mt-3 mb-4 pb-1 mx-5">Log in</h3>
+                </div>
+          
+              </div>
+              <!--Header-->
+          
+              <mdb-card-body class="mx-4 mt-4">
+          
+                <!--Body-->
+                <form [formGroup]="simpleForm">
+          
+          
+                  <div class="md-form">
+                    <input type="text" id="simpleFormEmailEx" class="form-control" formControlName="simpleFormEmailEx" mdbInput>
+                    <label for="simpleFormEmailEx">Your email</label>
+                  </div>
+          
+                  <div class="md-form pb-3">
+                    <input type="password" id="simpleFormPasswordEx" class="form-control" formControlName="simpleFormPasswordEx" mdbInput>
+                    <label for="simpleFormPasswordEx">Your password</label>
+                    <p class="font-small grey-text d-flex justify-content-end">Forgot
+                      <a class="dark-grey-text font-weight-bold ml-1"> Password?</a> <!--For now it does nothing-->
+                    </p>
+                  </div>
+                </form>
+          
+                <div class="text-center mb-4">
+                  <button type="button" mdbBtn color="danger" block="true" class="z-depth-2">Log in</button>
+                </div>
+                <p class="font-small grey-text d-flex justify-content-center">Don't have an account?
+                  <a routerLink="/register" class="dark-grey-text font-weight-bold ml-1"> Sign up</a>
+                </p>
+          
+              </mdb-card-body>
+          
+            </mdb-card>
+            <!--/Form with header-->
+          
+          </section>
+    </div>
+  </div>
+
+
+<!-- <div class="container">
+    
+</div> -->

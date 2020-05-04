@@ -20,6 +20,22 @@ import { DisplayClinicsComponent } from './components/patient/display-clinics/di
 import { ListClinicsService } from './services/patient/clinics/list-clinics.service';
 import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
 import { AddMedicalRoomComponent } from './components/add-medical-room/add-medical-room.component';
+import { UserProfileService } from './services/user-profile-service/user-profile.service';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { MedicalRecordsService } from './services/patient/medical-records/medical-records.service';
+import { MedicalRecordsComponent } from './components/patient/medical-records/medical-records.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { LoginComponent } from './components/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+// MDB Angular Free
+import { CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule } from 'angular-bootstrap-md';
+import { RegisterComponent } from './components/register/register.component';
+import { AddExaminationTypeComponent } from './components/add-examination-type/add-examination-type.component';
+
 
 @NgModule({
   declarations: [
@@ -33,6 +49,11 @@ import { AddMedicalRoomComponent } from './components/add-medical-room/add-medic
     UserPageComponent,
     AddDoctorComponent,
     AddMedicalRoomComponent,
+    UserProfileComponent,
+    MedicalRecordsComponent,
+    LoginComponent,
+    RegisterComponent,
+    AddExaminationTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -42,9 +63,11 @@ import { AddMedicalRoomComponent } from './components/add-medical-room/add-medic
     FormsModule,
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
-    MatSliderModule,
+    MatRadioModule, MatSelectModule, MatCardModule, MatCheckboxModule, MatSliderModule, MatButtonModule,
+    ReactiveFormsModule,
+    CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule
   ],
-  providers: [HttpDemoService, ListClinicsService],  // Services go here because of DI
+  providers: [HttpDemoService, ListClinicsService, UserProfileService, MedicalRecordsService],  // Services go here because of DI
   bootstrap: [AppComponent]
 })
 export class AppModule { }

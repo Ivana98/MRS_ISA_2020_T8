@@ -37,4 +37,6 @@ public class ClinicService {
 		clinicRepository.deleteById(id);
 	}
 
+
 }
+

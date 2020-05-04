@@ -1,7 +1,7 @@
-insert into adress (city, country, street) values ('Novi Sad', 'Srbija', 'Velje Veljkovica 23');
-insert into adress (city, country, street) values ('Novi Sad', 'Srbija', 'Futoski Put 56b');
-insert into adress (city, country, street) values ('Novi Sad', 'Srbija', 'Dusana radovica 2');
-insert into adress (city, country, street) values ('Novi Sad', 'Srbija', 'Katarine Grujic 1');
+insert into address (city, country, street) values ('Novi Sad', 'Srbija', 'Velje Veljkovica 23');
+insert into address (city, country, street) values ('Novi Sad', 'Srbija', 'Futoski Put 56b');
+insert into address (city, country, street) values ('Novi Sad', 'Srbija', 'Dusana radovica 2');
+insert into address (city, country, street) values ('Novi Sad', 'Srbija', 'Katarine Grujic 1');
 
 insert into clinical_center (name) values ('clinical center Vojvodina'); --We have, I think, just one clinical center.
 -- insert into clinical_center (name) values ('clinical center Beograd');
