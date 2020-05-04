@@ -72,6 +72,28 @@ public class Doctor extends User {
 		this.marks = marks;
 		this.averageMark = averageMark;
 	}
+	
+	/**
+	 * @param id
+	 * @param email
+	 * @param name
+	 * @param surname
+	 * @param address
+	 * @param phone
+	 * @param password
+	 * @param clinic
+	 * @param specialisation
+	 * @param averageMark
+	 */
+	public Doctor(Long id, String email, String name, String surname, Address address, String phone, String password,
+			Clinic clinic, Specialisation specialisation, float averageMark) {
+		super(id, email, name, surname, address, phone, password);
+		this.clinic = clinic;
+		this.specialisation = specialisation;
+		this.averageMark = averageMark;
+	}
+
+
 
 	/**
 	 * @param id

@@ -10,6 +10,7 @@ import com.team08.CCSystem.model.Doctor;
  *
  */
 public class DoctorDTO {
+	
 	private Long id;
 	private String firstName;
 	private String lastName;
@@ -19,14 +20,12 @@ public class DoctorDTO {
 	private String city;
 	private String country;
 	private String street;
+	private String clinic_id;
+	private String specialisation;
 	
 	public DoctorDTO() {
 		
 	}
-	
-//	public DoctorDTO(Doctor doctor) {
-//		this(doctor.getId(), doctor.getName(), doctor.getSurname(), doctor.getEmail(), doctor.getPhone(), doctor.getPassword(), doctor.getAddress().getCity(), doctor.getAddress().getCountry(), doctor.getAddress().getStreet());
-//	}
 
 	/**
 	 * @param id
@@ -38,9 +37,11 @@ public class DoctorDTO {
 	 * @param city
 	 * @param country
 	 * @param street
+	 * @param clinicId
+	 * @param specialisation
 	 */
 	public DoctorDTO(Long id, String firstName, String lastName, String email, String phone, String password,
-			String city, String country, String street) {
+			String city, String country, String street, String clinicId, String specialisation) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -51,6 +52,25 @@ public class DoctorDTO {
 		this.city = city;
 		this.country = country;
 		this.street = street;
+		this.clinic_id = clinicId;
+		this.specialisation = specialisation;
+	}
+
+	/**
+	 * @param doctor
+	 */
+	public DoctorDTO(Doctor doctor) {
+		this.id = doctor.getId();
+		this.firstName = doctor.getName();
+		this.lastName = doctor.getSurname();
+		this.email = doctor.getEmail();
+		this.phone = doctor.getPhone();
+		this.password = doctor.getPassword();
+		this.city = doctor.getAddress().getCity();
+		this.country = doctor.getAddress().getCountry();
+		this.street = doctor.getAddress().getStreet();
+		this.clinic_id = doctor.getClinic().getId().toString();
+		this.specialisation = doctor.getSpecialisation().toString();
 	}
 
 	public Long getId() {
@@ -125,11 +145,27 @@ public class DoctorDTO {
 		this.street = street;
 	}
 
+	public String getClinic_id() {
+		return clinic_id;
+	}
+
+	public void setClinic_id(String clinic_id) {
+		this.clinic_id = clinic_id;
+	}
+
+	public String getSpecialisation() {
+		return specialisation;
+	}
+
+	public void setSpecialisation(String specialisation) {
+		this.specialisation = specialisation;
+	}
+
 	@Override
 	public String toString() {
 		return "DoctorDTO [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", phone=" + phone + ", password=" + password + ", city=" + city + ", country=" + country
-				+ ", street=" + street + "]";
+				+ ", street=" + street + ", clinic_id=" + clinic_id + ", specialisation=" + specialisation + "]";
 	}
 
 }

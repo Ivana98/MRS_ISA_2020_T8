@@ -6,6 +6,9 @@
         <div class="col-4">
             <h2>Address</h2>
         </div>
+        <div class="col-4">
+            <h2>Clinic and specialisation</h2>
+        </div>
     </div>
 
     <div class="row">
@@ -19,6 +22,17 @@
             <div class="md-form">
                 <input [(ngModel)]="doctor.country" mdbInput type="text" id="form1-1" class="form-control">
                 <label for="form1-1" class="">Country</label>
+            </div>
+        </div>
+        <div class="col-4" style="padding-top: 0.1rem;">
+            <div class="md-form">
+                <mat-form-field>
+                    <mat-label>Clinic</mat-label>
+                    <mat-select [(ngModel)]="doctor.clinic_id"> <!-- (selectionChange)="changeClinic($event.value)" -->
+                        <!-- <mat-option>None</mat-option> -->
+                        <mat-option *ngFor="let clinic of clinics" [value]="clinic.id">{{clinic.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </div>
     </div>
@@ -35,6 +49,17 @@
                 <input [(ngModel)]="doctor.city" mdbInput type="text" id="form1-2" class="form-control">
                 <label for="form1-2" class="">City</label>
               </div>
+        </div>
+        <div class="col-4" style="padding-top: 0.1rem;">
+            <div class="md-form">
+                <mat-form-field>
+                    <mat-label>Specialisation</mat-label>
+                    <mat-select [(ngModel)]="doctor.specialisation"> <!-- (selectionChange)="changeClinic($event.value)" -->
+                        <!-- <mat-option>None</mat-option> -->
+                        <mat-option *ngFor="let spec of specialisations" [value]="spec">{{spec}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </div>
     </div>
 
@@ -73,18 +98,9 @@
 
     <div class="row">
         <div class="col-4">
-            <button type="button" mdbBtn col-4or="light" mdbWavesEffect (click)="addDoctor();">Add</button>
+            <!-- <button type="button" mdbBtn col-4or="light" mdbWavesEffect (click)="addDoctor();">Add</button> -->
+            <button mat-raised-button (click)="addDoctor();" #buttonId [disabled]="buttonDisabled">Add</button>
         </div>
     </div>
-
-    
-    <!-- <div class="row">
-        <div class="col-4">
-            <div class="md-form">
-                <input mdbInput type="text" id="form8" class="form-control">
-                <label for="form1" class="">Example label</label>
-              </div>
-        </div>
-    </div> -->
 
 </div>

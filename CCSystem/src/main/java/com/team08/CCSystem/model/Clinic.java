@@ -30,7 +30,7 @@ public class Clinic {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
@@ -71,7 +71,7 @@ public class Clinic {
 	 * @param admins
 	 * @param averageMark
 	 */
-	public Clinic(Integer id, String name, Address address, ClinicalCenter clinicalCenter, Set<MedicalRoom> rooms,
+	public Clinic(Long id, String name, Address address, ClinicalCenter clinicalCenter, Set<MedicalRoom> rooms,
 			Set<ClinicMark> marks, Set<Doctor> doctors, Set<Nurse> nurses, Set<ClinicAdmin> admins, float averageMark) {
 		super();
 		this.id = id;
@@ -93,11 +93,11 @@ public class Clinic {
 		super();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -171,6 +171,12 @@ public class Clinic {
 
 	public void setAverageMark(float averageMark) {
 		this.averageMark = averageMark;
+	}
+
+	@Override
+	public String toString() {
+		return "Clinic [id=" + id + ", name=" + name + ", address=" + address
+				+ ", rooms=" + rooms + ", marks=" + marks + ", averageMark=" + averageMark + "]";
 	}
 	
 }
