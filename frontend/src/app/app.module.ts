@@ -27,8 +27,8 @@ import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 // MDB Angular Free
 import { CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule } from 'angular-bootstrap-md';
-import { RegisterComponent } from './components/register/register.component'
-
+import { RegisterComponent } from './components/register/register.component';
+import { AddExaminationTypeComponent } from './components/add-examination-type/add-examination-type.component';
 
 
 @NgModule({
@@ -43,7 +43,8 @@ import { RegisterComponent } from './components/register/register.component'
     AddDoctorComponent,
     AddMedicalRoomComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddExaminationTypeComponent
   ],
   imports: [
     BrowserModule,

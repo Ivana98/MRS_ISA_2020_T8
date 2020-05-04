@@ -27,11 +27,14 @@ public class ExaminationType {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "price", nullable = false, unique = false)
 	private double price;
 	
+	/*
+	 * Duration in minutes
+	 */
 	@Column(name = "duration", nullable = false, unique = false)
 	private int duration;
 	
@@ -48,7 +51,7 @@ public class ExaminationType {
 	 * @param interventionType
 	 * @param specialisation
 	 */
-	public ExaminationType(Integer id, double price, int duration, InterventionType interventionType,
+	public ExaminationType(Long id, double price, int duration, InterventionType interventionType,
 			Specialisation specialisation) {
 		super();
 		this.id = id;
@@ -65,11 +68,11 @@ public class ExaminationType {
 		super();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

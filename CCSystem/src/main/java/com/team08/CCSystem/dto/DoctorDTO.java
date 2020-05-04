@@ -10,6 +10,7 @@ import com.team08.CCSystem.model.Doctor;
  *
  */
 public class DoctorDTO {
+	
 	private Long id;
 	private String firstName;
 	private String lastName;

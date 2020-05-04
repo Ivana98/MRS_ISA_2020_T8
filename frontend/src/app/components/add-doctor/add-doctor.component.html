@@ -52,13 +52,13 @@
         </div>
         <div class="col-4" style="padding-top: 0.1rem;">
             <div class="md-form">
-            <mat-form-field>
-                <mat-label>Specialisation</mat-label>
-                <mat-select [(ngModel)]="doctor.specialisation"> <!-- (selectionChange)="changeClinic($event.value)" -->
-                    <!-- <mat-option>None</mat-option> -->
-                    <mat-option *ngFor="let spec of specialisations" [value]="spec">{{spec}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Specialisation</mat-label>
+                    <mat-select [(ngModel)]="doctor.specialisation"> <!-- (selectionChange)="changeClinic($event.value)" -->
+                        <!-- <mat-option>None</mat-option> -->
+                        <mat-option *ngFor="let spec of specialisations" [value]="spec">{{spec}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </div>
     </div>
