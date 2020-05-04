@@ -16,6 +16,8 @@ import { AddEmployeeComponent } from './components/add-employee/add-employee.com
 import { FormsModule } from '@angular/forms';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DisplayClinicsComponent } from './components/patient/display-clinics/display-clinics.component';
+import { ListClinicsService } from './services/patient/clinics/list-clinics.service';
 import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
 import { AddMedicalRoomComponent } from './components/add-medical-room/add-medical-room.component';
 import { MatCardModule } from '@angular/material/card';
@@ -39,6 +41,7 @@ import { AddExaminationTypeComponent } from './components/add-examination-type/a
     PageNotFoundComponent,
     DemoV3Component,
     AddEmployeeComponent,
+    DisplayClinicsComponent,
     UserPageComponent,
     AddDoctorComponent,
     AddMedicalRoomComponent,
@@ -58,7 +61,7 @@ import { AddExaminationTypeComponent } from './components/add-examination-type/a
     ReactiveFormsModule,
     CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule
   ],
-  providers: [HttpDemoService],  // Services go here because of DI
+  providers: [HttpDemoService, ListClinicsService],  // Services go here because of DI
   bootstrap: [AppComponent]
 })
 export class AppModule { }

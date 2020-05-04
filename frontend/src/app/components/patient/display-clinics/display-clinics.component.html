@@ -1,0 +1,20 @@
+<table mdbTable hover="true" class="table text-position z-depth-1">
+    <thead class="black white-text">
+        <tr>
+            <th></th>
+            <th [mdbTableSort]="clinicList" sortBy="name">Name&nbsp;<i class="fas fa-sort"></i> </th>
+            <th [mdbTableSort]="clinicList" sortBy="addressStreet">Street&nbsp;<i class="fas fa-sort"></i> </th>
+            <th [mdbTableSort]="clinicList" sortBy="adressCity">City&nbsp;<i class="fas fa-sort"></i></th>
+            <th [mdbTableSort]="clinicList" sortBy="averageMark">Average Mark&nbsp;<i class="fas fa-sort"></i></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr mdbTableCol *ngFor="let cl of clinicList; let i = index;">
+            <th scope="row">{{i + 1}}</th>
+            <td>{{cl.name}}</td>
+            <td>{{cl.addressStreet}}</td>
+            <td>{{cl.adressCity}}</td>
+            <td>{{cl.averageMark}}</td>
+        </tr>
+    </tbody>
+</table>

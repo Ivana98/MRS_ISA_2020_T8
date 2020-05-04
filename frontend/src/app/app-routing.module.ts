@@ -4,6 +4,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { UserPageComponent } from './components/user-page/user-page.component';
+import { DisplayClinicsComponent } from './components/patient/display-clinics/display-clinics.component';
 import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
 import { AddMedicalRoomComponent } from './components/add-medical-room/add-medical-room.component';
 import { LoginComponent } from './components/login/login.component';
@@ -19,7 +20,8 @@ const routes: Routes = [
     children: [
       { path: 'addDoctor', component: AddDoctorComponent },
       { path: 'addMedicalRoom', component: AddMedicalRoomComponent },
-      { path: 'addExaminationType', component: AddExaminationTypeComponent }
+      { path: 'addExaminationType', component: AddExaminationTypeComponent },
+      { path: 'clinicsTable', component: DisplayClinicsComponent}
     ]
   },
  
@@ -33,4 +35,4 @@ const routes: Routes = [
 export class AppRoutingModule { }
 export const routingComponents = [HomePageComponent, AddEmployeeComponent, 
   UserPageComponent, AddDoctorComponent, AddMedicalRoomComponent, LoginComponent,
-  RegisterComponent, AddExaminationTypeComponent]
+  RegisterComponent, AddExaminationTypeComponent, DisplayClinicsComponent]
