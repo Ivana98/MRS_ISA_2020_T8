@@ -1,7 +1,7 @@
 package com.team08.CCSystem.dto;
 
 public class UserPasswordDTO {
-	private String previousPassword;
+	private String password;
 	private String newPassword;
 	private String confirmedPassword;
 	
@@ -9,17 +9,17 @@ public class UserPasswordDTO {
 	
 	public UserPasswordDTO(String previousPassword, String newPassword, String confirmedPassword) {
 		super();
-		this.previousPassword = previousPassword;
+		this.password = previousPassword;
 		this.newPassword = newPassword;
 		this.confirmedPassword = confirmedPassword;
 	}
 
-	public String getPreviousPassword() {
-		return previousPassword;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPreviousPassword(String previousPassword) {
-		this.previousPassword = previousPassword;
+	public void setPassword(String previousPassword) {
+		this.password = previousPassword;
 	}
 
 	public String getNewPassword() {
@@ -36,6 +36,12 @@ public class UserPasswordDTO {
 
 	public void setConfirmedPassword(String confirmedPassword) {
 		this.confirmedPassword = confirmedPassword;
+	}
+
+	@Override
+	public String toString() {
+		return "UserPasswordDTO [previousPassword=" + password + ", newPassword=" + newPassword
+				+ ", confirmedPassword=" + confirmedPassword + "]";
 	}
 	
 

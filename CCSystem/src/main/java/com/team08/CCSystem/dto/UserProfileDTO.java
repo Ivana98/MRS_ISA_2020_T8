@@ -100,5 +100,12 @@ public class UserProfileDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public String toString() {
+		return "UserProfileDTO [id=" + id + ", email=" + email + ", name=" + name + ", surname=" + surname + ", street="
+				+ street + ", city=" + city + ", country=" + country + ", phone=" + phone + ", password=" + password
+				+ "]";
+	}
 	
 }

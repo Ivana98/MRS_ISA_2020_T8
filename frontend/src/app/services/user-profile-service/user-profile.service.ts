@@ -8,9 +8,9 @@ import { UserPassword } from 'src/app/model/userPassword';
 })
 export class UserProfileService {
 
-  private _ulrGetUserData: string = "http://localhost:8080/getUserData";
-  private _ulrSetUserData: string = "http://localhost:8080/setUserData";
-  private _ulrSetUserPassword: string = "http://localhost:8080/setUserPassword";
+  private _ulrGetUserData: string = "http://localhost:8080/api/users/getUserData";
+  private _ulrSetUserData: string = "http://localhost:8080/api/users/setUserData";
+  private _ulrSetUserPassword: string = "http://localhost:8080/api/users/setUserPassword";
 
   constructor(private _httpClient:HttpClient) {  }
   

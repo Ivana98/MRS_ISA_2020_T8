@@ -10,8 +10,8 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  user = new UserProfile(0,"","","", "", "", "", "", "lo");
-  userPassword: IUserPassword = new UserPassword(0, "", "", "");
+  user = new UserProfile(0,"","","", "", "", "", "", "");
+  userPassword = new UserPassword(0, "", "", "");
   currentPasswordMatched : boolean = true;
   passwordConfirmed : boolean = true;
   changeDataSuccess: any; //boolean
@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //this._httpUserService.getUserData().subscribe(response => this.user = response);
+    this._httpUserService.getUserData().subscribe(response => this.user = response);
   }
 
   saveChanges(event){
@@ -47,6 +47,7 @@ export class UserProfileComponent implements OnInit {
       this.passwordConfirmed = true;
     }
     if(this.currentPasswordMatched && this.passwordConfirmed){
+      console.log(this.userPassword);
       this._httpUserService.setUserPassword(this.userPassword)
         .subscribe( data => {
           this.changePasswordSuccess = data;
