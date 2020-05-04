@@ -13,4 +13,6 @@ import com.team08.CCSystem.model.Clinic;
  */
 public interface ClinicRepository extends JpaRepository<Clinic, Long> {
 
+
 }
+

@@ -9,7 +9,7 @@ export class SomeLogicService {
   _user$ = this._userType.asObservable();
 
   sentType(message: string) {
-    console.log("USAO");
+    //console.log("USAO");
     this._userType.next(message);
   }
 

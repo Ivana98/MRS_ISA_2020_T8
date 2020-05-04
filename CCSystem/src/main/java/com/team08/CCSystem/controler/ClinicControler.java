@@ -62,5 +62,5 @@ public class ClinicControler {
 		
 		return clinics;
 	}
-
+	
 }

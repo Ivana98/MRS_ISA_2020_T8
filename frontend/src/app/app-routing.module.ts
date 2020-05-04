@@ -7,6 +7,7 @@ import { UserPageComponent } from './components/user-page/user-page.component';
 import { DisplayClinicsComponent } from './components/patient/display-clinics/display-clinics.component';
 import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
 import { AddMedicalRoomComponent } from './components/add-medical-room/add-medical-room.component';
+import { RegistrationClinicAdminComponent } from './components/clinical-center-administrator/registration-clinic-admin/registration-clinic-admin.component'
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { MedicalRecordsComponent } from './components/patient/medical-records/medical-records.component';
 import { LoginComponent } from './components/login/login.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'addDoctor', component: AddDoctorComponent },
       { path: 'addMedicalRoom', component: AddMedicalRoomComponent },
       { path: 'clinicsTable', component: DisplayClinicsComponent},
+      { path: 'registrationClinicAdmin', component: RegistrationClinicAdminComponent },
       { path: 'myProfile', component: UserProfileComponent},
       { path: 'medicalRecords', component: MedicalRecordsComponent},
       { path: 'addExaminationType', component: AddExaminationTypeComponent }
@@ -38,5 +40,6 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const routingComponents = [HomePageComponent, AddEmployeeComponent, 
-  UserPageComponent, AddDoctorComponent, AddMedicalRoomComponent, LoginComponent,
-  RegisterComponent, AddExaminationTypeComponent, DisplayClinicsComponent, MedicalRecordsComponent]
+  UserPageComponent, AddDoctorComponent, AddMedicalRoomComponent, DisplayClinicsComponent,
+  RegistrationClinicAdminComponent, LoginComponent,
+  RegisterComponent, AddExaminationTypeComponent, MedicalRecordsComponent]
