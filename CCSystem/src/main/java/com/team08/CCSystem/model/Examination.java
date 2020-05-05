@@ -33,7 +33,7 @@ public class Examination {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "date", nullable = false, unique = false)
@@ -79,7 +79,7 @@ public class Examination {
 	 * @param doctor
 	 * @param patient
 	 */
-	public Examination(Integer id, Date date, boolean wasOnExamination, String description, float discount,
+	public Examination(Long id, Date date, boolean wasOnExamination, String description, float discount,
 			ExaminationType examinationType, Set<Prescription> prescriptions, Set<Disease> diseases,
 			MedicalRoom medicalRoom, Doctor doctor, Patient patient) {
 		super();
@@ -103,11 +103,11 @@ public class Examination {
 		super();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

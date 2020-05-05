@@ -22,7 +22,7 @@ public class ClinicalCenter {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
@@ -43,7 +43,7 @@ public class ClinicalCenter {
 	 * @param patients
 	 * @param admins
 	 */
-	public ClinicalCenter(Integer id, String name, Set<Clinic> clinics, Set<Patient> patients,
+	public ClinicalCenter(Long id, String name, Set<Clinic> clinics, Set<Patient> patients,
 			Set<ClinicalCenterAdmin> admins) {
 		super();
 		this.id = id;
@@ -60,11 +60,11 @@ public class ClinicalCenter {
 		super();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
