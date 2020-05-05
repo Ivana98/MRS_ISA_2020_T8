@@ -33,7 +33,7 @@ public class Absence {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "startDate", nullable = false)
@@ -55,7 +55,7 @@ public class Absence {
 	 * @param endDate
 	 * @param absenceType
 	 */
-	public Absence(Integer id, Date startDate, Date endDate, AbsenceType absenceType) {
+	public Absence(Long id, Date startDate, Date endDate, AbsenceType absenceType) {
 		super();
 		this.id = id;
 		this.startDate = startDate;
@@ -70,11 +70,11 @@ public class Absence {
 		super();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
