@@ -35,6 +35,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule } from 'angular-bootstrap-md';
 import { RegisterComponent } from './components/register/register.component';
 import { AddExaminationTypeComponent } from './components/add-examination-type/add-examination-type.component';
+import { LoginService } from './services/login-service/login.service';
 
 
 @NgModule({
@@ -67,7 +68,7 @@ import { AddExaminationTypeComponent } from './components/add-examination-type/a
     ReactiveFormsModule,
     CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule
   ],
-  providers: [HttpDemoService, ListClinicsService, UserProfileService, MedicalRecordsService],  // Services go here because of DI
+  providers: [HttpDemoService, ListClinicsService, UserProfileService, MedicalRecordsService, LoginService],  // Services go here because of DI
   bootstrap: [AppComponent]
 })
 export class AppModule { }

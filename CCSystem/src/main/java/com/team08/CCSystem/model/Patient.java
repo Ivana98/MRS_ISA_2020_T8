@@ -57,6 +57,8 @@ public class Patient extends User {
 	
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<DoctorMark> doctorsMarks = new HashSet<>(); //patient evaluates doctors
+	
+	public Patient() {}
 
 	/**
 	 * @param id
@@ -107,7 +109,7 @@ public class Patient extends User {
 			String password) {
 		super(id, email, name, surname, address, phone, password);
 	}
-
+	
 	public String getPolicyholder() {
 		return policyholder;
 	}
