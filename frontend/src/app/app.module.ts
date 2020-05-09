@@ -37,6 +37,7 @@ import { AddExaminationTypeComponent } from './components/administrator/add-exam
 import { ChangeDoctorComponent } from './components/administrator/change-doctor/change-doctor.component';
 import { MatSortModule } from '@angular/material/sort';
 import { DisplayExaminationTypesComponent } from './components/administrator/display-examination-types/display-examination-types.component';
+import { DisplayPatientsComponent } from './components/administrator/display-patients/display-patients.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { DisplayExaminationTypesComponent } from './components/administrator/dis
     AddExaminationTypeComponent,
     DisplayDoctorsComponent,
     ChangeDoctorComponent,
-    DisplayExaminationTypesComponent
+    DisplayExaminationTypesComponent,
+    DisplayPatientsComponent
   ],
   imports: [
     BrowserModule,

@@ -15,6 +15,7 @@ export class UserPageComponent implements OnInit {
 
   message:string;
   sub:string;
+  role: string;
 
 constructor( private _someLogic: SomeLogicService) { } @HostListener('input') oninput() { } 
 ngOnInit() {
