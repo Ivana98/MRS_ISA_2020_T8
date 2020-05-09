@@ -10,13 +10,16 @@ import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstra
 })
 export class DisplayClinicsComponent implements OnInit, AfterViewInit {
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
-  @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective
+  @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
+
   clinicList: any = [];
-  previous: any = [];
+  previous: any = []; //pagination variable
+  searchText: string = ''; 
+  previousearch: string; //search variable
 
   constructor(private _httpClinicsService: ListClinicsService, private cdRef: ChangeDetectorRef) {}
 
-  
+  @HostListener('input') oninput() { this.searchItems();} 
 
   ngOnInit(): void {
     this._httpClinicsService.getListForTable().subscribe(response => this.setResponse(response));
@@ -24,7 +27,6 @@ export class DisplayClinicsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
-
     this.mdbTablePagination.calculateFirstItemIndex();
     this.mdbTablePagination.calculateLastItemIndex();
     this.cdRef.detectChanges();
@@ -35,6 +37,21 @@ export class DisplayClinicsComponent implements OnInit, AfterViewInit {
     this.mdbTable.setDataSource(this.clinicList);
     this.clinicList = this.mdbTable.getDataSource();
     this.previous = this.mdbTable.getDataSource();
+    this.previousearch = this.mdbTable.getDataSource(); 
+  }
+
+  searchItems(){
+    const prev = this.mdbTable.getDataSource(); 
+    
+    if (!this.searchText) {
+        this.mdbTable.setDataSource(this.previousearch); 
+        this.clinicList = this.mdbTable.getDataSource(); 
+    } 
+    if (this.searchText) { 
+        //this.clinicList = this.mdbTable.searchLocalDataByMultipleFields(this.searchText, ['name', 'adressCity', 'adressStreet']); 
+        this.clinicList = this.mdbTable.searchLocalDataBy(this.searchText);
+        this.mdbTable.setDataSource(prev); 
+    } 
   }
 
 }
