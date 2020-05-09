@@ -62,6 +62,10 @@ public class Nurse extends User {
 			String password) {
 		super(id, email, name, surname, address, phone, password);
 	}
+	
+	public Nurse() {
+		
+	}
 
 	public Clinic getClinic() {
 		return clinic;
