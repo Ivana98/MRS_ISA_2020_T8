@@ -3,10 +3,14 @@
  */
 package com.team08.CCSystem.controler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +45,20 @@ public class ExaminationTypeControler {
 		et = examinationTypeService.save(et);
 		
 		return new ResponseEntity<ExaminationTypeDTO>(new ExaminationTypeDTO(et), HttpStatus.CREATED);
+	}
+	
+	@GetMapping(path = "getAll", produces = "application/json")
+	public ResponseEntity<List<ExaminationTypeDTO>> getAll() {
+		
+		List<ExaminationType> ETs = examinationTypeService.findAll();
+		
+		//convert ETs to DTO
+		List<ExaminationTypeDTO> ETDTOs = new ArrayList<>();
+		for (ExaminationType examinationType : ETs) {
+			ETDTOs.add(new ExaminationTypeDTO(examinationType));
+		}
+		
+		return new ResponseEntity<>(ETDTOs, HttpStatus.OK);
 	}
 
 	/**

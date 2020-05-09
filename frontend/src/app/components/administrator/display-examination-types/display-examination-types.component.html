@@ -1,1 +1,37 @@
-<p>display-examination-types works!</p>
+<div class="container">
+    <table mdbTable #tableEl="mdbTable" hover="true" class="table text-position z-depth-1">
+        <thead class="black white-text">
+            <tr>
+                <th></th>
+                <th [mdbTableSort]="ETList" sortBy="price">Price&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="ETList" sortBy="duration">Duration&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="ETList" sortBy="interventionType">Intervention type&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="ETList" sortBy="specialisation">Specialisation&nbsp;<i class="fas fa-sort"></i></th>
+            </tr>
+        </thead>   
+        <tbody>
+            <tr mdbTableCol *ngFor="let cl of ETList; let i = index;" (click)="getRow(cl)">
+                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i + 1}}</th>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.price}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.duration}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.interventionType}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.specialisation}}</td>
+            </tr>
+        </tbody>
+        <tfoot class="grey lighten-5 w-100">
+            <tr>
+                <td colspan="9">
+                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="ETList"></mdb-table-pagination>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<!-- <router-outlet></router-outlet> -->
+<div class="container" style="padding-top: 5rem;">
+    <div class="row">
+        <div class="col align-self-center">
+            <!-- <app-change-examination-type></app-change-examination-type> -->
+        </div>
+    </div>
+</div>

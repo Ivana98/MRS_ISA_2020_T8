@@ -14,6 +14,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { DisplayDoctorsComponent } from './components/administrator/display-doctors/display-doctors.component';
 import { AddExaminationTypeComponent } from './components/administrator/add-examination-type/add-examination-type.component';
 import { ChangeDoctorComponent } from './components/administrator/change-doctor/change-doctor.component';
+import { DisplayExaminationTypesComponent } from './components/administrator/display-examination-types/display-examination-types.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'homepage', pathMatch: 'full' }, // Don't use prefix becasue empty path is a prefix to any path
@@ -33,8 +34,9 @@ const routes: Routes = [
       { path: 'displayDoctors', component: DisplayDoctorsComponent, 
         children: [
           { path: 'changeDoctor', component: ChangeDoctorComponent }
-        ]},
-      // { path: 'changeDoctor', component: ChangeDoctorComponent }
+        ]
+      },
+      { path: "displayExaminationTypes", component: DisplayExaminationTypesComponent }
     ]
   },
  
@@ -46,7 +48,9 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [HomePageComponent,
+export const routingComponents = [
+  HomePageComponent,
   UserPageComponent, AddDoctorComponent, AddMedicalRoomComponent, DisplayClinicsComponent,
-  RegistrationClinicAdminComponent, LoginComponent, DisplayDoctorsComponent, 
-  RegisterComponent, AddExaminationTypeComponent, MedicalRecordsComponent, ChangeDoctorComponent]
+  RegistrationClinicAdminComponent, LoginComponent, DisplayDoctorsComponent, DisplayExaminationTypesComponent,
+  RegisterComponent, AddExaminationTypeComponent, MedicalRecordsComponent, ChangeDoctorComponent
+]

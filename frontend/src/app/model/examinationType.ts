@@ -1,4 +1,5 @@
 export interface IExaminationType {
+    id: number,
     price: number,
     duration: number,
     interventionType: string,
@@ -7,6 +8,7 @@ export interface IExaminationType {
 
 export class ExaminationType {
     constructor(
+        public id: number,
         public price: number,
         public duration: string,
         public interventionType: string,

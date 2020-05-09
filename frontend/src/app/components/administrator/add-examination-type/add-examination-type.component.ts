@@ -52,7 +52,7 @@ export class AddExaminationTypeComponent implements OnInit {
     '23:00',
     '24:00'
   ];
-  public examination_type: ExaminationType = new ExaminationType(0, "", this.labelValue, "");
+  public examination_type: ExaminationType = new ExaminationType(null, 0, "", this.labelValue, "");
   specialisations: string[] = 
   [
     'OPHTALMOLOGY',
