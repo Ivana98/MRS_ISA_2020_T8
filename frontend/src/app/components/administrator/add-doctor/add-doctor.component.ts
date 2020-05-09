@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { AddDoctorService } from 'src/app/services/add-doctor-service/add-doctor.service';
+import { DoctorService } from 'src/app/services/doctor-service/doctor.service';
 import { IDoctor, Doctor } from 'src/app/model/doctor';
 import { ICLinicToDisplay } from 'src/app/model/clinic';
 import { ClinicService } from 'src/app/services/clinic-service/clinic.service';
@@ -14,7 +14,7 @@ import { NullTemplateVisitor } from '@angular/compiler';
 })
 export class AddDoctorComponent implements OnInit {
 
-  doctor: Doctor = new Doctor("", "", "", "", "", "", "", "", "", "");
+  doctor: Doctor = new Doctor(null, "", "", "", "", "", "", "", "", "", "");
   public clinics: Array<ICLinicToDisplay> = new Array<ICLinicToDisplay>();
   buttonDisabled: boolean = false;
   specialisations: string[] = 
@@ -31,7 +31,7 @@ export class AddDoctorComponent implements OnInit {
   ];
 
   constructor(
-    private httpDoctorService: AddDoctorService, 
+    private httpDoctorService: DoctorService, 
     private httpClinicService: ClinicService
   ) { }
 

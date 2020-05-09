@@ -1,0 +1,12 @@
+button {
+    border-color: #ffc107;
+    background-color: #007bff;
+    font-weight: normal;
+    color: white;
+    border: 1px solid transparent;
+}
+button:hover{
+    background-color: #ffc107;
+    color: white;
+    font-weight: bold;
+}
