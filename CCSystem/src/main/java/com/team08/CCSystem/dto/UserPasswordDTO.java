@@ -1,25 +1,53 @@
 package com.team08.CCSystem.dto;
 
+import com.team08.CCSystem.model.User;
+
 public class UserPasswordDTO {
+	
+	private Long id;
 	private String password;
 	private String newPassword;
 	private String confirmedPassword;
 	
-	public UserPasswordDTO() {}
-	
-	public UserPasswordDTO(String previousPassword, String newPassword, String confirmedPassword) {
+	/**
+	 * @param id
+	 * @param password
+	 * @param newPassword
+	 * @param confirmedPassword
+	 */
+	public UserPasswordDTO(Long id, String password, String newPassword, String confirmedPassword) {
 		super();
-		this.password = previousPassword;
+		this.id = id;
+		this.password = password;
 		this.newPassword = newPassword;
 		this.confirmedPassword = confirmedPassword;
+	}
+	
+	/**
+	 * 
+	 */
+	public UserPasswordDTO() {
+		super();
+	}
+	
+	public UserPasswordDTO(User user) {
+		//TODO: check, but I think it's not needed to do this constructor.
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String previousPassword) {
-		this.password = previousPassword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getNewPassword() {
@@ -40,9 +68,8 @@ public class UserPasswordDTO {
 
 	@Override
 	public String toString() {
-		return "UserPasswordDTO [previousPassword=" + password + ", newPassword=" + newPassword
+		return "UserPasswordDTO [id=" + id + ", password=" + password + ", newPassword=" + newPassword
 				+ ", confirmedPassword=" + confirmedPassword + "]";
 	}
 	
-
 }

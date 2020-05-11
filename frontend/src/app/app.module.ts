@@ -36,8 +36,18 @@ import { DisplayDoctorsComponent } from './components/administrator/display-doct
 import { AddExaminationTypeComponent } from './components/administrator/add-examination-type/add-examination-type.component';
 import { ChangeDoctorComponent } from './components/administrator/change-doctor/change-doctor.component';
 import { MatSortModule } from '@angular/material/sort';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+// import { MatMomentDateModule } from "@angular/material-moment-adapter";
+
+// import { MatAutocompleteHarness } from '@angular/material/autocomplete/testing';
 import { DisplayExaminationTypesComponent } from './components/administrator/display-examination-types/display-examination-types.component';
 import { DisplayPatientsComponent } from './components/administrator/display-patients/display-patients.component';
+import { NewAppointmentComponent } from './components/administrator/new-appointment/new-appointment.component';
+import { DisplayMedicalRoomsComponent } from './components/administrator/display-medical-rooms/display-medical-rooms.component';
 
 
 @NgModule({
@@ -57,7 +67,9 @@ import { DisplayPatientsComponent } from './components/administrator/display-pat
     DisplayDoctorsComponent,
     ChangeDoctorComponent,
     DisplayExaminationTypesComponent,
-    DisplayPatientsComponent
+    DisplayPatientsComponent,
+    NewAppointmentComponent,
+    DisplayMedicalRoomsComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +80,7 @@ import { DisplayPatientsComponent } from './components/administrator/display-pat
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
     MatRadioModule, MatSelectModule, MatCardModule, MatCheckboxModule, MatSliderModule, MatButtonModule, MatTableModule, 
+    MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, 
     ReactiveFormsModule,
     CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule,
     BrowserModule,

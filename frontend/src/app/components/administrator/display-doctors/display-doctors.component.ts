@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, HostListener } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
 import { ListClinicsService } from 'src/app/services/patient/clinics/list-clinics.service';
@@ -20,12 +20,17 @@ export class DisplayDoctorsComponent implements OnInit {
   doctorsList: Array<Doctor> = [];
   previous: any = [];
 
+  searchText: string = ''; 
+  previousearch: string; //search variable
+
   constructor(
     private cdRef: ChangeDetectorRef, public router: Router,
     private _httpDoctorService: DoctorService,
     private _someLogic: DoctorShareService
     ) 
   { }
+
+  @HostListener('input') oninput() { this.searchItems();} 
 
   ngOnInit(): void {
     this.loadDoctors();
@@ -53,6 +58,20 @@ export class DisplayDoctorsComponent implements OnInit {
     this.mdbTable.setDataSource(this.doctorsList);
     this.doctorsList = this.mdbTable.getDataSource();
     this.previous = this.mdbTable.getDataSource();
+    this.previousearch = this.mdbTable.getDataSource(); 
+  }
+
+  searchItems(){
+    const prev = this.mdbTable.getDataSource(); 
+    
+    if (!this.searchText) {
+        this.mdbTable.setDataSource(this.previousearch); 
+        this.doctorsList = this.mdbTable.getDataSource(); 
+    } 
+    if (this.searchText) { 
+        this.doctorsList = this.mdbTable.searchLocalDataBy(this.searchText);
+        this.mdbTable.setDataSource(prev); 
+    } 
   }
 
 }

@@ -1,5 +1,7 @@
 package com.team08.CCSystem.dto;
 
+import com.team08.CCSystem.model.User;
+
 public class UserProfileDTO {
 	private Long id;
 	private String email;
@@ -27,6 +29,21 @@ public class UserProfileDTO {
 		this.country = country;
 		this.phone = phone;
 		this.password = password;
+	}
+
+	/**
+	 * @param user
+	 */
+	public UserProfileDTO(User user) {
+		this.id = user.getId();
+		this.email = user.getEmail();
+		this.name = user.getName();
+		this.surname = user.getSurname();
+		this.street = user.getAddress().getStreet();
+		this.city = user.getAddress().getCity();
+		this.country = user.getAddress().getCountry();
+		this.phone = user.getPhone();
+		this.password = user.getPassword();
 	}
 
 	public Long getId() {

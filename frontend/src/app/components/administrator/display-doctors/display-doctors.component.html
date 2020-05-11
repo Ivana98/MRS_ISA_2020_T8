@@ -1,5 +1,13 @@
 
 <div class="container">
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+          <div class="md-form">
+            <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput/>
+            <label for="search">Search</label>
+          </div>
+        </div>
+    </div>
     <table mdbTable #tableEl="mdbTable" hover="true" class="table text-position z-depth-1">
         <thead class="black white-text">
             <tr>
