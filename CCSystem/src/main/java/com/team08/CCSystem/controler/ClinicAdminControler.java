@@ -1,17 +1,19 @@
 package com.team08.CCSystem.controler;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team08.CCSystem.dto.ClinicAdminDTO;
-import com.team08.CCSystem.dto.DoctorDTO;
+import com.team08.CCSystem.dto.ClinicAdminRegistrationDTO;
+import com.team08.CCSystem.model.Absence;
 import com.team08.CCSystem.model.Address;
 import com.team08.CCSystem.model.Clinic;
 import com.team08.CCSystem.model.ClinicAdmin;
@@ -30,23 +32,23 @@ public class ClinicAdminControler {
 	
 	@PostMapping(path = "/save")
 	
-	public ResponseEntity<ClinicAdminDTO> saveClinicAdmin(@RequestBody ClinicAdminDTO clinicAdminDTO) {
+	public ResponseEntity<ClinicAdminRegistrationDTO> saveClinicAdmin(@RequestBody ClinicAdminRegistrationDTO clinicAdminRegistrationDTO) {
 		
-		System.out.println(clinicAdminDTO);
+		Address address = new Address(null, clinicAdminRegistrationDTO.getStreet(), clinicAdminRegistrationDTO.getCity(), clinicAdminRegistrationDTO.getCountry());
+
+		Clinic clinic = clinicService.findOne(Long.valueOf(clinicAdminRegistrationDTO.getClinic_id()));
+		//List<Absence> absences = absencesService.findAll(); nije gotovo jos....ipak ne treba jer prilikom registracije nije jos uvek imao godisnji odmor ili odsustvo.
+		Set<Absence> absences = new HashSet<Absence>();
 		
-//		Address address = new Address(null, clinicAdminDTO.getStreet(), clinicAdminDTO.getCity(), clinicAdminDTO.getCountry());
-//		System.out.println("USAOOOdsadsadsaffffa");
-//		System.out.println(clinicAdminDTO.getClinic_id() + "IDDDD");
-//		Clinic clinic = clinicService.findOne(Long.valueOf(clinicAdminDTO.getClinic_id()));
-//		
-//		
-//		ClinicAdmin clinicAdmin = new ClinicAdmin(clinicAdminDTO.getId(), clinicAdminDTO.getEmail(), clinicAdminDTO.getFirstName(), clinicAdminDTO.getLastName(), address, clinicAdminDTO.getPhone(), clinicAdminDTO.getPassword(),null,clinic);
-//		
-//		
-//		clinicAdminService.save(clinicAdmin);
+		ClinicAdmin clinicAdminRegistration = new ClinicAdmin(clinicAdminRegistrationDTO.getId(), clinicAdminRegistrationDTO.getEmail(),
+										clinicAdminRegistrationDTO.getFirstName(), clinicAdminRegistrationDTO.getLastName(),address,
+									clinicAdminRegistrationDTO.getPhone(), clinicAdminRegistrationDTO.getPassword(),absences,clinic);
 		
 		
-//		return new ResponseEntity<>(HttpStatus.CREATED);
-		return null;
+		clinicAdminRegistration = clinicAdminService.save(clinicAdminRegistration);
+		//return new ResponseEntity<>(new DoctorDTO(doctor), HttpStatus.CREATED);
+		
+		return new ResponseEntity<>(new ClinicAdminRegistrationDTO(clinicAdminRegistration),HttpStatus.CREATED);
+		//return null;
 	}
 }

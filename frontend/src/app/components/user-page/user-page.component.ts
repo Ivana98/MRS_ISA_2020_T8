@@ -17,7 +17,7 @@ export class UserPageComponent implements OnInit {
   message:string;
   sub:string;
 
-constructor( private _someLogic: SomeLogicService) { } @HostListener('input') oninput() { } 
+constructor( private _someLogic: SomeLogicService) { } 
 ngOnInit() {
   this._someLogic._user$.subscribe(
     message => {

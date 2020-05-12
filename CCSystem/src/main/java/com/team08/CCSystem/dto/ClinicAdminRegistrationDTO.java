@@ -2,7 +2,7 @@ package com.team08.CCSystem.dto;
 
 import com.team08.CCSystem.model.ClinicAdmin;
 
-public class ClinicAdminDTO {
+public class ClinicAdminRegistrationDTO {
 	private Long id;
 	private String firstName;
 	private String lastName;
@@ -14,7 +14,7 @@ public class ClinicAdminDTO {
 	private String street;
 	private String clinic_id;
 	
-	public ClinicAdminDTO(Long id, String firstName, String lastName, String email, String phone, String password,
+	public ClinicAdminRegistrationDTO(Long id, String firstName, String lastName, String email, String phone, String password,
 			String city, String country, String street , String clinic_id) {
 		super();
 		this.setId(id);
@@ -29,7 +29,7 @@ public class ClinicAdminDTO {
 		this.setClinic_id(clinic_id);
 	}
 
-	public ClinicAdminDTO(ClinicAdmin admin) {
+	public ClinicAdminRegistrationDTO(ClinicAdmin admin) {
 		this.id = admin.getId();
 		this.firstName = admin.getName();
 		this.lastName = admin.getSurname();
