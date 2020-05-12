@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class RegistrationClinicAdminServiceService {
 
-  private _url: string = "http://localhost:8080/api/clinicAdmin/save";
+  private _url: string = "http://localhost:8080/api/clinicAdmins/save";
 
   constructor(private _httpClient:HttpClient) { }
 

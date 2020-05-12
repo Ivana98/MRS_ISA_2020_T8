@@ -3,6 +3,7 @@
  */
 package com.team08.CCSystem.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,10 @@ public class ExaminationService {
 	
 	public void remove(Long id) {
 		examinationRepository.deleteById(id);
+	}
+	
+	public List<Examination> findExaminationsBetweenDates(Date startDate, Date endDate, Long doctorId) {
+		return examinationRepository.findExaminationsBetweenDates(startDate, endDate, doctorId);
 	}
 
 }

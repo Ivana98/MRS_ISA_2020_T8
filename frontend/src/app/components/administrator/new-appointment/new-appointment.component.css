@@ -11,3 +11,15 @@
   mat-form-field {
     margin-right: 12px;
   }
+
+  .example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+.example-margin {
+    /* margin: 0 10px; */
+    padding-right: 40px;
+}

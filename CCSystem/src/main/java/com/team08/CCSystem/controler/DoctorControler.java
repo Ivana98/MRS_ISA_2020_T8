@@ -100,8 +100,6 @@ public class DoctorControler {
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Long> deleteDoctor(@PathVariable Long id) {
 		
-		System.out.println(id);
-		
 		boolean hasExamination = false;
 		
 		Doctor doctor = doctorService.findOne(id);

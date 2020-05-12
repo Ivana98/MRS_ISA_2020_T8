@@ -27,7 +27,7 @@ insert into doctor (id, email, name, surname, phone, password, average_mark, spe
 
 insert into doctor_mark (mark, doctor_id, patient_id) values (0, 5, 3);
 
-insert into examination_type (duration, intervention_type, price, specialisation) values (3, 0, 3000.00, 1);
+insert into examination_type (duration, intervention_type, price, specialisation) values (100, 0, 3000.00, 1);
 
 insert into medical_room (intervension_type, room_number, clinic_id) values (1, '1', 1);
 
