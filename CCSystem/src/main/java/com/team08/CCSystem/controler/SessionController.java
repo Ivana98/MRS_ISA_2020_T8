@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.CookieGenerator;
 
 import com.team08.CCSystem.dto.LoginDTO;
-import com.team08.CCSystem.dto.LoginToFrontDTO;
 import com.team08.CCSystem.model.Patient;
 import com.team08.CCSystem.model.User;
 import com.team08.CCSystem.model.enums.UserRole;
@@ -31,7 +30,7 @@ enum LoginError{
 @RequestMapping(value = "api/sessionController")
 @RestController
 public class SessionController {
-	
+	/*
 	@PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<LoginToFrontDTO> login(@RequestBody LoginDTO login, HttpServletRequest request, HttpServletResponse response) {
 		
@@ -62,7 +61,7 @@ public class SessionController {
 		error.setUserRole(UserRole.PATIENT.toString());
 		return new Patient();
 	}
-	
+	*/
 	
 
 }

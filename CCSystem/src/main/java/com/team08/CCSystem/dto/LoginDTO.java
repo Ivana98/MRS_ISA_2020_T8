@@ -1,16 +1,19 @@
 package com.team08.CCSystem.dto;
 
+//DTO which  collect data from login form
 public class LoginDTO {
 	private String username;
 	private String password;
 	
-	public LoginDTO() {}
+	public LoginDTO() {
+        super();
+    }
+
+    public LoginDTO(String username, String password) {
+        this.setUsername(username);
+        this.setPassword(password);
+    }
 	
-	public LoginDTO(String username, String password) {
-		super();
-		this.username = username;
-		this.password = password;
-	}
 	public String getUsername() {
 		return username;
 	}
