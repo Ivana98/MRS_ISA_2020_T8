@@ -46,6 +46,7 @@ export class NewAppointmentComponent implements OnInit {
     'OTOLARYNGOLOGY',
     'INTERNIST'
   ];
+  specialisationChecked: boolean = false;
 
   date = new Date();// = new Date();
   // time = new Date();
@@ -58,7 +59,7 @@ export class NewAppointmentComponent implements OnInit {
   doctors: Doctor[] = [];
   room: MedicalRoom;
   rooms: Array<MedicalRoom> = [];
-  examination = new Examination(null, null, null, null, null, null, null, null, null, null, this.labelValue, null);
+  examination = new Examination(null, this.date, false, "", 0, 1, null, null, null, null, this.labelValue, 1);
   price: number;
 
   //this will be current user when login done
@@ -134,7 +135,18 @@ export class NewAppointmentComponent implements OnInit {
     this._httpExaminationService.addExamination(this.examination)
     .subscribe(response => {
       console.log("Odmogvor sa servera: " + response);
+      if (response == null) {
+        alert("Examination not added, try again.");
+      }
     });
+  }
+
+  checkSpecialisation() {
+    this.specialisationChecked = true;
+    //TODO: ovde ce se pozivati listanje cena na osnovu tipa intervencije i specijalizacije koju korisnik odabere
+
+
+     
   }
 
 }

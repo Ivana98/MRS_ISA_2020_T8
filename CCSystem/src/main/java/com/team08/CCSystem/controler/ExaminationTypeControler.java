@@ -40,7 +40,7 @@ public class ExaminationTypeControler {
 		InterventionType interventionType = InterventionType.valueOf(exaTypeDTO.getInterventionType().toUpperCase());
 		Specialisation specialisation = Specialisation.valueOf(exaTypeDTO.getSpecialisation().toUpperCase());
 		
-		ExaminationType et = new ExaminationType(exaTypeDTO.getId(), exaTypeDTO.getPrice(), countDuration(exaTypeDTO.getDuration()), interventionType, specialisation);
+		ExaminationType et = new ExaminationType(exaTypeDTO.getId(), countDuration(exaTypeDTO.getDuration()), interventionType, specialisation);
 		
 		et = examinationTypeService.save(et);
 		

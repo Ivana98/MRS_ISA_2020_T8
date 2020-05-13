@@ -24,7 +24,7 @@ public class ExaminationDTO {
 	private String duration;
 	private String specialisation;
 	private String interventionType;
-	private double price;
+	private Long priceId;
 	/**
 	 * @param id
 	 * @param date
@@ -40,7 +40,7 @@ public class ExaminationDTO {
 	 */
 	public ExaminationDTO(Long id, Date date, boolean wasOnExamination, String description, float discount,
 			Long medicalRoomId, Long doctorId, Long patientId, String duration, String specialisation,
-			String interventionType, double price) {
+			String interventionType, Long priceId) {
 		super();
 		this.id = id;
 		this.date = date;
@@ -53,7 +53,7 @@ public class ExaminationDTO {
 		this.duration = duration;
 		this.specialisation = specialisation;
 		this.interventionType = interventionType;
-		this.price = price;
+		this.priceId = priceId;
 	}
 	
 	/**
@@ -158,12 +158,12 @@ public class ExaminationDTO {
 		this.interventionType = interventionType;
 	}
 
-	public double getPrice() {
-		return price;
+	public Long getPriceId() {
+		return priceId;
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	public void setPriceId(Long price) {
+		this.priceId = price;
 	}
 
 	@Override
@@ -171,7 +171,7 @@ public class ExaminationDTO {
 		return "ExaminationDTO [id=" + id + ", date=" + date + ", wasOnExamination=" + wasOnExamination
 				+ ", description=" + description + ", discount=" + discount + ", medicalRoomId=" + medicalRoomId
 				+ ", doctorId=" + doctorId + ", patientId=" + patientId + ", duration=" + duration + ", specialisation="
-				+ specialisation + ", interventionType=" + interventionType + ", price=" + price + "]";
+				+ specialisation + ", interventionType=" + interventionType + ", priceId=" + priceId + "]";
 	}
 	
 }

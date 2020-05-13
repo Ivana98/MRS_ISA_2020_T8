@@ -38,8 +38,12 @@ public class ExaminationService {
 		examinationRepository.deleteById(id);
 	}
 	
-	public List<Examination> findExaminationsBetweenDates(Date startDate, Date endDate, Long doctorId) {
-		return examinationRepository.findExaminationsBetweenDates(startDate, endDate, doctorId);
+	public List<Examination> findExaminationsBetweenDatesAndDoctorId(Date startDate, Date endDate, Long doctorId) {
+		return examinationRepository.findExaminationsBetweenDatesAndDoctorId(startDate, endDate, doctorId);
+	}
+	
+	public List<Examination> findExaminationsBetweenDates(Date startDate, Date endDate, Long roomId) {
+		return examinationRepository.findExaminationsBetweenDates(startDate, endDate, roomId);
 	}
 
 }

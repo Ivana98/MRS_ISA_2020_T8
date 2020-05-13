@@ -48,8 +48,11 @@ public class Examination {
 	@Column(name = "discount", nullable = false, unique = false) 
 	private float discount;
 	
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	private ExaminationType examinationType;
+	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private ExaminationType examinationType;
+	private Price price;
 	
 	@ManyToMany(mappedBy = "examinations")
 	private Set<Prescription> prescriptions = new HashSet<>();
@@ -72,7 +75,7 @@ public class Examination {
 	 * @param wasOnExamination
 	 * @param description
 	 * @param discount
-	 * @param examinationType
+	 * @param price
 	 * @param prescriptions
 	 * @param diseases
 	 * @param medicalRoom
@@ -80,15 +83,15 @@ public class Examination {
 	 * @param patient
 	 */
 	public Examination(Long id, Date date, boolean wasOnExamination, String description, float discount,
-			ExaminationType examinationType, Set<Prescription> prescriptions, Set<Disease> diseases,
-			MedicalRoom medicalRoom, Doctor doctor, Patient patient) {
+			Price price, Set<Prescription> prescriptions, Set<Disease> diseases, MedicalRoom medicalRoom,
+			Doctor doctor, Patient patient) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.wasOnExamination = wasOnExamination;
 		this.description = description;
 		this.discount = discount;
-		this.examinationType = examinationType;
+		this.price = price;
 		this.prescriptions = prescriptions;
 		this.diseases = diseases;
 		this.medicalRoom = medicalRoom;
@@ -143,12 +146,12 @@ public class Examination {
 		this.discount = discount;
 	}
 
-	public ExaminationType getExaminationType() {
-		return examinationType;
+	public Price getPrice() {
+		return price;
 	}
 
-	public void setExaminationType(ExaminationType examinationType) {
-		this.examinationType = examinationType;
+	public void setPrice(Price price) {
+		this.price = price;
 	}
 
 	public Set<Prescription> getPrescriptions() {

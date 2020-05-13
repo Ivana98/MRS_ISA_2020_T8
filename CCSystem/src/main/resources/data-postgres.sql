@@ -27,11 +27,13 @@ insert into doctor (id, email, name, surname, phone, password, average_mark, spe
 
 insert into doctor_mark (mark, doctor_id, patient_id) values (0, 5, 3);
 
-insert into examination_type (duration, intervention_type, price, specialisation) values (100, 0, 3000.00, 1);
+insert into examination_type (duration, intervention_type, specialisation) values (100, 0, 1);
 
 insert into medical_room (intervension_type, room_number, clinic_id) values (1, '1', 1);
 
-insert into examination (date, description, discount, was_on_examination, doctor_id, examination_type_id, medical_room_id, patient_id) values ('2020-04-26 07:00', 'Obican rutinski pregled', 10.0, true, 5, 1, 1, 3);
+insert into price (price, examination_type_id, clinic_id) values (1250, 1, 1);
+
+insert into examination (date, description, discount, was_on_examination, doctor_id, price_id, medical_room_id, patient_id) values ('2020-04-26 07:00', 'Obican rutinski pregled', 10.0, true, 5, 1, 1, 3);
 
 -- insert into examinationing (disease_id, examination_id) values (1, 1);
 

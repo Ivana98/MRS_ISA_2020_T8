@@ -4,12 +4,8 @@
 package com.team08.CCSystem.controler;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -28,11 +24,13 @@ import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Examination;
 import com.team08.CCSystem.model.ExaminationType;
 import com.team08.CCSystem.model.MedicalRoom;
+import com.team08.CCSystem.model.Price;
 import com.team08.CCSystem.model.enums.InterventionType;
 import com.team08.CCSystem.model.enums.Specialisation;
 import com.team08.CCSystem.service.DoctorService;
 import com.team08.CCSystem.service.ExaminationService;
 import com.team08.CCSystem.service.MedicalRoomService;
+import com.team08.CCSystem.service.PriceService;
 
 /**
  * @author Veljko
@@ -52,10 +50,25 @@ public class ExaminationControler {
 	@Autowired
 	private MedicalRoomService medicalRoomService;
 	
+	@Autowired
+	private PriceService priceService;
+	
 	@PostMapping(path = "/saveOneClickExamination")
 	public ResponseEntity<ExaminationDTO> saveOneClickExamination(@RequestBody ExaminationDTO examinationDTO) throws ParseException {
 		
 		//TODO: PROVERA DA LI JE SOBA SLOBODNA
+		
+System.out.println(examinationDTO);
+
+		Doctor doctor = doctorService.findOne(examinationDTO.getDoctorId());
+		if (doctor == null) return null;
+		
+		MedicalRoom medicalRoom = medicalRoomService.findOne(examinationDTO.getMedicalRoomId());
+		if (medicalRoom == null) return null;
+		
+		Price priceList = priceService.findOne(examinationDTO.getPriceId());
+		
+		if (priceList == null) return null;
 		
 		LocalDate dateLocal = examinationDTO.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		
@@ -64,114 +77,89 @@ public class ExaminationControler {
 		Date date1 = Date.from(dateLocal1.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		LocalDate dateLocal2 = dateLocal.plusDays(3);
 		Date date2 = Date.from(dateLocal2.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		List<Examination> examsBetween48Hours = examinationService.findExaminationsBetweenDates(date1, date2, examinationDTO.getDoctorId());
+		List<Examination> examsBetweenDatesAndDoctorId = examinationService.findExaminationsBetweenDatesAndDoctorId(date1, date2, examinationDTO.getDoctorId());
+		
+		//////////////// if medical room is already in use
+		cal.setTime(examinationDTO.getDate());
+		cal.add(Calendar.MINUTE, priceList.getExaminationType().getDuration());
+		Date dateEnd = new Date(cal.getTimeInMillis());
+		List<Examination> examsBetweenDatesAndRoomId = examinationService.findExaminationsBetweenDates(examinationDTO.getDate(), dateEnd, examinationDTO.getMedicalRoomId());
+		
+		for (Examination exam : examsBetweenDatesAndRoomId) {
+			if (exam.getMedicalRoom().getId().equals(medicalRoom.getId())) {
+				return null;
+			}
+		}
+		//////////////// create new method for this code
 		
 		Date startDate = examinationDTO.getDate();
 		cal.setTime(startDate);
-
-		cal.add(Calendar.MINUTE, getDuration(examinationDTO.getDuration()));
+		
+		cal.add(Calendar.MINUTE, priceList.getExaminationType().getDuration());
 		Date endDate = new Date(cal.getTimeInMillis());
 		
-		Doctor doctor = doctorService.findOne(examinationDTO.getDoctorId());
-		if (doctor == null) return null;
 		
-		MedicalRoom medicalRoom = medicalRoomService.findOne(examinationDTO.getMedicalRoomId());
-		if (medicalRoom == null) return null;
-		
-		if (examsBetween48Hours.size() == 0) {
+		if (examsBetweenDatesAndDoctorId.size() == 0) {
+			return createExamination(examinationDTO, doctor, medicalRoom, priceList);
 			
-			ExaminationType examinationType = new ExaminationType();
-			examinationType.setDuration(Integer.parseInt(examinationDTO.getDuration()));
-			examinationType.setInterventionType(InterventionType.valueOf(examinationDTO.getInterventionType().toUpperCase()));
-			examinationType.setPrice(examinationDTO.getPrice());
-			examinationType.setSpecialisation(Specialisation.valueOf(examinationDTO.getSpecialisation()));
-			
-			Examination examination = new Examination();
-			examination.setDate(examinationDTO.getDate());
-			
-			examination.setDoctor(doctor);
-			examination.setExaminationType(examinationType);
-			
-			examination.setMedicalRoom(medicalRoom);
-			
-			examination.setWasOnExamination(false);
-			examination.setDescription("");
-			examination.setDiscount(0);
-			
-			examination = examinationService.save(examination);
-			return new ResponseEntity<>(new ExaminationDTO(examination), HttpStatus.CREATED);
-			
-		} else if (examsBetween48Hours.size() == 1) {
-			Date date1Start = examsBetween48Hours.get(0).getDate();
+		} else if (examsBetweenDatesAndDoctorId.size() == 1) {
+			Date date1Start = examsBetweenDatesAndDoctorId.get(0).getDate();
 			cal.setTime(date1Start);
-			int duration = examsBetween48Hours.get(0).getExaminationType().getDuration();
+			
+			int duration = examsBetweenDatesAndDoctorId.get(0).getPrice().getExaminationType().getDuration();
 			cal.add(Calendar.MINUTE, duration);
 			Date date1End = new Date(cal.getTimeInMillis());
 
 			// if okay create object and write to db
+			if (date1Start.equals(startDate) || date1End.equals(endDate)) {
+				return null;
+			}
+			
 			if ( !((date1Start.after(startDate) && date1Start.before(endDate)) || (date1End.after(startDate) && date1End.before(endDate))) ) {
-				ExaminationType examinationType = new ExaminationType();
-				examinationType.setDuration(getDuration(examinationDTO.getDuration()));
-				examinationType.setInterventionType(InterventionType.valueOf(examinationDTO.getInterventionType().toUpperCase()));
-				examinationType.setPrice(examinationDTO.getPrice());
-				examinationType.setSpecialisation(Specialisation.valueOf(examinationDTO.getSpecialisation()));
-				
-				Examination examination = new Examination();
-				examination.setDate(examinationDTO.getDate());
-				
-				examination.setDoctor(doctor);
-				examination.setExaminationType(examinationType);
-				
-				examination.setMedicalRoom(medicalRoom);
-				
-				examination.setWasOnExamination(false);
-				examination.setDescription("");
-				examination.setDiscount(0);
-				
-				examination = examinationService.save(examination);
-				return new ResponseEntity<>(new ExaminationDTO(examination), HttpStatus.CREATED);
-				
+				return createExamination(examinationDTO, doctor, medicalRoom, priceList);
 			}
 		} else {
-			for (int i = 0; i < examsBetween48Hours.size()-1; i++) {
-				// current examination
-				Date date1Start = examsBetween48Hours.get(i).getDate();
+			for (int i = 0; i < examsBetweenDatesAndDoctorId.size()-1; i++) {
+				
+				Date date1Start = examsBetweenDatesAndDoctorId.get(i).getDate();
 				cal.setTime(date1Start);
-				cal.add(Calendar.MINUTE, examsBetween48Hours.get(i).getExaminationType().getDuration());
+				cal.add(Calendar.MINUTE, examsBetweenDatesAndDoctorId.get(i).getPrice().getExaminationType().getDuration());
 				Date date1End = new Date(cal.getTimeInMillis());
 				
 				// next examination
-				Date date2Start = examsBetween48Hours.get(i).getDate();
-				cal.setTime(date1Start);
-				cal.add(Calendar.MINUTE, examsBetween48Hours.get(i).getExaminationType().getDuration());
+				Date date2Start = examsBetweenDatesAndDoctorId.get(i+1).getDate();
+				cal.setTime(date2Start);
+				cal.add(Calendar.MINUTE, examsBetweenDatesAndDoctorId.get(i+1).getPrice().getExaminationType().getDuration());
+				Date date2End = new Date(cal.getTimeInMillis());
+				//not needed date2End
 				
-				// if okay write create object and write to db
-				if (date1End.before(startDate) && date2Start.after(endDate)) {
-					ExaminationType examinationType = new ExaminationType();
-					examinationType.setDuration(Integer.parseInt(examinationDTO.getDuration()));
-					examinationType.setInterventionType(InterventionType.valueOf(examinationDTO.getInterventionType().toUpperCase()));
-					examinationType.setPrice(examinationDTO.getPrice());
-					examinationType.setSpecialisation(Specialisation.valueOf(examinationDTO.getSpecialisation()));
-					
-					Examination examination = new Examination();
-					examination.setDate(examinationDTO.getDate());
-					
-					examination.setDoctor(doctor);
-					examination.setExaminationType(examinationType);
-					
-					examination.setMedicalRoom(medicalRoom);
-					
-					examination.setWasOnExamination(false);
-					examination.setDescription("");
-					examination.setDiscount(0);
-					
-					examination = examinationService.save(examination);
-					return new ResponseEntity<>(new ExaminationDTO(examination), HttpStatus.CREATED);
-				}
+				if (date1Start.equals(startDate) || date1End.equals(endDate) || date2Start.equals(startDate) || date2End.equals(endDate)) 
+					return null;
+				
+				// if not okay return null
+				if ( (date1End.after(startDate) && date1End.before(endDate)) || (date1End.after(startDate) && date2Start.before(endDate)) || (date2Start.after(startDate) && date2Start.before(endDate)) || (date1Start.after(startDate) && date1Start.before(startDate)) || (date2End.after(startDate) & date2End.before(endDate)) )   
+					return null;
 			}
+			//if null is not returned, it's ok and write to db
+			return createExamination(examinationDTO, doctor, medicalRoom, priceList);
 		}
 		
 		return null;
+	}
+	
+	public ResponseEntity<ExaminationDTO> createExamination(ExaminationDTO examinationDTO, Doctor doctor, MedicalRoom medicalRoom, Price price) {
+		
+		Examination examination = new Examination();
+		examination.setDate(examinationDTO.getDate());
+		examination.setDoctor(doctor);
+		examination.setPrice(price);
+		examination.setMedicalRoom(medicalRoom);
+		examination.setWasOnExamination(false);
+		examination.setDescription("");
+		examination.setDiscount(0);
+		examination = examinationService.save(examination);
+
+		return new ResponseEntity<>(new ExaminationDTO(examination), HttpStatus.CREATED);
 	}
 
 	/**

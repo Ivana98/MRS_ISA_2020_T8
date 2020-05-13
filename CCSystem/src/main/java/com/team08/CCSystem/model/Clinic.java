@@ -56,6 +56,9 @@ public class Clinic {
 	@OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ClinicAdmin> admins = new HashSet<>();
 	
+	@OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Price> prices = new HashSet<>();
+	
 	@Column(name = "averageMark", nullable = false, unique = false)
 	private float averageMark;
 

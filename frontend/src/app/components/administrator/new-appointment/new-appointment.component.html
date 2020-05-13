@@ -48,14 +48,14 @@
   </div>
 
   <!-- Price intput -->
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-4">
       <div class="md-form">
           <input [(ngModel)]="examination.price" type="number" class="form-control" id="priceInput" mdbInput>
           <label for="priceInput">Price</label>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Rooms select form input -->
   <div class="row">
@@ -71,20 +71,6 @@
     </div>
   </div>
 
-  <!-- Duration select form input -->
-  <div class="row">
-      <div class="col-4">
-          <div class="md-form">
-              <mat-form-field>
-                  <mat-label>Duration</mat-label>
-                  <mat-select [(ngModel)]="examination.duration">
-                      <mat-option *ngFor="let dur of duration" [value]="dur">{{dur}}</mat-option>
-                  </mat-select>
-              </mat-form-field>
-          </div>
-      </div>
-  </div>
-
   <!-- Specialisation select form input -->
   <div class="row">
       <div class="col-4" style="padding-top: 0.1rem;">
@@ -92,7 +78,7 @@
               <mat-form-field>
                   <mat-label>Specialisation</mat-label>
                   <mat-select [(ngModel)]="examination.specialisation">
-                      <mat-option *ngFor="let spec of specialisations" [value]="spec">{{spec}}</mat-option>
+                      <mat-option *ngFor="let spec of specialisations" [value]="spec" (click)="checkSpecialisation()">{{spec}}</mat-option>
                   </mat-select>
               </mat-form-field>
           </div>
@@ -110,6 +96,20 @@
               </mat-radio-group>
           </section>
       </div>
+  </div>
+
+  <!-- Duration select form input -->
+  <div class="row" *ngIf="specialisationChecked">
+    <div class="col-4" style="padding-top: 0.1rem;">
+      <!-- <div class="md-form">
+          <mat-form-field>
+              <mat-label>Type and rooms</mat-label>
+              <mat-select [(ngModel)]="examination.specialisation">
+                  <mat-option *ngFor="let spec of priceList" [value]="spec">{{spec}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+      </div> -->
+    </div>
   </div>
 
   <!-- button which call function to send request to server -->

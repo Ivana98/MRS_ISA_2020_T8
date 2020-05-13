@@ -24,7 +24,6 @@ public abstract class User {
 //	@Column(name="id", unique=true, nullable=false)
 	@GeneratedValue(strategy=GenerationType.TABLE, generator="cust_seq_user")
 	@SequenceGenerator(name = "cust_seq_user", sequenceName = "cust_seq_user", initialValue = 1, allocationSize=1)
-	@Column(name = "id", unique = true, nullable = false, columnDefinition = "serial")
 	private Long id;
 	
 	@Column(name="email", unique=true, nullable=false)

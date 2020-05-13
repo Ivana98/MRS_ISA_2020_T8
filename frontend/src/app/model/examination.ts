@@ -10,7 +10,7 @@ export interface IExamination {
     duration: string,
     specialisation: string,
     interventionType: string,
-    price: number
+    priceId: number
 }
 
 export class Examination {
@@ -26,7 +26,7 @@ export class Examination {
         public duration: string,
         public specialisation: string,
         public interventionType: string,
-        public price: number
+        public priceId: number
     ) {} 
 
     /* If any of fields are empty return false */
