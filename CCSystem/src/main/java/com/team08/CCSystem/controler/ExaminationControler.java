@@ -67,7 +67,6 @@ System.out.println(examinationDTO);
 		if (medicalRoom == null) return null;
 		
 		Price priceList = priceService.findOne(examinationDTO.getPriceId());
-		
 		if (priceList == null) return null;
 		
 		LocalDate dateLocal = examinationDTO.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
