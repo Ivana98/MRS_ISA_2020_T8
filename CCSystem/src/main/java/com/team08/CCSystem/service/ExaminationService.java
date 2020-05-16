@@ -45,5 +45,9 @@ public class ExaminationService {
 	public List<Examination> findExaminationsBetweenDates(Date startDate, Date endDate, Long roomId) {
 		return examinationRepository.findExaminationsBetweenDates(startDate, endDate, roomId);
 	}
+	
+	public List<Examination> findExaminationWithRoomIdAndAfterDate(Long roomId, Date date) {
+		return examinationRepository.findExaminationWithRoomIdAndAfterDate(roomId, date);
+	}
 
 }

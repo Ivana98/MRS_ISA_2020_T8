@@ -36,5 +36,9 @@ public class MedicalRoomService {
 	public void remove(Long id) {
 		medicalRoomRepository.deleteById(id);
 	}
+	
+	public List<MedicalRoom> findAllByClinic(Long clinicId) {
+		return medicalRoomRepository.findAllByClinic(clinicId);
+	}
 
 }
