@@ -1,1 +1,164 @@
-<p>display-medical-rooms works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Medical rooms</h1>
+        </div>
+        <div class="col align-self-end">
+            <div class="float-right">
+                <button mat-raised-button color="primary" data-toggle="modal" data-target="#exampleModal2">
+                    Add new&nbsp;<mat-icon style="font-size: 21px;">add</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+          <div class="md-form">
+            <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput/>
+            <label for="search">Search</label>
+          </div>
+        </div>
+    </div>
+
+    <table mdbTable #tableEl="mdbTable" hover="true" class="table text-position z-depth-1">
+        <thead class="black white-text">
+            <tr>
+                <th></th>
+                <th [mdbTableSort]="rooms" sortBy="room_number">Room number&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="rooms" sortBy="intervention_type">intervention type&nbsp;<i class="fas fa-sort"></i> </th>
+                <th>Actions</th>
+            </tr>
+        </thead>   
+        <tbody>
+            <tr mdbTableCol *ngFor="let cl of rooms; let i = index;" (click)="getRow(cl)">
+                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i + 1}}</th>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.room_number}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.intervention_type}}</td>
+                <td>
+                    <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon" (click)="editRoom(cl)"  data-toggle="modal" data-target="#exampleModal">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon" (click)="takeId(cl)" (click)="frame.show()">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot class="grey lighten-5 w-100">
+            <tr>
+                <td colspan="9">
+                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="rooms"></mdb-table-pagination>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+  
+    <!-- ADD ROOM POPUP DIALOG -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal2Label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModal2Label">Edit room</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <!-- content goes here -->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Room number</mat-label>
+                                <input matInput #name="ngModel" [(ngModel)]="medical_room.room_number">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <section class="example-section">
+                                <mat-radio-group [(ngModel)]="medical_room.intervention_type">
+                                    <mat-radio-button (change)="onChange('EXAMINATION')" class="example-margin" value="EXAMINATION">Examination</mat-radio-button>
+                                    <mat-radio-button (change)="onChange('OPERATION')" class="example-margin" value="OPERATION">Operation</mat-radio-button>
+                                </mat-radio-group>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="closemodal" type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clearRoom()">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addRoom()">Add room</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Edit room popup dialog -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Edit room</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Room number</mat-label>
+                                <input matInput #name="ngModel" [(ngModel)]="medical_room.room_number">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <section class="example-section">
+                                <mat-radio-group [(ngModel)]="medical_room.intervention_type">
+                                    <mat-radio-button (change)="onChange('EXAMINATION')" class="example-margin" value="EXAMINATION">Examination</mat-radio-button>
+                                    <mat-radio-button (change)="onChange('OPERATION')" class="example-margin" value="OPERATION">Operation</mat-radio-button>
+                                </mat-radio-group>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="closemodal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveChanges()">Save changes</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+        <!--Content-->
+        <div class="modal-content text-center">
+            <!--Header-->
+            <div class="modal-header d-flex justify-content-center">
+                <p class="heading">Are you sure?</p>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+                <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <a type="button" mdbBtn color="danger" outline="true" class="waves-effect" mdbWavesEffect (click)="frame.hide()" (click)="deleteRoom()">Yes</a>
+                <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">No</a>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    </div>
+
+</div>
