@@ -5,8 +5,8 @@ insert into address (city, country, street) values ('Novi Sad', 'Srbija', 'Katar
 
 insert into clinical_center (name) values ('clinical center Vojvodina'); --We have, I think, just one clinical center.
 
-insert into clinic (average_mark, name, address_id, clinical_center_id) values (0, 'klinika 1', 1, 1);
-insert into clinic (average_mark, name, address_id, clinical_center_id) values (0, 'klinika 2', 2, 1);
+insert into clinic (average_mark, name, description, address_id, clinical_center_id) values (0, 'klinika 1', 'Neki opis za kliniku 1', 1, 1);
+insert into clinic (average_mark, name, description, address_id, clinical_center_id) values (0, 'klinika 2', 'Neki opis za kliniku 2', 2, 1);
 -- insert into clinic (average_mark, name, address_id, clinical_center_id) values (0, 'klinika 3', 3, 2);
 
 insert into clinic_admin (id, email, name, password, phone, surname, address_id, clinic_id) values (nextval('cust_seq_user'), 'clinic.admin@gmail', 'Nikola', 'sifra1', '0653355', 'Plecas', 1, 1);
@@ -29,7 +29,10 @@ insert into doctor_mark (mark, doctor_id, patient_id) values (0, 5, 3);
 
 insert into examination_type (duration, intervention_type, specialisation) values (100, 0, 1);
 
-insert into medical_room (intervension_type, room_number, clinic_id) values (1, '1', 1);
+insert into medical_room (intervension_type, room_number, clinic_id) values (1, '115', 1);
+insert into medical_room (intervension_type, room_number, clinic_id) values (1, '208a', 1);
+insert into medical_room (intervension_type, room_number, clinic_id) values (0, '301b', 1);
+insert into medical_room (intervension_type, room_number, clinic_id) values (0, '112a', 2);
 
 insert into price (price, examination_type_id, clinic_id) values (1250, 1, 1);
 
