@@ -17,7 +17,7 @@ export class AddMedicalRoomComponent implements OnInit {
 
   labelValue: 'Operation' | 'Examination' = 'Examination';
 
-  room: MedicalRoom = new MedicalRoom("", this.labelValue, "");
+  room: MedicalRoom = new MedicalRoom(null, "", this.labelValue, null);
   public clinics: Array<ICLinicToDisplay> = new Array<ICLinicToDisplay>();
   
   disabled = false;
