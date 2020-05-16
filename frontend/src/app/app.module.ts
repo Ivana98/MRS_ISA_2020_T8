@@ -41,6 +41,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
 // import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 // import { MatAutocompleteHarness } from '@angular/material/autocomplete/testing';
@@ -48,6 +49,7 @@ import { DisplayExaminationTypesComponent } from './components/administrator/dis
 import { DisplayPatientsComponent } from './components/administrator/display-patients/display-patients.component';
 import { NewAppointmentComponent } from './components/administrator/new-appointment/new-appointment.component';
 import { DisplayMedicalRoomsComponent } from './components/administrator/display-medical-rooms/display-medical-rooms.component';
+import { EditClinicBasicComponent } from './components/administrator/edit-clinic-basic/edit-clinic-basic.component';
 
 
 @NgModule({
@@ -69,7 +71,8 @@ import { DisplayMedicalRoomsComponent } from './components/administrator/display
     DisplayExaminationTypesComponent,
     DisplayPatientsComponent,
     NewAppointmentComponent,
-    DisplayMedicalRoomsComponent
+    DisplayMedicalRoomsComponent,
+    EditClinicBasicComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +84,7 @@ import { DisplayMedicalRoomsComponent } from './components/administrator/display
     BrowserAnimationsModule,
     MatRadioModule, MatSelectModule, MatCardModule, MatCheckboxModule, MatSliderModule, MatButtonModule, MatTableModule, 
     MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, 
-    ReactiveFormsModule,
+    ReactiveFormsModule, MatIconModule, 
     CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule,
     BrowserModule,
     MatSortModule
