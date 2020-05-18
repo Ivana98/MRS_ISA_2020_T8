@@ -11,7 +11,27 @@ export class ExaminationService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  public addExamination(examination) {
+  /**
+   * Adding one click free examination.
+   * 
+   * @param examination is Examination
+   * @returns added Examination or null if not added.
+   */
+  public addFreeExamination(examination) {
     return this._httpClient.post<Examination>(this._url + "saveOneClickExamination", examination);
   }
+
+  public loadAllFreeExaminationsFromClinic(clinicId) {
+    return this._httpClient.get<Array<Examination>>(this._url + "getAllFreeFromClinic/" + clinicId);
+  }
+
+  /**
+   * Delete examination by id.
+   * 
+   * @param id is Examination ID
+   */
+  public delete(id) {
+    return this._httpClient.delete(this._url + "delete/" + id);
+  }
+
 }

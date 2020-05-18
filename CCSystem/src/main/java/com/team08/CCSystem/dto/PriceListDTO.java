@@ -3,6 +3,8 @@
  */
 package com.team08.CCSystem.dto;
 
+import com.team08.CCSystem.model.Price;
+
 /**
  * @author Veljko
  *
@@ -32,6 +34,12 @@ public class PriceListDTO {
 	 */
 	public PriceListDTO() {
 		super();
+	}
+	
+	public PriceListDTO(Price price) {
+		this.id = price.getId();
+		this.price = price.getPrice();
+		this.examination_type_id = price.getExaminationType().getId();
 	}
 
 	public Long getId() {

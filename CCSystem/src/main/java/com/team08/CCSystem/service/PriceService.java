@@ -36,5 +36,9 @@ public class PriceService {
 	public void remove(Long id) {
 		priceRepository.deleteById(id);
 	}
+	
+	public List<Price> findAllFromClinic(Long clinicId) {
+		return priceRepository.findAllFromClinic(clinicId);
+	}
 
 }

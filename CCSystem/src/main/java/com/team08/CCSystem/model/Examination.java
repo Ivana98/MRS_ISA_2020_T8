@@ -42,10 +42,10 @@ public class Examination {
 	@Column(name = "wasOnExamination", nullable = false, unique = false)
 	private boolean wasOnExamination;
 	
-	@Column(name = "description", nullable = false, unique = false) 
+	@Column(name = "description", nullable = true, unique = false) 
 	private String description;
 	
-	@Column(name = "discount", nullable = false, unique = false) 
+	@Column(name = "discount", nullable = true, unique = false) 
 	private float discount;
 	
 //	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -122,7 +122,7 @@ public class Examination {
 		this.date = date;
 	}
 
-	public boolean isWasOnExamination() {
+	public boolean getWasOnExamination() {
 		return wasOnExamination;
 	}
 

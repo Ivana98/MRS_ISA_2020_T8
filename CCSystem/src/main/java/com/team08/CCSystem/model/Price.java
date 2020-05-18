@@ -80,5 +80,13 @@ public class Price {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
 	
 }

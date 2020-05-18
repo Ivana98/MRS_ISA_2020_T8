@@ -40,8 +40,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 // import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 // import { MatAutocompleteHarness } from '@angular/material/autocomplete/testing';
@@ -84,7 +85,7 @@ import { EditClinicBasicComponent } from './components/administrator/edit-clinic
     BrowserAnimationsModule,
     MatRadioModule, MatSelectModule, MatCardModule, MatCheckboxModule, MatSliderModule, MatButtonModule, MatTableModule, 
     MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, 
-    ReactiveFormsModule, MatIconModule, 
+    ReactiveFormsModule, MatIconModule, MatDialogModule, MatRippleModule,
     CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule,
     BrowserModule,
     MatSortModule

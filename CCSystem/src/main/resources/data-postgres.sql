@@ -27,20 +27,45 @@ insert into doctor (id, email, name, surname, phone, password, average_mark, spe
 
 insert into doctor_mark (mark, doctor_id, patient_id) values (0, 5, 3);
 
-insert into examination_type (duration, intervention_type, specialisation) values (100, 0, 1);
+-- examinations
+insert into examination_type (duration, intervention_type, specialisation) values (20, 0, 0); --id=1
+insert into examination_type (duration, intervention_type, specialisation) values (15, 0, 1); --id=2
+insert into examination_type (duration, intervention_type, specialisation) values (35, 0, 2); --id=3
+insert into examination_type (duration, intervention_type, specialisation) values (25, 0, 3); --id=4
+insert into examination_type (duration, intervention_type, specialisation) values (30, 0, 4); --id=5
+-- operations
+insert into examination_type (duration, intervention_type, specialisation) values (100, 1, 0); --id=6
+insert into examination_type (duration, intervention_type, specialisation) values (120, 1, 1); --id=7
+insert into examination_type (duration, intervention_type, specialisation) values (240, 1, 2); --id=8
+insert into examination_type (duration, intervention_type, specialisation) values (90, 1, 3); --id=9
+insert into examination_type (duration, intervention_type, specialisation) values (80, 1, 4); --id=10
 
-insert into medical_room (intervension_type, room_number, clinic_id) values (1, '115', 1);
+-- clinic id=1
+insert into medical_room (intervension_type, room_number, clinic_id) values (1, '111', 1);
 insert into medical_room (intervension_type, room_number, clinic_id) values (1, '208a', 1);
 insert into medical_room (intervension_type, room_number, clinic_id) values (0, '301b', 1);
+insert into medical_room (intervension_type, room_number, clinic_id) values (0, '303c', 1);
+insert into medical_room (intervension_type, room_number, clinic_id) values (0, '116', 1);
+-- clinic id=2
 insert into medical_room (intervension_type, room_number, clinic_id) values (0, '112a', 2);
 
+-- Prices for clinic with id=1
 insert into price (price, examination_type_id, clinic_id) values (1250, 1, 1);
+insert into price (price, examination_type_id, clinic_id) values (2000, 2, 1);
+insert into price (price, examination_type_id, clinic_id) values (1800, 3, 1);
+insert into price (price, examination_type_id, clinic_id) values (3500, 4, 1);
+insert into price (price, examination_type_id, clinic_id) values (4000, 5, 1);
+insert into price (price, examination_type_id, clinic_id) values (1900, 6, 1);
+insert into price (price, examination_type_id, clinic_id) values (15000, 7, 1);
+insert into price (price, examination_type_id, clinic_id) values (120000, 8, 1);
+insert into price (price, examination_type_id, clinic_id) values (85000, 9, 1);
+insert into price (price, examination_type_id, clinic_id) values (65000, 10, 1);
 
-insert into examination (date, description, discount, was_on_examination, doctor_id, price_id, medical_room_id, patient_id) values ('2020-04-26 07:00', 'Obican rutinski pregled', 10.0, true, 5, 1, 1, 3);
-
+insert into examination (date, description, discount, was_on_examination, doctor_id, price_id, medical_room_id, patient_id) values ('2020-04-26 07:00', 'Obican rutinski pregled', 10.0, true,  5, 1, 1, 3);
+insert into examination (date, description, discount, was_on_examination, doctor_id, price_id, medical_room_id, patient_id) values ('2020-06-26 07:00', 'Obican rutinski pregled', 10.0, false, 5, 1, 2, null);
 -- insert into examinationing (disease_id, examination_id) values (1, 1);
 
-insert into medication (description, name) values ('Ovaj lek je samo za dusu', 'Johnnie Walker');
+insert into medication (description, name) values ('Ovaj lek je za slomljena srca', 'Johnnie Walker');
 
 -- insert into prescription (description, expiration_date, quantity, validated, medication_id, nurse_id) values ('Opis recepta', '2020-08-26 23:59', 2, true, 1, 4);
 

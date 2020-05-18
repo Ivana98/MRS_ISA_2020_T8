@@ -19,6 +19,10 @@ export class DoctorService {
     return this._httpClient.get<Array<Doctor>>(this._url + "getAll");
   }
 
+  public getAllByClinic(clinicId) {
+    return this._httpClient.get<Array<Doctor>>(this._url + "getAllByClinic/" + clinicId);
+  }
+
   public modifyDoctor(doctor) {
     return this._httpClient.put<Doctor>(this._url + "modify", doctor);
   }

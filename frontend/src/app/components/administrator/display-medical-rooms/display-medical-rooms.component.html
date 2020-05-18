@@ -5,7 +5,7 @@
         </div>
         <div class="col align-self-end">
             <div class="float-right">
-                <button mat-raised-button color="primary" data-toggle="modal" data-target="#exampleModal2">
+                <button mat-raised-button color="primary" data-toggle="modal" data-target="#addRoom">
                     Add new&nbsp;<mat-icon style="font-size: 21px;">add</mat-icon>
                 </button>
             </div>
@@ -54,11 +54,11 @@
     </table>
   
     <!-- ADD ROOM POPUP DIALOG -->
-    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal2Label" aria-hidden="true">
+    <div class="modal fade" id="addRoom" tabindex="-1" role="dialog" aria-labelledby="addRoomLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModal2Label">Edit room</h3>
+                <h3 class="modal-title" id="addRoomLabel">New room</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -136,29 +136,30 @@
         </div>
     </div>
 
+    <!-- ARE YOU SURE YOU WANT TO DELETE -->
     <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
-        <!--Content-->
-        <div class="modal-content text-center">
-            <!--Header-->
-            <div class="modal-header d-flex justify-content-center">
-                <p class="heading">Are you sure?</p>
-            </div>
+        <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+            <!--Content-->
+            <div class="modal-content text-center">
+                <!--Header-->
+                <div class="modal-header d-flex justify-content-center">
+                    <p class="heading">Are you sure?</p>
+                </div>
 
-            <!--Body-->
-            <div class="modal-body">
-                <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
-            </div>
+                <!--Body-->
+                <div class="modal-body">
+                    <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+                </div>
 
-            <!--Footer-->
-            <div class="modal-footer justify-content-center">
-                <a type="button" mdbBtn color="danger" outline="true" class="waves-effect" mdbWavesEffect (click)="frame.hide()" (click)="deleteRoom()">Yes</a>
-                <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">No</a>
+                <!--Footer-->
+                <div class="modal-footer justify-content-center">
+                    <a type="button" mdbBtn color="danger" outline="true" class="waves-effect" mdbWavesEffect (click)="frame.hide()" (click)="deleteRoom()">Yes</a>
+                    <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">No</a>
+                </div>
             </div>
+            <!--/.Content-->
         </div>
-        <!--/.Content-->
-    </div>
     </div>
 
 </div>

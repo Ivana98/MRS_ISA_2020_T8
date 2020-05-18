@@ -49,5 +49,9 @@ public class ExaminationService {
 	public List<Examination> findExaminationWithRoomIdAndAfterDate(Long roomId, Date date) {
 		return examinationRepository.findExaminationWithRoomIdAndAfterDate(roomId, date);
 	}
+	
+	public List<Examination> findAllFreeFromClinic(Long clinicId, Date date) {
+		return examinationRepository.findAllFreeFromClinic(clinicId, date);
+	}
 
 }
