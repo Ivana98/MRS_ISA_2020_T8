@@ -6,6 +6,7 @@ package com.team08.CCSystem.controler;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,13 +57,38 @@ public class ExaminationControler {
 	@Autowired
 	private PriceService priceService;
 	
+	@GetMapping(value = "/getAllFreeFromClinic/{clinicId}")
+	public ResponseEntity<List<ExaminationDTO>> getAllFreeFromClinic(@PathVariable Long clinicId) {
+		
+		List<Examination> examinations = examinationService.findAllFreeFromClinic(clinicId, new Date());
+		
+		List<ExaminationDTO> examinationsDTO = new ArrayList<>();
+		
+		for (Examination examination : examinations) {
+			System.out.println(new ExaminationDTO(examination));
+			examinationsDTO.add(new ExaminationDTO(examination));//
+		}
+		
+		return new ResponseEntity<List<ExaminationDTO>>(examinationsDTO, HttpStatus.OK);
+	}
+	
+	@DeleteMapping(value = "/delete/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		
+		Examination examination = examinationService.findOne(id);
+		
+		if (examination == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		examinationService.remove(id);
+		System.out.println(examination.getId());
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 	@PostMapping(path = "/saveOneClickExamination")
 	public ResponseEntity<ExaminationDTO> saveOneClickExamination(@RequestBody ExaminationDTO examinationDTO) throws ParseException {
 		
-		//TODO: PROVERA DA LI JE SOBA SLOBODNA
+		System.out.println(examinationDTO); //DELETE THIS
 		
-System.out.println(examinationDTO);
-
 		Doctor doctor = doctorService.findOne(examinationDTO.getDoctorId());
 		if (doctor == null) return null;
 		

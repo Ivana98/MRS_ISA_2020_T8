@@ -70,7 +70,6 @@ public class DoctorControler {
 		}
 		
 		return new ResponseEntity<>(doctorsDTO, HttpStatus.OK);
-//		return null;
 	}
 	
 	@PutMapping(path = "/modify", produces = "application/json")
@@ -98,7 +97,7 @@ public class DoctorControler {
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")
-	public ResponseEntity<Long> deleteDoctor(@PathVariable Long id) {
+	public ResponseEntity<Void> deleteDoctor(@PathVariable Long id) {
 		
 		boolean hasExamination = false;
 		
@@ -108,7 +107,7 @@ public class DoctorControler {
 
 		for (Examination examination : doctor.getExaminations()) {
 			if (examination.getDate().after(currentDate)) {
-				//doctor has examination in future so he cannot be deleted.
+				//doctor has examination in future so he cannot be deleted. 
 				hasExamination = true;
 			}
 		}
@@ -119,7 +118,19 @@ public class DoctorControler {
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@GetMapping(value = "/getAllByClinic/{clinicId}")
+	public ResponseEntity<List<DoctorDTO>> getAllByClinic(@PathVariable Long clinicId) {
 		
+		List<Doctor> doctors = doctorService.findAllByClinic(clinicId);
+		
+		List<DoctorDTO> doctorsDTO = new ArrayList<>();
+		for (Doctor d : doctors) {
+			doctorsDTO.add(new DoctorDTO(d));
+		}
+		
+		return new ResponseEntity<>(doctorsDTO, HttpStatus.OK);
 	}
 	
 }

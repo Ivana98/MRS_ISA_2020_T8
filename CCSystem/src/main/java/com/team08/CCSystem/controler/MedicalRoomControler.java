@@ -81,6 +81,19 @@ public class MedicalRoomControler {
 		return new ResponseEntity<>(roomsDTO, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/getAllByExamination/{clinicId}")
+	public ResponseEntity<List<MedicalRoomDTO>> getAllByExamination(@PathVariable Long clinicId) {
+		
+		List<MedicalRoom> rooms = medicalRoomService.findAllByClinicAndExamination(clinicId, InterventionType.EXAMINATION);
+		
+		List<MedicalRoomDTO> roomsDTO = new ArrayList<>();
+		for (MedicalRoom mr : rooms) {
+			roomsDTO.add(new MedicalRoomDTO(mr));	
+		}
+		
+		return new ResponseEntity<>(roomsDTO, HttpStatus.OK);
+	}
+	
 	@PutMapping(path = "/modify", produces = "application/json")
 	public ResponseEntity<MedicalRoomDTO> modify(@RequestBody MedicalRoomDTO medicalRoomDTO) {
 		
@@ -110,7 +123,16 @@ public class MedicalRoomControler {
 		}else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@GetMapping(value = "/getOne/{id}")
+	public ResponseEntity<MedicalRoomDTO> getOne(@PathVariable Long id) {
 		
+		MedicalRoom medicalRoom = medicalRoomService.findOne(id);
+		
+		if (medicalRoom == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<>(new MedicalRoomDTO(medicalRoom), HttpStatus.OK);
 	}
 
 }
