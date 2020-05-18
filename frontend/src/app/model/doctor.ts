@@ -1,4 +1,5 @@
 export interface IDoctor {
+    id: number,
     firstName: string,
     lastName: string,
     email: string,
@@ -13,6 +14,7 @@ export interface IDoctor {
 
 export class Doctor {
     constructor(
+        public id: number,
         public firstName: string,
         public lastName: string,
         public email: string,

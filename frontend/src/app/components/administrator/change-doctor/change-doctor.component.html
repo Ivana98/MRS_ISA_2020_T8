@@ -1,0 +1,143 @@
+
+<div class="container">
+    <form #userProfileForm="ngForm">
+        <div class="row" style="padding-bottom: 1.5rem;">
+            <div class="col-4">
+                <h2><i class="fas fa-hospital-user"></i>&nbsp; About doctor</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <div class="md-form">
+                    <input required mdbInput class="form-control" type="text" 
+                        #name="ngModel" [(ngModel)]="doctor.firstName" name="name"
+                        [class.is-invalid]="name.invalid && name.touched">
+                    <label for="name" class="">First name</label>
+                    <div *ngIf="name.invalid && name.touched">
+                        <small class="text-danger" *ngIf="name.errors.required"> First name is required. </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="md-form">
+                    <input required mdbInput class="form-control" type="text" 
+                        #password="ngModel" [(ngModel)]="doctor.password" name="password"
+                        [class.is-invalid]="password.invalid && password.touched" pattern="[A-Za-z1-9-/_]{8,}">
+                    <label for="current-password" class="">Password</label>
+                    <div *ngIf="password.invalid && password.touched">
+                        <small class="text-danger" *ngIf="password.errors.required"> Current password is required. </small>
+                        <small class="text-danger" *ngIf="password.errors.pattern"> Password minimum length is 8. </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="md-form">
+                    <button type="button" mdbBtn col-4or="light" mdbWavesEffect 
+                    (click)="saveChanges($event)" [disabled]="userProfileForm.form.invalid">
+                        Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-4">
+                <div class="md-form">
+                    <input required mdbInput class="form-control" type="text" 
+                        #surname="ngModel" [(ngModel)]="doctor.lastName" name="surname"
+                        [class.is-invalid]="surname.invalid && surname.touched">
+                    <label for="surname" class="">Last name</label>
+                    <div *ngIf="surname.invalid && surname.touched">
+                        <small class="text-danger" *ngIf="surname.errors.required"> Last name is required. </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="md-form">
+                    <input required mdbInput class="form-control" type="text" 
+                        #phone="ngModel" [(ngModel)]="doctor.phone" name="phone"
+                        [class.is-invalid]="phone.invalid && phone.touched" pattern="\+\d+">
+                    <label for="phone" class="">Phone number</label>
+                    <div *ngIf="phone.errors && (phone.invalid && phone.touched)">
+                        <small class="text-danger" *ngIf="phone.errors.required"> Phone number is required. </small>
+                        <small class="text-danger" *ngIf="phone.errors.pattern"> Phone number must be in format +381611231233.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="md-form">
+                    <button type="button" mdbBtn col-4or="light" mdbWavesEffect 
+                    (click)="deleteDoctor($event)" [disabled]="doctorHasAppointment">
+                        Delete doctor
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <div class="md-form">
+                    <input required mdbInput class="form-control" type="text" 
+                        #street="ngModel" [(ngModel)]="doctor.street" name="street"
+                        [class.is-invalid]="street.invalid && street.touched">
+                    <label for="street" class="">Street</label>
+                    <div *ngIf="street.invalid && street.touched">
+                        <small class="text-danger" *ngIf="street.errors.required"> Street is required. </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="md-form">
+                    <input mdbInput type="email" class="form-control" disabled name="email" [ngModel]="doctor.email">
+                    <label for="email" class="">Email</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <div class="md-form">
+                    <input required mdbInput class="form-control" type="text" 
+                        #city="ngModel" [(ngModel)]="doctor.city" name="city"
+                        [class.is-invalid]="city.invalid && city.touched">
+                    <label for="city" class="">City</label>
+                    <div *ngIf="city.invalid && city.touched">
+                        <small class="text-danger" *ngIf="city.errors.required"> City is required. </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4" style="padding-top: 0.1rem;">
+                <div class="md-form">
+                    <mat-form-field>
+                        <mat-label>Specialisation</mat-label>
+                        <mat-select [(ngModel)]="doctor.specialisation" [ngModelOptions]="{standalone: true}">
+                            <mat-option *ngFor="let spec of specialisations" [value]="spec">{{spec}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <div class="md-form">
+                    <input required mdbInput class="form-control" type="text" 
+                        #country="ngModel" [(ngModel)]="doctor.country" name="country"
+                        [class.is-invalid]="country.invalid && country.touched">
+                    <label for="country" class="">Country</label>
+                    <div *ngIf="country.invalid && country.touched">
+                        <small class="text-danger" *ngIf="country.errors.required"> Country is required. </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </form>
+</div>

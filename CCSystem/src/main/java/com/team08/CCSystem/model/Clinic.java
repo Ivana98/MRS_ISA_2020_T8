@@ -35,6 +35,9 @@ public class Clinic {
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
 	
+	@Column(name = "description", nullable = true, unique = false)
+	private String description;
+	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Address address;
 	
@@ -55,6 +58,9 @@ public class Clinic {
 	
 	@OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ClinicAdmin> admins = new HashSet<>();
+	
+	@OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Price> prices = new HashSet<>();
 	
 	@Column(name = "averageMark", nullable = false, unique = false)
 	private float averageMark;
@@ -171,6 +177,22 @@ public class Clinic {
 
 	public void setAverageMark(float averageMark) {
 		this.averageMark = averageMark;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Set<Price> getPrices() {
+		return prices;
+	}
+
+	public void setPrices(Set<Price> prices) {
+		this.prices = prices;
 	}
 
 	@Override

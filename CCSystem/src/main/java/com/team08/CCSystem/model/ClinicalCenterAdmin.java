@@ -65,6 +65,10 @@ public class ClinicalCenterAdmin extends User {
 			String password) {
 		super(id, email, name, surname, address, phone, password);
 	}
+	
+	public ClinicalCenterAdmin() {
+		
+	}
 
 	public Set<Absence> getAbsences() {
 		return absences;

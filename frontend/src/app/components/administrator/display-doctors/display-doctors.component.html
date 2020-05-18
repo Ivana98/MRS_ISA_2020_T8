@@ -1,0 +1,54 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+          <div class="md-form">
+            <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput/>
+            <label for="search">Search</label>
+          </div>
+        </div>
+    </div>
+    <table mdbTable #tableEl="mdbTable" hover="true" class="table text-position z-depth-1">
+        <thead class="black white-text">
+            <tr>
+                <th></th>
+                <th [mdbTableSort]="doctorsList" sortBy="name">Name&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="doctorsList" sortBy="surname">Surname&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="doctorsList" sortBy="email">Email&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="doctorsList" sortBy="phone">Phone&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="doctorsList" sortBy="addressStreet">Street&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="doctorsList" sortBy="adressCity">City&nbsp;<i class="fas fa-sort"></i></th>
+                <th [mdbTableSort]="doctorsList" sortBy="adressCountry">Country&nbsp;<i class="fas fa-sort"></i></th>
+                <th [mdbTableSort]="doctorsList" sortBy="specialisation">Specialisation&nbsp;<i class="fas fa-sort"></i></th>
+            </tr>
+        </thead>   
+        <tbody>
+            <tr mdbTableCol *ngFor="let cl of doctorsList; let i = index;" (click)="getRow(cl)">
+                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i + 1}}</th>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.firstName}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.lastName}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.email}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.phone}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.street}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.city}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.country}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.specialisation}}</td>
+            </tr>
+        </tbody>
+        <tfoot class="grey lighten-5 w-100">
+            <tr>
+                <td colspan="9">
+                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="doctorsList"></mdb-table-pagination>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<!-- <router-outlet></router-outlet> -->
+<div class="container" style="padding-top: 5rem;">
+    <div class="row">
+        <div class="col align-self-center">
+            <app-change-doctor></app-change-doctor>
+        </div>
+    </div>
+</div>
