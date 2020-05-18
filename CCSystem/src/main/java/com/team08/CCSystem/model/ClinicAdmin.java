@@ -29,6 +29,8 @@ public class ClinicAdmin extends User {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Clinic clinic;
+	
+	public ClinicAdmin() {}
 
 	/**
 	 * @param id

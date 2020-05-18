@@ -7,9 +7,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 
+import com.team08.CCSystem.dto.ForAllUsersDTO;
 import com.team08.CCSystem.dto.UserPasswordDTO;
 import com.team08.CCSystem.dto.UserProfileDTO;
+import com.team08.CCSystem.model.User;
+import com.team08.CCSystem.service.UserService;
+
+import java.security.Principal;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "api/users")
@@ -17,6 +24,9 @@ import com.team08.CCSystem.dto.UserProfileDTO;
 public class UserProfileControler {
 	//dummy user data
 	private UserProfileDTO user = new UserProfileDTO((long) 1, "pera@gmail.com", "Pera", "Peric", "Paunova 24", "Beograd", "Srbija", "+381631236544", "pera");
+	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/getUserData")  
 	private UserProfileDTO getUserData() {
@@ -53,4 +63,19 @@ public class UserProfileControler {
 		
 	}
 	
+	//whoami
+	@GetMapping("/returnCurrentUser")
+	@PreAuthorize("hasAnyRole('NURSE', 'DOCTOR', 'PATIENT', 'CLINIC_ADMIN', 'CLINIC_CENTER_ADMIN')")
+	public ForAllUsersDTO user(Principal user) {
+		try {
+			User u = this.userService.findByUsername(user.getName());
+			return  this.userService.convertUserToDTO(u);
+		}
+		catch(NullPointerException e) {
+			System.out.println("exception");
+			return null;
+		}
+		
+	}
+
 }

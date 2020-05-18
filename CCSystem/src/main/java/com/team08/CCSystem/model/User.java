@@ -30,12 +30,12 @@ import lombok.Data;
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class User implements UserDetails{
 	
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	
 	@Id
 //	@GeneratedValue(strategy = GenerationType.TABLE)
 //	@Column(name="id", unique=true, nullable=false)
-	@GeneratedValue(strategy=GenerationType.TABLE, generator="cust_seq_user")
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="cust_seq_user")
 	@SequenceGenerator(name = "cust_seq_user", sequenceName = "cust_seq_user", initialValue = 1, allocationSize=1)
 	@Column(name = "id", unique = true, nullable = false, columnDefinition = "serial")
 	private Long id;

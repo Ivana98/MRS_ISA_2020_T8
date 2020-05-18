@@ -19,7 +19,7 @@
           <mdb-card-body class="mx-4 mt-4">
 
             <!--Body-->
-            <form #loginForm="ngForm">
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" *ngIf="!submitted">
 
               <div class="md-form">
                 <input required mdbInput class="form-control" type="email" #username="ngModel"
@@ -43,11 +43,13 @@
                       <p class="font-small grey-text d-flex justify-content-end">Forgot
                       <a class="dark-grey-text font-weight-bold ml-1"> Password?</a> 
                     </p>
-                    -->
+                -->
               </div>
 
+              <small *ngIf="errorMsg" class="text-danger">{{errorMsg}}</small>
+
               <div class="text-center mb-4">
-                <button type="button" (click)="loginClicked()" [disabled]="loginForm.form.invalid" mdbBtn
+                <button type="submit" [disabled]="loginForm.form.invalid" mdbBtn
                   color="danger" block="true" class="z-depth-2">Log in</button>
               </div>
               <p class="font-small grey-text d-flex justify-content-center">Don't have an account?

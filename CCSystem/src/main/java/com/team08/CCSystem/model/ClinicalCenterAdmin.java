@@ -29,6 +29,8 @@ public class ClinicalCenterAdmin extends User {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private ClinicalCenter clinicalCenter;
+	
+	public ClinicalCenterAdmin() {}
 
 	/**
 	 * Constructor

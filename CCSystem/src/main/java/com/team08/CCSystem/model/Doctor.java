@@ -45,6 +45,8 @@ public class Doctor extends User {
 	
 	@Column(name="averageMark", unique=false, nullable=false)
 	private float averageMark;
+	
+	public Doctor() {}
 
 	/**
 	 * @param id

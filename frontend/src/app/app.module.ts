@@ -8,7 +8,7 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgwWowModule } from 'ngx-wow';
 import { DemoV2Component } from './components/demo-v2/demo-v2.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HttpDemoService } from './services/http_demo/http-demo.service';
 import { DemoV3Component } from './components/demo-v3/demo-v3.component';
@@ -36,6 +36,9 @@ import { CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, 
 import { RegisterComponent } from './components/register/register.component';
 import { AddExaminationTypeComponent } from './components/add-examination-type/add-examination-type.component';
 import { LoginService } from './services/login-service/login.service';
+import { AuthService } from './services/authService/auth.service';
+import { ApiService } from './services/api-services/api.service';
+import { TokenInterceptor } from './interceptor/TokenInterceptor';
 
 
 @NgModule({
@@ -68,7 +71,20 @@ import { LoginService } from './services/login-service/login.service';
     ReactiveFormsModule,
     CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule
   ],
-  providers: [HttpDemoService, ListClinicsService, UserProfileService, MedicalRecordsService, LoginService],  // Services go here because of DI
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    HttpDemoService, 
+    ListClinicsService, 
+    UserProfileService, 
+    MedicalRecordsService, 
+    LoginService, 
+    AuthService,
+    ApiService
+],  // Services go here because of DI
   bootstrap: [AppComponent]
 })
 export class AppModule { }

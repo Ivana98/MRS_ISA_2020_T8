@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { IUserLogin, UserLogin } from 'src/app/model/userLogin';
 import { LoginService } from 'src/app/services/login-service/login.service';
+import { AuthService } from 'src/app/services/authService/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,6 +16,9 @@ export class LoginComponent implements OnInit {
   //simpleForm: FormGroup;
   user : IUserLogin = new UserLogin("", "");
   response : any;
+  submitted = false;
+  errorMsg : string;
+  private router: Router;
 /*
   constructor(public fb: FormBuilder) {
     this.simpleForm = fb.group({
@@ -21,22 +26,32 @@ export class LoginComponent implements OnInit {
       simpleFormPasswordEx: ['', Validators.required],
     });
    }*/
-   constructor(private httpService: LoginService) {}
+   constructor(private _loginService: LoginService, private _authService: AuthService) {}
 
   ngOnInit(): void {
   }
 
-  loginClicked() {
-    console.log("Request sent!");
-    console.log(this.user);
+  onSubmit(form : NgForm) {
+    //if someone tries to send invalid data do not send request
+    if(form.invalid){
+      form.resetForm();
+      return;
+    }
 
-    this.httpService.userLogin(this.user)
-      .subscribe(
-        data => {
-          this.response = data;
-          console.log(this.response);
-        }
-      )
+    this.submitted = true;
+    this.errorMsg = undefined;
+
+    this._authService.login(this.user)
+      .subscribe(data => {
+          this._loginService.getMyInfo().subscribe();
+          //this.router.navigate(['user-page']);
+        },
+        error => {
+          this.submitted = false;
+          this.errorMsg = 'Incorrect username or password.';
+          form.resetForm();
+        });
+        console.log(this._loginService.currentUser);
   }
 
 }

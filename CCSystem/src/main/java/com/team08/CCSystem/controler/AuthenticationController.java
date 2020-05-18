@@ -50,7 +50,6 @@ public class AuthenticationController {
 	public ResponseEntity<UserTokenState> createAuthenticationToken(@RequestBody LoginDTO authenticationRequest,
 			HttpServletResponse response) {
 
-		// 
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
 						authenticationRequest.getPassword()));
