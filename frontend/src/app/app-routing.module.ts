@@ -18,6 +18,7 @@ import { LoginGuard } from './guard/login.guard';
 import { PageForbiddenComponent } from './components/page-forbidden/page-forbidden.component';
 import { PatientGuard } from './guard/patient.guard';
 import { ClinicCenterAdminGuard } from './guard/clinic-center-admin.guard';
+import { ClinicInfoPageComponent } from './components/patient/clinic-info-page/clinic-info-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'homepage', pathMatch: 'full' }, // Don't use prefix becasue empty path is a prefix to any path
@@ -29,10 +30,11 @@ const routes: Routes = [
       { path: 'addDoctor', component: AddDoctorComponent },
       { path: 'addMedicalRoom', component: AddMedicalRoomComponent },
       { path: 'clinicsTable', component: DisplayClinicsComponent, canActivate: [PatientGuard] },
+      { path: 'clinicsTable/clinic', component: ClinicInfoPageComponent, canActivate: [PatientGuard]},
       { path: 'registrationClinicAdmin', component: RegistrationClinicAdminComponent, canActivate: [ClinicCenterAdminGuard] },
       { path: 'myProfile', component: UserProfileComponent, canActivate: [LoginGuard] },
       { path: 'medicalRecords', component: MedicalRecordsComponent, canActivate: [PatientGuard] },
-      { path: 'addExaminationType', component: AddExaminationTypeComponent }
+      { path: 'addExaminationType', component: AddExaminationTypeComponent}
     ]
   },
   { path: '403', component: PageForbiddenComponent},

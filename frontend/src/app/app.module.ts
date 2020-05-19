@@ -47,6 +47,8 @@ import { NurseGuard } from './guard/nurse.guard';
 import { ClinicAdminGuard } from './guard/clinic-admin.guard';
 import { ClinicCenterAdminGuard } from './guard/clinic-center-admin.guard';
 import { PageForbiddenComponent } from './components/page-forbidden/page-forbidden.component';
+import { ClinicInfoPageComponent } from './components/patient/clinic-info-page/clinic-info-page.component';
+import { TransferClinicService } from './services/patient/clinics/transfer-clinic.service';
 
 
 @NgModule({
@@ -66,7 +68,8 @@ import { PageForbiddenComponent } from './components/page-forbidden/page-forbidd
     LoginComponent,
     RegisterComponent,
     AddExaminationTypeComponent,
-    PageForbiddenComponent
+    PageForbiddenComponent,
+    ClinicInfoPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +102,8 @@ import { PageForbiddenComponent } from './components/page-forbidden/page-forbidd
     MedicalRecordsService, 
     LoginService, 
     AuthService,
-    ApiService
+    ApiService,
+    TransferClinicService
 ],  // Services go here because of DI
   bootstrap: [AppComponent]
 })

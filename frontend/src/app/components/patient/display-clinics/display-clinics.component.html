@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr mdbTableCol *ngFor="let cl of clinicList; let i = index;">
+            <tr mdbTableCol *ngFor="let cl of clinicList; let i = index;" (click)="rowSelected(cl)">
                 <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i + 1}}</th>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.name}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.addressStreet}}</td>

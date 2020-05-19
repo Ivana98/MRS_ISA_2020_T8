@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild, HostListener, AfterViewInit, ChangeDetectorRef  } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { ListClinicsService } from '../../../services/patient/clinics/list-clinics.service';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstrap-md';
+import { Clinic } from 'src/app/model/clinicToList';
+import { TransferClinicService } from 'src/app/services/patient/clinics/transfer-clinic.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-display-clinics',
@@ -14,12 +17,13 @@ export class DisplayClinicsComponent implements OnInit, AfterViewInit {
 
   clinicList: any = [];
   previous: any = []; //pagination variable
-  searchText: string = ''; 
+  searchText: string = '';
   previousearch: string; //search variable
 
-  constructor(private _httpClinicsService: ListClinicsService, private cdRef: ChangeDetectorRef) {}
+  constructor(private _httpClinicsService: ListClinicsService, private cdRef: ChangeDetectorRef, 
+    private _transferService: TransferClinicService, private _router: Router) { }
 
-  @HostListener('input') oninput() { this.searchItems();} 
+  @HostListener('input') oninput() { this.searchItems(); }
 
   ngOnInit(): void {
     this._httpClinicsService.getListForTable().subscribe(response => this.setResponse(response));
@@ -31,27 +35,33 @@ export class DisplayClinicsComponent implements OnInit, AfterViewInit {
     this.mdbTablePagination.calculateLastItemIndex();
     this.cdRef.detectChanges();
   }
-  setResponse(r){
+  setResponse(r) {
     console.log(r);
     this.clinicList = r;
     this.mdbTable.setDataSource(this.clinicList);
     this.clinicList = this.mdbTable.getDataSource();
     this.previous = this.mdbTable.getDataSource();
-    this.previousearch = this.mdbTable.getDataSource(); 
+    this.previousearch = this.mdbTable.getDataSource();
   }
 
-  searchItems(){
-    const prev = this.mdbTable.getDataSource(); 
-    
+  searchItems() {
+    const prev = this.mdbTable.getDataSource();
+
     if (!this.searchText) {
-        this.mdbTable.setDataSource(this.previousearch); 
-        this.clinicList = this.mdbTable.getDataSource(); 
-    } 
-    if (this.searchText) { 
-        //this.clinicList = this.mdbTable.searchLocalDataByMultipleFields(this.searchText, ['name', 'adressCity', 'adressStreet']); 
-        this.clinicList = this.mdbTable.searchLocalDataBy(this.searchText);
-        this.mdbTable.setDataSource(prev); 
-    } 
+      this.mdbTable.setDataSource(this.previousearch);
+      this.clinicList = this.mdbTable.getDataSource();
+    }
+    if (this.searchText) {
+      //this.clinicList = this.mdbTable.searchLocalDataByMultipleFields(this.searchText, ['name', 'adressCity', 'adressStreet']); 
+      this.clinicList = this.mdbTable.searchLocalDataBy(this.searchText);
+      this.mdbTable.setDataSource(prev);
+    }
+  }
+
+  rowSelected(cl: Clinic) {
+    console.log(cl);
+    this._transferService.setClinic(cl);
+    this._router.navigate(['/user-page/clinicsTable/clinic']);
   }
 
 }
