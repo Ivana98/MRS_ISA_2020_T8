@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   response : any;
   submitted = false;
   errorMsg : string;
-  private router: Router;
+  //private router: Router;
 /*
   constructor(public fb: FormBuilder) {
     this.simpleForm = fb.group({
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
       simpleFormPasswordEx: ['', Validators.required],
     });
    }*/
-   constructor(private _loginService: LoginService, private _authService: AuthService) {}
+   constructor(private _loginService: LoginService, private _authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
   }
@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
   onSubmit(form : NgForm) {
     //if someone tries to send invalid data do not send request
     if(form.invalid){
-      form.resetForm();
       return;
     }
 
@@ -43,15 +42,16 @@ export class LoginComponent implements OnInit {
 
     this._authService.login(this.user)
       .subscribe(data => {
-          this._loginService.getMyInfo().subscribe();
-          //this.router.navigate(['user-page']);
+          this._loginService.getMyInfo().subscribe(
+            data => {
+              this.router.navigate(['/user-page']);
+            }
+          );
         },
         error => {
           this.submitted = false;
           this.errorMsg = 'Incorrect username or password.';
-          form.resetForm();
         });
-        console.log(this._loginService.currentUser);
   }
 
 }

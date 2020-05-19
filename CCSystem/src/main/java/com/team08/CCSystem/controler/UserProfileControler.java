@@ -63,7 +63,6 @@ public class UserProfileControler {
 		
 	}
 	
-	//whoami
 	@GetMapping("/returnCurrentUser")
 	@PreAuthorize("hasAnyRole('NURSE', 'DOCTOR', 'PATIENT', 'CLINIC_ADMIN', 'CLINIC_CENTER_ADMIN')")
 	public ForAllUsersDTO user(Principal user) {
@@ -72,7 +71,6 @@ public class UserProfileControler {
 			return  this.userService.convertUserToDTO(u);
 		}
 		catch(NullPointerException e) {
-			System.out.println("exception");
 			return null;
 		}
 		

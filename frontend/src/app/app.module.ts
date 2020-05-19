@@ -39,6 +39,14 @@ import { LoginService } from './services/login-service/login.service';
 import { AuthService } from './services/authService/auth.service';
 import { ApiService } from './services/api-services/api.service';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
+import { GuestGuard } from './guard/guest.guard';
+import { LoginGuard } from './guard/login.guard';
+import { PatientGuard } from './guard/patient.guard';
+import { DoctorGuard } from './guard/doctor.guard';
+import { NurseGuard } from './guard/nurse.guard';
+import { ClinicAdminGuard } from './guard/clinic-admin.guard';
+import { ClinicCenterAdminGuard } from './guard/clinic-center-admin.guard';
+import { PageForbiddenComponent } from './components/page-forbidden/page-forbidden.component';
 
 
 @NgModule({
@@ -57,7 +65,8 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
     MedicalRecordsComponent,
     LoginComponent,
     RegisterComponent,
-    AddExaminationTypeComponent
+    AddExaminationTypeComponent,
+    PageForbiddenComponent
   ],
   imports: [
     BrowserModule,
@@ -77,6 +86,13 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
       useClass: TokenInterceptor,
       multi: true
     },
+    GuestGuard,
+    LoginGuard,
+    PatientGuard,
+    DoctorGuard,
+    NurseGuard,
+    ClinicAdminGuard,
+    ClinicCenterAdminGuard,
     HttpDemoService, 
     ListClinicsService, 
     UserProfileService, 

@@ -3,13 +3,15 @@ import { HttpHeaders, HttpRequest, HttpResponse, HttpClient } from '@angular/com
 import {map, catchError, filter} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ApiService } from '../api-services/api.service';
+import { LoginService } from '../login-service/login.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private _apiService: ApiService) {}
+  constructor(private http: HttpClient, private _apiService: ApiService, private _loginService: LoginService, private _router: Router) {}
 
   headers = new HttpHeaders({
     'Accept': 'application/json',
@@ -33,6 +35,12 @@ export class AuthService {
         console.log('Login success');
         this.access_token = res.accessToken;
       }));
+  }
+
+  logout() {
+    this._loginService.currentUser = null;
+    this.access_token = null; 
+    this._router.navigate(['/login']);
   }
 
   tokenIsPresent() {
