@@ -9,12 +9,12 @@ import { Clinic } from 'src/app/model/clinicToList';
 })
 export class ClinicInfoPageComponent implements OnInit {
 
-  clinic: Clinic;
+  //clinic: Clinic;
 
-  constructor(private _transferService: TransferClinicService) { }
+  //constructor(private _transferService: TransferClinicService) { }
 
   ngOnInit(): void {
-    this._transferService.clinic$.subscribe((data) => {this.clinic = data});
+    //this._transferService.clinic$.subscribe((data) => {this.clinic = data});
   }
 
 }
