@@ -1,3 +1,7 @@
+<div class="alert alert-danger" role="alert" *ngIf="error">
+    Error on user data loading.
+</div>
+
 <div class="row">
     <div class="col-md-10 mx-auto my-5">
         <mdb-card dark="true">
@@ -56,11 +60,10 @@
 
                     <mdb-card-text>
                         <h5>
-                            <ul>
-                                <li>alergija</li>
+                            <ul *ngFor="let allergy of records.allergies">
+                                <li>{{allergy}}</li>
                             </ul>
                         </h5>
-
                     </mdb-card-text>
                 </mdb-card-body>
             </mdb-card>

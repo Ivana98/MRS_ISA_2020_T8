@@ -11,12 +11,12 @@ insert into clinic (average_mark, name, address_id, clinical_center_id) values (
 insert into clinic (average_mark, name, address_id, clinical_center_id) values (0, 'klinika 2', 2, 1);
 -- insert into clinic (average_mark, name, address_id, clinical_center_id) values (0, 'klinika 3', 3, 2);
 
---Ivana zakom samo uloge
 insert into clinic_admin (id, email, name, password, phone, surname, address_id, clinic_id, enabled) values (nextval('cust_seq_user'), 'clinic.admin@gmail.com', 'Nikola', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0653355', 'Plecas', 1, 1, true);
 
 --insert into clinical_center_admin (email, name, password, phone, surname, address_id, clinical_center_id, enabled) values ('clinic.center.admin@gmail', 'jovan', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0614422', 'Plecas', 1, 1, true);
 
-insert into patient (id, email, name, password, phone, surname, allergy, blood_type, diopter, height, policyholder, weight, address_id, clinical_center_id, enabled) values (nextval('cust_seq_user'), 'patient@gmail.com', 'Mira', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '064703', 'Miokovic', 'Polen', 0, 'daljina 0.75', 187, 'zdravstveno osiguranje', 78, 1, 1, true);
+--insert into patient (id, email, name, password, phone, surname, allergy, blood_type, diopter, height, policyholder, weight, address_id, clinical_center_id, enabled) values (nextval('cust_seq_user'), 'patient@gmail.com', 'Mira', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '064703', 'Miokovic', 'Polen', 0, 'daljina 0.75', 187, 'zdravstveno osiguranje', 78, 1, 1, true);
+insert into patient (id, email, name, password, phone, surname, blood_type, diopter, height, policyholder, weight, address_id, clinical_center_id, enabled) values (nextval('cust_seq_user'), 'patient@gmail.com', 'Mira', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '064703', 'Miokovic', 0, 'daljina 0.75', 187, 'zdravstveno osiguranje', 78, 1, 1, true);
 
 insert into clinical_mark (mark, clinic_id, patient_id) values (0.0, 1, 2);
 
@@ -45,6 +45,9 @@ insert into medication (description, name) values ('Ovaj lek je samo za dusu', '
 insert into prescription (description, expiration_date, quantity, validated, medication_id, nurse_id) values ('Opis recepta', '2020-08-26 23:59', 2, true, 1, 3);
 
 insert into prescriptioning (prescription_id, examination_id) values (1, 1);
+
+INSERT INTO patient_allergy (patient_id, allergy) VALUES (2, 'polen');
+INSERT INTO patient_allergy (patient_id, allergy) VALUES (2, 'ambrozija');
 
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_CLINIC_ADMIN');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_CLINIC_CENTER_ADMIN');

@@ -4,13 +4,16 @@
 package com.team08.CCSystem.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -40,8 +43,8 @@ public class Patient extends User {
 	@Enumerated
 	private BloodType bloodType;
 	
-	@Column(name="allergy", unique=false, nullable=false)
-	private String allergy;
+	@ElementCollection
+	private Set<String> allergy;
 	
 	@Column(name="diopter", unique=false, nullable=false)
 	private String diopter;
@@ -80,7 +83,7 @@ public class Patient extends User {
 	 * @param doctorsMarks
 	 */
 	public Patient(Long id, String email, String name, String surname, Address address, String phone,
-			String password, String policyholder, int height, int weight, BloodType bloodType, String allergy,
+			String password, String policyholder, int height, int weight, BloodType bloodType, Set<String> allergy,
 			String diopter, ClinicalCenter clinicalCenter, Set<Examination> examinations, Set<ClinicMark> clinicsMarks,
 			Set<DoctorMark> doctorsMarks) {
 		super(id, email, name, surname, address, phone, password);
@@ -142,11 +145,11 @@ public class Patient extends User {
 		this.bloodType = bloodType;
 	}
 
-	public String getAllergy() {
+	public Set<String> getAllergy() {
 		return allergy;
 	}
 
-	public void setAllergy(String allergy) {
+	public void setAllergy(Set<String> allergy) {
 		this.allergy = allergy;
 	}
 

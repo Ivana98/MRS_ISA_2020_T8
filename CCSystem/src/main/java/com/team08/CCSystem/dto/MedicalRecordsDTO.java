@@ -1,5 +1,7 @@
 package com.team08.CCSystem.dto;
 
+import java.util.Set;
+
 public class MedicalRecordsDTO {
 	private String name;
 	private String surname;
@@ -7,7 +9,7 @@ public class MedicalRecordsDTO {
 	private int height;
 	private int weight;
 	private String bloodType;
-	private String allergies;
+	private Set<String> allergies;
 	private String diopter;
 	
 	public MedicalRecordsDTO() {}
@@ -15,7 +17,7 @@ public class MedicalRecordsDTO {
 	
 	
 	public MedicalRecordsDTO(String name, String surname, String policyholder, int height, int weight, String bloodType,
-			String allergies, String diopter) {
+			Set<String> allergies, String diopter) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -51,10 +53,10 @@ public class MedicalRecordsDTO {
 	public void setBloodType(String bloodType) {
 		this.bloodType = bloodType;
 	}
-	public String getAllergies() {
+	public Set<String> getAllergies() {
 		return allergies;
 	}
-	public void setAllergies(String allergies) {
+	public void setAllergies(Set<String> allergies) {
 		this.allergies = allergies;
 	}
 	public String getDiopter() {

@@ -202,31 +202,17 @@ public class UserService implements UserDetailsService{
 
 	public User findById(Long id) throws AccessDeniedException {
 		User u = patientRepository.findById(id).orElseGet(null);
-		return u;
+		if(u != null) return u;
+		
+		if((u = doctorRepository.findById(id).orElseGet(null)) != null) return u;
+		
+		if((u = nurseRepository.findById(id).orElseGet(null)) != null) return u;
+		
+		if((u = clinicAdminRepository.findById(id).orElseGet(null)) != null) return u;
+		
+		u = clinicalCenterRepository.findById(id).orElseGet(null);
+		return u;	
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<User> findAll() throws AccessDeniedException {
-		List<User> result = (List<User>)(List<?>)patientRepository.findAll();
-		return result;
-	}
-	
-/*
-	public User save(LoginDTO userRequest) {
-		User u = new User();
-		u.setUsername(userRequest.getUsername());
-		// pre nego sto postavimo lozinku u atribut hesiramo je
-		u.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-		u.setFirstName(userRequest.getFirstname());
-		u.setLastName(userRequest.getLastname());
-		u.setEnabled(true);
-		
-		List<Authority> auth = authService.findByname("ROLE_USER");
-		// u primeru se registruju samo obicni korisnici i u skladu sa tim im se i dodeljuje samo rola USER
-		u.setAuthorities(auth);
-		
-		u = this.userRepository.save(u);
-		return u;
-	}*/
 
 }
