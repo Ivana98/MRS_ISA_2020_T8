@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class TransferClinicService {
 
-  private clinic: Clinic = new Clinic(0, '', '', '', 0);
+  private clinic: Clinic = new Clinic(0, '', '', '', 0, []);
       //This is the key the Subject to transfer
   clinic$ = new BehaviorSubject<Clinic>(this.clinic);
 

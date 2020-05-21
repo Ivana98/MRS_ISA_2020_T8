@@ -52,14 +52,12 @@ export class DisplayClinicsComponent implements OnInit, AfterViewInit {
       this.clinicList = this.mdbTable.getDataSource();
     }
     if (this.searchText) {
-      //this.clinicList = this.mdbTable.searchLocalDataByMultipleFields(this.searchText, ['name', 'adressCity', 'adressStreet']); 
       this.clinicList = this.mdbTable.searchLocalDataBy(this.searchText);
       this.mdbTable.setDataSource(prev);
     }
   }
 
   rowSelected(cl: Clinic) {
-    console.log(cl);
     this._transferService.setClinic(cl);
     this._router.navigate(['/user-page/clinicsTable/clinic']);
   }
