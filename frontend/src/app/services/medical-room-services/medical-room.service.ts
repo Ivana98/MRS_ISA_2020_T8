@@ -49,7 +49,7 @@ export class MedicalRoomService {
    * @param id is ID of MedicalRoom which we want to delete
    */
   public deleteMedicalRoom(id) {
-    return this._httpClient.delete<Number>(this._url + "delete/" + id);
+    return this._httpClient.delete(this._url + "delete/" + id);
   }
 
   /**

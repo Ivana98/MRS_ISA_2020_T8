@@ -109,7 +109,7 @@ public class MedicalRoomControler {
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")
-	public ResponseEntity<Long> deleteMedicalRoom(@PathVariable Long id) {
+	public ResponseEntity<Void> deleteMedicalRoom(@PathVariable Long id) {
 		
 		MedicalRoom medicalRoom = medicalRoomService.findOne(id);
 		
@@ -118,9 +118,10 @@ public class MedicalRoomControler {
 		List<Examination> examinations = examinationService.findExaminationWithRoomIdAndAfterDate(id, new Date());
 		
 		if (examinations.isEmpty() || examinations == null || examinations.size() == 0) {
+			//TODO: pogledati da li ima pregleda u buducnosti
 			medicalRoomService.remove(id);
 			return new ResponseEntity<>(HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}

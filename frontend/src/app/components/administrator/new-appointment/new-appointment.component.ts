@@ -12,7 +12,7 @@ import { ClinicAdminService } from 'src/app/services/clinic-admin-service/clinic
 import { MedicalRoom } from 'src/app/model/medicalRoom';
 import { Examination } from 'src/app/model/examination';
 import { FreeExaminationToDisplay } from 'src/app/model/FreeExaminationToDisplay';
-import { Time } from '@angular/common';
+import { Time, formatDate } from '@angular/common';
 import { ExaminationService } from 'src/app/services/examination-service/examination.service';
 import { PriceService } from 'src/app/services/price-service/price.service';
 import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstrap-md';
@@ -60,7 +60,9 @@ export class NewAppointmentComponent implements OnInit, AfterViewInit {
   specialisationChecked: boolean = false;
 
   date = new Date();
+  dateChange = new Date();
   time: string;
+  timeChange: string;
 
   myControlDoctor = new FormControl();
   myControlDoctorChange = new FormControl();
@@ -187,9 +189,13 @@ export class NewAppointmentComponent implements OnInit, AfterViewInit {
       
       // price of object Price
       var price = examination.price;
+
+      var date = examination.date;
+
+      var formattedDate = formatDate(date, 'dd.MM.yyyy. HH:mm', 'en-US');
       
       // Add new FreeExaminationToDisplay object to list
-      this.examinations2.push(new FreeExaminationToDisplay(id, roomNumber, doctorName, duration, interventionType, specialisation, price));
+      this.examinations2.push(new FreeExaminationToDisplay(id, roomNumber, doctorName, duration, interventionType, specialisation, price, date, formattedDate));
     });
 
     this.mdbTable.setDataSource(this.examinations2);
@@ -378,6 +384,7 @@ export class NewAppointmentComponent implements OnInit, AfterViewInit {
   }
 
   /**
+   * Filter doctor list. This method will be called on every pressed word from keyboard.
    * 
    * @param value is data from doctor input
    * @returns Doctor list
@@ -423,6 +430,16 @@ export class NewAppointmentComponent implements OnInit, AfterViewInit {
   }
 
   /**
+   * Take date on date input on click
+   * 
+   * @param event is choosen date
+   */
+  public onDateChange(event): void {
+    this.dateChange = event;
+    console.log("Datum promenjen: " + this.dateChange);
+  }
+
+  /**
    * Set date and send request to add free examination to database
    */
   addFreeExamination() {
@@ -462,7 +479,7 @@ export class NewAppointmentComponent implements OnInit, AfterViewInit {
   }
 
   editFreeExamination() {
-    console.log("TODO: editFreeExamination() method")
+    console.log("TODO: editFreeExamination() method") 
   }
 
   /**
@@ -511,6 +528,9 @@ export class NewAppointmentComponent implements OnInit, AfterViewInit {
 
     $('#doctorInputChange').val(examination.doctorName);
     $('#roomInputChange').val(examination.roomNumber);
+    $('#dateInputChange').val(formatDate(examination.date, 'MM/dd/yyyy', 'en-US'));
+    $('#timeInputChange').val(formatDate(examination.date, 'HH:mm', 'en-US'));
+    
   }
 
 

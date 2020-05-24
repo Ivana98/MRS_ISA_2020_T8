@@ -20,28 +20,26 @@ import lombok.Data;
 public abstract class User {
 	
 	@Id
-//	@GeneratedValue(strategy = GenerationType.TABLE)
-//	@Column(name="id", unique=true, nullable=false)
-	@GeneratedValue(strategy=GenerationType.TABLE, generator="cust_seq_user")
-	@SequenceGenerator(name = "cust_seq_user", sequenceName = "cust_seq_user", initialValue = 1, allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.TABLE, generator = "cust_seq_user")
+	@SequenceGenerator(name = "cust_seq_user", sequenceName = "cust_seq_user", initialValue = 1, allocationSize = 1)
 	private Long id;
 	
 	@Column(name="email", unique=true, nullable=false)
 	private String email;
 	
-	@Column(name="name", unique=false, nullable=false)
+	@Column(name="name", nullable=false)
 	private String name;
 	
-	@Column(name="surname", unique=false, nullable=false)
+	@Column(name="surname", nullable=false)
 	private String surname;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Address address;
 	
-	@Column(name="phone", unique=false, nullable=false)
+	@Column(name="phone", nullable=false)
 	private String phone;
 	
-	@Column(name="password", unique=false, nullable=false)
+	@Column(name="password", nullable=false)
 	private String password;
 
 	/**
