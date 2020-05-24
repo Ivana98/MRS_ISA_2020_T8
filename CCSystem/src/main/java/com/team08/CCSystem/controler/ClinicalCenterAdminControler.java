@@ -44,13 +44,18 @@ public class ClinicalCenterAdminControler {
 		//List<Absence> absences = absencesService.findAll(); nije gotovo jos.
 		Set<Absence> absences = new HashSet<Absence>();
 		
-		ClinicalCenterAdmin clinicalCenterAdmin = new ClinicalCenterAdmin(clinicalCenterAdminRegistrationDTO.getId(), clinicalCenterAdminRegistrationDTO.getEmail(),
+		ClinicalCenterAdmin clinicalCenterAdminRegistration = new ClinicalCenterAdmin(clinicalCenterAdminRegistrationDTO.getId(), clinicalCenterAdminRegistrationDTO.getEmail(),
 							clinicalCenterAdminRegistrationDTO.getFirstName(), clinicalCenterAdminRegistrationDTO.getLastName(), address,
 							clinicalCenterAdminRegistrationDTO.getPhone(), clinicalCenterAdminRegistrationDTO.getPassword(),
 							absences,clinicalCenter);
 		
-		clinicalCenterAdmin = clinicalCentreAdminService.save(clinicalCenterAdmin);
+		//mozda treba ovo.
+		//clinicService.remove(clinic.getId());
+		clinicalCenter.getAdmins().add(clinicalCenterAdminRegistration);
+		clinicalCenterService.save(clinicalCenter);
 		
-		return new ResponseEntity<>(new ClinicalCenterAdminRegistrationDTO(clinicalCenterAdmin), HttpStatus.CREATED);
+		clinicalCentreAdminService.save(clinicalCenterAdminRegistration);
+		
+		return new ResponseEntity<>(clinicalCenterAdminRegistrationDTO, HttpStatus.CREATED);
 	}
 }

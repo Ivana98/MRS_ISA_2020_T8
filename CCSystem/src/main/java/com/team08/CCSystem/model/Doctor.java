@@ -61,6 +61,8 @@ public class Doctor extends User {
 	 * @param marks
 	 * @param averageMark
 	 */
+	public Doctor() {}
+	
 	public Doctor(Long id, String email, String name, String surname, Address address, String phone, String password,
 			Set<Absence> absences, Clinic clinic, Specialisation specialisation, Set<Examination> examinations,
 			Set<DoctorMark> marks, float averageMark) {

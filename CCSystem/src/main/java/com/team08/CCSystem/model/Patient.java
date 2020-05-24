@@ -107,6 +107,8 @@ public class Patient extends User {
 			String password) {
 		super(id, email, name, surname, address, phone, password);
 	}
+	
+	public Patient() {}
 
 	public String getPolicyholder() {
 		return policyholder;

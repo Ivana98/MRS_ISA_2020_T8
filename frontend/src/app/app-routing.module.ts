@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { DisplayClinicsComponent } from './components/patient/display-clinics/display-clinics.component';
 import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
@@ -13,6 +13,8 @@ import { MedicalRecordsComponent } from './components/patient/medical-records/me
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AddExaminationTypeComponent } from './components/add-examination-type/add-examination-type.component';
+import { TableOfPatientComponent } from './components/nurse/table-of-patient/table-of-patient.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'homepage', pathMatch: 'full' }, // Don't use prefix becasue empty path is a prefix to any path
@@ -27,10 +29,16 @@ const routes: Routes = [
       { path: 'registrationClinicAdmin', component: RegistrationClinicAdminComponent },
       { path: 'myProfile', component: UserProfileComponent},
       { path: 'medicalRecords', component: MedicalRecordsComponent},
-      { path: 'addExaminationType', component: AddExaminationTypeComponent }
+      { path: 'addExaminationType', component: AddExaminationTypeComponent },
+     
     ]
   },
- 
+  { path: 'nurse', component: UserPageComponent ,
+  children: [
+    { path: 'tableOfPatient', component: TableOfPatientComponent }
+
+  ]
+  },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -39,7 +47,7 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [HomePageComponent, AddEmployeeComponent, 
+export const routingComponents = [HomePageComponent, 
   UserPageComponent, AddDoctorComponent, AddMedicalRoomComponent, DisplayClinicsComponent,
   RegistrationClinicAdminComponent, LoginComponent,
-  RegisterComponent, AddExaminationTypeComponent, MedicalRecordsComponent]
+  RegisterComponent, AddExaminationTypeComponent, MedicalRecordsComponent,TableOfPatientComponent]

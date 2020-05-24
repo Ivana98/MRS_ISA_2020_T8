@@ -35,7 +35,7 @@ public class Prescription {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "validated", nullable = false, unique = false)
 	private boolean validated;
@@ -70,7 +70,7 @@ public class Prescription {
 	 * @param description
 	 * @param examinations
 	 */
-	public Prescription(Integer id, boolean validated, int quantity, Date expirationDate, Nurse nurse,
+	public Prescription(Long id, boolean validated, int quantity, Date expirationDate, Nurse nurse,
 			Medication medication, String description, Set<Examination> examinations) {
 		super();
 		this.id = id;
@@ -90,11 +90,11 @@ public class Prescription {
 		super();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

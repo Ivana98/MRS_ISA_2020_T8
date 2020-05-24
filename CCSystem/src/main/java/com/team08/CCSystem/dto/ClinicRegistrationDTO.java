@@ -1,5 +1,7 @@
 package com.team08.CCSystem.dto;
 
+import com.team08.CCSystem.model.Clinic;
+
 public class ClinicRegistrationDTO {
 		private Long id;
 		private String name;
@@ -8,6 +10,27 @@ public class ClinicRegistrationDTO {
 		private String street;
 		private String clinicalCenter_id;
 		
+		
+		
+		public ClinicRegistrationDTO(Clinic clinic) {
+			super();
+			this.setId(clinic.getId());
+			this.setName(clinic.getName());
+			this.setCountry(clinic.getAddress().getCountry());
+			this.setCity(clinic.getAddress().getCity());
+			this.setStreet(clinic.getAddress().getStreet());
+			this.setClinicalCenter_id(clinic.getClinicalCenter().getId() + "");//Konvertovanje long-a u string.
+		}
+		public ClinicRegistrationDTO(Long id, String name, String country, String city, String street,
+				String clinicalCenter_id) {
+			super();
+			this.id = id;
+			this.name = name;
+			this.country = country;
+			this.city = city;
+			this.street = street;
+			this.clinicalCenter_id = clinicalCenter_id;
+		}
 		public Long getId() {
 			return id;
 		}

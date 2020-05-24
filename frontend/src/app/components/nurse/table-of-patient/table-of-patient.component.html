@@ -1,0 +1,32 @@
+<p>table-of-patient works!</p>
+
+
+<div class="container">
+    <table mdbTable #tableEl="mdbTable" hover="true" class="table text-position z-depth-1">
+        <thead class="black white-text">
+            <tr>
+                <th></th>
+                <th [mdbTableSort]="patientList" sortBy="name">Name&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="patientList" sortBy="addressStreet">Surname&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="patientList" sortBy="adressCity">Email&nbsp;<i class="fas fa-sort"></i></th>
+                <th [mdbTableSort]="patientList" sortBy="averageMark">Phone&nbsp;<i class="fas fa-sort"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr mdbTableCol *ngFor="let p of patientList; let i = index;">
+                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i + 1}}</th>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{p.name}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{p.surname}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{p.email}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{p.phone}}</td>
+            </tr>
+        </tbody>
+        <tfoot class="grey lighten-5 w-100">
+            <tr>
+                <td colspan="5">
+                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="patientList"></mdb-table-pagination>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
