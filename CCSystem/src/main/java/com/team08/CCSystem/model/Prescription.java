@@ -37,23 +37,23 @@ public class Prescription {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "validated", nullable = false, unique = false)
+	@Column(name = "validated", nullable = false)
 	private boolean validated;
 	
-	@Column(name = "quantity", nullable = false, unique = false)
+	@Column(name = "quantity", nullable = false)
 	private int quantity;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "expirationDate", nullable = false, unique = false)
+	@Column(name = "expirationDate", nullable = false)
 	private Date expirationDate; //expiration date of prescription
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Nurse nurse;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Medication medication;
 	
-	@Column(name = "description", nullable = false, unique = false)
+	@Column(name = "description", nullable = false)
 	private String description;
 	
 	@ManyToMany

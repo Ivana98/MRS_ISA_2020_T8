@@ -29,13 +29,10 @@ public class ExaminationType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-//	@Column(name = "price", nullable = false, unique = false)
-//	private double price;
-	
 	/*
 	 * Duration in minutes
 	 */
-	@Column(name = "duration", nullable = false, unique = false)
+	@Column(name = "duration", nullable = false)
 	private int duration;
 	
 	@Enumerated

@@ -37,7 +37,7 @@ public class MedicalRoom {
 	@Enumerated
 	private InterventionType intervensionType;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Clinic clinic;
 
 	/**

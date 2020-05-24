@@ -29,6 +29,7 @@
                 <th></th>
                 <th [mdbTableSort]="examinations2" sortBy="roomNumber">Room number&nbsp;<i class="fas fa-sort"></i> </th>
                 <th [mdbTableSort]="examinations2" sortBy="doctorName">Doctor name&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinations2" sortBy="date">Date&nbsp;<i class="fas fa-sort"></i> </th>
                 <th [mdbTableSort]="examinations2" sortBy="duration">Duration&nbsp;<i class="fas fa-sort"></i> </th>
                 <th [mdbTableSort]="examinations2" sortBy="interventionType">Intervention type&nbsp;<i class="fas fa-sort"></i> </th>
                 <th [mdbTableSort]="examinations2" sortBy="specialisation">Specialisation&nbsp;<i class="fas fa-sort"></i> </th>
@@ -41,6 +42,7 @@
                 <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i + 1}}</th>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.roomNumber}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.doctorName}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.formattedDate}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.duration}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.interventionType}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.specialisation}}</td>
@@ -169,74 +171,93 @@
                 </div>
             </div>
         
+            <!-- MODIFY FREE APPOINTMENT DIALOG -->
             <div class="col">
-                <!-- MODIFY FREE APPOINTMENT DIALOG -->
+                <div class="container">
+                    <!-- SPECIALISATION -->
+                    <div class="row">
+                        <div class="col-4" style="padding-top: 0.1rem;">
+                            <div class="md-form">
+                                <mat-form-field>
+                                    <mat-label>Specialisation</mat-label>
+                                    <mat-select [(ngModel)]="examinationChange.specialisation"> <!-- [(ngModel)]= -->
+                                        <mat-option *ngFor="let spec of specialisations" [value]="spec" (click)="setDoctorsChange(spec)">{{spec}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- SPECIALISATION -->
-                <div class="row">
-                    <div class="col-4" style="padding-top: 0.1rem;">
-                        <div class="md-form">
-                            <mat-form-field>
-                                <mat-label>Specialisation</mat-label>
-                                <mat-select [(ngModel)]="examinationChange.specialisation"> <!-- [(ngModel)]= -->
-                                    <mat-option *ngFor="let spec of specialisations" [value]="spec" (click)="setDoctorsChange(spec)">{{spec}}</mat-option>
-                                </mat-select>
+                    <!-- DOCTOR -->
+                    <div class="row">
+                        <div class="col-4">
+                            <form class="example-form">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text" id="doctorInputChange"
+                                        placeholder="Pick doctor"
+                                        aria-label="Number"
+                                        matInput
+                                        [formControl]="myControlDoctorChange"
+                                        [matAutocomplete]="autoDoctorChange">
+                                    <mat-autocomplete #autoDoctorChange="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredOptionsDoctorChange | async" [value]="option.firstName + ' ' + option.lastName" (click)="selectDoctorChange(option)">
+                                            {{option.firstName + " " + option.lastName}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- ROOM -->
+                    <div class="row">
+                        <div class="col-4">
+                            <form class="example-form">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text" id="roomInputChange"
+                                        placeholder="Pick room"
+                                        aria-label="Number"
+                                        matInput
+                                        [formControl]="myControlRoomChange"
+                                        [matAutocomplete]="autoRoomChange">
+                                    <mat-autocomplete #autoRoomChange="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredOptionsMedicalRoomChange | async" [value]="option.room_number" (click)="selectRoomChange(option)">
+                                            {{ option.room_number }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </form>
+                        </div>
+                    </div>
+
+                     <!-- DATE -->
+                     <div class="row">
+                        <div class="col-4">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Choose a date</mat-label>
+                                <input id="dateInputChange" matInput [matDatepicker]="pickerChange" [(ngModel)]="dateChange" disabled>
+                                <mat-datepicker-toggle matSuffix [for]="pickerChange"></mat-datepicker-toggle>
+                                <mat-datepicker touchUi #pickerChange ngDefaultControl [(ngModel)]="dateChange" (dateInput)="onDateChange($event)" disabled="false"></mat-datepicker>
                             </mat-form-field>
                         </div>
                     </div>
-                </div>
 
-                <!-- DOCTOR -->
-                <div class="row">
-                    <div class="col-4">
-                        <form class="example-form">
-                            <mat-form-field class="example-full-width">
-                                <input type="text" id="doctorInputChange"
-                                    placeholder="Pick doctor"
-                                    aria-label="Number"
-                                    matInput
-                                    [formControl]="myControlDoctorChange"
-                                    [matAutocomplete]="autoDoctorChange">
-                                <mat-autocomplete #autoDoctorChange="matAutocomplete">
-                                    <mat-option *ngFor="let option of filteredOptionsDoctorChange | async" [value]="option.firstName + ' ' + option.lastName" (click)="selectDoctorChange(option)">
-                                        {{option.firstName + " " + option.lastName}}
-                                    </mat-option>
-                                </mat-autocomplete>
-                            </mat-form-field>
-                        </form>
+                    <!-- TIME -->
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="md-form">
+                                <input type="time" id="timeInputChange" class="form-control" value="13:00" mdbInput [(ngModel)]="timeChange" />
+                                <label for="timeInputChange">Choose time</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <button type="button" mdbBtn col-4or="light" mdbWavesEffect (click)="editFreeExamination();">Edit</button>
+                        </div>
                     </div>
                 </div>
-
-                <!-- ROOM -->
-                <div class="row">
-                    <div class="col-4">
-                        <form class="example-form">
-                            <mat-form-field class="example-full-width">
-                                <input type="text" id="roomInputChange"
-                                    placeholder="Pick room"
-                                    aria-label="Number"
-                                    matInput
-                                    [formControl]="myControlRoomChange"
-                                    [matAutocomplete]="autoRoomChange">
-                                <mat-autocomplete #autoRoomChange="matAutocomplete">
-                                    <mat-option *ngFor="let option of filteredOptionsMedicalRoomChange | async" [value]="option.room_number" (click)="selectRoomChange(option)">
-                                        {{ option.room_number }}
-                                    </mat-option>
-                                </mat-autocomplete>
-                            </mat-form-field>
-                        </form>
-                    </div>
-                </div>
-
-
-
-
-                <div class="row">
-                    <div class="col-4">
-                        <button type="button" mdbBtn col-4or="light" mdbWavesEffect (click)="editFreeExamination();">Edit</button>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>

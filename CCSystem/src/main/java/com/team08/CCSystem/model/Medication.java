@@ -28,7 +28,7 @@ public class Medication {
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
 	
-	@Column(name = "description", nullable = true, unique = false)
+	@Column(name = "description", nullable = true)
 	private String description;
 
 	/**

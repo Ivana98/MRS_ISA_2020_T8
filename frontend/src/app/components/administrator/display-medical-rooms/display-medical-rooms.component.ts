@@ -47,8 +47,7 @@ export class DisplayMedicalRoomsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
-
+    this.mdbTablePagination.setMaxVisibleItemsNumberTo(6);
     this.mdbTablePagination.calculateFirstItemIndex();
     this.mdbTablePagination.calculateLastItemIndex();
     this.cdRef.detectChanges();
@@ -92,16 +91,21 @@ export class DisplayMedicalRoomsComponent implements OnInit, AfterViewInit {
 
   takeId(room) {
     this.medical_room.id = room.id;
+    // this._httpMedicalRoomService.deleteMedicalRoom(this.medical_room.id)
+    //   .subscribe( data => {
+    //     console.log(data);
+    //   });
+  }
+
+  deleteRoom() {
     this._httpMedicalRoomService.deleteMedicalRoom(this.medical_room.id)
       .subscribe( data => {
         console.log(data);
       });
-  }
-
-  deleteRoom() {
-      this.rooms.forEach( (item, index) => {
-        if(item.id === this.medical_room.id) this.rooms.splice(index,1);
-      });
+      
+    this.rooms.forEach( (item, index) => {
+      if(item.id === this.medical_room.id) this.rooms.splice(index,1);
+    });
   }
 
   onChange(data){
@@ -118,8 +122,11 @@ export class DisplayMedicalRoomsComponent implements OnInit, AfterViewInit {
       this._httpMedicalRoomService.addRoom(this.medical_room)
       .subscribe(
         data => {
+          console.log(data);
+          // this.rooms.push(new MedicalRoom(data.id, data.room_number, data.intervention_type, data.clinic_id));  
           alert("Room created successfully.");
-
+          this.rooms.push(data);
+          this.ngAfterViewInit(); //CHANGEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
           /* clean input fields */
           this.clearRoom();
         }
@@ -127,6 +134,9 @@ export class DisplayMedicalRoomsComponent implements OnInit, AfterViewInit {
     } else {
       alert("Fill other inputs.");
     }
+  }
+
+  close() {
   }
 
 }

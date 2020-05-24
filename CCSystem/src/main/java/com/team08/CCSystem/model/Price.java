@@ -18,6 +18,7 @@ import lombok.Data;
 /**
  * @author Veljko
  *
+ * This class is actually ExaminationType from price list.
  */
 @Entity
 @Data
@@ -29,13 +30,13 @@ public class Price {
 	@Column(nullable = false)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private Clinic clinic;
 	
-	@Column(name = "price", nullable = false, unique = false)
+	@Column(name = "price", nullable = false)
 	private double price;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private ExaminationType examinationType;
 
 	/**

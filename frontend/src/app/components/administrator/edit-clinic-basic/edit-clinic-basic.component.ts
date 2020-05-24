@@ -11,7 +11,7 @@ export class EditClinicBasicComponent implements OnInit {
 
   // clinic: ClinicBasic = new ClinicBasic(null, "", "", "", "", "", 0);
   clinicId: number = 1;
-  clinic: IClinicBasic; //ako validacija da su sva polja popunjena bude radila bez provere svakog polja, onda ovo ostaje.
+  clinic: ClinicBasic = new ClinicBasic(0, "", "", "", "", "", 0); //ako validacija da su sva polja popunjena bude radila bez provere svakog polja, onda ovo ostaje.
   clinicName: string;
 
   constructor(

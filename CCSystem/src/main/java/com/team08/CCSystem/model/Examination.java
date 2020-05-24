@@ -36,22 +36,19 @@ public class Examination {
 	private Long id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date", nullable = false, unique = false)
+	@Column(name = "date", nullable = false)
 	private Date date;
 	
-	@Column(name = "wasOnExamination", nullable = false, unique = false)
+	@Column(name = "wasOnExamination", nullable = false)
 	private boolean wasOnExamination;
 	
-	@Column(name = "description", nullable = true, unique = false) 
+	@Column(name = "description", nullable = true) 
 	private String description;
 	
-	@Column(name = "discount", nullable = true, unique = false) 
+	@Column(name = "discount", nullable = true) 
 	private float discount;
 	
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	private ExaminationType examinationType;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Price price;
 	
 	@ManyToMany(mappedBy = "examinations")
@@ -60,13 +57,13 @@ public class Examination {
 	@ManyToMany(mappedBy = "examinations")
 	private Set<Disease> diseases = new HashSet<>();
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private MedicalRoom medicalRoom;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Doctor doctor; //doctor
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private Doctor doctor;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Patient patient;
 
 	/**

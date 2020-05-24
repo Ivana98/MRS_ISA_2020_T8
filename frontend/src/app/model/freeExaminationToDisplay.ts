@@ -5,7 +5,9 @@ export interface IFreeExaminationToDisplay {
     duration: number,
     interventionType: string,
     specialisation: string,
-    price: number
+    price: number,
+    date: Date,
+    formattedDate: string
 }
 
 export class FreeExaminationToDisplay {
@@ -16,7 +18,9 @@ export class FreeExaminationToDisplay {
         public duration: number,
         public interventionType: string,
         public specialisation: string,
-        public price: number
+        public price: number,
+        public date: Date,
+        public formattedDate: string
     ) {} 
 
     /* If any of fields are empty return false */

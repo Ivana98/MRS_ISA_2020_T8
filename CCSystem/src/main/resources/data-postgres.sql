@@ -40,6 +40,7 @@ insert into examination_type (duration, intervention_type, specialisation) value
 insert into examination_type (duration, intervention_type, specialisation) values (90, 1, 3); --id=9
 insert into examination_type (duration, intervention_type, specialisation) values (80, 1, 4); --id=10
 
+-- rooms 
 -- clinic id=1
 insert into medical_room (intervension_type, room_number, clinic_id) values (1, '111', 1);
 insert into medical_room (intervension_type, room_number, clinic_id) values (1, '208a', 1);
