@@ -62,6 +62,9 @@ public class UserService implements UserDetailsService{
 
 	@Autowired
 	private AuthorityService authService;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	// Funkcija koja na osnovu username-a iz baze vraca objekat User-a
 	//username je email adresa
@@ -215,4 +218,21 @@ public class UserService implements UserDetailsService{
 	}
 
 
+	
+	public User findOne(Long id) {
+		return userRepository.findById(id).orElseGet(null);
+	}
+	
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
+	
+	public User save(User user) {
+		return userRepository.save(user);
+	}
+	
+	public void remove(Long id) {
+		userRepository.deleteById(id);
+	}
+	
 }

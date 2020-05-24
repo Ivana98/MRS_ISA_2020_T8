@@ -31,19 +31,19 @@ public class Doctor extends User {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Absence> absences = new HashSet<>();
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Clinic clinic;  // clinic to which doctor belongs
 	
 	@Enumerated
 	private Specialisation specialisation;
 	
-	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Set<Examination> examinations = new HashSet<>();
 	
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<DoctorMark> marks = new HashSet<>();
 	
-	@Column(name="averageMark", unique=false, nullable=false)
+	@Column(name="averageMark")
 	private float averageMark;
 	
 	public Doctor() {}

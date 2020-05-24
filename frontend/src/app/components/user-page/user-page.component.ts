@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit, NgModule, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HomePageComponent } from '../home-page/home-page.component';
-import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 import { MdbTableDirective } from 'angular-bootstrap-md';
 import { SomeLogicService } from 'src/app/some-logic.service';
 import { AuthService } from 'src/app/services/authService/auth.service';
@@ -17,6 +16,7 @@ export class UserPageComponent implements OnInit {
 
   message:string;
   sub:string;
+  role: string;
 
 constructor( private _someLogic: SomeLogicService, private _authService: AuthService) { } 
 @HostListener('input') oninput() { } 

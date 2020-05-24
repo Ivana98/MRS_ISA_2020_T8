@@ -25,12 +25,8 @@ import lombok.Data;
 @Table(name = "Nurse")
 public class Nurse extends User {
 
-	@Override
-	public String toString() {
-		return "Nurse [clinic=" + clinic + ", absences=" + absences + "]" + this.getEmail() + " " + this.getName();
-	}
-
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Clinic clinic;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

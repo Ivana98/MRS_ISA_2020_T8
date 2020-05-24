@@ -10,6 +10,7 @@ import com.team08.CCSystem.model.Address;
  *
  */
 public class AddressDTO {
+	
 	private Long id;
 	private String street;
 	private String city;

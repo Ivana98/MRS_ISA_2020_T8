@@ -31,10 +31,10 @@ public class DoctorMark {
 	@Column(name = "mark", nullable = false, unique = false)
 	private float mark; //from 0 to 5
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Doctor doctor;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Patient patient;
 
 	/**

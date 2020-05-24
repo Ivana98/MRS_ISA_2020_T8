@@ -12,7 +12,7 @@
 
 ## Built With
 
-* [Spring](https://spring.io/) - The web framework used
+* [Spring Boot](https://spring.io/) - The web framework used
 * [Maven](https://maven.apache.org/) - Dependency Management
 
 <!--

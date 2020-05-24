@@ -38,4 +38,8 @@ public class DoctorService {
 		doctorRepository.deleteById(id);
 	}
 	
+	public List<Doctor> findAllByClinic(Long clinicId) {
+		return doctorRepository.findAllByClinic(clinicId);
+	}
+	
 }

@@ -1,0 +1,299 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Free appointments</h1>
+        </div>
+        <div class="col align-self-end">
+            <div class="float-right">
+                <button mat-raised-button color="primary" data-toggle="modal" data-target="#addRoom">
+                    Add new&nbsp;<mat-icon style="font-size: 21px;">add</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEARCH INPUT -->
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+          <div class="md-form">
+            <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput/>
+            <label for="search">Search</label>
+          </div>
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <table mdbTable #tableEl="mdbTable" hover="true" class="table text-position z-depth-1">
+        <thead class="black white-text">
+            <tr>
+                <th></th>
+                <th [mdbTableSort]="examinations2" sortBy="roomNumber">Room number&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinations2" sortBy="doctorName">Doctor name&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinations2" sortBy="date">Date&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinations2" sortBy="duration">Duration&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinations2" sortBy="interventionType">Intervention type&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinations2" sortBy="specialisation">Specialisation&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinations2" sortBy="price">Price&nbsp;<i class="fas fa-sort"></i> </th>
+                <th>Actions</th>
+            </tr>
+        </thead>   
+        <tbody>
+            <tr mdbTableCol *ngFor="let cl of examinations2; let i = index;"><!-- (click)="getRow(cl)"-->
+                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i + 1}}</th>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.roomNumber}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.doctorName}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.formattedDate}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.duration}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.interventionType}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.specialisation}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.price}}</td>
+                <td>
+                    <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon" (click)="takeExamination(cl)"> <!-- (click)="editRoom(cl)"  data-toggle="modal" data-target="#exampleModal"-->
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon" (click)="takeId(cl)" (click)="frame.show()"><!--(click)="takeId(cl)" (click)="frame.show()"-->
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot class="grey lighten-5 w-100">
+            <tr>
+                <td colspan="9">
+                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="rooms"></mdb-table-pagination>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- ADDING AND MODIFYING FREE APOINTMENT -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <!-- ADD FREE APPOINTMENT DIALOG -->
+                <div class="container">
+                    <!-- 
+                        1. Display SPECIALISATIONS from clinic. From Price objects from clinic we see
+                        specialisations which current clinic has.
+                        2. Depending on the choosen specialisation display DOCTORS.
+                        3. Display ROOMS with intervention type examinaiton.
+                        4. Date and time input.
+                        
+                        Intervention type is always examination.
+                        Price and duration read from database by examination, intervention-type and clinic.
+                        Display in label how long this examination last and price.
+                    -->
+
+                    <!-- SPECIALISATION -->
+                    <div class="row">
+                        <div class="col-4" style="padding-top: 0.1rem;">
+                            <div class="md-form">
+                                <mat-form-field>
+                                    <mat-label>Specialisation</mat-label>
+                                    <mat-select [(ngModel)]="examination.specialisation"> <!-- [(ngModel)]= -->
+                                        <mat-option *ngFor="let spec of specialisations" [value]="spec" (click)="setDoctors(spec)">{{spec}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DOCTOR -->
+                    <div class="row">
+                        <div class="col-4">
+                            <form class="example-form">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text" id="doctorInput"
+                                        placeholder="Pick doctor"
+                                        aria-label="Number"
+                                        matInput
+                                        [formControl]="myControlDoctor"
+                                        [matAutocomplete]="autoDoctor">
+                                    <mat-autocomplete #autoDoctor="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredOptionsDoctor | async" [value]="option.firstName + ' ' + option.lastName" (click)="selectDoctor(option)">
+                                            {{option.firstName + " " + option.lastName}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- ROOM -->
+                    <div class="row">
+                        <div class="col-4">
+                            <form class="example-form">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text"
+                                        placeholder="Pick room"
+                                        aria-label="Number"
+                                        matInput
+                                        [formControl]="myControlRoom"
+                                        [matAutocomplete]="autoRoom">
+                                    <mat-autocomplete #autoRoom="matAutocomplete">
+                                        <mat-option *ngFor="let option2 of filteredOptionsMedicalRoom | async" [value]="option2.room_number" (click)="selectRoom(option2)">
+                                            {{ option2.room_number }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- DATE -->
+                    <div class="row">
+                        <div class="col-4">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Choose a date</mat-label>
+                                <input matInput [matDatepicker]="picker" [(ngModel)]="date" disabled>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker touchUi #picker ngDefaultControl [(ngModel)]="date" (dateInput)="onDate($event)" disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- TIME -->
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="md-form">
+                                <input type="time" id="input" class="form-control" value="13:00" mdbInput [(ngModel)]="time" />
+                                <label for="input">Choose time</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ADD BUTTON -->
+                    <div class="row">
+                        <div class="col-4">
+                            <button type="button" mdbBtn col-4or="light" mdbWavesEffect (click)="addFreeExamination();">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- MODIFY FREE APPOINTMENT DIALOG -->
+            <div class="col">
+                <div class="container">
+                    <!-- SPECIALISATION -->
+                    <div class="row">
+                        <div class="col-4" style="padding-top: 0.1rem;">
+                            <div class="md-form">
+                                <mat-form-field>
+                                    <mat-label>Specialisation</mat-label>
+                                    <mat-select [(ngModel)]="examinationChange.specialisation"> <!-- [(ngModel)]= -->
+                                        <mat-option *ngFor="let spec of specialisations" [value]="spec" (click)="setDoctorsChange(spec)">{{spec}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DOCTOR -->
+                    <div class="row">
+                        <div class="col-4">
+                            <form class="example-form">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text" id="doctorInputChange"
+                                        placeholder="Pick doctor"
+                                        aria-label="Number"
+                                        matInput
+                                        [formControl]="myControlDoctorChange"
+                                        [matAutocomplete]="autoDoctorChange">
+                                    <mat-autocomplete #autoDoctorChange="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredOptionsDoctorChange | async" [value]="option.firstName + ' ' + option.lastName" (click)="selectDoctorChange(option)">
+                                            {{option.firstName + " " + option.lastName}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- ROOM -->
+                    <div class="row">
+                        <div class="col-4">
+                            <form class="example-form">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text" id="roomInputChange"
+                                        placeholder="Pick room"
+                                        aria-label="Number"
+                                        matInput
+                                        [formControl]="myControlRoomChange"
+                                        [matAutocomplete]="autoRoomChange">
+                                    <mat-autocomplete #autoRoomChange="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredOptionsMedicalRoomChange | async" [value]="option.room_number" (click)="selectRoomChange(option)">
+                                            {{ option.room_number }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </form>
+                        </div>
+                    </div>
+
+                     <!-- DATE -->
+                     <div class="row">
+                        <div class="col-4">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Choose a date</mat-label>
+                                <input id="dateInputChange" matInput [matDatepicker]="pickerChange" [(ngModel)]="dateChange" disabled>
+                                <mat-datepicker-toggle matSuffix [for]="pickerChange"></mat-datepicker-toggle>
+                                <mat-datepicker touchUi #pickerChange ngDefaultControl [(ngModel)]="dateChange" (dateInput)="onDateChange($event)" disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- TIME -->
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="md-form">
+                                <input type="time" id="timeInputChange" class="form-control" value="13:00" mdbInput [(ngModel)]="timeChange" />
+                                <label for="timeInputChange">Choose time</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <button type="button" mdbBtn col-4or="light" mdbWavesEffect (click)="editFreeExamination();">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
+    
+
+
+
+    <!-- DELETE - ARE YOU SURE -->
+    <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+            <!--Content-->
+            <div class="modal-content text-center">
+                <!--Header-->
+                <div class="modal-header d-flex justify-content-center">
+                    <p class="heading">Are you sure?</p>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body">
+                    <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+                </div>
+
+                <!--Footer-->
+                <div class="modal-footer justify-content-center">
+                    <a type="button" mdbBtn color="danger" outline="true" class="waves-effect" 
+                    mdbWavesEffect (click)="frame.hide()" (click)="deleteFreeExamination()">Yes</a>
+                    <a type="button" mdbBtn color="danger" class="waves-effect" 
+                    mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">No</a>
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+</div>
+

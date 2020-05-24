@@ -36,20 +36,20 @@ public class Examination {
 	private Long id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date", nullable = false, unique = false)
+	@Column(name = "date", nullable = false)
 	private Date date;
 	
-	@Column(name = "wasOnExamination", nullable = false, unique = false)
+	@Column(name = "wasOnExamination", nullable = false)
 	private boolean wasOnExamination;
 	
-	@Column(name = "description", nullable = false, unique = false) 
+	@Column(name = "description", nullable = true) 
 	private String description;
 	
-	@Column(name = "discount", nullable = false, unique = false) 
+	@Column(name = "discount", nullable = true) 
 	private float discount;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private ExaminationType examinationType;
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private Price price;
 	
 	@ManyToMany(mappedBy = "examinations")
 	private Set<Prescription> prescriptions = new HashSet<>();
@@ -57,13 +57,13 @@ public class Examination {
 	@ManyToMany(mappedBy = "examinations")
 	private Set<Disease> diseases = new HashSet<>();
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private MedicalRoom medicalRoom;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Doctor doctor; //doctor
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private Doctor doctor;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Patient patient;
 
 	/**
@@ -72,7 +72,7 @@ public class Examination {
 	 * @param wasOnExamination
 	 * @param description
 	 * @param discount
-	 * @param examinationType
+	 * @param price
 	 * @param prescriptions
 	 * @param diseases
 	 * @param medicalRoom
@@ -80,15 +80,15 @@ public class Examination {
 	 * @param patient
 	 */
 	public Examination(Long id, Date date, boolean wasOnExamination, String description, float discount,
-			ExaminationType examinationType, Set<Prescription> prescriptions, Set<Disease> diseases,
-			MedicalRoom medicalRoom, Doctor doctor, Patient patient) {
+			Price price, Set<Prescription> prescriptions, Set<Disease> diseases, MedicalRoom medicalRoom,
+			Doctor doctor, Patient patient) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.wasOnExamination = wasOnExamination;
 		this.description = description;
 		this.discount = discount;
-		this.examinationType = examinationType;
+		this.price = price;
 		this.prescriptions = prescriptions;
 		this.diseases = diseases;
 		this.medicalRoom = medicalRoom;
@@ -119,7 +119,7 @@ public class Examination {
 		this.date = date;
 	}
 
-	public boolean isWasOnExamination() {
+	public boolean getWasOnExamination() {
 		return wasOnExamination;
 	}
 
@@ -143,12 +143,12 @@ public class Examination {
 		this.discount = discount;
 	}
 
-	public ExaminationType getExaminationType() {
-		return examinationType;
+	public Price getPrice() {
+		return price;
 	}
 
-	public void setExaminationType(ExaminationType examinationType) {
-		this.examinationType = examinationType;
+	public void setPrice(Price price) {
+		this.price = price;
 	}
 
 	public Set<Prescription> getPrescriptions() {

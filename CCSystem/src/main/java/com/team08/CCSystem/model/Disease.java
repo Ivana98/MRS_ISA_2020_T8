@@ -34,7 +34,7 @@ public class Disease {
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
 	
-	@Column(name = "description", nullable = false, unique = false)
+	@Column(name = "description", nullable = false)
 	private String description;
 	
 	@ManyToMany

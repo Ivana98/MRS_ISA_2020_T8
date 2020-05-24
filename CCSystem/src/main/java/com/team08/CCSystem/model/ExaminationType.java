@@ -29,13 +29,10 @@ public class ExaminationType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "price", nullable = false, unique = false)
-	private double price;
-	
 	/*
 	 * Duration in minutes
 	 */
-	@Column(name = "duration", nullable = false, unique = false)
+	@Column(name = "duration", nullable = false)
 	private int duration;
 	
 	@Enumerated
@@ -51,11 +48,11 @@ public class ExaminationType {
 	 * @param interventionType
 	 * @param specialisation
 	 */
-	public ExaminationType(Long id, double price, int duration, InterventionType interventionType,
+	public ExaminationType(Long id, int duration, InterventionType interventionType,
 			Specialisation specialisation) {
 		super();
 		this.id = id;
-		this.price = price;
+//		this.price = price;
 		this.duration = duration;
 		this.interventionType = interventionType;
 		this.specialisation = specialisation;
@@ -76,13 +73,15 @@ public class ExaminationType {
 		this.id = id;
 	}
 
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
+//	public double getPrice() {
+//		return price;
+//	}
+//
+//	public void setPrice(double price) {
+//		this.price = price;
+//	}
+	
+	
 
 	public int getDuration() {
 		return duration;

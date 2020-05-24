@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team08.CCSystem.model.MedicalRoom;
+import com.team08.CCSystem.model.enums.InterventionType;
 import com.team08.CCSystem.repository.MedicalRoomRepository;
 
 /**
@@ -35,6 +36,14 @@ public class MedicalRoomService {
 	
 	public void remove(Long id) {
 		medicalRoomRepository.deleteById(id);
+	}
+	
+	public List<MedicalRoom> findAllByClinic(Long clinicId) {
+		return medicalRoomRepository.findAllByClinic(clinicId);
+	}
+
+	public List<MedicalRoom> findAllByClinicAndExamination(Long clinicId, InterventionType it) {
+		return medicalRoomRepository.findAllByClinicAndExamination(clinicId, it);
 	}
 
 }
