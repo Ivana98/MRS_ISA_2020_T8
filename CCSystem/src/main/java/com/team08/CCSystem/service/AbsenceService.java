@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package com.team08.CCSystem.service;
 
 import java.util.List;
@@ -11,13 +9,13 @@ import org.springframework.stereotype.Service;
 import com.team08.CCSystem.model.Absence;
 import com.team08.CCSystem.repository.AbsenceRepository;
 
+
 /**
  * @author Veljko
  *
  */
 @Service
 public class AbsenceService {
-	
 	@Autowired
 	private AbsenceRepository absenceRepository;
 	
@@ -36,5 +34,4 @@ public class AbsenceService {
 	public void remove(Long id) {
 		absenceRepository.deleteById(id);
 	}
-
 }

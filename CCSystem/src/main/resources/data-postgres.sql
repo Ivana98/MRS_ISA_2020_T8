@@ -10,14 +10,13 @@ insert into clinic (average_mark, name, description, address_id, clinical_center
 
 insert into clinic_admin (id, email, name, password, phone, surname, address_id, clinic_id, enabled) values (nextval('cust_seq_user'), 'clinic.admin@gmail.com', 'Nikola', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0653355', 'Plecas', 1, 1, true);
 
-insert into patient (id, email, name, password, phone, surname, blood_type, diopter, height, policyholder, weight, address_id, clinical_center_id, enabled) values (nextval('cust_seq_user'), 'patient@gmail.com', 'Mira', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '064703', 'Miokovic', 0, 'daljina 0.75', 187, 'zdravstveno osiguranje', 78, 1, 1, true);
+insert into patient (id, email, name, password, phone, surname, blood_type, diopter, height, policyholder, weight, address_id, clinical_center_id, enabled,allergy) values (nextval('cust_seq_user'), 'patient@gmail.com', 'Mira', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '064703', 'Miokovic', 0, 'daljina 0.75', 187, 'zdravstveno osiguranje', 78, 1, 1, true,'polen');
 
 insert into clinical_mark (mark, clinic_id, patient_id) values (0.0, 1, 2);
 
 insert into disease (description, name) values ('Opis bolesti.', 'Migrena');
 
 insert into nurse (id, email, name, password, phone, surname, address_id, clinic_id, enabled) values (nextval('cust_seq_user'), 'nurse@gmail.com', 'Dusica', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '064582', 'Vasic', 1, 1, true);
-
 insert into absence (absence_type, start_date, end_date, user_id) values (1, '2020-04-15 10:00', '2020-04-24 10:00', 1);
 
 insert into doctor (id, email, name, surname, phone, password, average_mark, specialisation, address_id, clinic_id, enabled) values (nextval('cust_seq_user'), 'doctor@gmail.com', 'Dragan', 'Karanovic', '0619785', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 0, 0, 1, 1, true);
@@ -66,8 +65,8 @@ insert into examination (date, description, discount, was_on_examination, doctor
 
 insert into medication (description, name) values ('Ovaj lek je za slomljena srca', 'Johnnie Walker');
 
-INSERT INTO patient_allergy (patient_id, allergy) VALUES (2, 'polen');
-INSERT INTO patient_allergy (patient_id, allergy) VALUES (2, 'ambrozija');
+--INSERT INTO patient_allergy (patient_id, allergy) VALUES (2, 'polen');
+--INSERT INTO patient_allergy (patient_id, allergy) VALUES (2, 'ambrozija');
 
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_CLINIC_ADMIN');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_CLINIC_CENTER_ADMIN');

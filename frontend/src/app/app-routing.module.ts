@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { DisplayClinicsComponent } from './components/patient/display-clinics/display-clinics.component';
 import { AddDoctorComponent } from './components/administrator/add-doctor/add-doctor.component';
@@ -26,6 +27,8 @@ import { DisplayPatientsComponent } from './components/administrator/display-pat
 import { NewAppointmentComponent } from './components/administrator/new-appointment/new-appointment.component';
 import { DisplayMedicalRoomsComponent } from './components/administrator/display-medical-rooms/display-medical-rooms.component';
 import { EditClinicBasicComponent } from './components/administrator/edit-clinic-basic/edit-clinic-basic.component';
+import { TableOfPatientComponent } from './components/nurse/table-of-patient/table-of-patient.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'homepage', pathMatch: 'full' }, // Don't use prefix becasue empty path is a prefix to any path
@@ -37,6 +40,7 @@ const routes: Routes = [
       { path: 'addDoctor', component: AddDoctorComponent },
       { path: 'addMedicalRoom', component: AddMedicalRoomComponent },
       { path: 'clinicsTable', component: DisplayClinicsComponent, canActivate: [PatientGuard] },
+      { path: 'registrationClinicAdmin', component: RegistrationClinicAdminComponent },
       { path: 'clinicsTable/clinic', component: ClinicInfoPageComponent, canActivate: [PatientGuard]},
       { path: 'registrationClinicAdmin', component: RegistrationClinicAdminComponent, canActivate: [ClinicCenterAdminGuard] },
       { path: 'myProfile', component: UserProfileComponent, canActivate: [LoginGuard] },
@@ -51,8 +55,15 @@ const routes: Routes = [
       { path: "displayPatients", component: DisplayPatientsComponent },
       { path: "newAppointment", component: NewAppointmentComponent },
       { path: "displayMedicalRooms", component: DisplayMedicalRoomsComponent },
+      { path: 'tableOfPatient', component: TableOfPatientComponent },
       { path: "editClinicBasic", component: EditClinicBasicComponent }
     ]
+  },
+  { path: 'nurse', component: UserPageComponent ,
+  children: [
+    { path: 'tableOfPatient', component: TableOfPatientComponent }
+
+  ]
   },
   { path: '403', component: PageForbiddenComponent},
   { path: '404', component: PageNotFoundComponent},
@@ -81,5 +92,6 @@ export const routingComponents = [
   DisplayPatientsComponent, 
   NewAppointmentComponent, 
   DisplayMedicalRoomsComponent, 
-  EditClinicBasicComponent
+  EditClinicBasicComponent,
+  TableOfPatientComponent
 ]

@@ -29,7 +29,7 @@ public class Disease {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
@@ -47,7 +47,7 @@ public class Disease {
 	 * @param description
 	 * @param examinations
 	 */
-	public Disease(Integer id, String name, String description, Set<Examination> examinations) {
+	public Disease(Long id, String name, String description, HashSet<Examination> examinations) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -62,11 +62,11 @@ public class Disease {
 		super();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

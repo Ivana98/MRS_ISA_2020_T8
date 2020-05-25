@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.team08.CCSystem.service;
 
 import java.util.List;
@@ -18,7 +15,6 @@ import com.team08.CCSystem.repository.PatientRepository;
  */
 @Service
 public class PatientService {
-	
 	@Autowired
 	private PatientRepository patientRepository;
 	

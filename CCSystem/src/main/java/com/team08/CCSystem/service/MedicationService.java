@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.team08.CCSystem.service;
 
 import java.util.List;
@@ -17,7 +14,6 @@ import com.team08.CCSystem.repository.MedicationRepository;
  */
 @Service
 public class MedicationService {
-	
 	@Autowired
 	private MedicationRepository medicationRepository;
 	
@@ -36,5 +32,4 @@ public class MedicationService {
 	public void remove(Long id) {
 		medicationRepository.deleteById(id);
 	}
- 
 }

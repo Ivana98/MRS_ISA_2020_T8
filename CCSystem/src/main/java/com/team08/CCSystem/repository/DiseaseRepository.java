@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.team08.CCSystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
