@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import com.team08.CCSystem.model.ExaminationType;
 import com.team08.CCSystem.model.enums.InterventionType;
 import com.team08.CCSystem.model.enums.Specialisation;
 import com.team08.CCSystem.service.ExaminationTypeService;
+import com.team08.CCSystem.service.PriceService;
 
 /**
  * @author Veljko
@@ -33,6 +35,9 @@ public class ExaminationTypeControler {
 	
 	@Autowired
 	private ExaminationTypeService examinationTypeService;
+	
+	@Autowired
+	private PriceService priceService;
 	
 	@PostMapping(path = "/save", consumes = "application/json")
 	public ResponseEntity<ExaminationTypeDTO> saveExeminationType(@RequestBody ExaminationTypeDTO exaTypeDTO) {
@@ -47,9 +52,12 @@ public class ExaminationTypeControler {
 		return new ResponseEntity<ExaminationTypeDTO>(new ExaminationTypeDTO(et), HttpStatus.CREATED);
 	}
 	
-	@GetMapping(path = "getAll", produces = "application/json")
-	public ResponseEntity<List<ExaminationTypeDTO>> getAll() {
-		
+	/*
+	 * Ova metoda ne treba da se koristi. sve se nalazi u Price sto mi treba vezano za ExaminatioType
+	 */
+	@GetMapping(value = "/getAll")
+	public ResponseEntity<List<ExaminationTypeDTO>> getAll(@PathVariable Long clinicId) {
+
 		List<ExaminationType> ETs = examinationTypeService.findAll();
 		
 		//convert ETs to DTO

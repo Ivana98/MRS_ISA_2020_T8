@@ -36,5 +36,5 @@ public class ExaminationTypeService {
 	public void remove(Long id) {
 		examinationTypeRepository.deleteById(id);
 	}
-
+	
 }

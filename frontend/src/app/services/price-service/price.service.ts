@@ -15,6 +15,11 @@ export class PriceService {
     return this._httpClient.get<Price>(this._url + "getOne/" + priceId);
   }
 
+  /**
+   * Load all examination types and prices from pricelist.
+   * 
+   * @param clinicId is id of logged in user clinic
+   */
   public loadAllByClinicId(clinicId) {
     return this._httpClient.get<Array<FullPrice>>(this._url + "getAllFromClinic/" + clinicId);
   }

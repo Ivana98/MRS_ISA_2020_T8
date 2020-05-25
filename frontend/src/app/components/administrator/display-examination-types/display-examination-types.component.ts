@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef, HostListener } from '@
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
 import { ExaminationType } from 'src/app/model/examinationType';
 import { ExaminationTypeService } from 'src/app/services/examination-type/examination-type.service';
+import { PriceService } from 'src/app/services/price-service/price.service';
+import { LoginService } from 'src/app/services/login-service/login.service';
+import { FullPrice } from 'src/app/model/price';
 
 @Component({
   selector: 'app-display-examination-types',
@@ -13,7 +16,7 @@ export class DisplayExaminationTypesComponent implements OnInit {
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective
 
-  ETList: Array<ExaminationType> = [];
+  ETList: Array<FullPrice> = [];
   previous: any = [];
 
   searchText: string = ''; 
@@ -22,6 +25,8 @@ export class DisplayExaminationTypesComponent implements OnInit {
   constructor(
     private cdRef: ChangeDetectorRef,
     private _httpETService: ExaminationTypeService,
+    private _httpPriceService: PriceService,
+    private _loginService: LoginService
     // private _someLogic: ExaminationTypeShareService
   ) { }
 
@@ -32,7 +37,7 @@ export class DisplayExaminationTypesComponent implements OnInit {
   }
 
   loadETs() {
-    this._httpETService.getAll().subscribe(response => this.setResponse(response))
+    this._httpPriceService.loadAllByClinicId(this._loginService.currentUser.clinicId).subscribe(response => this.setResponse(response))
   }
 
   getRow(data) {
