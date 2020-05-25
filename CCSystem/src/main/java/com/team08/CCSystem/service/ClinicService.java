@@ -3,6 +3,7 @@
  */
 package com.team08.CCSystem.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,9 +43,9 @@ public class ClinicService {
 		clinicRepository.deleteById(id);
 	}
 
-	public Set<ClinicForTableDTO> convertToClinicForTableDTO(){
+	public List<ClinicForTableDTO> convertToClinicForTableDTO(){
 		List<Clinic> listClinics = this.findAll();
-		Set<ClinicForTableDTO> setClinics = new HashSet<ClinicForTableDTO>();
+		List<ClinicForTableDTO> setClinics = new ArrayList<ClinicForTableDTO>();
 		
 		if(listClinics.isEmpty()) return setClinics;
 		

@@ -73,9 +73,11 @@ public class ClinicControler {
 	
 	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping("/sendListForTable")  
-	public Set<ClinicForTableDTO> sendListForTable() {
-		Set<ClinicForTableDTO> clinics = clinicService.convertToClinicForTableDTO();
-		return clinics;
+	//public Set<ClinicForTableDTO> sendListForTable() {
+	public ResponseEntity<List<ClinicForTableDTO>> sendListForTable(){
+		
+		List<ClinicForTableDTO> clinics = clinicService.convertToClinicForTableDTO();
+		return new ResponseEntity<>(clinics, HttpStatus.OK);
 	}
 	
 }
