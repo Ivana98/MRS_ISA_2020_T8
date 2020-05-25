@@ -9,7 +9,7 @@ public class MedicalRecordsDTO {
 	private int height;
 	private int weight;
 	private String bloodType;
-	private Set<String> allergies;
+	private String allergies;
 	private String diopter;
 	
 	public MedicalRecordsDTO() {}
@@ -17,7 +17,7 @@ public class MedicalRecordsDTO {
 	
 	
 	public MedicalRecordsDTO(String name, String surname, String policyholder, int height, int weight, String bloodType,
-			Set<String> allergies, String diopter) {
+			String allergies, String diopter) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -53,10 +53,10 @@ public class MedicalRecordsDTO {
 	public void setBloodType(String bloodType) {
 		this.bloodType = bloodType;
 	}
-	public Set<String> getAllergies() {
+	public String getAllergies() {
 		return allergies;
 	}
-	public void setAllergies(Set<String> allergies) {
+	public void setAllergies(String allergies) {
 		this.allergies = allergies;
 	}
 	public String getDiopter() {

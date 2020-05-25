@@ -4,6 +4,7 @@
 package com.team08.CCSystem.controler;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +23,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.team08.CCSystem.dto.ClinicBasicDTO;
 import com.team08.CCSystem.dto.ClinicDTO;
 import com.team08.CCSystem.dto.ClinicForTableDTO;
+import com.team08.CCSystem.dto.ClinicRegistrationDTO;
+import com.team08.CCSystem.model.Address;
 import com.team08.CCSystem.model.Clinic;
+import com.team08.CCSystem.model.ClinicAdmin;
+import com.team08.CCSystem.model.ClinicMark;
+import com.team08.CCSystem.model.ClinicalCenter;
+import com.team08.CCSystem.model.Doctor;
+import com.team08.CCSystem.model.MedicalRoom;
+import com.team08.CCSystem.model.Nurse;
 import com.team08.CCSystem.service.ClinicService;
+import com.team08.CCSystem.service.ClinicalCenterService;
 
 @RestController
 @RequestMapping(value = "api/clinics")
@@ -30,6 +41,10 @@ public class ClinicControler {
 	
 	@Autowired
 	private ClinicService clinicService;
+	
+	@Autowired
+	private ClinicalCenterService clinicalCenterService;
+	
 	
 	@GetMapping(value = "/getOne/{id}")
 	private ResponseEntity<ClinicDTO> getOne(@PathVariable Long id) {
@@ -58,6 +73,31 @@ public class ClinicControler {
 		return new ResponseEntity<>(new ClinicDTO(clinic), HttpStatus.OK);
 	}
 	
+	@PostMapping(path = "/save")
+	public  ResponseEntity<ClinicRegistrationDTO> save(@RequestBody ClinicRegistrationDTO clinicDTO){
+
+		Address adr = new Address(null,clinicDTO.getStreet(),clinicDTO.getCity(),clinicDTO.getCountry());
+		
+		ClinicalCenter clinicalCenter = clinicalCenterService.findOne(Long.valueOf(clinicDTO.getClinicalCenter_id()));
+		
+		Clinic clinic = new Clinic(null,clinicDTO.getName() , adr , clinicalCenter,new HashSet<MedicalRoom>() ,new HashSet<ClinicMark>(),new HashSet<Doctor>(),
+				new HashSet<Nurse>(),new HashSet<ClinicAdmin>(),0);
+		
+		//Ovu liniju mozda staviti u metodu  serivsa.
+		clinicalCenter.getClinics().add(clinic);
+		
+		clinicalCenterService.save(clinicalCenter);
+		
+		clinicService.save(clinic);
+		
+		
+		return new ResponseEntity<>(clinicDTO , HttpStatus.CREATED);
+
+	}
+		
+	/*
+	 * Load all clinics into list, convert to DTO and return
+	 */
 	@GetMapping(path = "/getAll")
 	public ResponseEntity<List<ClinicBasicDTO>> getAll() {
 		List<Clinic> clinics = clinicService.findAll();
@@ -73,7 +113,6 @@ public class ClinicControler {
 	
 	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping("/sendListForTable")  
-	//public Set<ClinicForTableDTO> sendListForTable() {
 	public ResponseEntity<List<ClinicForTableDTO>> sendListForTable(){
 		
 		List<ClinicForTableDTO> clinics = clinicService.convertToClinicForTableDTO();

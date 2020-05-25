@@ -41,8 +41,8 @@ public class Patient extends User {
 	@Enumerated
 	private BloodType bloodType;
 	
-	@ElementCollection
-	private Set<String> allergy;
+	@Column(name="allergy", nullable=false)
+	private String allergy;
 	
 	@Column(name="diopter", nullable=false)
 	private String diopter;
@@ -59,7 +59,7 @@ public class Patient extends User {
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = false)
 	private Set<DoctorMark> doctorsMarks = new HashSet<>(); //patient evaluates doctors
 	
-	public Patient() {}
+	
 
 	/**
 	 * @param id
@@ -81,7 +81,7 @@ public class Patient extends User {
 	 * @param doctorsMarks
 	 */
 	public Patient(Long id, String email, String name, String surname, Address address, String phone,
-			String password, String policyholder, int height, int weight, BloodType bloodType, Set<String> allergy,
+			String password, String policyholder, int height, int weight, BloodType bloodType,String allergy,
 			String diopter, ClinicalCenter clinicalCenter, Set<Examination> examinations, Set<ClinicMark> clinicsMarks,
 			Set<DoctorMark> doctorsMarks) {
 		super(id, email, name, surname, address, phone, password);
@@ -111,6 +111,9 @@ public class Patient extends User {
 		super(id, email, name, surname, address, phone, password);
 	}
 	
+
+	public Patient() {}
+
 	public String getPolicyholder() {
 		return policyholder;
 	}
@@ -143,11 +146,11 @@ public class Patient extends User {
 		this.bloodType = bloodType;
 	}
 
-	public Set<String> getAllergy() {
+	public String getAllergy() {
 		return allergy;
 	}
 
-	public void setAllergy(Set<String> allergy) {
+	public void setAllergy(String allergy) {
 		this.allergy = allergy;
 	}
 

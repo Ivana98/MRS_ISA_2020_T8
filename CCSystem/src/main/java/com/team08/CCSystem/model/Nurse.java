@@ -52,6 +52,8 @@ public class Nurse extends User {
 		this.absences = absences;
 	}
 
+		
+
 	/**
 	 * @param id
 	 * @param email

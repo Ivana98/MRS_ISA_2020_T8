@@ -26,7 +26,7 @@ public class DoctorMark {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "mark", nullable = false, unique = false)
 	private float mark; //from 0 to 5
@@ -43,7 +43,7 @@ public class DoctorMark {
 	 * @param doctor
 	 * @param patient
 	 */
-	public DoctorMark(Integer id, float mark, Doctor doctor, Patient patient) {
+	public DoctorMark(Long id, float mark, Doctor doctor, Patient patient) {
 		super();
 		this.id = id;
 		this.mark = mark;
@@ -58,11 +58,11 @@ public class DoctorMark {
 		super();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

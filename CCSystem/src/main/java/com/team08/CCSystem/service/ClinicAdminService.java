@@ -10,6 +10,7 @@ import com.team08.CCSystem.repository.ClinicAdminRepository;
 
 @Service
 public class ClinicAdminService {
+
 	
 	@Autowired
 	private ClinicAdminRepository clinicAdminRepository;
@@ -29,5 +30,4 @@ public class ClinicAdminService {
 	public void remove(Long id) {
 		clinicAdminRepository.deleteById(id);
 	}
-	
 }

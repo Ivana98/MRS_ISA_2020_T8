@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { NgwWowModule } from 'ngx-wow';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { HttpDemoService } from './services/http_demo/http-demo.service';
 import { FormsModule } from '@angular/forms';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,7 +46,6 @@ import { PageForbiddenComponent } from './components/page-forbidden/page-forbidd
 import { ClinicInfoPageComponent } from './components/patient/clinic-info-page/clinic-info-page.component';
 import { TransferClinicService } from './services/patient/clinics/transfer-clinic.service';
 import { DisplayDoctorsComponent } from './components/administrator/display-doctors/display-doctors.component';
-import { AddExaminationTypeComponent } from './components/administrator/add-examination-type/add-examination-type.component';
 import { ChangeDoctorComponent } from './components/administrator/change-doctor/change-doctor.component';
 import { MatSortModule } from '@angular/material/sort';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -65,6 +63,8 @@ import { DisplayPatientsComponent } from './components/administrator/display-pat
 import { NewAppointmentComponent } from './components/administrator/new-appointment/new-appointment.component';
 import { DisplayMedicalRoomsComponent } from './components/administrator/display-medical-rooms/display-medical-rooms.component';
 import { EditClinicBasicComponent } from './components/administrator/edit-clinic-basic/edit-clinic-basic.component';
+import { TableOfPatientComponent } from './components/nurse/table-of-patient/table-of-patient.component';
+import { AddExaminationTypeComponent } from './components/administrator/add-examination-type/add-examination-type.component';
 
 
 @NgModule({
@@ -89,7 +89,8 @@ import { EditClinicBasicComponent } from './components/administrator/edit-clinic
     DisplayPatientsComponent,
     NewAppointmentComponent,
     DisplayMedicalRoomsComponent,
-    EditClinicBasicComponent
+    EditClinicBasicComponent,
+    TableOfPatientComponent
   ],
   imports: [
     BrowserModule,
@@ -119,7 +120,6 @@ import { EditClinicBasicComponent } from './components/administrator/edit-clinic
     NurseGuard,
     ClinicAdminGuard,
     ClinicCenterAdminGuard,
-    HttpDemoService, 
     ListClinicsService, 
     UserProfileService, 
     MedicalRecordsService, 
