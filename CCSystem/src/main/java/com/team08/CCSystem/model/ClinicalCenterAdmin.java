@@ -29,6 +29,8 @@ public class ClinicalCenterAdmin extends User {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private ClinicalCenter clinicalCenter;
+	
+	public ClinicalCenterAdmin() {}
 
 	/**
 	 * Constructor
@@ -64,10 +66,6 @@ public class ClinicalCenterAdmin extends User {
 	public ClinicalCenterAdmin(Long id, String email, String name, String surname, Address address, String phone,
 			String password) {
 		super(id, email, name, surname, address, phone, password);
-	}
-	
-	public ClinicalCenterAdmin() {
-		
 	}
 
 	public Set<Absence> getAbsences() {

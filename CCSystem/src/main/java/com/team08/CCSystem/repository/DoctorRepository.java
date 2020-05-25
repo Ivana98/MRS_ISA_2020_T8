@@ -16,6 +16,9 @@ import com.team08.CCSystem.model.Doctor;
  */
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 	
+	Doctor findByEmail(String email);
+
 	@Query("select d from Doctor d where d.clinic.id is ?1")
 	List<Doctor> findAllByClinic(Long clinicId);
+
 }

@@ -24,12 +24,15 @@ import lombok.Data;
 @Data
 @Table(name = "Nurse")
 public class Nurse extends User {
+
 	
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Clinic clinic;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Absence> absences = new HashSet<Absence>();
+	
+	public Nurse() {}
 
 	/**
 	 * @param id
@@ -62,10 +65,6 @@ public class Nurse extends User {
 			String password) {
 		super(id, email, name, surname, address, phone, password);
 	}
-	
-	public Nurse() {
-		
-	}
 
 	public Clinic getClinic() {
 		return clinic;
@@ -83,5 +82,4 @@ public class Nurse extends User {
 		this.absences = absences;
 	}
 
-	
 }

@@ -1,9 +1,12 @@
+import { DoctorForClinicList } from './doctorForClinicList';
+
 export interface IClinic {
     id:number,
     name:string,
     addressStreet:string,
-    adressCity:string,
-    averageMark:number
+    addressCity:string,
+    averageMark:number,
+    doctors: DoctorForClinicList[]
 }
 
 export class Clinic{
@@ -13,5 +16,6 @@ export class Clinic{
         public addressStreet:string,
         public addressCity:string,
         public averageMark:number,
+        public doctors: DoctorForClinicList[]
     ) {} 
 }

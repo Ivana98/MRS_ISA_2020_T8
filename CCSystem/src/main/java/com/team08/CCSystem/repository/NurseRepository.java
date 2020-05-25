@@ -12,5 +12,6 @@ import com.team08.CCSystem.model.Nurse;
  *
  */
 public interface NurseRepository extends JpaRepository<Nurse, Long> {
+	Nurse findByEmail(String email);
 
 }

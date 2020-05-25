@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Application properties because of our database credentials###
+**/application.properties

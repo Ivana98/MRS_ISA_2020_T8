@@ -29,6 +29,8 @@ public class ClinicAdmin extends User {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Clinic clinic;
+	
+	public ClinicAdmin() {}
 
 	/**
 	 * @param id
@@ -62,10 +64,6 @@ public class ClinicAdmin extends User {
 	public ClinicAdmin(Long id, String email, String name, String surname, Address address, String phone,
 			String password) {
 		super(id, email, name, surname, address, phone, password);
-	}
-	
-	public ClinicAdmin() {
-		
 	}
 
 	public Set<Absence> getAbsences() {

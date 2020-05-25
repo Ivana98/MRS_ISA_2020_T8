@@ -1,60 +1,72 @@
-<div class="container-fluid padding-32">
-    <h2><i class="fas fa-notes-medical"></i>&nbsp;Medical records</h2>
+<div class="alert alert-danger" role="alert" *ngIf="error">
+    Error on user data loading.
 </div>
-<div class="full-width">
-    <h4><i class="fas fa-hospital-user"></i>&nbsp;Basic informations about patient</h4>
-    <div class="top-container paddng-16">
-        <table mdbTable borderless="true" small=true class="text-align">
-            <tbody>
-              <tr mdbTableCol>
-                <td><b>First name:</b></td>
-                <td>{{records.name}}</td>
-              </tr>
-              <tr>
-                <td><b>Last name:</b></td>
-                <td>{{records.surname}}</td>
-              </tr>
-              <tr>
-                <td><b>Policyholder:</b></td>
-                <td>{{records.policyholder}}</td>
-              </tr>
-              <tr>
-                <td><b>Blood type:</b></td>
-                <td>{{records.bloodType}}</td>
-              </tr>
-            </tbody>
-        </table>
+
+<div class="row">
+    <div class="col-md-10 mx-auto my-5">
+        <mdb-card dark="true">
+
+            <mdb-card-body class="elegant-color white-text">
+
+                <mdb-card-title>
+                    <h2 class="padding-16"><i class="fas fa-notes-medical"></i>&nbsp;Medical records</h2>
+                </mdb-card-title>
+
+                <hr class="hr-light">
+
+                <mdb-card-text class="white-text">
+                    <h4 class="padding-10"><i class="fas fa-hospital-user"></i>&nbsp;Basic informations about patient
+                    </h4>
+                    <h5>First name: {{records.name}}</h5>
+                    <h5>Last name: {{records.surname}}</h5>
+                    <h5>Policyholder: {{records.policyholder}}</h5>
+                    <h5>Blood type: {{records.bloodType}}</h5>
+                </mdb-card-text>
+            </mdb-card-body>
+        </mdb-card>
     </div>
 </div>
 
-<div class="full-width">
-    <div class="others">
-        <h4><i class="fas fa-plus-circle"></i>&nbsp;Other informations</h4>   
-        <table mdbTable borderless="true" small=true class="text-align">
-            <tbody>  
-                <tr>
-                    <td><b>Height:</b></td>
-                    <td>{{records.height}}</td>
-                </tr>
-                <tr>
-                    <td><b>Weight:</b></td>
-                    <td>{{records.weight}}</td>
-                </tr>
-                <tr>
-                    <td><b>Diopter:</b></td>
-                    <td>{{records.diopter}}</td>
-                </tr>
-            </tbody>
-        </table>
+<div class="row">
+    <div class="half-width">
+        <div class="col-md-8 mx-auto my-5">
+            <mdb-card>
+                <mdb-card-body>
+                    <mdb-card-title>
+                        <h4><i class="fas fa-plus-circle"></i>&nbsp;Other informations</h4>
+                    </mdb-card-title>
+
+                    <hr>
+
+                    <mdb-card-text>
+                        <h5>Height: {{records.height}}</h5>
+                        <h5>Weight: {{records.weight}}</h5>
+                        <h5>Diopter: {{records.diopter}}</h5>
+                    </mdb-card-text>
+                </mdb-card-body>
+            </mdb-card>
+        </div>
     </div>
-    <div class="allergies">
-        <h4><i class="fas fa-allergies"></i>&nbsp;Allergies</h4>   
-            <ul>
-                <li>{{records.allergies}}</li>
-            </ul>
+
+    <div class="half-width">
+        <div class="col-md-8 mx-auto my-5">
+            <mdb-card>
+                <mdb-card-body>
+                    <mdb-card-title>
+                        <h4><i class="fas fa-allergies"></i>&nbsp;Allergies</h4>
+                    </mdb-card-title>
+
+                    <hr>
+
+                    <mdb-card-text>
+                        <h5>
+                            <ul *ngFor="let allergy of records.allergies">
+                                <li>{{allergy}}</li>
+                            </ul>
+                        </h5>
+                    </mdb-card-text>
+                </mdb-card-body>
+            </mdb-card>
+        </div>
     </div>
 </div>
-
-
-            
-         

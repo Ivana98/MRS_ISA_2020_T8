@@ -7,7 +7,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgwWowModule } from 'ngx-wow';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HttpDemoService } from './services/http_demo/http-demo.service';
 import { FormsModule } from '@angular/forms';
@@ -32,6 +32,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 // MDB Angular Free
 import { CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule } from 'angular-bootstrap-md';
 import { RegisterComponent } from './components/register/register.component';
+import { LoginService } from './services/login-service/login.service';
+import { AuthService } from './services/authService/auth.service';
+import { ApiService } from './services/api-services/api.service';
+import { TokenInterceptor } from './interceptor/TokenInterceptor';
+import { GuestGuard } from './guard/guest.guard';
+import { LoginGuard } from './guard/login.guard';
+import { PatientGuard } from './guard/patient.guard';
+import { DoctorGuard } from './guard/doctor.guard';
+import { NurseGuard } from './guard/nurse.guard';
+import { ClinicAdminGuard } from './guard/clinic-admin.guard';
+import { ClinicCenterAdminGuard } from './guard/clinic-center-admin.guard';
+import { PageForbiddenComponent } from './components/page-forbidden/page-forbidden.component';
+import { ClinicInfoPageComponent } from './components/patient/clinic-info-page/clinic-info-page.component';
+import { TransferClinicService } from './services/patient/clinics/transfer-clinic.service';
 import { DisplayDoctorsComponent } from './components/administrator/display-doctors/display-doctors.component';
 import { AddExaminationTypeComponent } from './components/administrator/add-examination-type/add-examination-type.component';
 import { ChangeDoctorComponent } from './components/administrator/change-doctor/change-doctor.component';
@@ -67,6 +81,8 @@ import { EditClinicBasicComponent } from './components/administrator/edit-clinic
     LoginComponent,
     RegisterComponent,
     AddExaminationTypeComponent,
+    PageForbiddenComponent,
+    ClinicInfoPageComponent,
     DisplayDoctorsComponent,
     ChangeDoctorComponent,
     DisplayExaminationTypesComponent,
@@ -90,7 +106,28 @@ import { EditClinicBasicComponent } from './components/administrator/edit-clinic
     BrowserModule,
     MatSortModule
   ],
-  providers: [HttpDemoService, ListClinicsService, UserProfileService, MedicalRecordsService],  // Services go here because of DI
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    GuestGuard,
+    LoginGuard,
+    PatientGuard,
+    DoctorGuard,
+    NurseGuard,
+    ClinicAdminGuard,
+    ClinicCenterAdminGuard,
+    HttpDemoService, 
+    ListClinicsService, 
+    UserProfileService, 
+    MedicalRecordsService, 
+    LoginService, 
+    AuthService,
+    ApiService,
+    TransferClinicService
+],  // Services go here because of DI
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -45,6 +45,8 @@ public class Doctor extends User {
 	
 	@Column(name="averageMark")
 	private float averageMark;
+	
+	public Doctor() {}
 
 	/**
 	 * @param id
@@ -108,8 +110,6 @@ public class Doctor extends User {
 			String password) {
 		super(id, email, name, surname, address, phone, password);
 	}
-	
-	public Doctor() {} 
 
 	public Set<Absence> getAbsences() {
 		return absences;

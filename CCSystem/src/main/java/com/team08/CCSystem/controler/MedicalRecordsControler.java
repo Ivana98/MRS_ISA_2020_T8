@@ -1,25 +1,38 @@
 package com.team08.CCSystem.controler;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team08.CCSystem.dto.MedicalRecordsDTO;
-import com.team08.CCSystem.model.enums.BloodType;
+import com.team08.CCSystem.model.Patient;
+import com.team08.CCSystem.service.PatientService;
+import com.team08.CCSystem.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(value = "api/patient")
 @RestController
+@RequestMapping(value = "api/patient", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MedicalRecordsControler {
+	
+	@Autowired 
+	private PatientService patientS;
 
-	@GetMapping("/sendMedicalRecords")  
-	private MedicalRecordsDTO sendMedicalRecords() {
-		
-		// dummy data for patient
-		String bt = BloodType.AB_POS.toString();
-		MedicalRecordsDTO records = new MedicalRecordsDTO("Pera", "Peric", "123456", 172, 62, bt, "ambrosia", "");
-		
-		return records;
+	@PreAuthorize("hasRole('PATIENT')")
+	@PostMapping("/sendMedicalRecords")  
+	public MedicalRecordsDTO sendMedicalRecords(@RequestBody Long id) { 
+		try {
+			Patient p = patientS.findOne(id);
+			if(p != null) {
+				return patientS.convertToMedicalRecords(p);
+			}	
+		}
+		catch(NullPointerException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }

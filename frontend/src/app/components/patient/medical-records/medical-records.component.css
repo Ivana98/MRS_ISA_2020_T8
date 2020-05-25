@@ -6,9 +6,9 @@
     padding-top: 16px!important;
     padding-bottom: 16px!important;
 }
-.padding-32 {
-    padding-top: 8px!important;
-    padding-bottom: 32px!important;
+.padding-10 {
+    padding-top: 6px!important;
+    padding-bottom: 10px!important;
 }
 .text-align{
     text-align: left;
@@ -26,4 +26,8 @@
 .full-width{
     width: 100%;
     display: inline-block ;
+}
+
+.half-width{
+    width: 50%;
 }

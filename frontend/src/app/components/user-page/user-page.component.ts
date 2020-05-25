@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HomePageComponent } from '../home-page/home-page.component';
 import { MdbTableDirective } from 'angular-bootstrap-md';
 import { SomeLogicService } from 'src/app/some-logic.service';
+import { AuthService } from 'src/app/services/authService/auth.service';
 declare var $: any;
 // import $ from 'jquery';
 
@@ -17,7 +18,8 @@ export class UserPageComponent implements OnInit {
   sub:string;
   role: string;
 
-constructor( private _someLogic: SomeLogicService) { } @HostListener('input') oninput() { } 
+constructor( private _someLogic: SomeLogicService, private _authService: AuthService) { } 
+@HostListener('input') oninput() { } 
 ngOnInit() {
   this._someLogic._user$.subscribe(
     message => {
@@ -48,6 +50,10 @@ ngOnInit() {
     });
   
   });
+}
+
+logoutUser(){
+  this._authService.logout();
 }
 
 }

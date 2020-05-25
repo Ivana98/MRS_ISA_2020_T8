@@ -1,29 +1,46 @@
 package com.team08.CCSystem.dto;
 
+import java.util.Set;
+
 public class ClinicForTableDTO {
-	private Integer id;
+	private Long id;
 	private String name;
 	private String addressStreet; //how to share whole adress, is it needed
-	private String adressCity;
+	private String addressCity;
 	private double averageMark;
+	private Set<DoctorForClinicListDTO> doctors;
 	
 	public ClinicForTableDTO() {
 		super();
 	}
 	
-	public ClinicForTableDTO(Integer id, String name, String addressStreet, String adressCity, double averageMark) {
+	public ClinicForTableDTO(Long id, String name, String addressStreet, String addressCity, double averageMark,
+			Set<DoctorForClinicListDTO> doctors) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.addressStreet = addressStreet;
-		this.adressCity = adressCity;
+		this.addressCity = addressCity;
 		this.averageMark = averageMark;
+		this.doctors = doctors;
 	}
 	
-	public Integer getId() {
+	public String getAddressCity() {
+		return addressCity;
+	}
+	public void setAddressCity(String addressCity) {
+		this.addressCity = addressCity;
+	}
+	public Set<DoctorForClinicListDTO> getDoctors() {
+		return doctors;
+	}
+	public void setDoctors(Set<DoctorForClinicListDTO> doctors) {
+		this.doctors = doctors;
+	}
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long	 id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -45,10 +62,10 @@ public class ClinicForTableDTO {
 		this.averageMark = averageMark;
 	}
 	public String getAdressCity() {
-		return adressCity;
+		return addressCity;
 	}
-	public void setAdressCity(String adressCity) {
-		this.adressCity = adressCity;
+	public void setAdressCity(String addressCity) {
+		this.addressCity = addressCity;
 	}
 	
 	

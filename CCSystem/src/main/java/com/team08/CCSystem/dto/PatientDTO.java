@@ -3,6 +3,8 @@
  */
 package com.team08.CCSystem.dto;
 
+import java.util.Set;
+
 import com.team08.CCSystem.model.Patient;
 
 /**
@@ -20,7 +22,7 @@ public class PatientDTO {
 	private String city;
 	private String country;
 	private String street;
-	private String allergy;
+	private Set<String> allergies;
 	private String blood_type;
 	private String diopter;
 	private String height;
@@ -51,7 +53,7 @@ public class PatientDTO {
 	 * @param clinical_center_id
 	 */
 	public PatientDTO(Long id, String firstName, String lastName, String email, String phone, String password,
-			String city, String country, String street, String allergy, String blood_type, String diopter,
+			String city, String country, String street, Set<String> allergies, String blood_type, String diopter,
 			String height, String weight, String policyholder, String clinical_center_id) {
 		super();
 		this.id = id;
@@ -63,7 +65,7 @@ public class PatientDTO {
 		this.city = city;
 		this.country = country;
 		this.street = street;
-		this.allergy = allergy;
+		this.allergies = allergies;
 		this.blood_type = blood_type;
 		this.diopter = diopter;
 		this.height = height;
@@ -85,7 +87,7 @@ public class PatientDTO {
 		this.city = patient.getAddress().getCity();
 		this.country = patient.getAddress().getCountry();
 		this.street = patient.getAddress().getStreet();
-		this.allergy = patient.getAllergy();
+		this.allergies = patient.getAllergy();
 		this.blood_type = patient.getBloodType().name();
 		this.diopter = patient.getDiopter();
 		this.height = patient.getHeight() + "";
@@ -166,12 +168,12 @@ public class PatientDTO {
 		this.street = street;
 	}
 
-	public String getAllergy() {
-		return allergy;
+	public Set<String> getAllergy() {
+		return allergies;
 	}
 
-	public void setAllergy(String allergy) {
-		this.allergy = allergy;
+	public void setAllergy(Set<String> allergies) {
+		this.allergies = allergies;
 	}
 
 	public String getBlood_type() {
@@ -226,7 +228,7 @@ public class PatientDTO {
 	public String toString() {
 		return "PatientDTO [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", phone=" + phone + ", password=" + password + ", city=" + city + ", country=" + country
-				+ ", street=" + street + ", allergy=" + allergy + ", blood_type=" + blood_type + ", diopter=" + diopter
+				+ ", street=" + street + ", allergy=" + allergies + ", blood_type=" + blood_type + ", diopter=" + diopter
 				+ ", height=" + height + ", weight=" + weight + ", policyholder=" + policyholder
 				+ ", clinical_center_id=" + clinical_center_id + "]";
 	}
