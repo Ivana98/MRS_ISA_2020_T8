@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MedicalRoom } from 'src/app/model/medicalRoom';
 import { LoginService } from '../login-service/login.service';
+import { StartEndDate } from 'src/app/model/startEndDate';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,9 @@ export class MedicalRoomService {
 
   /** 
    * get all medical rooms from specific clinic.
-   * 
-   * @param clinicId is id of clinic
    */
-  public getAll(clinicId) {
-    return this._httpClient.get<Array<MedicalRoom>>(this._url + "getAll/" + clinicId);
+  public getAll() {
+    return this._httpClient.get<Array<MedicalRoom>>(this._url + "getAll/" + this._loginService.currentUser.clinicId);
   }
 
   /**
@@ -58,6 +57,15 @@ export class MedicalRoomService {
    */
   public getOne(id) {
     return this._httpClient.get<MedicalRoom>(this._url + "getOne/" + id);
+  }
+
+  /**
+   * Get all assignments (stard and end date) of specific medical room.
+   * 
+   * @param id is room id
+   */
+  public getAllAppointmentsOfRoom(id) {
+    return this._httpClient.get<Array<StartEndDate>>(this._url + "getAllAppointmentsOfRoom/" + id)
   }
 
 }

@@ -14,11 +14,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import lombok.Data;
 
@@ -57,7 +61,9 @@ public class Examination {
 	@ManyToMany(mappedBy = "examinations")
 	private Set<Disease> diseases = new HashSet<>();
 	
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name="medical_room_id")
+//	@OnDelete(action = OnDeleteAction.CASCADE)
 	private MedicalRoom medicalRoom;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

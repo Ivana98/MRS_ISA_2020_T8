@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.team08.CCSystem.dto.DoctorDTO;
 import com.team08.CCSystem.dto.MedicalRoomDTO;
+import com.team08.CCSystem.dto.StartEndDateDTO;
 import com.team08.CCSystem.model.Clinic;
 import com.team08.CCSystem.model.Examination;
 import com.team08.CCSystem.model.MedicalRoom;
@@ -109,21 +110,9 @@ public class MedicalRoomControler {
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")
-	public ResponseEntity<Void> deleteMedicalRoom(@PathVariable Long id) {
+	public ResponseEntity<Boolean> deleteMedicalRoom(@PathVariable Long id) {
 		
-		MedicalRoom medicalRoom = medicalRoomService.findOne(id);
-		
-		if (medicalRoom == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		
-		List<Examination> examinations = examinationService.findExaminationWithRoomIdAndAfterDate(id, new Date());
-		
-		if (examinations.isEmpty() || examinations == null || examinations.size() == 0) {
-			//TODO: pogledati da li ima pregleda u buducnosti
-			medicalRoomService.remove(id);
-			return new ResponseEntity<>(HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		return medicalRoomService.delete(id);
 	}
 	
 	@GetMapping(value = "/getOne/{id}")
@@ -134,6 +123,12 @@ public class MedicalRoomControler {
 		if (medicalRoom == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		
 		return new ResponseEntity<>(new MedicalRoomDTO(medicalRoom), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/getAllAppointmentsOfRoom/{id}")
+	public ResponseEntity<List<StartEndDateDTO>> getAllAppointmentsOfRoom(@PathVariable Long id) {
+		
+		return medicalRoomService.getAllAppointments(id);
 	}
 
 }
