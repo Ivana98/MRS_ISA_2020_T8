@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ICLinicToDisplay } from 'src/app/model/clinic';
 import { ClinicBasic } from 'src/app/model/clinicBasic';
+import { LoginService } from '../login-service/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class ClinicService {
 
   private _url: string = "http://localhost:8080/api/clinics/";
 
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient, private _loginService: LoginService) { }
 
   /*
     return list of id and name of all clinics
@@ -27,5 +28,12 @@ export class ClinicService {
 
   public modify(clinic) {
     return this._httpClient.put<ClinicBasic>(this._url + "modify", clinic);
+  }
+
+  /**
+   * return average mark of clinic.
+   */
+  public getClinicAverageMark() {
+    return this._httpClient.get<number>(this._url + "getAverageMark/" + this._loginService.currentUser.clinicId);
   }
 }

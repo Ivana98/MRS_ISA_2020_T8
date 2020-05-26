@@ -65,6 +65,7 @@ import { DisplayMedicalRoomsComponent } from './components/administrator/display
 import { EditClinicBasicComponent } from './components/administrator/edit-clinic-basic/edit-clinic-basic.component';
 import { TableOfPatientComponent } from './components/nurse/table-of-patient/table-of-patient.component';
 import { AddExaminationTypeComponent } from './components/administrator/add-examination-type/add-examination-type.component';
+import { DisplayReportComponent } from './components/administrator/display-report/display-report.component';
 
 
 @NgModule({
@@ -90,7 +91,8 @@ import { AddExaminationTypeComponent } from './components/administrator/add-exam
     NewAppointmentComponent,
     DisplayMedicalRoomsComponent,
     EditClinicBasicComponent,
-    TableOfPatientComponent
+    TableOfPatientComponent,
+    DisplayReportComponent
   ],
   imports: [
     BrowserModule,

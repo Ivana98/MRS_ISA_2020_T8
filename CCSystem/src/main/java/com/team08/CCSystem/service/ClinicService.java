@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.team08.CCSystem.dto.ClinicForTableDTO;
@@ -80,6 +82,14 @@ public class ClinicService {
 			doctorSet.add(dto);
 		}
 		return doctorSet;
+	}
+	
+	public ResponseEntity<Float> getAverageMark(Long id) {
+		
+		Clinic clinic = findOne(id);
+		if (clinic == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<>(clinic.getAverageMark(), HttpStatus.OK);
 	}
 }
 

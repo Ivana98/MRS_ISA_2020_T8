@@ -119,4 +119,10 @@ public class ClinicControler {
 		return new ResponseEntity<>(clinics, HttpStatus.OK);
 	}
 	
+	@GetMapping(value="/getAverageMark/{id}")
+	public ResponseEntity<Float> getAverageMark(@PathVariable Long id) {
+		
+		return clinicService.getAverageMark(id);
+	}
+	
 }
