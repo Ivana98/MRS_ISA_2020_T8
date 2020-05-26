@@ -25,9 +25,7 @@ export class DisplayExaminationTypesComponent implements OnInit {
   constructor(
     private cdRef: ChangeDetectorRef,
     private _httpETService: ExaminationTypeService,
-    private _httpPriceService: PriceService,
-    private _loginService: LoginService
-    // private _someLogic: ExaminationTypeShareService
+    private _httpPriceService: PriceService
   ) { }
 
   @HostListener('input') oninput() { this.searchItems();} 
@@ -37,7 +35,7 @@ export class DisplayExaminationTypesComponent implements OnInit {
   }
 
   loadETs() {
-    this._httpPriceService.loadAllByClinicId(this._loginService.currentUser.clinicId).subscribe(response => this.setResponse(response))
+    this._httpPriceService.loadAllByClinicId().subscribe(response => this.setResponse(response))
   }
 
   getRow(data) {

@@ -7,6 +7,7 @@ import { DoctorService } from 'src/app/services/doctor-service/doctor.service';
 import { DoctorShareService } from 'src/app/services/data-share/doctor-share/doctor-share.service';
 import { Doctor } from 'src/app/model/doctor';
 import { ChangeDoctorComponent } from 'src/app/components/administrator/change-doctor/change-doctor.component';
+import { LoginService } from 'src/app/services/login-service/login.service';
 
 @Component({
   selector: 'app-display-doctors',
@@ -37,7 +38,7 @@ export class DisplayDoctorsComponent implements OnInit {
   }
 
   loadDoctors() {
-    this._httpDoctorService.getDoctors().subscribe(response => this.setResponse(response))
+    this._httpDoctorService.getAllByClinic().subscribe(response => this.setResponse(response))
   }
 
   getRow(data) {

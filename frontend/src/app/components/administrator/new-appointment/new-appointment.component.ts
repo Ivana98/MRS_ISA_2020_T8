@@ -88,7 +88,6 @@ export class NewAppointmentComponent implements OnInit, AfterViewInit {
   examination = new Examination(null, this.date, false, "", 0, null, null, null, null, null, this.labelValue, null);
   examinationChange = new Examination(null, this.date, false, "", 0, null, null, null, null, null, this.labelValue, null);
   price: number;
-  clinicId: number = 1; //id klinike ce se citati kad bude uradjen login.
 
   previous: any = [];
   searchText: string = ''; 
@@ -127,7 +126,7 @@ export class NewAppointmentComponent implements OnInit, AfterViewInit {
    * Load all Prices (FullPrice objects) from admin's clinic.
    */
   loadPricesByClinicId() {
-    this._httpPriceService.loadAllByClinicId(this.clinicId)
+    this._httpPriceService.loadAllByClinicId()
     .subscribe(response => {
       this.fullPrices = response;
       this.loadSpecialisations();
@@ -150,7 +149,7 @@ export class NewAppointmentComponent implements OnInit, AfterViewInit {
     Load all free examinations for one click reservation
   */
   loadFreeExaminations() {
-    this._httpExaminationService.loadAllFreeExaminationsFromClinic(this.clinicId)
+    this._httpExaminationService.loadAllFreeExaminationsFromClinic()
       .subscribe(response => {
         this.setResponse(response);
       });
@@ -237,7 +236,7 @@ export class NewAppointmentComponent implements OnInit, AfterViewInit {
    * Load all doctors from logged in admin's clinic
    */
   loadDoctors() {
-    this._httpDoctorService.getAllByClinic(this.clinicId)
+    this._httpDoctorService.getAllByClinic()
       .subscribe(response => {
         this.doctors = response;
       });
@@ -247,7 +246,7 @@ export class NewAppointmentComponent implements OnInit, AfterViewInit {
    * Load all medical rooms from logged in admin's clinic by intervention type examination.
    */
   loadMedicalRooms() {
-    this._httpMedicalRoomService.getAllByExamination(this.clinicId)
+    this._httpMedicalRoomService.getAllByExamination()
     .subscribe(response => {
       this.rooms = response;
       this.roomsChange = response;

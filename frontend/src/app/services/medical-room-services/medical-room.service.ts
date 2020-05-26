@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MedicalRoom } from 'src/app/model/medicalRoom';
+import { LoginService } from '../login-service/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class MedicalRoomService {
 
   private _url: string = "http://localhost:8080/api/rooms/";
 
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient, private _loginService: LoginService) { }
 
   public addRoom(room) {
     return this._httpClient.post<MedicalRoom>(this._url + "save", room);
@@ -25,12 +26,10 @@ export class MedicalRoomService {
   }
 
   /**
-   * Get all medical rooms by intervetnion type examination.
-   * 
-   * @param clinicId is clinic ID from which we request rooms
+   * Get all medical rooms by intervetnion type examination from specific clinic.
    */
-  public getAllByExamination(clinicId) {
-    return this._httpClient.get<Array<MedicalRoom>>(this._url + "getAllByExamination/" + clinicId);
+  public getAllByExamination() {
+    return this._httpClient.get<Array<MedicalRoom>>(this._url + "getAllByExamination/" + this._loginService.currentUser.clinicId);
   }
 
   /**
