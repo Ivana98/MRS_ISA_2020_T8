@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Doctor } from 'src/app/model/doctor';
 import { LoginService } from '../login-service/login.service';
+import { DoctorForClinicList2 } from 'src/app/model/doctorForClinicList';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,13 @@ export class DoctorService {
 
   public getAllByClinic() {
     return this._httpClient.get<Array<Doctor>>(this._url + "getAllByClinic/" + this._loginService.currentUser.clinicId);
+  }
+
+  /**
+   * Get all doctors from clinic, with purpose to display average mark.
+   */
+  public getAllByClinicForAverageMark() {
+    return this._httpClient.get<Array<DoctorForClinicList2>>(this._url + "getAllByClinicForAverageMark/" + this._loginService.currentUser.clinicId);
   }
 
   public modifyDoctor(doctor) {

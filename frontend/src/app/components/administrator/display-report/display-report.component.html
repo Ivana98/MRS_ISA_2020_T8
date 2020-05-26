@@ -1,4 +1,47 @@
-<h2>Example <span class="label label-default">New</span></h2>
+<div class="container">
+    <!-- CLINIC AVERAGE MARK -->
+    <div class="row">
+        <div class="col">
+            <h2>Clinic average rating: <mdb-badge color="cyan">{{ clinicAverageMark }}</mdb-badge></h2>
+        </div>
+    </div>
 
+    <!-- DOCTORS AND THEIR AVERAGE MARKS -->
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <div class="md-form">
+                <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput/>
+                <label for="search">Search</label>
+            </div>
+        </div>
+    </div>
 
-<h2>Average rating: <mdb-badge color="cyan">{{ averageMark }}</mdb-badge>
+    <table mdbTable #tableEl="mdbTable" hover="true" class="table text-position z-depth-1">
+        <thead class="black white-text">
+            <tr>
+                <th></th>
+                <th [mdbTableSort]="doctors" sortBy="firstName">First name&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="doctors" sortBy="lastName">Last name&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="doctors" sortBy="averageMark">Average mark&nbsp;<i class="fas fa-sort"></i> </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr mdbTableCol *ngFor="let cl of doctors; let i = index;" (click)="getRow(cl)">
+                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i + 1}}</th>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.firstName}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.lastName}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.averageMark}}</td>
+                <td>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot class="grey lighten-5 w-100">
+            <tr>
+                <td colspan="9">
+                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="doctors"></mdb-table-pagination>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
