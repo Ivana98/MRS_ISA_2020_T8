@@ -14,6 +14,9 @@ export class DisplayReportComponent implements OnInit {
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective
 
+  startDate: Date;
+  endDate: Date;
+
   previous: any = [];
   searchText: string = ''; 
   previousearch: string;
@@ -82,6 +85,24 @@ export class DisplayReportComponent implements OnInit {
 
   getRow(data) {
 
+  }
+
+  /**
+   * 
+   * @param event is choosen date
+   */
+  public onStartDate(event): void {
+    this.startDate = event;
+    console.log("Datum 1: " + this.startDate);
+  }
+
+  /**
+   * 
+   * @param event is choosen date
+   */
+  public onEndDate(event): void {
+    this.endDate = event;
+    console.log("Datum 2: " + this.endDate);
   }
 
 }

@@ -6,6 +6,8 @@
         </div>
     </div>
 
+    <mat-divider id="divider"></mat-divider>
+
     <!-- DOCTORS AND THEIR AVERAGE MARKS -->
     <div class="row">
         <div class="col-md-12 mx-auto">
@@ -44,4 +46,33 @@
             </tr>
         </tfoot>
     </table>
+
+    <mat-divider id="divider"></mat-divider>
+
+    <!-- CLINIC INCOME REPORT -->
+    <!-- START DATE -->
+    <div class="row">
+        <div class="col-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Choose start date</mat-label>
+                <input matInput [matDatepicker]="picker1" [(ngModel)]="startDate" disabled>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker touchUi #picker1 ngDefaultControl [(ngModel)]="startDate" (dateInput)="onStartDate($event)" disabled="false"></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <!-- END DATE -->
+    <div class="row">
+        <div class="col-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Choose end date</mat-label>
+                <input matInput [matDatepicker]="picker2" [(ngModel)]="endDate" disabled>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker touchUi #picker2 ngDefaultControl [(ngModel)]="endDate" (dateInput)="onEndDate($event)" disabled="false"></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+
 </div>

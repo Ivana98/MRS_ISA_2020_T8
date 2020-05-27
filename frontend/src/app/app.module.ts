@@ -55,6 +55,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 // import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 // import { MatAutocompleteHarness } from '@angular/material/autocomplete/testing';
@@ -103,7 +104,7 @@ import { DisplayReportComponent } from './components/administrator/display-repor
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
     MatRadioModule, MatSelectModule, MatCardModule, MatCheckboxModule, MatSliderModule, MatButtonModule, MatTableModule, 
-    MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, 
+    MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatDividerModule, 
     ReactiveFormsModule, MatIconModule, MatDialogModule, MatRippleModule,
     CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule,
     BrowserModule,
