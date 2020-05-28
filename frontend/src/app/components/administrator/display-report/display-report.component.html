@@ -47,7 +47,10 @@
         </tfoot>
     </table>
 
-    <mat-divider id="divider"></mat-divider>
+    <div style="padding-top: 2.7rem; padding-bottom: 4rem;">
+        <mat-divider id="divider"></mat-divider>
+    </div>
+    
 
     <!-- CLINIC INCOME REPORT -->
     <!-- START DATE -->
@@ -55,9 +58,9 @@
         <div class="col-4">
             <mat-form-field class="example-full-width">
                 <mat-label>Choose start date</mat-label>
-                <input matInput [matDatepicker]="picker1" [(ngModel)]="startDate" disabled>
+                <input matInput [matDatepicker]="picker1" [(ngModel)]="startEndDateClinicId.startDate" disabled>
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker touchUi #picker1 ngDefaultControl [(ngModel)]="startDate" (dateInput)="onStartDate($event)" disabled="false"></mat-datepicker>
+                <mat-datepicker touchUi #picker1 ngDefaultControl [(ngModel)]="startEndDateClinicId.startDate" (dateInput)="onStartDate($event)" disabled="false"></mat-datepicker>
             </mat-form-field>
         </div>
     </div>
@@ -67,10 +70,52 @@
         <div class="col-4">
             <mat-form-field class="example-full-width">
                 <mat-label>Choose end date</mat-label>
-                <input matInput [matDatepicker]="picker2" [(ngModel)]="endDate" disabled>
+                <input matInput [matDatepicker]="picker2" [(ngModel)]="startEndDateClinicId.endDate" disabled>
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                <mat-datepicker touchUi #picker2 ngDefaultControl [(ngModel)]="endDate" (dateInput)="onEndDate($event)" disabled="false"></mat-datepicker>
+                <mat-datepicker touchUi #picker2 ngDefaultControl [(ngModel)]="startEndDateClinicId.endDate" (dateInput)="onEndDate($event)" disabled="false"></mat-datepicker>
             </mat-form-field>
+        </div>
+    </div>
+
+    <!-- data-toggle="modal" data-target="#exampleModal" -->
+    <div class="row">
+        <div class="col">
+            <button mat-raised-button color="primary" (click)="loadIncomes()" data-toggle="modal" data-target="#exampleModal">Show incomes</button>
+        </div>
+    </div>
+
+    <!-- POPUP TO SHOW INCOMES -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Edit room</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            From {{ startEndDateClinicId.startDate | date:'short' }} to {{ startEndDateClinicId.endDate }} total income is:
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <h2>
+                                {{ income }}
+                            </h2>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="closemodal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
         </div>
     </div>
 

@@ -34,4 +34,15 @@ public interface ExaminationRepository extends JpaRepository<Examination, Long> 
 			+ "(e.date > ?2) and "
 			+ "(e.patient.id is null)")
 	List<Examination> findAllFreeFromClinic(Long clinicId, Date date);
+
+	/**
+	 * @param startDate
+	 * @param endDate
+	 * @param clinicId
+	 * @return
+	 */
+	@Query("SELECT e FROM Examination e "
+			+ "WHERE (e.date BETWEEN ?1 AND ?2) "
+			+ "and (e.doctor.clinic.id is ?3) ")
+	List<Examination> findExaminationsBetweenDatesAndClinicId(Date startDate, Date endDate, Long clinicId);
 }

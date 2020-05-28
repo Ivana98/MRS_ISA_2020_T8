@@ -3,6 +3,7 @@ import { ClinicService } from 'src/app/services/clinic-service/clinic.service';
 import { DoctorForClinicList2 } from 'src/app/model/doctorForClinicList';
 import { DoctorService } from 'src/app/services/doctor-service/doctor.service';
 import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstrap-md';
+import { StartEndDateClinicId } from 'src/app/model/StartEndDateClinicId';
 
 @Component({
   selector: 'app-display-report',
@@ -14,8 +15,9 @@ export class DisplayReportComponent implements OnInit {
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective
 
-  startDate: Date;
-  endDate: Date;
+  startEndDateClinicId: StartEndDateClinicId = new StartEndDateClinicId(new Date(), new Date(),  1);
+
+  income;
 
   previous: any = [];
   searchText: string = ''; 
@@ -37,7 +39,7 @@ export class DisplayReportComponent implements OnInit {
     this.loadDoctors();
   }
 
-  loadDoctors() {
+  private loadDoctors() {
     this._httpDoctorService.getAllByClinicForAverageMark()
       .subscribe(data => {
         this.setResponse(data);
@@ -48,14 +50,14 @@ export class DisplayReportComponent implements OnInit {
     this.pagination();
   }
 
-  pagination() {
+  private pagination() {
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(6);
     this.mdbTablePagination.calculateFirstItemIndex();
     this.mdbTablePagination.calculateLastItemIndex();
     this.cdRef.detectChanges();
   }
 
-  setResponse(response){
+  private setResponse(response){
     this.doctors = response;
     this.mdbTable.setDataSource(this.doctors);
     this.doctors = this.mdbTable.getDataSource();
@@ -63,7 +65,7 @@ export class DisplayReportComponent implements OnInit {
     this.previousearch = this.mdbTable.getDataSource(); 
   }
 
-  searchItems(){
+  private searchItems(){
     const prev = this.mdbTable.getDataSource(); 
     
     if (!this.searchText) {
@@ -76,14 +78,18 @@ export class DisplayReportComponent implements OnInit {
     } 
   }
 
-  loadClinicAverageMark() {
+  private loadClinicAverageMark() {
     this._httpClinicService.getClinicAverageMark()
       .subscribe(mark => {
         this.clinicAverageMark = mark;
       });
   }
 
-  getRow(data) {
+  /**
+   * 
+   * @param data 
+   */
+  public getRow(data) {
 
   }
 
@@ -92,8 +98,8 @@ export class DisplayReportComponent implements OnInit {
    * @param event is choosen date
    */
   public onStartDate(event): void {
-    this.startDate = event;
-    console.log("Datum 1: " + this.startDate);
+    this.startEndDateClinicId.startDate = event;
+    console.log("Datum 1: " + this.startEndDateClinicId.startDate);
   }
 
   /**
@@ -101,8 +107,21 @@ export class DisplayReportComponent implements OnInit {
    * @param event is choosen date
    */
   public onEndDate(event): void {
-    this.endDate = event;
-    console.log("Datum 2: " + this.endDate);
+    this.startEndDateClinicId.endDate = event;
+    console.log("Datum 2: " + this.startEndDateClinicId.endDate);
+  }
+
+  /**
+   * Ne radi ne znam zasto... ali na beku
+   */
+  public loadIncomes() {
+    // console.log("start date: " + this.startEndDateClinicId.startDate)
+    // console.log("  end date: " + this.startEndDateClinicId.endDate)
+    this._httpClinicService.getIncome(this.startEndDateClinicId)
+      .subscribe(data => {
+        console.log("IDEMOOOO: "+data);
+        // this.income = data;
+      });
   }
 
 }
