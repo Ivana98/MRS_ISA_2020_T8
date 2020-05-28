@@ -9,7 +9,7 @@ import { isNull } from 'util';
   styleUrls: ['./medical-records.component.css']
 })
 export class MedicalRecordsComponent implements OnInit {
-  records : IMedicalRecords = new MedicalRecords("", "", "", 0, 0, "", [], "");
+  records : IMedicalRecords = new MedicalRecords("", "", "", 0, 0, "", "", "");
   error: boolean;
 
   constructor(

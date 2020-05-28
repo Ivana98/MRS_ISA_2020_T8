@@ -18,6 +18,9 @@ import org.springframework.stereotype.Service;
 
 import com.team08.CCSystem.dto.ForAllUsersDTO;
 import com.team08.CCSystem.dto.LoginDTO;
+import com.team08.CCSystem.dto.UserPasswordDTO;
+import com.team08.CCSystem.dto.UserProfileDTO;
+import com.team08.CCSystem.model.Address;
 import com.team08.CCSystem.model.Authority;
 import com.team08.CCSystem.model.ClinicAdmin;
 import com.team08.CCSystem.model.ClinicalCenterAdmin;
@@ -99,9 +102,9 @@ public class UserService implements UserDetailsService{
 		
 	}
 
-	/*
+
 	// Funkcija pomocu koje korisnik menja svoju lozinku
-	public void changePassword(String oldPassword, String newPassword) {
+	public boolean changePassword(UserPasswordDTO userPassword) {
 
 		// Ocitavamo trenutno ulogovanog korisnika
 		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
@@ -110,11 +113,11 @@ public class UserService implements UserDetailsService{
 		if (authenticationManager != null) {
 			LOGGER.debug("Re-authenticating user '" + username + "' for password change request.");
 
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, oldPassword));
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, userPassword.getPassword()));
 		} else {
 			LOGGER.debug("No authentication manager set. can't change Password!");
 
-			return;
+			return false;
 		}
 
 		LOGGER.debug("Changing password for user '" + username + "'");
@@ -123,11 +126,32 @@ public class UserService implements UserDetailsService{
 
 		// pre nego sto u bazu upisemo novu lozinku, potrebno ju je hesirati
 		// ne zelimo da u bazi cuvamo lozinke u plain text formatu
-		user.setPassword(passwordEncoder.encode(newPassword));
+		user.setPassword(passwordEncoder.encode(userPassword.getNewPassword()));
 		userRepository.save(user);
-
+		return true;
 	}
-	*/
+	
+	public boolean changeUserData(UserProfileDTO userDTO) {
+
+		// Ocitavamo trenutno ulogovanog korisnika
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		String username = currentUser.getName();
+
+		User user = (User) loadUserByUsername(username);
+		
+		if(user == null) {
+			return false;
+		}
+
+		user.setName(userDTO.getName());
+		user.setSurname(userDTO.getSurname());
+		user.setPhone(userDTO.getPhone());
+		Address address = new Address(null, userDTO.getStreet(), userDTO.getCity(), userDTO.getCountry());
+		user.setAddress(address);
+		userRepository.save(user);
+		return true;
+	}
+
 	
 	//user service implementation
 	public User findByUsername(String username) {	

@@ -15,7 +15,7 @@ export class ChangeDoctorComponent implements OnInit {
 
   doctor = new Doctor(null, "", "", "", "", "", "", "", "", "", "");
   doctorsList: Array<Doctor> = [];
-  userPassword = new UserPassword(0, "", "", "");
+  userPassword = new UserPassword("", "", "");
   currentPasswordMatched : boolean = true;
   passwordConfirmed : boolean = true;
   doctorHasAppointment: boolean = false;
