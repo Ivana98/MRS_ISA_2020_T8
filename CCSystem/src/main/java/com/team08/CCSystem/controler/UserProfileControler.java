@@ -48,35 +48,20 @@ public class UserProfileControler {
 		return this.user;
 	}
 	
-	@PutMapping(path = "/setUserData", produces = "application/json")
-	/*
-	 * Ovaj kontroler je samo za menjanje osnovnih podataka koji su atributi u klasi User.
-	 * Postojace jos jedan kontroler koji je vezan za sve dodatne atribute koji mogu da se menjanju
-	 * kod ostalih tipova korisnika.
-	 * 
-	 * NAKNADNO OBRISATI OVAJ KOMENTAR
-	 */
-	public ResponseEntity<UserProfileDTO> setUserData(@RequestBody UserProfileDTO userProfileDTO) {
+	@PreAuthorize("hasAnyRole('NURSE', 'DOCTOR', 'PATIENT', 'CLINIC_ADMIN', 'CLINIC_CENTER_ADMIN')")
+	@PostMapping(path = "/setUserData", produces = "application/json")
+	public ResponseEntity<?> setUserData(@RequestBody UserProfileDTO userProfileDTO) {
 
-		User user = userService.findOne(userProfileDTO.getId());
+		boolean success = userService.changeUserData(userProfileDTO);
+		Map<String, String> result = new HashMap<>();
 		
-		if (user == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		if (!success) {
+			result.put("result", "Error with changing data");
+			return ResponseEntity.badRequest().body(result);
 		}
 		
-		user.setName(userProfileDTO.getName());
-		user.setSurname(userProfileDTO.getSurname());
-		Address address = new Address();
-		address.setCity(userProfileDTO.getCity());
-		address.setCountry(userProfileDTO.getCountry());
-		address.setStreet(userProfileDTO.getStreet());
-		user.setAddress(address);
-		user.setEmail(userProfileDTO.getEmail());
-		user.setPassword(userProfileDTO.getPassword());
-		user.setPhone(userProfileDTO.getPhone());
-		
-		user = userService.save(user);
-		return new ResponseEntity<>(new UserProfileDTO(user), HttpStatus.OK);
+		result.put("result", "success");
+		return ResponseEntity.accepted().body(result);
 	}
 	
 	@PutMapping(path = "/updateSpecUser", produces = "application/json")

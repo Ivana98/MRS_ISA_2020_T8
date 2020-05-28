@@ -123,6 +123,12 @@
         </div>
     </div>
 
+    <div class="col8">
+        <div class="alert alert-success" role="alert" *ngIf="displayDataAlertMsg">
+            {{displayDataAlertMsg}}
+        </div>
+    </div>
+
     <div class="col-8">
         <div class="md-form">
             <button type="submit" mdbBtn col-4or="light" mdbWavesEffect type="submit" [disabled]="userProfileForm.form.invalid">

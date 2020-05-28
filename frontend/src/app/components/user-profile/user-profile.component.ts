@@ -25,21 +25,21 @@ export class UserProfileComponent implements OnInit {
     this.user = this._loginService.currentUser;
   }
 
-  saveChanges(event){
-    this._httpUserService.setUserData(this.user)
-        .subscribe( data => {
-          this.changeDataSuccess = data;
-        });
-  }
-
   onSubmitData(){
+    this.displayDataAlertMsg = undefined;
+
+    this._httpUserService.setUserData(this.user)
+      .subscribe( data => {
+        this.displayDataAlertMsg = "You successfully changed your data.";
+        this._loginService.updateCurrentUser(this.user.name, this.user.surname);
+      },
+      error => {});
 
   }
 
   onSubmitPassword(){
     this.changePasswordMsg = undefined;
     this.displayPasswordAlertMsg = undefined;
-    this.displayDataAlertMsg = undefined;
 
     if(this.userPassword.newPassword != this.userPassword.confirmedPassword){
       this.passwordConfirmed = false;

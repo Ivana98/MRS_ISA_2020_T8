@@ -20,13 +20,11 @@ export class UserProfileService {
     return this._httpClient.get<IUserProfile>(this._ulrGetUserData);
   }
   //all data except password
-  // return true if data is succesfully written in database
   setUserData(user)
   {
-    return this._httpClient.put<UserProfile>(this._ulrSetUserData, user);
+    return this._apiService.post(this._ulrSetUserData, user, this._apiService.headers);
   }
   //set user password only
-  // return true if data is succesfully written in database
   setUserPassword(password)
   {
     return this._apiService.post(this._ulrSetUserPassword, password, this._apiService.headers);

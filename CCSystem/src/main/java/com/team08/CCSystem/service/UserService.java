@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import com.team08.CCSystem.dto.ForAllUsersDTO;
 import com.team08.CCSystem.dto.LoginDTO;
 import com.team08.CCSystem.dto.UserPasswordDTO;
+import com.team08.CCSystem.dto.UserProfileDTO;
+import com.team08.CCSystem.model.Address;
 import com.team08.CCSystem.model.Authority;
 import com.team08.CCSystem.model.ClinicAdmin;
 import com.team08.CCSystem.model.ClinicalCenterAdmin;
@@ -125,6 +127,27 @@ public class UserService implements UserDetailsService{
 		// pre nego sto u bazu upisemo novu lozinku, potrebno ju je hesirati
 		// ne zelimo da u bazi cuvamo lozinke u plain text formatu
 		user.setPassword(passwordEncoder.encode(userPassword.getNewPassword()));
+		userRepository.save(user);
+		return true;
+	}
+	
+	public boolean changeUserData(UserProfileDTO userDTO) {
+
+		// Ocitavamo trenutno ulogovanog korisnika
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		String username = currentUser.getName();
+
+		User user = (User) loadUserByUsername(username);
+		
+		if(user == null) {
+			return false;
+		}
+
+		user.setName(userDTO.getName());
+		user.setSurname(userDTO.getSurname());
+		user.setPhone(userDTO.getPhone());
+		Address address = new Address(null, userDTO.getStreet(), userDTO.getCity(), userDTO.getCountry());
+		user.setAddress(address);
 		userRepository.save(user);
 		return true;
 	}
