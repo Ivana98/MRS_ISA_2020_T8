@@ -1,7 +1,6 @@
 package com.team08.CCSystem.controler;
 
 
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +21,8 @@ import com.team08.CCSystem.model.User;
 import com.team08.CCSystem.service.UserService;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.team08.CCSystem.dto.SpecificUserProfileDTO;
 import com.team08.CCSystem.model.Address;
@@ -41,7 +42,7 @@ public class UserProfileControler {
 	
 	@Autowired
 	private UserService userService;
-	
+		
 	@GetMapping("/getUserData")  
 	private UserProfileDTO getUserData() {
 		return this.user;
@@ -119,23 +120,20 @@ public class UserProfileControler {
 		return null;
 	}
 	
-	@PutMapping(path ="/setUserPassword", consumes = "application/json")
-	public ResponseEntity<UserProfileDTO> setUserPassword(@RequestBody UserPasswordDTO userPasswordDTO) {
-		//TODO:here should be server validation before writing user in database
+	@PostMapping(path ="/setUserPassword", consumes = "application/json")
+	@PreAuthorize("hasAnyRole('NURSE', 'DOCTOR', 'PATIENT', 'CLINIC_ADMIN', 'CLINIC_CENTER_ADMIN')")
+	public ResponseEntity<?> setUserPassword(Principal user, @RequestBody UserPasswordDTO userPasswordDTO) {		
 		
+		boolean success = userService.changePassword(userPasswordDTO);
+		Map<String, String> result = new HashMap<>();
 		
-		User user = userService.findOne(userPasswordDTO.getId());
-		
-		if (user == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		if (!success) {
+			result.put("result", "Wrong old password");
+			return ResponseEntity.badRequest().body(result);
 		}
 		
-		user.setPassword(userPasswordDTO.getNewPassword());
-		
-		user = userService.save(user);
-		return new ResponseEntity<>(new UserProfileDTO(user), HttpStatus.OK);
-		
-//		return null;
+		result.put("result", "success");
+		return ResponseEntity.ok().body(result);
 	}
 	
 	@GetMapping("/returnCurrentUser")

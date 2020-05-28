@@ -5,7 +5,7 @@ export interface IMedicalRecords {
 	height: number,
 	weight: number,
 	bloodType: string,
-	allergies: string[],
+	allergies: string,
 	diopter: string
 }
 
@@ -17,7 +17,7 @@ export class MedicalRecords {
         public height: number,
         public weight: number,
         public bloodType: string,
-        public allergies: string[],
+        public allergies: string,
 	    public diopter: string
     ) {} 
 }

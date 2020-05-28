@@ -4,7 +4,6 @@ import com.team08.CCSystem.model.User;
 
 public class UserPasswordDTO {
 	
-	private Long id;
 	private String password;
 	private String newPassword;
 	private String confirmedPassword;
@@ -15,9 +14,8 @@ public class UserPasswordDTO {
 	 * @param newPassword
 	 * @param confirmedPassword
 	 */
-	public UserPasswordDTO(Long id, String password, String newPassword, String confirmedPassword) {
+	public UserPasswordDTO(String password, String newPassword, String confirmedPassword) {
 		super();
-		this.id = id;
 		this.password = password;
 		this.newPassword = newPassword;
 		this.confirmedPassword = confirmedPassword;
@@ -28,18 +26,6 @@ public class UserPasswordDTO {
 	 */
 	public UserPasswordDTO() {
 		super();
-	}
-	
-	public UserPasswordDTO(User user) {
-		//TODO: check, but I think it's not needed to do this constructor.
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getPassword() {
@@ -68,7 +54,7 @@ public class UserPasswordDTO {
 
 	@Override
 	public String toString() {
-		return "UserPasswordDTO [id=" + id + ", password=" + password + ", newPassword=" + newPassword
+		return "UserPasswordDTO [  password=" + password + ", newPassword=" + newPassword
 				+ ", confirmedPassword=" + confirmedPassword + "]";
 	}
 	
