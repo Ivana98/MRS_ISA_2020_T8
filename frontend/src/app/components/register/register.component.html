@@ -5,59 +5,175 @@
 
                 <!--Form with header-->
                 <mdb-card style="width: 28rem;">
-            
-                <!--Header-->
-                <div class="header pt-3 grey lighten-2">
-            
-                    <div class="row d-flex justify-content-start">
-                    <h3 class="deep-grey-text mt-3 mb-4 pb-1 mx-5">Sign up</h3>
+
+                    <!--Header-->
+                    <div class="header pt-3 grey lighten-2">
+
+                        <div class="row d-flex justify-content-start">
+                            <h3 class="deep-grey-text mt-3 mb-4 pb-1 mx-5">Sign up</h3>
+                        </div>
+
                     </div>
-            
-                </div>
-                <!--Header-->
-            
+                    <!--Header-->
+
                     <mdb-card-body class="mx-4 mt-4">
-            
+
                         <!--Body-->
-                        <form [formGroup]="simpleForm">
-                
-                            <div class="md-form">
-                                <input type="text" id="simpleFormNameEx" class="form-control" formControlName="simpleFormNameEx" mdbInput>
-                                <label for="simpleFormNameEx">First name</label>
+                        <form #registerForm="ngForm" (ngSubmit)="onSubmitRequest()">
+
+                            <div class="col8">
+                                <div class="alert alert-success" role="alert" *ngIf="displaySuccessAlert">
+                                    {{displaySuccessAlert}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="md-form">
+                                        <input required mdbInput class="form-control" type="text" 
+                                            #name="ngModel" [(ngModel)]="request.name" name="name"
+                                            [class.is-invalid]="name.invalid && name.touched">
+                                        <label for="name" class="">First name</label>
+                                        <div *ngIf="name.invalid && name.touched">
+                                            <small class="text-danger" *ngIf="name.errors.required"> First name is required. </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="md-form">
+                                        <input required mdbInput class="form-control" type="text" 
+                                            #surname="ngModel" [(ngModel)]="request.surname" name="surname"
+                                            [class.is-invalid]="surname.invalid && surname.touched">
+                                        <label for="surname" class="">Last name</label>
+                                        <div *ngIf="surname.invalid && surname.touched">
+                                            <small class="text-danger" *ngIf="surname.errors.required"> Last name is required. </small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="md-form">
-                                <input type="text" id="simpleFormSurnameEx" class="form-control" formControlName="simpleFormSurnameEx" mdbInput>
-                                <label for="simpleFormSurnameEx">Last name</label>
+                                <input required mdbInput class="form-control" type="email" #username="ngModel"
+                                  [(ngModel)]="request.email" name="username" [class.is-invalid]="username.invalid && username.touched"
+                                  pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
+                                <label for="username">Your email (it will be used as your username)</label>
+                                <div *ngIf="username.invalid && username.touched">
+                                  <small class="text-danger" *ngIf="username.errors.required"> Email address is required. </small>
+                                  <small class="text-danger" *ngIf="username.errors.pattern"> Please enter your email address. </small>
+                                </div>
                             </div>
 
-                            <div class="md-form">
-                                <input type="text" id="simpleFormPhoneEx" class="form-control" formControlName="simpleFormPhoneEx" mdbInput>
-                                <label for="simpleFormPhoneEx">Phone number</label>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="md-form">
+                                        <input required mdbInput class="form-control" type="text" 
+                                            #street="ngModel" [(ngModel)]="request.street" name="street"
+                                            [class.is-invalid]="street.invalid && street.touched">
+                                        <label for="street" class="">Street</label>
+                                        <div *ngIf="street.invalid && street.touched">
+                                            <small class="text-danger" *ngIf="street.errors.required"> Street is required. </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="md-form">
+                                        <input required mdbInput class="form-control" type="text" 
+                                            #city="ngModel" [(ngModel)]="request.city" name="city"
+                                            [class.is-invalid]="city.invalid && city.touched">
+                                        <label for="city" class="">City</label>
+                                        <div *ngIf="city.invalid && city.touched">
+                                            <small class="text-danger" *ngIf="city.errors.required"> City is required. </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="md-form">
+                                        <input required mdbInput class="form-control" type="text" 
+                                            #country="ngModel" [(ngModel)]="request.country" name="country"
+                                            [class.is-invalid]="country.invalid && country.touched">
+                                        <label for="country" class="">Country</label>
+                                        <div *ngIf="country.invalid && country.touched">
+                                            <small class="text-danger" *ngIf="country.errors.required"> Country is required. </small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="md-form">
-                                <input type="text" id="simpleFormEmailEx" class="form-control" formControlName="simpleFormEmailEx" mdbInput>
-                                <label for="simpleFormEmailEx">Email</label>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="md-form">
+                                        <!-- This pattern allows + sign followed by digits -->
+                                        <input required mdbInput class="form-control" type="text" 
+                                            #phone="ngModel" [(ngModel)]="request.phone" name="phone"
+                                            [class.is-invalid]="phone.invalid && phone.touched" pattern="\+\d+">
+                                        <label for="phone" class="">Phone number</label>
+                                        <div *ngIf="phone.errors && (phone.invalid && phone.touched)">
+                                            <small class="text-danger" *ngIf="phone.errors.required"> Phone number is required. </small>
+                                            <small class="text-danger" *ngIf="phone.errors.pattern"> Phone number must be in format +381611231233.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="md-form">
+                                        <input required mdbInput class="form-control" type="text" 
+                                            #policyholder="ngModel" [(ngModel)]="request.policyholder" name="policyholder"
+                                            [class.is-invalid]="policyholder.invalid && policyholder.touched">
+                                        <label for="policyholder" class="">Policyholder</label>
+                                        <div *ngIf="policyholder.invalid && policyholder.touched">
+                                            <small class="text-danger" *ngIf="policyholder.errors.required"> Policyholder is required. </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <input required mdbInput class="form-control" type="password" 
+                                        #password="ngModel" [(ngModel)]="request.password" name="password"
+                                        [class.is-invalid]="password.invalid && password.touched">
+                                    <label for="current-password" class="">Current password</label>
+                                    <div *ngIf="password.invalid && password.touched">
+                                        <small class="text-danger" *ngIf="password.errors.required"> Password is required. </small>
+                                    </div>
+                                </div>
                             </div>
                     
-                            <div class="md-form pb-3">
-                                <input type="password" id="simpleFormPasswordEx" class="form-control" formControlName="simpleFormPasswordEx" mdbInput>
-                                <label for="simpleFormPasswordEx">Password</label>
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <input required mdbInput class="form-control" type="password" 
+                                        #confirmedPassword="ngModel" [(ngModel)]="confirmedPass" name="confirmedPassword"
+                                        [class.is-invalid]="confirmedPassword.invalid && confirmedPassword.touched">
+                                    <label for="confirm-password" class="">Confirm password</label>
+                                    <div *ngIf="confirmedPassword.invalid && confirmedPassword.touched">
+                                        <small class="text-danger" *ngIf="confirmedPassword.errors.required"> Please, confirm new password. </small>
+                                    </div>
+                                    <small class="text-danger" *ngIf="!passwordIsConfirmed"> This password does not match with your new password. </small>
+                                </div>
                             </div>
 
-                            <div class="md-form pb-3">
-                                <input type="password" id="simpleFormConfirmEx" class="form-control" formControlName="simpleFormConfirmEx" mdbInput>
-                                <label for="simpleFormConfirmEx">Confirm password</label>
+                            <div class="text-center mb-4">
+                                <button type="submit" mdbBtn color="danger" mdbWavesEffect block="true" class="z-depth-2"
+                                    [disabled]="registerForm.form.invalid">
+                                    Sign up
+                                </button>
                             </div>
+
                         </form>
-            
-                        <div class="text-center mb-4">
-                            <button type="button" mdbBtn color="danger" block="true" class="z-depth-2">Sign up</button>
-                        </div>
-            
+
                     </mdb-card-body>
-            
+
                 </mdb-card>
                 <!--/Form with header-->
 
@@ -69,3 +185,9 @@
 <!-- <div class="container">
     
 </div> -->
+<!-- [formGroup]="simpleForm"
+                                <div class="md-form pb-3">
+                                <input type="password" id="simpleFormConfirmEx" class="form-control" formControlName="simpleFormConfirmEx" mdbInput>
+                                <label for="simpleFormConfirmEx">Confirm password</label>
+                            </div>
+                            -->
