@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { RouterModule } from '@angular/router';
 import { MatSliderModule } from '@angular/material/slider';
+import { ChartsModule } from 'angular-bootstrap-md'
 
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -67,6 +68,7 @@ import { EditClinicBasicComponent } from './components/administrator/edit-clinic
 import { TableOfPatientComponent } from './components/nurse/table-of-patient/table-of-patient.component';
 import { AddExaminationTypeComponent } from './components/administrator/add-examination-type/add-examination-type.component';
 import { DisplayReportComponent } from './components/administrator/display-report/display-report.component';
+import { CalendarComponent } from './components/administrator/calendar/calendar.component';
 
 
 @NgModule({
@@ -93,7 +95,8 @@ import { DisplayReportComponent } from './components/administrator/display-repor
     DisplayMedicalRoomsComponent,
     EditClinicBasicComponent,
     TableOfPatientComponent,
-    DisplayReportComponent
+    DisplayReportComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +110,7 @@ import { DisplayReportComponent } from './components/administrator/display-repor
     MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatDividerModule, 
     ReactiveFormsModule, MatIconModule, MatDialogModule, MatRippleModule,
     CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule,
-    BrowserModule,
+    BrowserModule, ChartsModule,
     MatSortModule
   ],
   providers: [

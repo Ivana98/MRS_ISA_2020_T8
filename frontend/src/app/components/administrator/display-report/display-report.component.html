@@ -84,6 +84,28 @@
         </div>
     </div>
 
+    <div style="padding-top: 2.7rem; padding-bottom: 4rem;">
+        <mat-divider id="divider"></mat-divider>
+    </div>
+
+    <!-- CHART -->
+    <div class="row">
+        <div class="col">
+            <div style="display: block">
+                <canvas mdbChart
+                    [chartType]="chartType"
+                    [datasets]="chartDatasets"
+                    [labels]="chartLabels"
+                    [colors]="chartColors"
+                    [options]="chartOptions"
+                    [legend]="true"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+        </div>
+    </div>
+
     <!-- POPUP TO SHOW INCOMES -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

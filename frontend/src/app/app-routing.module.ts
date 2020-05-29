@@ -29,6 +29,7 @@ import { DisplayMedicalRoomsComponent } from './components/administrator/display
 import { EditClinicBasicComponent } from './components/administrator/edit-clinic-basic/edit-clinic-basic.component';
 import { TableOfPatientComponent } from './components/nurse/table-of-patient/table-of-patient.component';
 import { DisplayReportComponent } from './components/administrator/display-report/display-report.component';
+import { CalendarComponent } from './components/administrator/calendar/calendar.component';
 
 
 const routes: Routes = [
@@ -58,7 +59,8 @@ const routes: Routes = [
       { path: 'displayMedicalRooms', component: DisplayMedicalRoomsComponent },
       { path: 'tableOfPatient', component: TableOfPatientComponent },
       { path: 'editClinicBasic', component: EditClinicBasicComponent },
-      { path: 'displayReport', component: DisplayReportComponent }
+      { path: 'displayReport', component: DisplayReportComponent },
+      { path: 'displayCalendar', component: CalendarComponent }
     ]
   },
   { path: 'nurse', component: UserPageComponent ,
@@ -96,5 +98,6 @@ export const routingComponents = [
   DisplayMedicalRoomsComponent, 
   EditClinicBasicComponent,
   TableOfPatientComponent,
-  DisplayReportComponent
+  DisplayReportComponent,
+  CalendarComponent
 ]

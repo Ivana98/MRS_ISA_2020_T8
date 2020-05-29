@@ -112,7 +112,7 @@ public class ClinicControler {
 		return new ResponseEntity<List<ClinicBasicDTO>>(clinicsDTO, HttpStatus.OK);
 	}
 	
-	@GetMapping(path="/getIncome", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path="/getIncome")
 	public ResponseEntity<Double> getIncome(@RequestBody StartEndDateClinicIdDTO startEndDateClinicIdDTO) {
 		System.out.println("IDEMOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 		System.out.println(startEndDateClinicIdDTO);
