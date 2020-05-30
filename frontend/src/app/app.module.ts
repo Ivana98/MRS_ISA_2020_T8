@@ -69,6 +69,7 @@ import { TableOfPatientComponent } from './components/nurse/table-of-patient/tab
 import { AddExaminationTypeComponent } from './components/administrator/add-examination-type/add-examination-type.component';
 import { DisplayReportComponent } from './components/administrator/display-report/display-report.component';
 import { CalendarComponent } from './components/administrator/calendar/calendar.component';
+import { AbsenceComponent } from './components/doctor/absence/absence.component';
 
 
 @NgModule({
@@ -96,7 +97,8 @@ import { CalendarComponent } from './components/administrator/calendar/calendar.
     EditClinicBasicComponent,
     TableOfPatientComponent,
     DisplayReportComponent,
-    CalendarComponent
+    CalendarComponent,
+    AbsenceComponent
   ],
   imports: [
     BrowserModule,

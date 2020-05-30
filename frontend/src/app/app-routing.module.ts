@@ -30,6 +30,7 @@ import { EditClinicBasicComponent } from './components/administrator/edit-clinic
 import { TableOfPatientComponent } from './components/nurse/table-of-patient/table-of-patient.component';
 import { DisplayReportComponent } from './components/administrator/display-report/display-report.component';
 import { CalendarComponent } from './components/administrator/calendar/calendar.component';
+import { AbsenceComponent } from './components/doctor/absence/absence.component';
 
 
 const routes: Routes = [
@@ -60,7 +61,8 @@ const routes: Routes = [
       { path: 'tableOfPatient', component: TableOfPatientComponent },
       { path: 'editClinicBasic', component: EditClinicBasicComponent },
       { path: 'displayReport', component: DisplayReportComponent },
-      { path: 'displayCalendar', component: CalendarComponent }
+      { path: 'displayCalendar', component: CalendarComponent },
+      { path: 'absence', component: AbsenceComponent }
     ]
   },
   { path: 'nurse', component: UserPageComponent ,
@@ -99,5 +101,6 @@ export const routingComponents = [
   EditClinicBasicComponent,
   TableOfPatientComponent,
   DisplayReportComponent,
-  CalendarComponent
+  CalendarComponent,
+  AbsenceComponent
 ]
