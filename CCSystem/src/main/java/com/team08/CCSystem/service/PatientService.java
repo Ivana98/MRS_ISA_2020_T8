@@ -2,6 +2,7 @@ package com.team08.CCSystem.service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,9 +16,11 @@ import com.team08.CCSystem.model.ClinicalCenter;
 import com.team08.CCSystem.model.DoctorMark;
 import com.team08.CCSystem.model.Examination;
 import com.team08.CCSystem.model.Patient;
+import com.team08.CCSystem.model.VerificationToken;
 import com.team08.CCSystem.model.enums.BloodType;
 import com.team08.CCSystem.repository.ClinicalCenterRepository;
 import com.team08.CCSystem.repository.PatientRepository;
+import com.team08.CCSystem.repository.VerificationTokenRepository;
 
 /**
  * @author Veljko
@@ -33,7 +36,12 @@ public class PatientService {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
+	
+	@Autowired
+	private EmailServiceImpl emailService;
+	
+	@Autowired
+    private VerificationTokenRepository tokenRepository;
 	
 	public Patient findOne(Long id) {
 		return patientRepository.findById(id).orElseGet(null);
@@ -92,5 +100,44 @@ public class PatientService {
 		
 		return patientRepository.save(p);
 	}
+	
+	
+	public void registrationApproval(boolean approved, String userEmail, String explanation) {
+		
+		Patient patient = patientRepository.findByEmail(userEmail);
+		//if administrator not approve user registration request
+		if(!approved) {
+			//delete patient from database and send explanation by email
+			remove(patient.getId());
+			emailService.sendMail("mrsisa.t8@gmail.com", "Registration response", explanation);
+			return;
+		}
+		
+		//if admin approve registration request		
+		//generate verification token for patient and send mail with activation link
+        String token = UUID.randomUUID().toString();
+        createVerificationToken(patient, token);
+         
+        String confirmationUrl = "http://localhost:8080/auth/regitration/" + token;
+        String message = "Hello " + patient.getEmail() + ",\n"
+        		+ "Our Clinical Center approve your registration request.\n" +
+        		"Here is your activation link:\n" + confirmationUrl;
+        
+        emailService.sendMail("mrsisa.t8@gmail.com", "Registration Confirmation", message);
+	}
+	
+	public Patient getUser(String verificationToken) {
+        Patient patient = tokenRepository.findByToken(verificationToken).getPatient();
+        return patient;
+    }
+     
+    public VerificationToken getVerificationToken(String verificationToken) {
+        return tokenRepository.findByToken(verificationToken);
+    }
+     
+    public void createVerificationToken(Patient patient, String token) {
+        VerificationToken myToken = new VerificationToken(patient, token);
+        tokenRepository.save(myToken);
+    }
 
 }

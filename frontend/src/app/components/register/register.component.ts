@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
 
   confirmedPass: string = "";
   request = new RegisterRequest("", "", "", "", "", "", "", "", "");
-  passwordIsConfirmed;
+  passwordIsConfirmed = true;
   displaySuccessAlert: string;
   displayRejectRequestAlert: string;
 
