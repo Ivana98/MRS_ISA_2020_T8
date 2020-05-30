@@ -6,7 +6,7 @@ import { ApiService } from '../api-services/api.service';
 })
 export class RequestService {
 
-  private _ulrSendRequest: string = "http://localhost:8080/api/users/getUserData"; //change
+  private _ulrSendRequest: string = "http://localhost:8080/auth/registerRequest";
 
   constructor(private _apiService: ApiService) { }
 

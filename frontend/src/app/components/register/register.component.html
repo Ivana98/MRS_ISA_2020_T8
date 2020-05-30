@@ -163,6 +163,12 @@
                                 </div>
                             </div>
 
+                            <div class="col8">
+                                <div class="alert alert-danger" role="alert" *ngIf="displayRejectRequestAlert">
+                                    {{displayRejectRequestAlert}}
+                                </div>
+                            </div>
+
                             <div class="text-center mb-4">
                                 <button type="submit" mdbBtn color="danger" mdbWavesEffect block="true" class="z-depth-2"
                                     [disabled]="registerForm.form.invalid">

@@ -15,5 +15,6 @@ public enum BloodType {
 	AB_POS,
 	AB_NEG,
 	ZERO_POS,
-	ZERO_NEG
+	ZERO_NEG,
+	UNKNOWN
 }

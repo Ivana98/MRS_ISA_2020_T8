@@ -23,6 +23,7 @@ import com.team08.CCSystem.dto.UserProfileDTO;
 import com.team08.CCSystem.model.Address;
 import com.team08.CCSystem.model.Authority;
 import com.team08.CCSystem.model.ClinicAdmin;
+import com.team08.CCSystem.model.ClinicalCenter;
 import com.team08.CCSystem.model.ClinicalCenterAdmin;
 import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Nurse;
@@ -30,6 +31,7 @@ import com.team08.CCSystem.model.Patient;
 import com.team08.CCSystem.model.User;
 import com.team08.CCSystem.repository.ClinicAdminRepository;
 import com.team08.CCSystem.repository.ClinicalCenterAdminRepository;
+import com.team08.CCSystem.repository.ClinicalCenterRepository;
 import com.team08.CCSystem.repository.DoctorRepository;
 import com.team08.CCSystem.repository.NurseRepository;
 import com.team08.CCSystem.repository.PatientRepository;
@@ -49,7 +51,7 @@ public class UserService implements UserDetailsService{
 	private ClinicAdminRepository clinicAdminRepository;
 	
 	@Autowired
-	private ClinicalCenterAdminRepository clinicalCenterRepository;
+	private ClinicalCenterAdminRepository clinicalCenterAdminRepository;
 	
 	@Autowired
 	private DoctorRepository doctorRepository;
@@ -93,7 +95,7 @@ public class UserService implements UserDetailsService{
 			return clinicalAdmin;
 		}
 		
-		User clinicalCenterAdmin = clinicalCenterRepository.findByEmail(username);
+		User clinicalCenterAdmin = clinicalCenterAdminRepository.findByEmail(username);
 		if (clinicalCenterAdmin != null) {
 			return clinicalCenterAdmin;
 		}
@@ -182,7 +184,7 @@ public class UserService implements UserDetailsService{
 		catch(UsernameNotFoundException e) {}
 		
 		try {
-			if((u = clinicalCenterRepository.findByEmail(username))!= null)
+			if((u = clinicalCenterAdminRepository.findByEmail(username))!= null)
 			return u;
 		}
 		catch(UsernameNotFoundException e) {
@@ -237,7 +239,7 @@ public class UserService implements UserDetailsService{
 		
 		if((u = clinicAdminRepository.findById(id).orElseGet(null)) != null) return u;
 		
-		u = clinicalCenterRepository.findById(id).orElseGet(null);
+		u = clinicalCenterAdminRepository.findById(id).orElseGet(null);
 		return u;	
 	}
 
