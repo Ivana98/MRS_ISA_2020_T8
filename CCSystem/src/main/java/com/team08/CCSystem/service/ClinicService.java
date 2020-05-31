@@ -9,12 +9,16 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.team08.CCSystem.dto.ClinicForTableDTO;
 import com.team08.CCSystem.dto.DoctorForClinicListDTO;
+import com.team08.CCSystem.dto.StartEndDateClinicIdDTO;
 import com.team08.CCSystem.model.Clinic;
 import com.team08.CCSystem.model.Doctor;
+import com.team08.CCSystem.model.Examination;
 import com.team08.CCSystem.repository.ClinicRepository;
 
 /**
@@ -26,6 +30,9 @@ public class ClinicService {
 	
 	@Autowired
 	private ClinicRepository clinicRepository;
+	
+	@Autowired
+	private ExaminationService examinationService;
 	
 	public Clinic findOne(Long id) {
 		return clinicRepository.findById(id).orElseGet(null);
@@ -80,6 +87,31 @@ public class ClinicService {
 			doctorSet.add(dto);
 		}
 		return doctorSet;
+	}
+	
+	public ResponseEntity<Float> getAverageMark(Long id) {
+		
+		Clinic clinic = findOne(id);
+		if (clinic == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<>(clinic.getAverageMark(), HttpStatus.OK);
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public double getIncome(StartEndDateClinicIdDTO sedcDTO) {
+		
+		List<Examination> examinations = examinationService.findExaminationsBetweenDatesAndClinicId(sedcDTO.getStartDate(), sedcDTO.getEndDate(), sedcDTO.getClinicId());
+		
+		double totalIncome = 0;
+		
+		for (Examination examination : examinations) {
+			totalIncome += examination.getPrice().getPrice();
+		}
+		
+		return totalIncome;
 	}
 }
 

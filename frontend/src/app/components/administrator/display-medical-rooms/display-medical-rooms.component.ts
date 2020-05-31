@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, HostListener, ViewChild, AfterVie
 import { MedicalRoomService } from 'src/app/services/medical-room-services/medical-room.service';
 import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstrap-md';
 import { MedicalRoom } from 'src/app/model/medicalRoom';
+import { StartEndDate } from 'src/app/model/startEndDate';
 
 @Component({
   selector: 'app-display-medical-rooms',
@@ -16,13 +17,13 @@ export class DisplayMedicalRoomsComponent implements OnInit, AfterViewInit {
   previous: any = [];
   searchText: string = ''; 
   previousearch: string;
-  medical_room: MedicalRoom = new MedicalRoom(null, "", "", 1);
-  // new_medical_room: MedicalRoom = new MedicalRoom(null, "", "", 1);
+  medical_room: MedicalRoom = new MedicalRoom(null, "", "", 0);
 
-  //Ovo ce biti dato kod korisnika koji se bude prosledjivao kao ulogovan
-  clinicId: number = 1;
   rooms: Array<MedicalRoom> = [];
   interventionType: string;
+
+  headElements = ['ID', 'Start date', 'End date'];
+  appointments: Array<StartEndDate> = [];
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -36,10 +37,17 @@ export class DisplayMedicalRoomsComponent implements OnInit, AfterViewInit {
   }
 
   loadMedicalRooms() {
-    this._httpMedicalRoomService.getAll(1)
+    this._httpMedicalRoomService.getAll()
       .subscribe(response => {
         this.setResponse(response);
       })
+  }
+
+  loadAppointments(room) {
+    this._httpMedicalRoomService.getAllAppointmentsOfRoom(room.id)
+      .subscribe(data => {
+        this.appointments = data;
+      });
   }
 
   getRow(data) {
@@ -47,6 +55,10 @@ export class DisplayMedicalRoomsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.pagination();
+  }
+
+  pagination() {
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(6);
     this.mdbTablePagination.calculateFirstItemIndex();
     this.mdbTablePagination.calculateLastItemIndex();
@@ -91,21 +103,20 @@ export class DisplayMedicalRoomsComponent implements OnInit, AfterViewInit {
 
   takeId(room) {
     this.medical_room.id = room.id;
-    // this._httpMedicalRoomService.deleteMedicalRoom(this.medical_room.id)
-    //   .subscribe( data => {
-    //     console.log(data);
-    //   });
   }
 
   deleteRoom() {
     this._httpMedicalRoomService.deleteMedicalRoom(this.medical_room.id)
       .subscribe( data => {
-        console.log(data);
+        console.log("Soba obrisana: " + data);
+        if (data == true) {
+
+          // delete room from table
+          this.rooms.forEach( (item, index) => {
+            if(item.id === this.medical_room.id) this.rooms.splice(index,1);
+          });
+        }
       });
-      
-    this.rooms.forEach( (item, index) => {
-      if(item.id === this.medical_room.id) this.rooms.splice(index,1);
-    });
   }
 
   onChange(data){
@@ -126,7 +137,7 @@ export class DisplayMedicalRoomsComponent implements OnInit, AfterViewInit {
           // this.rooms.push(new MedicalRoom(data.id, data.room_number, data.intervention_type, data.clinic_id));  
           alert("Room created successfully.");
           this.rooms.push(data);
-          this.ngAfterViewInit(); //CHANGEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+          this.pagination();
           /* clean input fields */
           this.clearRoom();
         }

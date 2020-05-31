@@ -1,0 +1,145 @@
+<div class="container">
+    <!-- CLINIC AVERAGE MARK -->
+    <div class="row">
+        <div class="col">
+            <h2>Clinic average rating: <mdb-badge color="cyan">{{ clinicAverageMark }}</mdb-badge></h2>
+        </div>
+    </div>
+
+    <mat-divider id="divider"></mat-divider>
+
+    <!-- DOCTORS AND THEIR AVERAGE MARKS -->
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <div class="md-form">
+                <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput/>
+                <label for="search">Search</label>
+            </div>
+        </div>
+    </div>
+
+    <table mdbTable #tableEl="mdbTable" hover="true" class="table text-position z-depth-1">
+        <thead class="black white-text">
+            <tr>
+                <th></th>
+                <th [mdbTableSort]="doctors" sortBy="firstName">First name&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="doctors" sortBy="lastName">Last name&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="doctors" sortBy="averageMark">Average mark&nbsp;<i class="fas fa-sort"></i> </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr mdbTableCol *ngFor="let cl of doctors; let i = index;" (click)="getRow(cl)">
+                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i + 1}}</th>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.firstName}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.lastName}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.averageMark}}</td>
+                <td>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot class="grey lighten-5 w-100">
+            <tr>
+                <td colspan="9">
+                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="doctors"></mdb-table-pagination>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div style="padding-top: 2.7rem; padding-bottom: 4rem;">
+        <mat-divider id="divider"></mat-divider>
+    </div>
+    
+
+    <!-- CLINIC INCOME REPORT -->
+    <!-- START DATE -->
+    <div class="row">
+        <div class="col-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Choose start date</mat-label>
+                <input matInput [matDatepicker]="picker1" [(ngModel)]="startEndDateClinicId.startDate" disabled>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker touchUi #picker1 ngDefaultControl [(ngModel)]="startEndDateClinicId.startDate" (dateInput)="onStartDate($event)" disabled="false"></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <!-- END DATE -->
+    <div class="row">
+        <div class="col-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Choose end date</mat-label>
+                <input matInput [matDatepicker]="picker2" [(ngModel)]="startEndDateClinicId.endDate" disabled>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker touchUi #picker2 ngDefaultControl [(ngModel)]="startEndDateClinicId.endDate" (dateInput)="onEndDate($event)" disabled="false"></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <!-- data-toggle="modal" data-target="#exampleModal" -->
+    <div class="row">
+        <div class="col">
+            <button mat-raised-button color="primary" (click)="loadIncomes()" data-toggle="modal" data-target="#exampleModal">Show incomes</button>
+        </div>
+    </div>
+
+    <div style="padding-top: 2.7rem; padding-bottom: 4rem;">
+        <mat-divider id="divider"></mat-divider>
+    </div>
+
+    <!-- CHART -->
+    <div class="row">
+        <div class="col">
+            <div style="display: block">
+                <canvas mdbChart
+                    [chartType]="chartType"
+                    [datasets]="chartDatasets"
+                    [labels]="chartLabels"
+                    [colors]="chartColors"
+                    [options]="chartOptions"
+                    [legend]="true"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+        </div>
+    </div>
+
+    <!-- POPUP TO SHOW INCOMES -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Edit room</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            From {{ startEndDateClinicId.startDate | date:'short' }} to {{ startEndDateClinicId.endDate }} total income is:
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <h2>
+                                {{ income }}
+                            </h2>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="closemodal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+</div>

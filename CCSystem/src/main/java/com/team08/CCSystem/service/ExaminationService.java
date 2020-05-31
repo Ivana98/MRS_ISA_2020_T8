@@ -54,4 +54,14 @@ public class ExaminationService {
 		return examinationRepository.findAllFreeFromClinic(clinicId, date);
 	}
 
+	/**
+	 * @param startDate
+	 * @param endDate
+	 * @param clinicId
+	 * @return
+	 */
+	public List<Examination> findExaminationsBetweenDatesAndClinicId(Date startDate, Date endDate, Long clinicId) {
+		return examinationRepository.findExaminationsBetweenDatesAndClinicId(startDate, endDate, clinicId);
+	}
+
 }

@@ -15,6 +15,9 @@ export class ExaminationTypeService {
     return this._httpClient.post<ExaminationType>(this._url + "save", exType);
   }
 
+  /**
+   * Ovo mislim da nece trebati na ovakav nacin, tkd ce se verovatno brisati.
+   */
   public getAll() {
     return this._httpClient.get<Array<ExaminationType>>(this._url + "getAll");
   }

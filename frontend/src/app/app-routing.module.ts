@@ -28,6 +28,9 @@ import { NewAppointmentComponent } from './components/administrator/new-appointm
 import { DisplayMedicalRoomsComponent } from './components/administrator/display-medical-rooms/display-medical-rooms.component';
 import { EditClinicBasicComponent } from './components/administrator/edit-clinic-basic/edit-clinic-basic.component';
 import { TableOfPatientComponent } from './components/nurse/table-of-patient/table-of-patient.component';
+import { DisplayReportComponent } from './components/administrator/display-report/display-report.component';
+import { CalendarComponent } from './components/administrator/calendar/calendar.component';
+import { AbsenceComponent } from './components/doctor/absence/absence.component';
 
 
 const routes: Routes = [
@@ -51,12 +54,15 @@ const routes: Routes = [
           { path: 'changeDoctor', component: ChangeDoctorComponent }
         ]
       },
-      { path: "displayExaminationTypes", component: DisplayExaminationTypesComponent },
-      { path: "displayPatients", component: DisplayPatientsComponent },
-      { path: "newAppointment", component: NewAppointmentComponent },
-      { path: "displayMedicalRooms", component: DisplayMedicalRoomsComponent },
+      { path: 'displayExaminationTypes', component: DisplayExaminationTypesComponent },
+      { path: 'displayPatients', component: DisplayPatientsComponent },
+      { path: 'newAppointment', component: NewAppointmentComponent },
+      { path: 'displayMedicalRooms', component: DisplayMedicalRoomsComponent },
       { path: 'tableOfPatient', component: TableOfPatientComponent },
-      { path: "editClinicBasic", component: EditClinicBasicComponent }
+      { path: 'editClinicBasic', component: EditClinicBasicComponent },
+      { path: 'displayReport', component: DisplayReportComponent },
+      { path: 'displayCalendar', component: CalendarComponent },
+      { path: 'absence', component: AbsenceComponent }
     ]
   },
   { path: 'nurse', component: UserPageComponent ,
@@ -93,5 +99,8 @@ export const routingComponents = [
   NewAppointmentComponent, 
   DisplayMedicalRoomsComponent, 
   EditClinicBasicComponent,
-  TableOfPatientComponent
+  TableOfPatientComponent,
+  DisplayReportComponent,
+  CalendarComponent,
+  AbsenceComponent
 ]

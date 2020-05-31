@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.team08.CCSystem.dto.DoctorAverageMarkDTO;
 import com.team08.CCSystem.dto.DoctorDTO;
 import com.team08.CCSystem.model.Address;
 import com.team08.CCSystem.model.Clinic;
@@ -131,6 +132,13 @@ public class DoctorControler {
 		}
 		
 		return new ResponseEntity<>(doctorsDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/getAllByClinicForAverageMark/{clinicId}")
+	public ResponseEntity<List<DoctorAverageMarkDTO>> getAllByClinicForAverageMark(@PathVariable Long clinicId) {
+		
+		List<DoctorAverageMarkDTO> doctors = doctorService.getAllByClinicForAverageMark(clinicId);
+		return new ResponseEntity<>(doctors, HttpStatus.OK);
 	}
 	
 }

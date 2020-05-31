@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { RouterModule } from '@angular/router';
 import { MatSliderModule } from '@angular/material/slider';
+import { ChartsModule } from 'angular-bootstrap-md'
 
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -55,6 +56,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 // import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 // import { MatAutocompleteHarness } from '@angular/material/autocomplete/testing';
@@ -65,6 +67,9 @@ import { DisplayMedicalRoomsComponent } from './components/administrator/display
 import { EditClinicBasicComponent } from './components/administrator/edit-clinic-basic/edit-clinic-basic.component';
 import { TableOfPatientComponent } from './components/nurse/table-of-patient/table-of-patient.component';
 import { AddExaminationTypeComponent } from './components/administrator/add-examination-type/add-examination-type.component';
+import { DisplayReportComponent } from './components/administrator/display-report/display-report.component';
+import { CalendarComponent } from './components/administrator/calendar/calendar.component';
+import { AbsenceComponent } from './components/doctor/absence/absence.component';
 import { RequestService } from './services/request-service/request.service';
 
 
@@ -91,7 +96,10 @@ import { RequestService } from './services/request-service/request.service';
     NewAppointmentComponent,
     DisplayMedicalRoomsComponent,
     EditClinicBasicComponent,
-    TableOfPatientComponent
+    TableOfPatientComponent,
+    DisplayReportComponent,
+    CalendarComponent,
+    AbsenceComponent
   ],
   imports: [
     BrowserModule,
@@ -102,10 +110,10 @@ import { RequestService } from './services/request-service/request.service';
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
     MatRadioModule, MatSelectModule, MatCardModule, MatCheckboxModule, MatSliderModule, MatButtonModule, MatTableModule, 
-    MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, 
+    MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatDividerModule, 
     ReactiveFormsModule, MatIconModule, MatDialogModule, MatRippleModule,
     CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule,
-    BrowserModule,
+    BrowserModule, ChartsModule,
     MatSortModule
   ],
   providers: [

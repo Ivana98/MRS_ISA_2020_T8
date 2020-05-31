@@ -6,10 +6,10 @@ package com.team08.CCSystem.controler;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +24,7 @@ import com.team08.CCSystem.dto.ClinicBasicDTO;
 import com.team08.CCSystem.dto.ClinicDTO;
 import com.team08.CCSystem.dto.ClinicForTableDTO;
 import com.team08.CCSystem.dto.ClinicRegistrationDTO;
+import com.team08.CCSystem.dto.StartEndDateClinicIdDTO;
 import com.team08.CCSystem.model.Address;
 import com.team08.CCSystem.model.Clinic;
 import com.team08.CCSystem.model.ClinicAdmin;
@@ -111,12 +112,27 @@ public class ClinicControler {
 		return new ResponseEntity<List<ClinicBasicDTO>>(clinicsDTO, HttpStatus.OK);
 	}
 	
+	@GetMapping(path="/getIncome")
+	public ResponseEntity<Double> getIncome(@RequestBody StartEndDateClinicIdDTO startEndDateClinicIdDTO) {
+		System.out.println("IDEMOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+		System.out.println(startEndDateClinicIdDTO);
+		double income = clinicService.getIncome(startEndDateClinicIdDTO);
+		
+		return new ResponseEntity<>(income, HttpStatus.OK);
+	}
+	
 	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping("/sendListForTable")  
 	public ResponseEntity<List<ClinicForTableDTO>> sendListForTable(){
 		
 		List<ClinicForTableDTO> clinics = clinicService.convertToClinicForTableDTO();
 		return new ResponseEntity<>(clinics, HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/getAverageMark/{id}")
+	public ResponseEntity<Float> getAverageMark(@PathVariable Long id) {
+		
+		return clinicService.getAverageMark(id);
 	}
 	
 }

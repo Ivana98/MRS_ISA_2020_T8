@@ -25,7 +25,7 @@
             <tr>
                 <th></th>
                 <th [mdbTableSort]="rooms" sortBy="room_number">Room number&nbsp;<i class="fas fa-sort"></i> </th>
-                <th [mdbTableSort]="rooms" sortBy="intervention_type">intervention type&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="rooms" sortBy="intervention_type">Intervention type&nbsp;<i class="fas fa-sort"></i> </th>
                 <th>Actions</th>
             </tr>
         </thead>   
@@ -35,11 +35,14 @@
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.room_number}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.intervention_type}}</td>
                 <td>
-                    <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon" (click)="editRoom(cl)"  data-toggle="modal" data-target="#exampleModal">
+                    <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon" (click)="editRoom(cl)" data-toggle="modal" data-target="#exampleModal">
                         <mat-icon>edit</mat-icon>
                     </button>
                     <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon" (click)="takeId(cl)" (click)="frame.show()">
                         <mat-icon>delete</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon" (click)="loadAppointments(cl)" data-toggle="modal" data-target="#exampleModal2">
+                        <mat-icon>date_range</mat-icon>
                     </button>
                 </td>
             </tr>
@@ -95,7 +98,7 @@
         </div>
     </div>
 
-    <!-- Edit room popup dialog -->
+    <!-- EDIT ROOM POPUP DIALOG -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -159,6 +162,46 @@
                 </div>
             </div>
             <!--/.Content-->
+        </div>
+    </div>
+
+    <!-- SEE ASIGNMENTS OF ROOM -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel2">Edit room</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <!-- All appointments from current date -->
+                            <table mdbTable>
+                                <thead>
+                                    <tr>
+                                        <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr mdbTableCol *ngFor="let el of appointments; let i = index;">
+                                        <th scope="row">{{ i + 1 }}</th>
+                                        <td>{{ el.startDate | date:'medium' }}</td>
+                                        <td>{{ el.endDate | date:'medium' }}</td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="closemodal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
         </div>
     </div>
 
