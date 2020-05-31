@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.team08.CCSystem.dto.SpecificUserProfileDTO;
-import com.team08.CCSystem.model.Address;
 import com.team08.CCSystem.model.ClinicAdmin;
 import com.team08.CCSystem.model.ClinicalCenterAdmin;
 import com.team08.CCSystem.model.Doctor;

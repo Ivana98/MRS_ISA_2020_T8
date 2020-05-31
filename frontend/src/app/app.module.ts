@@ -65,6 +65,7 @@ import { DisplayMedicalRoomsComponent } from './components/administrator/display
 import { EditClinicBasicComponent } from './components/administrator/edit-clinic-basic/edit-clinic-basic.component';
 import { TableOfPatientComponent } from './components/nurse/table-of-patient/table-of-patient.component';
 import { AddExaminationTypeComponent } from './components/administrator/add-examination-type/add-examination-type.component';
+import { RequestService } from './services/request-service/request.service';
 
 
 @NgModule({
@@ -126,7 +127,8 @@ import { AddExaminationTypeComponent } from './components/administrator/add-exam
     LoginService, 
     AuthService,
     ApiService,
-    TransferClinicService
+    TransferClinicService,
+    RequestService
 ],  // Services go here because of DI
   bootstrap: [AppComponent]
 })
