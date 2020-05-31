@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IUserProfile, UserProfile } from 'src/app/model/userProfile';
 import { UserProfileService } from 'src/app/services/user-profile-service/user-profile.service';
 import { UserPassword, IUserPassword } from 'src/app/model/userPassword';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { LoginService } from 'src/app/services/login-service/login.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,51 +12,49 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 })
 export class UserProfileComponent implements OnInit {
   user = new UserProfile(1, "", "", "", "", "", "", "", "");
-  userPassword = new UserPassword(1, "", "", "");
-  currentPasswordMatched : boolean = true;
+  userPassword = new UserPassword("", "", "");
   passwordConfirmed : boolean = true;
   changeDataSuccess: any; //boolean
-  changePasswordSuccess:any; //boolean
+  changePasswordMsg : string; //boolean
+  displayPasswordAlertMsg: string = undefined;
+  displayDataAlertMsg: string = undefined;
 
-  constructor(
-    private _httpUserService: UserProfileService
-  ) { }
+  constructor(private _httpUserService: UserProfileService, private _loginService: LoginService) { }
 
   ngOnInit(): void {
-    this._httpUserService.getUserData().subscribe(response => this.user = response);
+    this.user = this._loginService.currentUser;
   }
 
-  saveChanges(event){
+  onSubmitData(){
+    this.displayDataAlertMsg = undefined;
+
     this._httpUserService.setUserData(this.user)
-        .subscribe( data => {
-          this.changeDataSuccess = data;
-        });
+      .subscribe( data => {
+        this.displayDataAlertMsg = "You successfully changed your data.";
+        this._loginService.updateCurrentUser(this.user.name, this.user.surname);
+      },
+      error => {});
+
   }
 
-  changePass(event){
-    // console.log(this.userPassword);
-    if(this.userPassword.password != this.user.password){
-      this.currentPasswordMatched = false;
-    }
-    else {
-      this.currentPasswordMatched = true;
-    }
+  onSubmitPassword(){
+    this.changePasswordMsg = undefined;
+    this.displayPasswordAlertMsg = undefined;
+
     if(this.userPassword.newPassword != this.userPassword.confirmedPassword){
       this.passwordConfirmed = false;
     }
     else{
       this.passwordConfirmed = true;
-    }
-    if(this.currentPasswordMatched && this.passwordConfirmed){
-      console.log(this.userPassword);
+
       this._httpUserService.setUserPassword(this.userPassword)
         .subscribe( data => {
-          this.changePasswordSuccess = data;
-        });
-      //ispisati da je uspesno
-      //isprazniti polja
+          this.displayPasswordAlertMsg = "You successfully changed your password.";
+        },
+        error => {
+          this.changePasswordMsg = "This password does not match with your current password.";
+      });
     }
-
   }
 
 }

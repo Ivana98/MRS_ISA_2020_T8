@@ -12,5 +12,5 @@ import com.team08.CCSystem.model.ClinicalCenter;
  *
  */
 public interface ClinicalCenterRepository extends JpaRepository<ClinicalCenter, Long> {
-
+	ClinicalCenter findByName(String name);
 }

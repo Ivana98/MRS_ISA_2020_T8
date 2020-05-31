@@ -18,8 +18,12 @@ import org.springframework.stereotype.Service;
 
 import com.team08.CCSystem.dto.ForAllUsersDTO;
 import com.team08.CCSystem.dto.LoginDTO;
+import com.team08.CCSystem.dto.UserPasswordDTO;
+import com.team08.CCSystem.dto.UserProfileDTO;
+import com.team08.CCSystem.model.Address;
 import com.team08.CCSystem.model.Authority;
 import com.team08.CCSystem.model.ClinicAdmin;
+import com.team08.CCSystem.model.ClinicalCenter;
 import com.team08.CCSystem.model.ClinicalCenterAdmin;
 import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Nurse;
@@ -27,6 +31,7 @@ import com.team08.CCSystem.model.Patient;
 import com.team08.CCSystem.model.User;
 import com.team08.CCSystem.repository.ClinicAdminRepository;
 import com.team08.CCSystem.repository.ClinicalCenterAdminRepository;
+import com.team08.CCSystem.repository.ClinicalCenterRepository;
 import com.team08.CCSystem.repository.DoctorRepository;
 import com.team08.CCSystem.repository.NurseRepository;
 import com.team08.CCSystem.repository.PatientRepository;
@@ -46,7 +51,7 @@ public class UserService implements UserDetailsService{
 	private ClinicAdminRepository clinicAdminRepository;
 	
 	@Autowired
-	private ClinicalCenterAdminRepository clinicalCenterRepository;
+	private ClinicalCenterAdminRepository clinicalCenterAdminRepository;
 	
 	@Autowired
 	private DoctorRepository doctorRepository;
@@ -90,7 +95,7 @@ public class UserService implements UserDetailsService{
 			return clinicalAdmin;
 		}
 		
-		User clinicalCenterAdmin = clinicalCenterRepository.findByEmail(username);
+		User clinicalCenterAdmin = clinicalCenterAdminRepository.findByEmail(username);
 		if (clinicalCenterAdmin != null) {
 			return clinicalCenterAdmin;
 		}
@@ -99,9 +104,9 @@ public class UserService implements UserDetailsService{
 		
 	}
 
-	/*
+
 	// Funkcija pomocu koje korisnik menja svoju lozinku
-	public void changePassword(String oldPassword, String newPassword) {
+	public boolean changePassword(UserPasswordDTO userPassword) {
 
 		// Ocitavamo trenutno ulogovanog korisnika
 		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
@@ -110,11 +115,11 @@ public class UserService implements UserDetailsService{
 		if (authenticationManager != null) {
 			LOGGER.debug("Re-authenticating user '" + username + "' for password change request.");
 
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, oldPassword));
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, userPassword.getPassword()));
 		} else {
 			LOGGER.debug("No authentication manager set. can't change Password!");
 
-			return;
+			return false;
 		}
 
 		LOGGER.debug("Changing password for user '" + username + "'");
@@ -123,11 +128,32 @@ public class UserService implements UserDetailsService{
 
 		// pre nego sto u bazu upisemo novu lozinku, potrebno ju je hesirati
 		// ne zelimo da u bazi cuvamo lozinke u plain text formatu
-		user.setPassword(passwordEncoder.encode(newPassword));
+		user.setPassword(passwordEncoder.encode(userPassword.getNewPassword()));
 		userRepository.save(user);
-
+		return true;
 	}
-	*/
+	
+	public boolean changeUserData(UserProfileDTO userDTO) {
+
+		// Ocitavamo trenutno ulogovanog korisnika
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		String username = currentUser.getName();
+
+		User user = (User) loadUserByUsername(username);
+		
+		if(user == null) {
+			return false;
+		}
+
+		user.setName(userDTO.getName());
+		user.setSurname(userDTO.getSurname());
+		user.setPhone(userDTO.getPhone());
+		Address address = new Address(null, userDTO.getStreet(), userDTO.getCity(), userDTO.getCountry());
+		user.setAddress(address);
+		userRepository.save(user);
+		return true;
+	}
+
 	
 	//user service implementation
 	public User findByUsername(String username) {	
@@ -158,7 +184,7 @@ public class UserService implements UserDetailsService{
 		catch(UsernameNotFoundException e) {}
 		
 		try {
-			if((u = clinicalCenterRepository.findByEmail(username))!= null)
+			if((u = clinicalCenterAdminRepository.findByEmail(username))!= null)
 			return u;
 		}
 		catch(UsernameNotFoundException e) {
@@ -213,7 +239,7 @@ public class UserService implements UserDetailsService{
 		
 		if((u = clinicAdminRepository.findById(id).orElseGet(null)) != null) return u;
 		
-		u = clinicalCenterRepository.findById(id).orElseGet(null);
+		u = clinicalCenterAdminRepository.findById(id).orElseGet(null);
 		return u;	
 	}
 

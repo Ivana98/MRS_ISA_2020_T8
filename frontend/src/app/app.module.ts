@@ -70,6 +70,7 @@ import { AddExaminationTypeComponent } from './components/administrator/add-exam
 import { DisplayReportComponent } from './components/administrator/display-report/display-report.component';
 import { CalendarComponent } from './components/administrator/calendar/calendar.component';
 import { AbsenceComponent } from './components/doctor/absence/absence.component';
+import { RequestService } from './services/request-service/request.service';
 
 
 @NgModule({
@@ -134,7 +135,8 @@ import { AbsenceComponent } from './components/doctor/absence/absence.component'
     LoginService, 
     AuthService,
     ApiService,
-    TransferClinicService
+    TransferClinicService,
+    RequestService
 ],  // Services go here because of DI
   bootstrap: [AppComponent]
 })

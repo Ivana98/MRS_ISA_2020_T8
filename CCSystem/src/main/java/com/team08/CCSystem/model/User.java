@@ -1,5 +1,6 @@
 package com.team08.CCSystem.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -152,6 +153,13 @@ public abstract class User implements UserDetails{
 	public void setAuthorities(List<Authority> authorities) {
         this.authorities = authorities;
     }
+	
+	public void addAuthorityToUser(Authority authority) {
+		if(this.authorities == null) {
+			this.authorities = new ArrayList<Authority>();
+		}
+		this.authorities.add(authority);
+	}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
