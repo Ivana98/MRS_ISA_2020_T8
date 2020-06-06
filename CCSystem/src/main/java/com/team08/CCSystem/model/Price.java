@@ -42,6 +42,9 @@ public class Price {
 	@Column(name = "price", nullable = false)
 	private double price;
 	
+	@Column(name = "discount", nullable = true) 
+	private float discount;
+	
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private ExaminationType examinationType;
 	
@@ -53,11 +56,12 @@ public class Price {
 	 * @param price
 	 * @param examinationType
 	 */
-	public Price(Long id, double price, ExaminationType examinationType) {
+	public Price(Long id, double price, ExaminationType examinationType, float discount) {
 		super();
 		this.id = id;
 		this.price = price;
 		this.examinationType = examinationType;
+		this.discount = discount;
 		this.deleted = false;
 	}
 
@@ -66,6 +70,22 @@ public class Price {
 	 */
 	public Price() {
 		super();
+	}
+
+	public float getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(float discount) {
+		this.discount = discount;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public double getPrice() {

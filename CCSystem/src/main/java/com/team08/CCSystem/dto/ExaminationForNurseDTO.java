@@ -32,7 +32,7 @@ public class ExaminationForNurseDTO {
 		this.date = exm.getDate();
 		this.wasOnExamination = exm.getWasOnExamination();
 		this.description = exm.getDescription();
-		this.discount = exm.getDiscount();
+//		this.discount = exm.getDiscount();
 		this.examinationType = exm.getPrice().getExaminationType().getSpecialisation().name();
 		this.doctor_id = exm.getDoctor().getId() + "";
 		this.doctor_name = exm.getDoctor().getName();
