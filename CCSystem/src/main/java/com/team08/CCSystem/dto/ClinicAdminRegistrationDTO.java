@@ -40,20 +40,22 @@ public class ClinicAdminRegistrationDTO {
 		this.country = admin.getAddress().getCountry();
 		this.street = admin.getAddress().getStreet();
 		this.clinic_id =admin.getClinic().getId().toString();
-		
 	}
 	
+	/**
+	 * 
+	 */
+	public ClinicAdminRegistrationDTO() {
+		super();
+	}
+
 	public String getClinic_id() {
 		return clinic_id;
 	}
 
-
-
 	public void setClinic_id(String clinic_id) {
 		this.clinic_id = clinic_id;
 	}
-
-
 
 	public Long getId() {
 		return id;

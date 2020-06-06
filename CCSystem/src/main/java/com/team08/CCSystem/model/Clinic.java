@@ -17,6 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 import lombok.Data;
@@ -26,6 +29,8 @@ import lombok.Data;
  *
  */
 @Entity
+@SQLDelete(sql = "UPDATE clinic SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "deleted <> true")
 @Data
 @Table(name = "Clinic")
 public class Clinic {
@@ -66,6 +71,9 @@ public class Clinic {
 	
 	@Column(name = "averageMark", nullable = false, unique = false)
 	private float averageMark;
+	
+	@Column(nullable = false)
+	 private Boolean deleted;
 
 	/**
 	 * @param id
@@ -92,6 +100,7 @@ public class Clinic {
 		this.nurses = nurses;
 		this.admins = admins;
 		this.averageMark = averageMark;
+		this.deleted = false;
 	}
 
 	/**
@@ -99,6 +108,7 @@ public class Clinic {
 	 */
 	public Clinic() {
 		super();
+		this.deleted = true;
 	}
 
 	public Long getId() {
@@ -195,6 +205,14 @@ public class Clinic {
 
 	public void setPrices(Set<Price> prices) {
 		this.prices = prices;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	@Override

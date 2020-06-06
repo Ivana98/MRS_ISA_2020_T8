@@ -13,6 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import lombok.Data;
 
 /**
@@ -21,6 +25,8 @@ import lombok.Data;
  * Patients give marks to clinic
  */
 @Entity
+@SQLDelete(sql = "UPDATE clinical_mark SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "deleted <> true")
 @Data
 @Table(name = "ClinicalMark")
 public class ClinicMark {
@@ -37,6 +43,9 @@ public class ClinicMark {
 	
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Clinic clinic;
+	
+	@Column(nullable = false)
+	private Boolean deleted;
 
 	/**
 	 * @param id
@@ -50,6 +59,7 @@ public class ClinicMark {
 		this.mark = mark;
 		this.patient = patient;
 		this.clinic = clinic;
+		this.deleted = false;
 	}
 
 	/**
@@ -57,6 +67,15 @@ public class ClinicMark {
 	 */
 	public ClinicMark() {
 		super();
+		this.deleted = false;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public Long getId() {

@@ -10,6 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import lombok.Data;
 
 /**
@@ -17,6 +21,8 @@ import lombok.Data;
  *
  */
 @Entity
+@SQLDelete(sql = "UPDATE address SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "deleted <> true")
 @Data
 @Table(name = "Address")
 public class Address {
@@ -33,6 +39,9 @@ public class Address {
 	
 	@Column(name = "country", nullable = false, unique = false)
 	private String country;
+	
+	@Column(nullable = false)
+	private Boolean deleted;
 
 	/**
 	 * @param id
@@ -46,6 +55,7 @@ public class Address {
 		this.street = street;
 		this.city = city;
 		this.country = country;
+		this.deleted = false;
 	}
 
 	/**
@@ -53,6 +63,7 @@ public class Address {
 	 */
 	public Address() {
 		super();
+		this.deleted = false;
 	}
 
 	public Long getId() {

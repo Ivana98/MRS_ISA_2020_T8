@@ -18,6 +18,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import com.team08.CCSystem.model.enums.AbsenceType;
 
 import lombok.Data;
@@ -27,6 +31,8 @@ import lombok.Data;
  *
  */
 @Entity
+@SQLDelete(sql = "UPDATE absence SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "deleted <> true")
 @Data
 @Table(name = "Absence")
 public class Absence {
@@ -48,6 +54,9 @@ public class Absence {
 	
 	@Enumerated
 	private AbsenceType absenceType;
+	
+	@Column(nullable = false)
+	private Boolean deleted;
 
 	/**
 	 * @param id
@@ -61,6 +70,7 @@ public class Absence {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.absenceType = absenceType;
+		this.deleted = false;
 	}
 
 	/**
@@ -68,10 +78,43 @@ public class Absence {
 	 */
 	public Absence() {
 		super();
+		this.deleted = false;
 	}
 
 	public Long getId() {
 		return id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public void setId(Long id) {

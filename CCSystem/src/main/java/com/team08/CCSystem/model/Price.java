@@ -13,6 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import lombok.Data;
 
 /**
@@ -21,6 +25,8 @@ import lombok.Data;
  * This class is actually ExaminationType from price list.
  */
 @Entity
+@SQLDelete(sql = "UPDATE price SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "deleted <> true")
 @Data
 @Table(name = "Price")
 public class Price {
@@ -38,6 +44,9 @@ public class Price {
 	
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private ExaminationType examinationType;
+	
+	@Column(nullable = false)
+	private Boolean deleted;
 
 	/**
 	 * @param id
@@ -49,6 +58,7 @@ public class Price {
 		this.id = id;
 		this.price = price;
 		this.examinationType = examinationType;
+		this.deleted = false;
 	}
 
 	/**
