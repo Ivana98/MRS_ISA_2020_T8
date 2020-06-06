@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import lombok.Data;
 
 /**
@@ -20,6 +24,8 @@ import lombok.Data;
  *
  */
 @Entity
+@SQLDelete(sql = "UPDATE clinical_center_admin SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "deleted <> true")
 @Data
 @Table(name = "ClinicalCenterAdmin")
 public class ClinicalCenterAdmin extends User {

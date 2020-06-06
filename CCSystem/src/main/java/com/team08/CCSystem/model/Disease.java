@@ -16,6 +16,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import lombok.Data;
 
 /**
@@ -23,6 +27,8 @@ import lombok.Data;
  *
  */
 @Entity
+@SQLDelete(sql = "UPDATE disease SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "deleted <> true")
 @Data
 @Table(name = "Disease")
 public class Disease {
@@ -40,6 +46,9 @@ public class Disease {
 	@ManyToMany
 	@JoinTable(name = "examinationing", joinColumns = @JoinColumn(name = "disease_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "examination_id", referencedColumnName = "id"))
 	private Set<Examination> examinations = new HashSet<Examination>();
+	
+	@Column(nullable = false)
+	private Boolean deleted;
 
 	/**
 	 * @param id
@@ -53,6 +62,7 @@ public class Disease {
 		this.name = name;
 		this.description = description;
 		this.examinations = examinations;
+		this.deleted = false;
 	}
 
 	/**
@@ -60,6 +70,15 @@ public class Disease {
 	 */
 	public Disease() {
 		super();
+		this.deleted = false;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public Long getId() {

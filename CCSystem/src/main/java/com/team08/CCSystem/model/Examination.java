@@ -23,6 +23,9 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import lombok.Data;
 
@@ -31,6 +34,8 @@ import lombok.Data;
  *
  */
 @Entity
+@SQLDelete(sql = "UPDATE examination SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "deleted <> true")
 @Data
 @Table(name = "Examination")
 public class Examination {
@@ -62,8 +67,6 @@ public class Examination {
 	private Set<Disease> diseases = new HashSet<>();
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name="medical_room_id")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
 	private MedicalRoom medicalRoom;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
@@ -71,6 +74,9 @@ public class Examination {
 	
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Patient patient;
+	
+	@Column(nullable = false)
+	private Boolean deleted;
 
 	/**
 	 * @param id
@@ -100,6 +106,7 @@ public class Examination {
 		this.medicalRoom = medicalRoom;
 		this.doctor = doctor;
 		this.patient = patient;
+		this.deleted = false;
 	}
 
 	/**
@@ -107,6 +114,15 @@ public class Examination {
 	 */
 	public Examination() {
 		super();
+		this.deleted = false;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public Long getId() {

@@ -11,6 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import com.team08.CCSystem.model.enums.InterventionType;
 import com.team08.CCSystem.model.enums.Specialisation;
 
@@ -21,6 +25,8 @@ import lombok.Data;
  *
  */
 @Entity
+@SQLDelete(sql = "UPDATE examination_type SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "deleted <> true")
 @Data
 @Table(name = "ExaminationType")
 public class ExaminationType {
@@ -40,6 +46,9 @@ public class ExaminationType {
 	
 	@Enumerated
 	private Specialisation specialisation;
+	
+	@Column(nullable = false)
+	private Boolean deleted;
 
 	/**
 	 * @param id
@@ -52,10 +61,10 @@ public class ExaminationType {
 			Specialisation specialisation) {
 		super();
 		this.id = id;
-//		this.price = price;
 		this.duration = duration;
 		this.interventionType = interventionType;
 		this.specialisation = specialisation;
+		this.deleted = false;
 	}
 
 	/**
@@ -63,6 +72,15 @@ public class ExaminationType {
 	 */
 	public ExaminationType() {
 		super();
+		this.deleted = false;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public Long getId() {

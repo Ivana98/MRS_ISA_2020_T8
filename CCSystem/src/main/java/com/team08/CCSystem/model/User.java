@@ -29,42 +29,42 @@ import lombok.Data;
 @Entity
 @Data
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public abstract class User implements UserDetails{
+public abstract class User implements UserDetails {
 		
 	
-//	@GeneratedValue(strategy = GenerationType.TABLE)
-//	@Column(name="id", unique=true, nullable=false)
-	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="cust_seq_user")
-	@SequenceGenerator(name = "cust_seq_user", sequenceName = "cust_seq_user", initialValue = 1, allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator = "cust_seq_user")
+	@SequenceGenerator(name = "cust_seq_user", sequenceName = "cust_seq_user", initialValue = 1, allocationSize = 1)
 	@Id
-//	@Column(name = "id", unique = true, nullable = false, columnDefinition = "serial")
 	private Long id;
 	
-	@Column(name="email", unique=true, nullable=false)
+	@Column(name = "email", unique = true, nullable = false)
 	private String email;
 	
-	@Column(name="name", nullable=false)
+	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@Column(name="surname", nullable=false)
+	@Column(name = "surname", nullable = false)
 	private String surname;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Address address;
 	
-	@Column(name="phone", nullable=false)
+	@Column(name = "phone", nullable = false)
 	private String phone;
 	
-	@Column(name="password", nullable=false)
+	@Column(name = "password", nullable = false)
 	private String password;
 	
 	@Column(name = "enabled")
     private boolean enabled;
 	
+	@Column(nullable = false)
+	 private Boolean deleted;
+	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    	joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+    	inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
     private List<Authority> authorities;
 
 	/**
@@ -85,6 +85,7 @@ public abstract class User implements UserDetails{
 		this.address = address;
 		this.phone = phone;
 		this.password = password;
+		this.deleted = false;
 	}
 
 	/**
@@ -92,6 +93,7 @@ public abstract class User implements UserDetails{
 	 */
 	public User() {
 		super();
+		this.deleted = false;
 	}
 
 	public Long getId() {

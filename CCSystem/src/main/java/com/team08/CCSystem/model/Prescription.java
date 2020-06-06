@@ -22,6 +22,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import lombok.Data;
 
 /**
@@ -29,6 +33,8 @@ import lombok.Data;
  *
  */
 @Data
+@SQLDelete(sql = "UPDATE prescription SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "deleted <> true")
 @Entity
 @Table(name = "Prescription")
 public class Prescription {
@@ -59,6 +65,9 @@ public class Prescription {
 	@ManyToMany
 	@JoinTable(name = "prescriptioning", joinColumns = @JoinColumn(name = "prescription_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "examination_id", referencedColumnName = "id"))
 	private Set<Examination> examinations = new HashSet<Examination>();
+	
+	@Column(nullable = false)
+	private Boolean deleted;
 
 	/**
 	 * @param id
@@ -81,6 +90,7 @@ public class Prescription {
 		this.medication = medication;
 		this.description = description;
 		this.examinations = examinations;
+		this.deleted = false;
 	}
 
 	/**
@@ -88,6 +98,15 @@ public class Prescription {
 	 */
 	public Prescription() {
 		super();
+		this.deleted = false;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public Long getId() {

@@ -13,9 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import lombok.Data;
 
 @Entity
+@SQLDelete(sql = "UPDATE clinical_center SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "deleted <> true")
 @Data
 @Table(name = "ClinicalCenter")
 public class ClinicalCenter {
@@ -35,6 +41,9 @@ public class ClinicalCenter {
 	
 	@OneToMany(mappedBy = "clinicalCenter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ClinicalCenterAdmin> admins = new HashSet<>();
+	
+	@Column(nullable = false)
+	 private Boolean deleted;
 
 	/**
 	 * @param id
@@ -51,6 +60,7 @@ public class ClinicalCenter {
 		this.clinics = clinics;
 		this.patients = patients;
 		this.admins = admins;
+		this.deleted = false;
 	}
 
 	/**
@@ -58,7 +68,16 @@ public class ClinicalCenter {
 	 */
 	public ClinicalCenter() {
 		super();
+		this.deleted = false;
 	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+//	public void setDeleted(Boolean deleted) {
+//		this.deleted = deleted;
+//	}
 
 	public Long getId() {
 		return id;
