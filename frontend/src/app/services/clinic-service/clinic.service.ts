@@ -43,11 +43,8 @@ export class ClinicService {
    * 
    * @param startEndDateClinicId is object with start, end date and clinic id
    */
-  public getIncome(startEndDateClinicId) {
-    //set clinic id
-    startEndDateClinicId.clinicId = this._loginService.currentUser.clinicId;
-
-    return this._httpClient.get<number>(this._url + "getIncome", startEndDateClinicId);
+  public getIncome(startDate, endDate) {
+    return this._httpClient.get<number>(this._url + "getIncome/" + startDate + "/" + endDate + "/" + this._loginService.currentUser.clinicId);
   }
 
 }

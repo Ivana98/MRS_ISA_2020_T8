@@ -17,7 +17,7 @@ export class DisplayReportComponent implements OnInit {
 
   startEndDateClinicId: StartEndDateClinicId = new StartEndDateClinicId(new Date(), new Date(),  1);
 
-  income;
+  income: number = -1;
 
   previous: any = [];
   searchText: string = ''; 
@@ -112,15 +112,12 @@ export class DisplayReportComponent implements OnInit {
   }
 
   /**
-   * Ne radi ne znam zasto... ali na beku
+   * 
    */
   public loadIncomes() {
-    // console.log("start date: " + this.startEndDateClinicId.startDate)
-    // console.log("  end date: " + this.startEndDateClinicId.endDate)
-    this._httpClinicService.getIncome(this.startEndDateClinicId)
+    this._httpClinicService.getIncome(this.startEndDateClinicId.startDate, this.startEndDateClinicId.endDate)
       .subscribe(data => {
-        console.log("IDEMOOOO: "+data);
-        // this.income = data;
+        this.income = data;
       });
   }
 
