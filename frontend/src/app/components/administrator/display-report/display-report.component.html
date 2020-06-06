@@ -120,10 +120,22 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            From {{ startEndDateClinicId.startDate | date:'short' }} to {{ startEndDateClinicId.endDate }} total income is:
+                            From: {{ startEndDateClinicId.startDate | date:'short' }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            To: {{ startEndDateClinicId.endDate | date:'short' }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Total income is:
                         </div>
                     </div>
                     
+                    <br>
+
                     <div class="row">
                         <div class="col">
                             <h2>

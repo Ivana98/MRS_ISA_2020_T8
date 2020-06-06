@@ -54,8 +54,8 @@ public class Examination {
 	@Column(name = "description", nullable = true) 
 	private String description;
 	
-	@Column(name = "discount", nullable = true) 
-	private float discount;
+	@Column(name = "staticPrice", nullable = true) 
+	private double staticPrice;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Price price;
@@ -91,7 +91,7 @@ public class Examination {
 	 * @param doctor
 	 * @param patient
 	 */
-	public Examination(Long id, Date date, boolean wasOnExamination, String description, float discount,
+	public Examination(Long id, Date date, boolean wasOnExamination, String description, double staticPrice,
 			Price price, Set<Prescription> prescriptions, Set<Disease> diseases, MedicalRoom medicalRoom,
 			Doctor doctor, Patient patient) {
 		super();
@@ -99,7 +99,7 @@ public class Examination {
 		this.date = date;
 		this.wasOnExamination = wasOnExamination;
 		this.description = description;
-		this.discount = discount;
+		this.staticPrice = staticPrice;
 		this.price = price;
 		this.prescriptions = prescriptions;
 		this.diseases = diseases;
@@ -157,12 +157,12 @@ public class Examination {
 		this.description = description;
 	}
 
-	public float getDiscount() {
-		return discount;
+	public double getStaticPrice() {
+		return staticPrice;
 	}
 
-	public void setDiscount(float discount) {
-		this.discount = discount;
+	public void setStaticPrice(double staticPrice) {
+		this.staticPrice = staticPrice;
 	}
 
 	public Price getPrice() {

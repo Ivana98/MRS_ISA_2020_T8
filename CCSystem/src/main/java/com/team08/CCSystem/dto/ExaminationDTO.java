@@ -26,6 +26,7 @@ public class ExaminationDTO {
 	private String interventionType;
 	private double price;
 	private Long priceId;
+	
 	/**
 	 * @param id
 	 * @param date
@@ -77,7 +78,7 @@ public class ExaminationDTO {
 		// description can be null if it is free examination
 		try { this.description = examination.getDescription(); } catch (Exception e) { }
 		
-		this.discount = examination.getDiscount();
+//		this.discount = examination.getDiscount();
 		this.medicalRoomId = examination.getMedicalRoom().getId();
 		this.doctorId = examination.getDoctor().getId();
 		

@@ -184,7 +184,7 @@ public class ExaminationControler {
 		examination.setMedicalRoom(medicalRoom);
 		examination.setWasOnExamination(false);
 		examination.setDescription("");
-		examination.setDiscount(0);
+		examination.setStaticPrice(price.getPrice() * (100-price.getDiscount()) / 100);
 		examination = examinationService.save(examination);
 
 		return new ResponseEntity<>(new ExaminationDTO(examination), HttpStatus.CREATED);

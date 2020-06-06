@@ -4,6 +4,7 @@
 package com.team08.CCSystem.controler;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -112,11 +113,11 @@ public class ClinicControler {
 		return new ResponseEntity<List<ClinicBasicDTO>>(clinicsDTO, HttpStatus.OK);
 	}
 	
-	@GetMapping(path="/getIncome")
-	public ResponseEntity<Double> getIncome(@RequestBody StartEndDateClinicIdDTO startEndDateClinicIdDTO) {
-		System.out.println("IDEMOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-		System.out.println(startEndDateClinicIdDTO);
-		double income = clinicService.getIncome(startEndDateClinicIdDTO);
+	@GetMapping(path = "/getIncome/{startDate}/{endDate}/{clinicId}")
+	public ResponseEntity<Double> getIncome(@PathVariable Date startDate, @PathVariable Date endDate, @PathVariable Long clinicId) {
+		System.out.println(startDate);
+		System.out.println(endDate);
+		double income = clinicService.getIncome(new StartEndDateClinicIdDTO(startDate, endDate, clinicId));
 		
 		return new ResponseEntity<>(income, HttpStatus.OK);
 	}
