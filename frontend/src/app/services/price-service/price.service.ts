@@ -26,7 +26,21 @@ export class PriceService {
     return this._httpClient.get<Array<FullPrice>>(this._url + "getAllFromClinic/" + this._loginService.currentUser.clinicId);
   }
 
+  /**
+   * Modify examination type (price).
+   * 
+   * @param et if FullPrice
+   */
   public update(et) {
     return this._httpClient.put<FullPrice>(this._url + "modify", et);
+  }
+
+  /**
+   * Delete examination type (price).
+   * 
+   * @param id is price id
+   */
+  public delete(id) {
+    return this._httpClient.delete(this._url + "delete/" + id);
   }
 }

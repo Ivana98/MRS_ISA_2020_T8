@@ -67,6 +67,8 @@ export class DisplayExaminationTypesComponent implements OnInit {
   priceToChange: FullPrice = new FullPrice(0, 0, 0, 0, "", "", 0);
   priceToAdd: FullPrice;
 
+  etToDeleteId: number = -1;
+
   searchText: string = ''; 
   previousearch: string; //search variable
 
@@ -95,6 +97,10 @@ export class DisplayExaminationTypesComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    this.calculatePagination();
+  }
+
+  calculatePagination() {
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
     this.mdbTablePagination.calculateFirstItemIndex();
     this.mdbTablePagination.calculateLastItemIndex();
@@ -162,6 +168,27 @@ export class DisplayExaminationTypesComponent implements OnInit {
       .subscribe(response => {
         if (response != null) {
           alert("Examination type (price) is successfuly updated.");
+        }
+      });
+  }
+
+  takeET(et) {
+    this.etToDeleteId = et.id;
+  }
+
+  delete() {
+    this._httpPriceService.delete(this.etToDeleteId)
+      .subscribe(response => {
+        if (response == true) {
+          alert("ET (price) is deleted.");
+
+          // delete price from list
+          this.ETList.forEach( (item, index) => {
+            if(item.id === this.etToDeleteId) this.ETList.splice(index,1);
+          });
+
+          // set row number in bottom of table (pagination)
+          this.mdbTable.setDataSource(this.ETList);
         }
       });
   }

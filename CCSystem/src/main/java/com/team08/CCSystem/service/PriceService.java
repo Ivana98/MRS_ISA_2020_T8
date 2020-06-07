@@ -3,6 +3,7 @@
  */
 package com.team08.CCSystem.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.team08.CCSystem.dto.FullPriceDTO;
+import com.team08.CCSystem.model.Examination;
 import com.team08.CCSystem.model.Price;
 import com.team08.CCSystem.repository.PriceRepository;
 
@@ -26,6 +28,9 @@ public class PriceService {
 	
 	@Autowired
 	private PriceService priceService;
+	
+	@Autowired
+	private ExaminationService examinationService;
 	
 	public Price findOne(Long id) {
 		return priceRepository.findById(id).orElseGet(null);
@@ -63,6 +68,31 @@ public class PriceService {
 		price = priceService.save(price);
 		
 		return new ResponseEntity<>(new FullPriceDTO(price), HttpStatus.OK);
+	}
+
+	/**
+	 * Delete price if there is no examinations in future with this price.
+	 * 
+	 * @param id is price id
+	 * @return true if et (price) is deleted.
+	 */
+	public ResponseEntity<Boolean> delete(Long id) {
+
+		Price price = priceService.findOne(id);
+		
+		if (price == null) return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+		
+		Date date = new Date();
+		
+		List<Examination> examinations = examinationService.findExaminationsAfterDateAndClinicIdAndPriceId(date, price.getClinic().getId(), price.getId());
+		
+		if (examinations.isEmpty() || examinations == null || examinations.size() == 0) {
+			remove(id);
+			return new ResponseEntity<>(true, HttpStatus.OK);
+		} else {
+			System.out.println("Cannot delete price because there is examinations in future with this price.");
+			return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+		}
 	}
 
 }
