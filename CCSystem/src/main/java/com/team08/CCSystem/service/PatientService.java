@@ -2,20 +2,27 @@ package com.team08.CCSystem.service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.team08.CCSystem.dto.ExaminationForPatientDTO;
 import com.team08.CCSystem.dto.MedicalRecordsDTO;
 import com.team08.CCSystem.dto.RegistrationRequestDTO;
 import com.team08.CCSystem.model.Address;
 import com.team08.CCSystem.model.ClinicMark;
 import com.team08.CCSystem.model.ClinicalCenter;
+import com.team08.CCSystem.model.Disease;
+import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.DoctorMark;
 import com.team08.CCSystem.model.Examination;
+import com.team08.CCSystem.model.ExaminationType;
+import com.team08.CCSystem.model.Medication;
 import com.team08.CCSystem.model.Patient;
+import com.team08.CCSystem.model.Prescription;
 import com.team08.CCSystem.model.VerificationToken;
 import com.team08.CCSystem.model.enums.BloodType;
 import com.team08.CCSystem.repository.ClinicalCenterRepository;
@@ -70,8 +77,46 @@ public class PatientService {
 		records.setBloodType(p.getBloodType().toString());
 		records.setAllergies(p.getAllergy());
 		records.setDiopter(p.getDiopter());
+		Set<ExaminationForPatientDTO> examinations = new HashSet<ExaminationForPatientDTO>();
+		convertToExaminations(p.getExaminations(), examinations);
+		records.setExaminations(examinations);
 		
 		return records;
+	}
+	
+	public void convertToExaminations(Set<Examination> patientExamin, Set<ExaminationForPatientDTO> newSetExamin) {
+		
+		for(Examination e : patientExamin) {
+			ExaminationForPatientDTO newExamin = new ExaminationForPatientDTO();
+			
+			newExamin.setDateOfExamination(e.getDate());
+			newExamin.setWasOnExamination(e.getWasOnExamination());
+			
+			Doctor doctor = e.getDoctor();
+			newExamin.setDoctorsName(doctor.getName() + " " + doctor.getSurname());
+			
+			ExaminationType type = e.getPrice().getExaminationType();
+			newExamin.setExaminationType(type.getSpecialisation().toString() + " " + type.getInterventionType().toString());
+			
+			newExamin.setClinicName(doctor.getClinic().getName());
+			newExamin.setPrice(e.getStaticPrice());
+			newExamin.setDescription(e.getDescription());
+			
+			Set<String> diseases = new HashSet<String>();
+			for(Disease d : e.getDiseases()) {
+				diseases.add(d.getName());
+			}
+			newExamin.setDiseases(diseases);
+			
+			Set<String> medications = new HashSet<String>();
+			for(Prescription p : e.getPrescriptions()) {
+				medications.add(p.getMedication().getName() + ": " + p.getDescription());
+			}
+			newExamin.setMedications(medications);
+			
+			newSetExamin.add(newExamin);
+		}
+		
 	}
 	
 	public Patient addNewPatient(RegistrationRequestDTO request) {
