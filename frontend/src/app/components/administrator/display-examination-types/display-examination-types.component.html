@@ -1,5 +1,11 @@
 <div class="container">
     <div class="row">
+        <div class="col">
+            <h1>Pricelist - Examination types</h1>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-12 mx-auto">
           <div class="md-form">
             <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput/>
@@ -7,6 +13,7 @@
           </div>
         </div>
     </div>
+
     <table mdbTable #tableEl="mdbTable" hover="true" class="table text-position z-depth-1">
         <thead class="black white-text">
             <tr>
@@ -46,49 +53,102 @@
         </tfoot>
     </table>
 
-    <div class="container" style="padding-top: 3rem;" id="changeId" *ngIf="!isChangeHidden">
-        <h2 style="padding-bottom: 1 rem;">Edit examination type</h2>
-
-        <!-- DURATION -->
-        <!-- <div class="row">
+    <div class="container" style="padding-top: 3rem;">
+        <div class="row">
+            <!-- ADD -->
             <div class="col-4">
+                <h2 style="padding-bottom: 1 rem;">Add examination type</h2>
+
+                <!-- INTERVENTION TYPE -->
+                <section class="example-section">
+                    <mat-radio-group [(ngModel)]="labelValue">
+                        <mat-radio-button (change)="onChange('EXAMINATION')" class="example-margin" value="EXAMINATION">Examination</mat-radio-button>
+                        <mat-radio-button (change)="onChange('OPERATION')" class="example-margin" value="OPERATION">Operation</mat-radio-button>
+                    </mat-radio-group>
+                </section>
+
+                <!-- SPECIALISATION -->
                 <div class="md-form">
                     <mat-form-field>
-                        <mat-label>Duration</mat-label>
-                        <mat-select [(ngModel)]="durationToChange" [disabled]="true">
-                            <mat-option *ngFor="let dur of duration" [value]="dur">{{dur}}</mat-option>
+                        <mat-label>Specialisation</mat-label>
+                        <mat-select [(ngModel)]="priceToAdd.specialisation">
+                            <mat-option *ngFor="let spec of specialisations" [value]="spec">{{spec}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-            </div>
-        </div> -->
 
-        <!-- PRICE -->
-        <div class="row">
-            <div class="col-4">
-                <div class="md-form">
-                    <input [(ngModel)]="priceToChange.price" type="number" class="form-control" id="priceInput" mdbInput>
-                    <label for="priceInput">Price</label>
+
+                <!-- DURATION -->
+                <div class="row">
+                    <div class="col-6">
+                        <div class="md-form">
+                            <mat-form-field>
+                                <mat-label>Duration</mat-label>
+                                <mat-select [(ngModel)]="durationToAdd">
+                                    <mat-option *ngFor="let dur of duration" [value]="dur">{{dur}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- PRICE -->
+                <div class="row">
+                    <div class="col-6">
+                        <div class="md-form">
+                            <input [(ngModel)]="priceToAdd.price" type="number" class="form-control" id="priceInput" mdbInput>
+                            <label for="priceInput">Price</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DISCOUNT -->
+                <div class="row">
+                    <div class="col-6">
+                        <div class="md-form">
+                            <input [(ngModel)]="priceToAdd.discount" type="number" class="form-control" id="discountInput" mdbInput>
+                            <label for="discountInput">Discount</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADD BUTTON -->
+                <button mat-raised-button color="primary" (click)="add()">
+                    Add&nbsp;<mat-icon style="font-size: 21px;">add</mat-icon>
+                </button>
+            </div>
+
+            <!-- EDIT -->
+            <div class="col-4" *ngIf="!isChangeHidden">
+                <h2 style="padding-bottom: 1 rem;">Edit examination type</h2>
+
+                <!-- PRICE -->
+                <div class="row">
+                    <div class="col-4">
+                        <div class="md-form">
+                            <input [(ngModel)]="priceToChange.price" type="number" class="form-control" id="priceInput" mdbInput>
+                            <label for="priceInput">Price</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DISCOUNT -->
+                <div class="row">
+                    <div class="col-4">
+                        <div class="md-form">
+                            <input [(ngModel)]="priceToChange.discount" type="number" class="form-control" id="discountInput" mdbInput>
+                            <label for="discountInput">Discount</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONFIRM CHANGE BUTTON -->
+                <button mat-raised-button color="primary" (click)="confirmChanges()">
+                    Confirm changes&nbsp;<mat-icon style="font-size: 21px;">edit</mat-icon>
+                </button>
             </div>
         </div>
-
-        <!-- DISCOUNT -->
-        <div class="row">
-            <div class="col-4">
-                <div class="md-form">
-                    <input [(ngModel)]="priceToChange.discount" type="number" class="form-control" id="discountInput" mdbInput>
-                    <label for="discountInput">Discount</label>
-                </div>
-            </div>
-        </div>
-
-        <!-- CONFIRM CHANGE BUTTON -->
-        <button mat-raised-button color="primary" (click)="confirmChanges()">
-            Confirm changes&nbsp;<mat-icon style="font-size: 21px;">edit</mat-icon>
-        </button>
     </div>
-
 
     <!-- ARE YOU SURE YOU WANT TO DELETE -->
     <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"

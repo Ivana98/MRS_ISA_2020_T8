@@ -13,6 +13,11 @@ export class PriceService {
 
   constructor(private _httpClient: HttpClient, private _loginService: LoginService) { }
 
+  /**
+   * 
+   * @param priceId is price id
+   */
+  //TODO: dodati i clinic id, mozdaa, jer ako adminu klinike treba price, on moze slucajno da dobije iz druge klinike.
   public getOne(priceId) {
     return this._httpClient.get<Price>(this._url + "getOne/" + priceId);
   }
@@ -32,6 +37,7 @@ export class PriceService {
    * @param et if FullPrice
    */
   public update(et) {
+    et.clinic_id = this._loginService.currentUser.clinicId;
     return this._httpClient.put<FullPrice>(this._url + "modify", et);
   }
 
@@ -42,5 +48,15 @@ export class PriceService {
    */
   public delete(id) {
     return this._httpClient.delete(this._url + "delete/" + id);
+  }
+
+  /**
+   * add price (et) to database.
+   * 
+   * @param price is FullPrice
+   */
+  public add(price) {
+    price.clinic_id = this._loginService.currentUser.clinicId;
+    return this._httpClient.post<FullPrice>(this._url + "add", price);
   }
 }

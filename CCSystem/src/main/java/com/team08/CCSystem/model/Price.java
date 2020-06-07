@@ -58,12 +58,13 @@ public class Price {
 	 * @param price
 	 * @param examinationType
 	 */
-	public Price(Long id, double price, ExaminationType examinationType, float discount) {
+	public Price(Long id, double price, ExaminationType examinationType, float discount, Clinic clinic) {
 		super();
 		this.id = id;
 		this.price = price;
 		this.examinationType = examinationType;
 		this.discount = discount;
+		this.clinic = clinic;
 		this.deleted = false;
 	}
 

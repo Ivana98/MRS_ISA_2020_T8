@@ -12,8 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.team08.CCSystem.dto.FullPriceDTO;
+import com.team08.CCSystem.model.Clinic;
 import com.team08.CCSystem.model.Examination;
+import com.team08.CCSystem.model.ExaminationType;
 import com.team08.CCSystem.model.Price;
+import com.team08.CCSystem.model.enums.InterventionType;
+import com.team08.CCSystem.model.enums.Specialisation;
 import com.team08.CCSystem.repository.PriceRepository;
 
 /**
@@ -31,6 +35,8 @@ public class PriceService {
 	
 	@Autowired
 	private ExaminationService examinationService;
+	
+	@Autowired ClinicService clinicService;
 	
 	public Price findOne(Long id) {
 		return priceRepository.findById(id).orElseGet(null);
@@ -93,6 +99,30 @@ public class PriceService {
 			System.out.println("Cannot delete price because there is examinations in future with this price.");
 			return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
 		}
+	}
+
+	/**
+	 * @param fullPriceDTO
+	 * @return 
+	 */
+	public ResponseEntity<FullPriceDTO> add(FullPriceDTO fullPriceDTO) {
+		
+		System.out.println(fullPriceDTO);
+
+		List<Price> prices = priceService.findAllFromClinic(fullPriceDTO.getClinic_id());
+		
+		for (Price price : prices) {
+			if (price.getExaminationType().getInterventionType() == InterventionType.valueOf(fullPriceDTO.getIntervention_type()) && price.getExaminationType().getSpecialisation() == Specialisation.valueOf(fullPriceDTO.getSpecialisation())) 
+				return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		}
+		
+		ExaminationType examinationType = new ExaminationType(null, fullPriceDTO.getDuration(), InterventionType.valueOf(fullPriceDTO.getIntervention_type()), Specialisation.valueOf(fullPriceDTO.getSpecialisation()));
+		Clinic clinic = clinicService.findOne(fullPriceDTO.getClinic_id());
+		Price price = new Price(null, fullPriceDTO.getPrice(), examinationType, fullPriceDTO.getDiscount(), clinic);
+		
+		priceService.save(price);
+		
+		return new ResponseEntity<>(fullPriceDTO, HttpStatus.OK);
 	}
 
 }

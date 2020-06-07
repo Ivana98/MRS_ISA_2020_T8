@@ -60,12 +60,17 @@ export class DisplayExaminationTypesComponent implements OnInit {
 
   isChangeHidden = true;
   durationToChange: string = "00:00";
+  durationToAdd: string = "00:00";
+
 
   ETList: Array<FullPrice> = [];
   previous: any = [];
 
+  labelValue: 'OPERATION' | 'EXAMINATION' = 'EXAMINATION';
+  specialisations: Array<string> = [];
+
   priceToChange: FullPrice = new FullPrice(0, 0, 0, 0, "", "", 0);
-  priceToAdd: FullPrice;
+  priceToAdd: FullPrice = new FullPrice(0, 0, 0, 0, this.labelValue, "", 0);
 
   etToDeleteId: number = -1;
 
@@ -74,7 +79,6 @@ export class DisplayExaminationTypesComponent implements OnInit {
 
   constructor(
     private cdRef: ChangeDetectorRef,
-    // private _httpETService: ExaminationTypeService,
     private _httpPriceService: PriceService
   ) { }
 
@@ -84,11 +88,27 @@ export class DisplayExaminationTypesComponent implements OnInit {
     this.loadETs();
   }
 
+  /**
+   * load all prices from clinic.
+   */
   loadETs() {
     this._httpPriceService.loadAllByClinicId()
       .subscribe(response => {
-        this.setResponse(response)
+        this.setResponse(response);
+        this.loadSpecialisations();
       });
+  }
+
+  /**
+   * Load all specialisations which clinic has from prices previously loaded.
+   */
+  loadSpecialisations() {
+    this.ETList.forEach(fullPrice => {
+      //If list doesn't contain specialisation, add it to list.
+      if (this.specialisations.indexOf(fullPrice.specialisation) == -1) {
+        this.specialisations.push(fullPrice.specialisation);
+      }
+    });
   }
 
   getRow(data) {
@@ -191,6 +211,43 @@ export class DisplayExaminationTypesComponent implements OnInit {
           this.mdbTable.setDataSource(this.ETList);
         }
       });
+  }
+
+  onChange(inType): void {
+    this.priceToAdd.intervention_type = inType;
+  }
+
+  /**
+   * 
+   */
+  add() {
+    var hours = Number(this.durationToAdd.substring(0,2));
+    var minutes = Number(this.durationToAdd.substring(3,5));
+    var dur = hours * 60 + minutes;
+
+    this.priceToAdd.duration = dur;
+
+    // if there is et with same intervention type and specialisation, do not send request to server
+    var ok = true;
+    this.ETList.forEach( (item, index) => {
+      if(item.intervention_type == this.priceToAdd.intervention_type &&
+        item.specialisation == this.priceToAdd.specialisation) ok = false;
+    });
+
+    if (ok == true)
+      this._httpPriceService.add(this.priceToAdd)
+        .subscribe(response => {
+          console.log("response: " + response);
+          alert("ET created successfuly.");
+
+          this.ETList.push(this.priceToAdd);
+          this.mdbTable.setDataSource(this.ETList);
+          this.ETList = this.mdbTable.getDataSource();
+          this.previous = this.mdbTable.getDataSource();
+          this.previousearch = this.mdbTable.getDataSource(); 
+        });
+    else
+      alert("ET with this specicalisation and intervention type already exists.");
   }
 
 }
