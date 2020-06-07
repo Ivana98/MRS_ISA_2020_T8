@@ -28,15 +28,15 @@ insert into doctor_mark (mark, doctor_id, patient_id, deleted) values (0, 4, 2, 
 -- examinations
 insert into examination_type (duration, intervention_type, specialisation, deleted) values (20, 0, 0, false); --id=1
 insert into examination_type (duration, intervention_type, specialisation, deleted) values (15, 0, 1, false); --id=2
-insert into examination_type (duration, intervention_type, specialisation, deleted) values (35, 0, 2, false); --id=3
+insert into examination_type (duration, intervention_type, specialisation, deleted) values (30, 0, 2, false); --id=3
 insert into examination_type (duration, intervention_type, specialisation, deleted) values (25, 0, 3, false); --id=4
 insert into examination_type (duration, intervention_type, specialisation, deleted) values (30, 0, 4, false); --id=5
 -- operations
-insert into examination_type (duration, intervention_type, specialisation, deleted) values (100, 1, 0, false); --id=6
+insert into examination_type (duration, intervention_type, specialisation, deleted) values (105, 1, 0, false); --id=6
 insert into examination_type (duration, intervention_type, specialisation, deleted) values (120, 1, 1, false); --id=7
 insert into examination_type (duration, intervention_type, specialisation, deleted) values (240, 1, 2, false); --id=8
 insert into examination_type (duration, intervention_type, specialisation, deleted) values (90, 1, 3, false); --id=9
-insert into examination_type (duration, intervention_type, specialisation, deleted) values (80, 1, 4, false); --id=10
+insert into examination_type (duration, intervention_type, specialisation, deleted) values (90, 1, 4, false); --id=10
 
 -- rooms 
 -- clinic id=1
@@ -49,16 +49,16 @@ insert into medical_room (intervension_type, room_number, clinic_id, deleted) va
 insert into medical_room (intervension_type, room_number, clinic_id, deleted) values (0, '112a', 2, false);
 
 -- Prices for clinic with id=1
-insert into price (price, examination_type_id, clinic_id, deleted) values (1250, 1, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (2000, 2, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (1800, 3, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (3500, 4, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (4000, 5, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (1900, 6, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (15000, 7, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (120000, 8, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (85000, 9, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (65000, 10, 1, false);
+insert into price (price, discount, examination_type_id, clinic_id, deleted) values (1250, 0, 1, 1, false);
+insert into price (price, discount, examination_type_id, clinic_id, deleted) values (2000, 0, 2, 1, false);
+insert into price (price, discount, examination_type_id, clinic_id, deleted) values (1800, 0, 3, 1, false);
+insert into price (price, discount, examination_type_id, clinic_id, deleted) values (3500, 0, 4, 1, false);
+insert into price (price, discount, examination_type_id, clinic_id, deleted) values (4000, 0, 5, 1, false);
+insert into price (price, discount, examination_type_id, clinic_id, deleted) values (1900, 0, 6, 1, false);
+insert into price (price, discount, examination_type_id, clinic_id, deleted) values (15000, 0, 7, 1, false);
+insert into price (price, discount, examination_type_id, clinic_id, deleted) values (120000, 0, 8, 1, false);
+insert into price (price, discount, examination_type_id, clinic_id, deleted) values (85000, 0, 9, 1, false);
+insert into price (price, discount, examination_type_id, clinic_id, deleted) values (65000, 0, 10, 1, false);
 
 insert into examination (date, description, static_price, was_on_examination, doctor_id, price_id, medical_room_id, patient_id, deleted) values ('2020-04-26 07:00', 'Obican rutinski pregled', 1250.0, true,  4, 1, 1, 2, false);
 insert into examination (date, description, static_price, was_on_examination, doctor_id, price_id, medical_room_id, patient_id, deleted) values ('2020-06-26 07:00', 'Obican rutinski pregled', 1250.0, false, 4, 1, 2, null, false);

@@ -10,36 +10,87 @@
     <table mdbTable #tableEl="mdbTable" hover="true" class="table text-position z-depth-1">
         <thead class="black white-text">
             <tr>
-                <th></th>
+                <th>#</th>
                 <th [mdbTableSort]="ETList" sortBy="price">Price&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="ETList" sortBy="discount">Discount&nbsp;<i class="fas fa-sort"></i> </th>
                 <th [mdbTableSort]="ETList" sortBy="duration">Duration&nbsp;<i class="fas fa-sort"></i> </th>
                 <th [mdbTableSort]="ETList" sortBy="interventionType">Intervention type&nbsp;<i class="fas fa-sort"></i> </th>
                 <th [mdbTableSort]="ETList" sortBy="specialisation">Specialisation&nbsp;<i class="fas fa-sort"></i></th>
+                <th>Actions</th>
             </tr>
         </thead>   
         <tbody>
             <tr mdbTableCol *ngFor="let cl of ETList; let i = index;" (click)="getRow(cl)">
                 <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i + 1}}</th>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.price}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.discount }}%</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.duration}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.intervention_type}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.specialisation}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon" (click)="editET(cl)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <!-- <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon" (click)="takeId(cl)" (click)="frame.show()">
+                        <mat-icon>delete</mat-icon>
+                    </button> -->
+                </td>
             </tr>
         </tbody>
         <tfoot class="grey lighten-5 w-100">
             <tr>
-                <td colspan="9">
+                <td colspan="7">
                     <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="ETList"></mdb-table-pagination>
                 </td>
             </tr>
         </tfoot>
     </table>
-</div>
-<!-- <router-outlet></router-outlet> -->
-<div class="container" style="padding-top: 5rem;">
-    <div class="row">
-        <div class="col align-self-center">
-            <!-- <app-change-examination-type></app-change-examination-type> -->
+
+    <div class="container" style="padding-top: 3rem;" id="changeId" *ngIf="!isChangeHidden">
+        <h2 style="padding-bottom: 1 rem;">Edit examination type</h2>
+
+        <!-- DURATION -->
+        <!-- <div class="row">
+            <div class="col-4">
+                <div class="md-form">
+                    <mat-form-field>
+                        <mat-label>Duration</mat-label>
+                        <mat-select [(ngModel)]="durationToChange" [disabled]="true">
+                            <mat-option *ngFor="let dur of duration" [value]="dur">{{dur}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- PRICE -->
+        <div class="row">
+            <div class="col-4">
+                <div class="md-form">
+                    <input [(ngModel)]="priceToChange.price" type="number" class="form-control" id="priceInput" mdbInput>
+                    <label for="priceInput">Price</label>
+                </div>
+            </div>
         </div>
+
+        <!-- DISCOUNT -->
+        <div class="row">
+            <div class="col-4">
+                <div class="md-form">
+                    <input [(ngModel)]="priceToChange.discount" type="number" class="form-control" id="discountInput" mdbInput>
+                    <label for="discountInput">Discount</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONFIRM CHANGE BUTTON -->
+        <button mat-raised-button color="primary" (click)="confirmChanges()">
+            Confirm changes&nbsp;<mat-icon style="font-size: 21px;">edit</mat-icon>
+        </button>
+        
+
     </div>
+
 </div>
+
+

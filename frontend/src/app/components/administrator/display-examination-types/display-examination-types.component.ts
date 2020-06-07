@@ -14,17 +14,65 @@ import { FullPrice } from 'src/app/model/price';
 export class DisplayExaminationTypesComponent implements OnInit {
 
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
-  @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective
+  @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
+
+  duration = 
+  [
+    '00:05',
+    '00:10',
+    '00:15',
+    '00:20',
+    '00:25',
+    '00:30',
+    '00:40',
+    '00:50',
+    '01:00',
+    '01:15',
+    '01:30',
+    '01:45',
+    '02:00',
+    '02:30',
+    '03:00',
+    '03:30',
+    '04:00',
+    '04:30',
+    '05:00',
+    '06:00',
+    '07:00',
+    '08:00',
+    '09:00',
+    '10:00',
+    '11:00',
+    '12:00',
+    '13:00',
+    '14:00',
+    '15:00',
+    '16:00',
+    '17:00',
+    '18:00',
+    '19:00',
+    '20:00',
+    '21:00',
+    '22:00',
+    '23:00',
+    '24:00'
+  ];
+
+  isChangeHidden = true;
+  durationToChange: string = "00:00";
 
   ETList: Array<FullPrice> = [];
   previous: any = [];
+
+  priceToChange: FullPrice = new FullPrice(0, 0, 0, 0, "", "", 0);
+  priceToAdd: FullPrice;
 
   searchText: string = ''; 
   previousearch: string; //search variable
 
   constructor(
     private cdRef: ChangeDetectorRef,
-    private _httpETService: ExaminationTypeService,
+    // private _httpETService: ExaminationTypeService,
     private _httpPriceService: PriceService
   ) { }
 
@@ -35,7 +83,10 @@ export class DisplayExaminationTypesComponent implements OnInit {
   }
 
   loadETs() {
-    this._httpPriceService.loadAllByClinicId().subscribe(response => this.setResponse(response))
+    this._httpPriceService.loadAllByClinicId()
+      .subscribe(response => {
+        this.setResponse(response)
+      });
   }
 
   getRow(data) {
@@ -50,7 +101,7 @@ export class DisplayExaminationTypesComponent implements OnInit {
     this.cdRef.detectChanges();
   }
 
-  setResponse(response){
+  setResponse(response) {
     this.ETList = response;
     this.mdbTable.setDataSource(this.ETList);
     this.ETList = this.mdbTable.getDataSource();
@@ -58,7 +109,7 @@ export class DisplayExaminationTypesComponent implements OnInit {
     this.previousearch = this.mdbTable.getDataSource(); 
   }
 
-  searchItems(){
+  searchItems() {
     const prev = this.mdbTable.getDataSource(); 
     
     if (!this.searchText) {
@@ -69,6 +120,50 @@ export class DisplayExaminationTypesComponent implements OnInit {
         this.ETList = this.mdbTable.searchLocalDataBy(this.searchText);
         this.mdbTable.setDataSource(prev); 
     } 
+  }
+
+  /**
+   * 
+   * @param et is FullPrice object selected from table
+   */
+  editET(et) {
+    // show change form
+    this.isChangeHidden = false;
+    this.priceToChange = et;
+
+    // hours
+    var hoursInt = et.duration/60 | 0;
+    var hoursStr;
+    if (hoursInt == 0)
+      hoursStr = "00";
+    else if (hoursInt < 10)
+      hoursStr = "0" + hoursInt;
+    else
+      hoursStr = "" + hoursInt;
+    
+    // minutes
+    var minutesInt = et.duration % 60;
+    var minutesStr;
+    if (minutesInt == 0)
+      minutesStr = "00";
+    else if (minutesInt < 10)
+      minutesStr = "0" + minutesInt;
+    else
+      minutesStr = "" + minutesInt;
+
+    this.durationToChange = hoursStr + ":" + minutesStr;
+  }
+
+  /**
+   * send request to save changes for chossen and edited ET(Price).
+   */
+  confirmChanges() {
+    this._httpPriceService.update(this.priceToChange)
+      .subscribe(response => {
+        if (response != null) {
+          alert("Examination type (price) is successfuly updated.");
+        }
+      });
   }
 
 }

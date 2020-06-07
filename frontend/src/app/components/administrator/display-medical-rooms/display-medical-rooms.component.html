@@ -34,7 +34,7 @@
                 <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i + 1}}</th>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.room_number}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.intervention_type}}</td>
-                <td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
                     <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon" (click)="editRoom(cl)" data-toggle="modal" data-target="#exampleModal">
                         <mat-icon>edit</mat-icon>
                     </button>
