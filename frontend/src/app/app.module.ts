@@ -71,6 +71,7 @@ import { DisplayReportComponent } from './components/administrator/display-repor
 import { CalendarComponent } from './components/administrator/calendar/calendar.component';
 import { AbsenceComponent } from './components/doctor/absence/absence.component';
 import { RequestService } from './services/request-service/request.service';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 
 @NgModule({
@@ -99,7 +100,8 @@ import { RequestService } from './services/request-service/request.service';
     TableOfPatientComponent,
     DisplayReportComponent,
     CalendarComponent,
-    AbsenceComponent
+    AbsenceComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

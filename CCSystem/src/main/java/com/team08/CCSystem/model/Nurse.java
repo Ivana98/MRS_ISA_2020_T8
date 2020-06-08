@@ -38,6 +38,9 @@ public class Nurse extends User {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Absence> absences = new HashSet<Absence>();
 	
+	@Column(name = "isPasswordChanged", nullable = false)
+	private boolean isPasswordChanged;
+	
 	public Nurse() {}
 
 	/**
@@ -56,6 +59,7 @@ public class Nurse extends User {
 		super(id, email, name, surname, address, phone, password);
 		this.clinic = clinic;
 		this.absences = absences;
+		this.isPasswordChanged = false;
 	}
 
 		
@@ -72,6 +76,15 @@ public class Nurse extends User {
 	public Nurse(Long id, String email, String name, String surname, Address address, String phone,
 			String password) {
 		super(id, email, name, surname, address, phone, password);
+		this.isPasswordChanged = false;
+	}
+
+	public boolean isPasswordChanged() {
+		return isPasswordChanged;
+	}
+
+	public void setPasswordChanged(boolean isPasswordChanged) {
+		this.isPasswordChanged = isPasswordChanged;
 	}
 
 	public Clinic getClinic() {

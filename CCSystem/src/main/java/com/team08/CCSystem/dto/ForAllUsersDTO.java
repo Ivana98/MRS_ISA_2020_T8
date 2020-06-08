@@ -25,8 +25,19 @@ public class ForAllUsersDTO {
 	//patient
 	private String policyholder;
 	
+	// clinic admin, doctor and nurse
+	private boolean isPasswordChanged;
+	
 	public ForAllUsersDTO() {}
 	
+	public boolean isPasswordChanged() {
+		return isPasswordChanged;
+	}
+
+	public void setPasswordChanged(boolean isPasswordChanged) {
+		this.isPasswordChanged = isPasswordChanged;
+	}
+
 	public Long getUserId() {
 		return userId;
 	}
