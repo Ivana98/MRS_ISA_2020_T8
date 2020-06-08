@@ -52,6 +52,8 @@ public class Doctor extends User {
 	@Column(name="averageMark")
 	private float averageMark;
 	
+	@Column(name = "isPasswordChanged", nullable = false)
+	private boolean isPasswordChanged;
 
 	/**
 	 * @param id
@@ -80,6 +82,7 @@ public class Doctor extends User {
 		this.examinations = examinations;
 		this.marks = marks;
 		this.averageMark = averageMark;
+		this.isPasswordChanged = false;
 	}
 	
 	/**
@@ -100,6 +103,7 @@ public class Doctor extends User {
 		this.clinic = clinic;
 		this.specialisation = specialisation;
 		this.averageMark = averageMark;
+		this.isPasswordChanged = false;
 	}
 
 
@@ -116,6 +120,15 @@ public class Doctor extends User {
 	public Doctor(Long id, String email, String name, String surname, Address address, String phone,
 			String password) {
 		super(id, email, name, surname, address, phone, password);
+		this.isPasswordChanged = false;
+	}
+
+	public boolean isPasswordChanged() {
+		return isPasswordChanged;
+	}
+
+	public void setPasswordChanged(boolean isPasswordChanged) {
+		this.isPasswordChanged = isPasswordChanged;
 	}
 
 	public Set<Absence> getAbsences() {

@@ -10,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,7 +43,7 @@ public class PriceControler {
 		
 		Price price = priceService.findOne(id);
 		
-		if (priceService == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		if (price == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		
 		return new ResponseEntity<>(new PriceListDTO(price), HttpStatus.OK);
 	}
@@ -52,10 +56,28 @@ public class PriceControler {
 		List<FullPriceDTO> pricesDTO = new ArrayList<>();
 		for (Price price : prices) {
 			pricesDTO.add(new FullPriceDTO(price));
-			System.out.println(new FullPriceDTO(price));
+//			System.out.println(new FullPriceDTO(price));
 		}
 		
 		return new ResponseEntity<>(pricesDTO, HttpStatus.OK);
+	}
+	
+	@PutMapping(path = "modify")
+	public ResponseEntity<FullPriceDTO> modify(@RequestBody FullPriceDTO fullPriceDTO) {
+		
+		return priceService.modify(fullPriceDTO);
+	}
+	
+	@DeleteMapping(value = "/delete/{id}")
+	public ResponseEntity<Boolean> delete(@PathVariable Long id) {
+		
+		return priceService.delete(id);
+	}
+	
+	@PostMapping(path = "add")
+	public ResponseEntity<FullPriceDTO> add(@RequestBody FullPriceDTO fullPriceDTO) {
+		
+		return priceService.add(fullPriceDTO);
 	}
 
 }

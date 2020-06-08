@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -45,7 +47,7 @@ public class Price {
 	@Column(name = "discount", nullable = true) 
 	private float discount;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private ExaminationType examinationType;
 	
 	@Column(nullable = false)
@@ -56,12 +58,13 @@ public class Price {
 	 * @param price
 	 * @param examinationType
 	 */
-	public Price(Long id, double price, ExaminationType examinationType, float discount) {
+	public Price(Long id, double price, ExaminationType examinationType, float discount, Clinic clinic) {
 		super();
 		this.id = id;
 		this.price = price;
 		this.examinationType = examinationType;
 		this.discount = discount;
+		this.clinic = clinic;
 		this.deleted = false;
 	}
 

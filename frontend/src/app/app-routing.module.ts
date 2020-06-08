@@ -31,12 +31,17 @@ import { TableOfPatientComponent } from './components/nurse/table-of-patient/tab
 import { DisplayReportComponent } from './components/administrator/display-report/display-report.component';
 import { CalendarComponent } from './components/administrator/calendar/calendar.component';
 import { AbsenceComponent } from './components/doctor/absence/absence.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { ClinicAdminGuard } from './guard/clinic-admin.guard';
+import { DoctorGuard } from './guard/doctor.guard';
+import { NurseGuard } from './guard/nurse.guard';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'homepage', pathMatch: 'full' }, // Don't use prefix becasue empty path is a prefix to any path
   { path: 'homepage', component: HomePageComponent },
   { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
+  { path: 'change-password', component: ChangePasswordComponent, canActivate: [ClinicAdminGuard] }, 
   { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
   { path: 'user-page', component: UserPageComponent, canActivate: [LoginGuard],
     children: [

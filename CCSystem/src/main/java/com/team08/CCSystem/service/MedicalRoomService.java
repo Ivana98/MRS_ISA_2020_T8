@@ -17,7 +17,6 @@ import com.team08.CCSystem.dto.StartEndDateDTO;
 import com.team08.CCSystem.model.Examination;
 import com.team08.CCSystem.model.MedicalRoom;
 import com.team08.CCSystem.model.enums.InterventionType;
-import com.team08.CCSystem.repository.ExaminationRepository;
 import com.team08.CCSystem.repository.MedicalRoomRepository;
 
 /**

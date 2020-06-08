@@ -138,7 +138,7 @@ export class NewAppointmentComponent implements OnInit, AfterViewInit {
    */
   loadSpecialisations() {
     this.fullPrices.forEach(fullPrice => {
-      //If list doesn't contain specialisation, add it to lis.
+      //If list doesn't contain specialisation, add it to list.
       if (this.specialisations.indexOf(fullPrice.specialisation) == -1) {
         this.specialisations.push(fullPrice.specialisation);
       }

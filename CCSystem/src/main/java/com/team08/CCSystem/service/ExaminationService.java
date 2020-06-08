@@ -64,4 +64,14 @@ public class ExaminationService {
 		return examinationRepository.findExaminationsBetweenDatesAndClinicId(startDate, endDate, clinicId);
 	}
 
+	/**
+	 * @param date
+	 * @param clinicId
+	 * @param priceId
+	 * @return
+	 */
+	public List<Examination> findExaminationsAfterDateAndClinicIdAndPriceId(Date date, Long clinicId, Long priceId) {
+		return examinationRepository.findExaminationsAfterDateAndClinicIdAndPriceId(date, clinicId, priceId);
+	}
+
 }

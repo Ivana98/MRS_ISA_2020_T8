@@ -126,9 +126,19 @@ public class UserService implements UserDetailsService{
 
 		User user = (User) loadUserByUsername(username);
 
-		// pre nego sto u bazu upisemo novu lozinku, potrebno ju je hesirati
+		// pre nego sto u bazu upisemo novu lozinku, potrebno ju je hesirati 
 		// ne zelimo da u bazi cuvamo lozinke u plain text formatu
 		user.setPassword(passwordEncoder.encode(userPassword.getNewPassword()));
+		
+		// set password changed on true
+		if (user instanceof ClinicAdmin) {
+			((ClinicAdmin) user).setPasswordChanged(true);
+		} else if (user instanceof Doctor) {
+			((Doctor) user).setPasswordChanged(true);
+		} else if (user instanceof Nurse) {
+			((Nurse) user).setPasswordChanged(true);
+		}
+		
 		userRepository.save(user);
 		return true;
 	}
@@ -221,6 +231,7 @@ public class UserService implements UserDetailsService{
 		}
 		else if (user instanceof ClinicAdmin) {
 			userDTO.setClinicId(((ClinicAdmin) user).getClinic().getId());
+			userDTO.setPasswordChanged(((ClinicAdmin) user).isPasswordChanged());
 		}
 		else {
 			userDTO.setClinicId(((Nurse) user).getClinic().getId());
