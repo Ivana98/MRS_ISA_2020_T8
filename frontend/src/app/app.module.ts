@@ -72,6 +72,7 @@ import { CalendarComponent } from './components/administrator/calendar/calendar.
 import { AbsenceComponent } from './components/doctor/absence/absence.component';
 import { RequestService } from './services/request-service/request.service';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { ChangePasswordGuard } from './guard/change-password.guard';
 
 
 @NgModule({
@@ -131,6 +132,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     NurseGuard,
     ClinicAdminGuard,
     ClinicCenterAdminGuard,
+    ChangePasswordGuard,
     ListClinicsService, 
     UserProfileService, 
     MedicalRecordsService, 

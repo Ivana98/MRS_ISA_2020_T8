@@ -27,7 +27,7 @@
         <div class="col-4">
             <mat-form-field class="example-full-width">
                 <mat-label>Choose a date</mat-label>
-                <input id="startDateInput" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerStartDate" [(ngModel)]="startDate" disabled>
+                <input id="startDateInput" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerStartDate" [(ngModel)]="absence.beginDate" disabled>
                 <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
                 <mat-datepicker touchUi #pickerStartDate ngDefaultControl [(ngModel)]="startDate" disabled="false"></mat-datepicker>
             </mat-form-field>
@@ -37,7 +37,7 @@
         <div class="col-4">
             <mat-form-field class="example-full-width">
                 <mat-label>Choose a date</mat-label>
-                <input id="endDateInput" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerEndDate" [(ngModel)]="endDate" disabled>
+                <input id="endDateInput" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerEndDate" [(ngModel)]="absence.endDate" disabled>
                 <mat-datepicker-toggle matSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
                 <mat-datepicker touchUi #pickerEndDate ngDefaultControl [(ngModel)]="endDate" disabled="false"></mat-datepicker>
             </mat-form-field>
@@ -48,8 +48,8 @@
         <!-- vacation or absence -->
         <div class="col-4">
             <section class="example-section">
-                <mat-radio-group [(ngModel)]="absenceType">
-                    <mat-radio-button (change)="onChange('Absence')" class="example-margin" value="Absence">Absence</mat-radio-button>
+                <mat-radio-group [(ngModel)]="absence.absenceType">
+                    <mat-radio-button (change)="onChange('sick_leave')" class="example-margin" value="sick_leave">Sick leave</mat-radio-button>
                     <mat-radio-button (change)="onChange('Vacation')" class="example-margin" value="Vacation">Vacation</mat-radio-button>
                 </mat-radio-group>
             </section>
