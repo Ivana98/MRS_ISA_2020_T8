@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.team08.CCSystem.model.Patient;
 import com.team08.CCSystem.service.PatientService;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import com.team08.CCSystem.dto.PatienForNursetDTO;
 import com.team08.CCSystem.dto.PatientDTO;
 
@@ -20,7 +22,7 @@ import com.team08.CCSystem.dto.PatientDTO;
  */
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(value = "api/patient")
+@RequestMapping(value = "api/patients")
 public class PatientControler {
 	
 	@Autowired
@@ -42,7 +44,7 @@ public class PatientControler {
 	}
 	
 	
-	@GetMapping(path = "getOne/{id}")
+	@GetMapping(path = "/getOne/{id}")
 	public ResponseEntity<PatienForNursetDTO> getPat(@PathVariable Long id) {
 
 		Patient pat = patientService.findOne(id);
@@ -56,8 +58,8 @@ public class PatientControler {
 	}
 	
 
-	@GetMapping(path = "getAll")
-	public ResponseEntity<List<PatientDTO>> getPatient(@PathVariable Long id) {
+	@GetMapping(path = "/getAll", produces = "application/json")
+	public ResponseEntity<List<PatientDTO>> getAll() {
 
 		List<Patient> patients = patientService.findAll();
 		

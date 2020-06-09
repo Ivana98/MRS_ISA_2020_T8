@@ -92,6 +92,9 @@ public class AbsenceService {
 		
 		absence = save(absence);
 		
+		
+		//TODO: Send email
+		
 		return new ResponseEntity<>(new AbsenceUserDTO(absence), HttpStatus.OK);
 	}
 

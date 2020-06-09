@@ -125,6 +125,7 @@ public class UserProfileControler {
 	public ForAllUsersDTO user(Principal user) {
 		try {
 			User u = this.userService.findByUsername(user.getName());
+			
 			return  this.userService.convertUserToDTO(u);
 		}
 		catch(NullPointerException e) {

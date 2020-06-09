@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, HostListener } from '@angular/core';
 import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstrap-md';
 import { Patient } from 'src/app/model/patient';
 import { PatientService } from 'src/app/services/patient-service/patient.service';
@@ -11,9 +11,14 @@ import { PatientService } from 'src/app/services/patient-service/patient.service
 export class DisplayPatientsComponent implements OnInit {
 
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
-  @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective
-  patientsList: Array<Patient> = [];
+  @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
+  
   previous: any = [];
+  searchText: string = ''; 
+  previousearch: string;
+
+  patientsList: Array<Patient> = [];
+  patientDisplay: Patient = new Patient(-1, "","","","","","","","","","","","","","","");
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -21,22 +26,31 @@ export class DisplayPatientsComponent implements OnInit {
     // private _someLogic: PatientShareService
   ) { }
 
+  @HostListener('input') oninput() { this.searchItems(); } 
+
   ngOnInit(): void {
-    this.loadDoctors();
+    this.loadPatients();
   }
 
-  loadDoctors() {
+  loadPatients() {
     this._httpPatientService.getAll().subscribe(response => this.setResponse(response))
   }
 
+  /**
+   * Take data of choosen patient.
+   * 
+   * @param data is choosen patient
+   */
   getRow(data) {
-    // this._someLogic.sendDoctor(data);
-    // this._someLogic.loadDoctorsAgain(this.patientsList);
+    this.patientDisplay = data;
   }
 
   ngAfterViewInit() {
-    this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
+    this.pagination();
+  }
 
+  pagination() {
+    this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
     this.mdbTablePagination.calculateFirstItemIndex();
     this.mdbTablePagination.calculateLastItemIndex();
     this.cdRef.detectChanges();
@@ -47,6 +61,20 @@ export class DisplayPatientsComponent implements OnInit {
     this.mdbTable.setDataSource(this.patientsList);
     this.patientsList = this.mdbTable.getDataSource();
     this.previous = this.mdbTable.getDataSource();
+    this.previousearch = this.mdbTable.getDataSource(); 
+  }
+
+  searchItems(){
+    const prev = this.mdbTable.getDataSource(); 
+    
+    if (!this.searchText) {
+        this.mdbTable.setDataSource(this.previousearch); 
+        this.patientsList = this.mdbTable.getDataSource(); 
+    } 
+    if (this.searchText) { 
+        this.patientsList = this.mdbTable.searchLocalDataBy(this.searchText);
+        this.mdbTable.setDataSource(prev); 
+    } 
   }
 
 }
