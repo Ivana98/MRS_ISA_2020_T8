@@ -18,14 +18,14 @@
 
                     <mdb-card-body class="mx-4 mt-4">
 
-                        <!--Body-->
-                        <form #registerForm="ngForm" (ngSubmit)="onSubmitRequest()">
-
-                            <div class="col8">
-                                <div class="alert alert-success" role="alert" *ngIf="displaySuccessAlert">
-                                    {{displaySuccessAlert}}
-                                </div>
+                        <div class="col8">
+                            <div class="alert alert-success" role="alert" *ngIf="displaySuccessAlert">
+                                {{displaySuccessAlert}}
                             </div>
+                        </div>
+
+                        <!--Body-->
+                        <form #registerForm="ngForm" (ngSubmit)="onSubmitRequest()" *ngIf="!submitted">
 
                             <div class="row">
                                 <div class="col-6">

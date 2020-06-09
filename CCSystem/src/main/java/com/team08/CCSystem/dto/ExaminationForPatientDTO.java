@@ -9,7 +9,7 @@ public class ExaminationForPatientDTO {
 	private String doctorsName;
 	private String examinationType; //Specialisation + InterventionType
 	private String clinicName;
-	private double price;			//the price at which the examination was paid
+	private String price;			//the price at which the examination was paid
 	private String description;
 	private Set<String> diseases;
 	private Set<String> medications; //medication name + description + prescription description
@@ -17,7 +17,7 @@ public class ExaminationForPatientDTO {
 	public ExaminationForPatientDTO() {}
 	
 	public ExaminationForPatientDTO(Date dateOfExamination, boolean wasOnExamination, String doctorsName,
-			String examinationType, String clinicName, double price, String description, Set<String> diseases,
+			String examinationType, String clinicName, String price, String description, Set<String> diseases,
 			Set<String> medications) {
 		super();
 		this.dateOfExamination = dateOfExamination;
@@ -61,10 +61,10 @@ public class ExaminationForPatientDTO {
 	public void setClinicName(String clinicName) {
 		this.clinicName = clinicName;
 	}
-	public double getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	public String getDescription() {

@@ -68,3 +68,94 @@
         </div>
     </div>
 </div>
+
+<!-- table with examinations of current patient-->
+<div class="container">
+    <div class="row">
+        <h2 class="padding-16"><i class="fas fa-heartbeat"></i>&nbsp;<b>History of my examinations</b></h2>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+          <div class="md-form">
+            <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput/>
+            <label for="search">Search</label>
+          </div>
+        </div>
+    </div>
+    <table mdbTable #tableEl="mdbTable" hover="true" class="table text-position z-depth-1">
+        <thead class="black white-text">
+            <tr>
+                <th></th>
+                <th [mdbTableSort]="examinationsList" sortBy="dateOfExamination">Date&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinationsList" sortBy="wasOnExamination">Was on examination&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinationsList" sortBy="clinicName">Clinic name&nbsp;<i class="fas fa-sort"></i></th>
+                <th [mdbTableSort]="examinationsList" sortBy="doctorsName">Doctor&nbsp;<i class="fas fa-sort"></i></th>
+                <th>More info</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr mdbTableCol *ngFor="let examin of examinationsList; let i = index;">
+                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i + 1}}</th>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{examin.dateOfExamination | date: 'd.M.yyyy.'}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{examin.wasOnExamination ? "yes" : "no"}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{examin.clinicName}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{examin.doctorsName}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    
+                    <button mat-icon-button color="warn" (click)="rowSelected(examin)" (click)="infoModal.show()" mdbWavesEffect class="relative waves-light">
+                        <i class="fas fa-info-circle"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot class="grey lighten-5 w-100">
+            <tr>
+                <td colspan="5">
+                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="examinationsList"></mdb-table-pagination>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<!--Angular Bootstrap Modal - more info about examination-->
+<div mdbModal #infoModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="infoModal.hide()">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title w-100" id="myModalLabel">
+            <i class="fas fa-file-medical-alt"></i>&nbsp;Examination was on {{selectedExamination.dateOfExamination | date: 'd.M.yyyy.'}}
+          </h4>
+        </div>
+
+        <div class="modal-body">
+          Doctor: {{selectedExamination.doctorsName}} <br>
+          Clinic: {{selectedExamination.clinicName}} <br>
+          Examination type: {{selectedExamination.examinationType}} <br>
+          Price: {{selectedExamination.price}} <br>
+          <hr>
+          Description: <br>
+          {{selectedExamination.description}} <br>
+
+          Diagnosed diseases: <br>
+          <ul *ngFor="let d of selectedExamination.diseases;">
+            <li>{{d}}</li>
+          </ul> 
+           
+          Prescripted medications: <br>
+          <ul class="row" *ngFor="let m of selectedExamination.medications;">
+            <li>{{m}}</li>          
+          </ul>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" mdbBtn aria-label="Close" (click)="infoModal.hide()" color="primary" class="relative waves-light" mdbWavesEffect>Close</button>
+        </div>
+      </div>
+    </div>
+</div>

@@ -99,7 +99,7 @@ public class PatientService {
 			newExamin.setExaminationType(type.getSpecialisation().toString() + " " + type.getInterventionType().toString());
 			
 			newExamin.setClinicName(doctor.getClinic().getName());
-			newExamin.setPrice(e.getStaticPrice());
+			newExamin.setPrice(Double.toString(e.getStaticPrice()));
 			newExamin.setDescription(e.getDescription());
 			
 			Set<String> diseases = new HashSet<String>();

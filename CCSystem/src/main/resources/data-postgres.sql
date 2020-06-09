@@ -49,16 +49,16 @@ insert into medical_room (intervension_type, room_number, clinic_id, deleted) va
 insert into medical_room (intervension_type, room_number, clinic_id, deleted) values (0, '112a', 2, false);
 
 -- Prices for clinic with id=1
-insert into price (price, examination_type_id, clinic_id, deleted) values (1250, 1, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (2000, 2, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (1800, 3, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (3500, 4, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (4000, 5, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (1900, 6, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (15000, 7, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (120000, 8, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (85000, 9, 1, false);
-insert into price (price, examination_type_id, clinic_id, deleted) values (65000, 10, 1, false);
+insert into price (price, examination_type_id, clinic_id, deleted, discount) values (1250, 1, 1, false, 0);
+insert into price (price, examination_type_id, clinic_id, deleted, discount) values (2000, 2, 1, false, 0);
+insert into price (price, examination_type_id, clinic_id, deleted, discount) values (1800, 3, 1, false, 0);
+insert into price (price, examination_type_id, clinic_id, deleted, discount) values (3500, 4, 1, false, 0);
+insert into price (price, examination_type_id, clinic_id, deleted, discount) values (4000, 5, 1, false, 0);
+insert into price (price, examination_type_id, clinic_id, deleted, discount) values (1900, 6, 1, false, 0);
+insert into price (price, examination_type_id, clinic_id, deleted, discount) values (15000, 7, 1, false, 0);
+insert into price (price, examination_type_id, clinic_id, deleted, discount) values (120000, 8, 1, false, 0);
+insert into price (price, examination_type_id, clinic_id, deleted, discount) values (85000, 9, 1, false, 0);
+insert into price (price, examination_type_id, clinic_id, deleted, discount) values (65000, 10, 1, false, 0);
 
 insert into examination (date, description, static_price, was_on_examination, doctor_id, price_id, medical_room_id, patient_id, deleted) values ('2020-04-26 07:00', 'Obican rutinski pregled', 1250.0, true,  4, 1, 1, 2, false);
 insert into examination (date, description, static_price, was_on_examination, doctor_id, price_id, medical_room_id, patient_id, deleted) values ('2020-06-26 07:00', 'Obican rutinski pregled', 1250.0, false, 4, 1, 2, null, false);
