@@ -1,3 +1,5 @@
+import { ExaminationForPatient } from './examinationForPatient';
+
 export interface IMedicalRecords {
     name: string,
     surname: string,
@@ -6,7 +8,8 @@ export interface IMedicalRecords {
 	weight: number,
 	bloodType: string,
 	allergies: string,
-	diopter: string
+    diopter: string,
+    examinations: ExaminationForPatient[]
 }
 
 export class MedicalRecords {
@@ -18,6 +21,7 @@ export class MedicalRecords {
         public weight: number,
         public bloodType: string,
         public allergies: string,
-	    public diopter: string
+        public diopter: string,
+        public examinations: ExaminationForPatient[]
     ) {} 
 }
