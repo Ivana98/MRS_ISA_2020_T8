@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(form : NgForm) {
     //if someone tries to send invalid data do not send request
-    if(form.invalid){
+    if(form.invalid) {
       return;
     }
 
@@ -45,11 +45,15 @@ export class LoginComponent implements OnInit {
           this._loginService.getMyInfo().subscribe(
             data => {
               if (this._loginService.currentUser.passwordChanged == false) {
-                this.router.navigate(['/change-password']);
+                if (this._loginService.currentUser.userAuthority == 'ROLE_NURSE'
+                || this._loginService.currentUser.userAuthority == 'ROLE_DOCTOR' 
+                || this._loginService.currentUser.userAuthority == 'ROLE_CLINIC_ADMIN')
+                  this.router.navigate(['/change-password']);
+                else
+                  this.router.navigate(['/user-page']);
               } 
-              else {
+              else
                 this.router.navigate(['/user-page']);
-              }
             }
           );
         },

@@ -1,15 +1,27 @@
 <div class="container">
+
+    <!-- SEARCH -->
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+          <div class="md-form">
+            <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput/>
+            <label for="search">Search</label>
+          </div>
+        </div>
+    </div>
+
+    <!-- PATIENT TABLE -->
     <table mdbTable #tableEl="mdbTable" hover="true" class="table text-position z-depth-1">
         <thead class="black white-text">
             <tr>
                 <th></th>
-                <th [mdbTableSort]="patientsList" sortBy="name">Name&nbsp;<i class="fas fa-sort"></i> </th>
-                <th [mdbTableSort]="patientsList" sortBy="surname">Surname&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="patientsList" sortBy="firstName">Name&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="patientsList" sortBy="lastName">Surname&nbsp;<i class="fas fa-sort"></i> </th>
                 <th [mdbTableSort]="patientsList" sortBy="email">Email&nbsp;<i class="fas fa-sort"></i> </th>
                 <th [mdbTableSort]="patientsList" sortBy="phone">Phone&nbsp;<i class="fas fa-sort"></i> </th>
-                <th [mdbTableSort]="patientsList" sortBy="addressStreet">Street&nbsp;<i class="fas fa-sort"></i> </th>
-                <th [mdbTableSort]="patientsList" sortBy="adressCity">City&nbsp;<i class="fas fa-sort"></i></th>
-                <th [mdbTableSort]="patientsList" sortBy="adressCountry">Country&nbsp;<i class="fas fa-sort"></i></th>
+                <th [mdbTableSort]="patientsList" sortBy="street">Street&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="patientsList" sortBy="city">City&nbsp;<i class="fas fa-sort"></i></th>
+                <th [mdbTableSort]="patientsList" sortBy="country">Country&nbsp;<i class="fas fa-sort"></i></th>
             </tr>
         </thead>   
         <tbody>
@@ -32,12 +44,87 @@
             </tr>
         </tfoot>
     </table>
-</div>
-<!-- <router-outlet></router-outlet> -->
-<div class="container" style="padding-top: 5rem;">
-    <div class="row">
-        <div class="col align-self-center">
-            <!-- <app-change-patient></app-change-patient> -->
+
+    <!-- PATIENT DATA -->
+    <div class="container" style="padding-top: 4rem;">
+        <div class="row">
+            <div class="col">
+    
+                <!-- content -->
+                <div class="row">
+                    <div class="col">  <!-- style="background-color: rgba(223, 211, 211, 0.658);" -->
+                        <h4>Name: {{ patientDisplay.firstName }}</h4>
+                    </div>
+                    <div class="col">
+                        <h4>Surname: {{ patientDisplay.lastName }}</h4>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col">
+                        <h4>Phone: {{ patientDisplay.phone }}</h4>
+                    </div>
+                    <div class="col">
+                        <h4>Email: {{ patientDisplay.email }}</h4>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col">
+                        <h4>Country: {{ patientDisplay.country }}</h4>
+                    </div>
+                    <div class="col">
+                        <h4>City: {{ patientDisplay.city }}</h4>
+                    </div>
+                    <div class="col">
+                        <h4>Street: {{ patientDisplay.street }}</h4>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col">
+                        <h4>Allergies: {{ patientDisplay.allergies }}</h4>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col">
+                        <h4>Blood type: {{ patientDisplay.blood_type }}</h4>
+                    </div>
+                    <div class="col">
+                        <h4>Diopter: {{ patientDisplay.diopter }}</h4>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col">
+                        <h4>Height: {{ patientDisplay.height }}</h4>
+                    </div>
+                    <div class="col">
+                        <h4>Weight: {{ patientDisplay.weight }}</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h4>Policyholder: {{ patientDisplay.policyholder }}</h4>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- ZDRAVSTVENI KARTON -->
+            <div class="col">
+    
+            </div>
+        </div>
+    
+        <!--  -->
+        <div class="row">
+            <div class="col">
+    
+            </div>
         </div>
     </div>
+    
+
+
 </div>

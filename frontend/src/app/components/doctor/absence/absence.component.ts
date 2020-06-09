@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatCalendar } from '@angular/material/datepicker';
+import { Absence } from 'src/app/model/absence';
+import { AbsenceService } from 'src/app/services/absence-service/absence.service';
 
 @Component({
   selector: 'app-absence',
@@ -14,9 +15,11 @@ export class AbsenceComponent implements OnInit {
   startDate: Date = new Date(new Date().getDate() + 1);
   endDate: Date = new Date(new Date().getDate() + 2);
 
-  absenceType: string = "Absence";
+  absence: Absence = new Absence(null, this.startDate, this.endDate, "sick_leave", false, -1);
 
-  constructor() {
+  constructor(
+    private _httpAbsenceService: AbsenceService
+  ) {
     // Set the minimum to tomorrow and maximum 2 years in future (31. December)
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
@@ -34,12 +37,15 @@ export class AbsenceComponent implements OnInit {
    * @param data is string absence or vacation
    */
   onChange(data){
-    this.absenceType = data;
+    this.absence.absenceType = data;
   }
 
   sendRequest() {
-    //TODO: uraditi slanje zahteva preko majela adminu, koji ce to kasnije da potvrdi.
-    console.log("TODO...");
+    this._httpAbsenceService.sendAbsenceRequest(this.absence)
+      .subscribe(response => {
+        alert("Request sended successfuly")
+      });
+      
   }
 
 }

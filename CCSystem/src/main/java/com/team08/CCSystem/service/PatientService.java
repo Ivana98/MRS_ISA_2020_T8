@@ -150,7 +150,7 @@ public class PatientService {
 	public void registrationApproval(boolean approved, String userEmail, String explanation) {
 		
 		Patient patient = patientRepository.findByEmail(userEmail);
-		//if administrator not approve user registration request
+		// if administrator not approve user registration request
 		if(!approved) {
 			//delete patient from database and send explanation by email
 			remove(patient.getId());
@@ -158,11 +158,11 @@ public class PatientService {
 			return;
 		}
 		
-		//if admin approve registration request		
-		//generate verification token for patient and send mail with activation link
+		// if admin approve registration request		
+		// generate verification token for patient and send mail with activation link
         String token = UUID.randomUUID().toString();
         createVerificationToken(patient, token);
-         
+        
         String confirmationUrl = "http://localhost:8080/auth/regitration/" + token;
         String message = "Hello " + patient.getEmail() + ",\n"
         		+ "Our Clinical Center approve your registration request.\n" +

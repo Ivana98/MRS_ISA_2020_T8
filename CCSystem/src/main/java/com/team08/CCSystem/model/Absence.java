@@ -55,6 +55,12 @@ public class Absence {
 	@Enumerated
 	private AbsenceType absenceType;
 	
+	@Column(name = "description", nullable = true)
+	private String description;
+	
+	@Column(name = "confirmed", nullable = true)
+	private Boolean confirmed;
+	
 	@Column(nullable = false)
 	private Boolean deleted;
 
@@ -63,12 +69,31 @@ public class Absence {
 	 * @param startDate
 	 * @param endDate
 	 * @param absenceType
+	 * @param description
 	 */
-	public Absence(Long id, Date startDate, Date endDate, AbsenceType absenceType) {
+	public Absence(Long id, Date startDate, Date endDate, User user, AbsenceType absenceType, String description) {
 		super();
 		this.id = id;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.user = user;
+		this.absenceType = absenceType;
+		this.description = description;
+		this.deleted = false;
+	}
+	
+	/**
+	 * @param id
+	 * @param startDate
+	 * @param endDate
+	 * @param absenceType
+	 */
+	public Absence(Long id, Date startDate, Date endDate, User user, AbsenceType absenceType) {
+		super();
+		this.id = id;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.user = user;
 		this.absenceType = absenceType;
 		this.deleted = false;
 	}
@@ -79,6 +104,26 @@ public class Absence {
 	public Absence() {
 		super();
 		this.deleted = false;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Boolean getConfirmed() {
+		return confirmed;
+	}
+
+	public Boolean isConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(Boolean confirmed) {
+		this.confirmed = confirmed;
 	}
 
 	public Long getId() {
@@ -119,22 +164,6 @@ public class Absence {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Date getstartDate() {
-		return startDate;
-	}
-
-	public void setstartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Date getendDate() {
-		return endDate;
-	}
-
-	public void setendDate(Date endDate) {
-		this.endDate = endDate;
 	}
 
 	public AbsenceType getAbsenceType() {

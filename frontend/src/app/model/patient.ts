@@ -33,7 +33,7 @@ export class Patient {
         public country: string,
         public city: string,
         public street: string,
-        public allergy: string,
+        public allergies: string,
         public blood_type: string,
         public diopter: string,
         public height: string,

@@ -125,6 +125,7 @@ public class UserService implements UserDetailsService{
 		LOGGER.debug("Changing password for user '" + username + "'");
 
 		User user = (User) loadUserByUsername(username);
+//		System.out.println(((Doctor) user).isPasswordChanged() + "------------------------------------------------------------------");
 
 		// pre nego sto u bazu upisemo novu lozinku, potrebno ju je hesirati 
 		// ne zelimo da u bazi cuvamo lozinke u plain text formatu
@@ -225,6 +226,7 @@ public class UserService implements UserDetailsService{
 			userDTO.setClinicId(((Doctor) user).getClinic().getId());
 			userDTO.setAverageMark(((Doctor) user).getAverageMark());
 			userDTO.setSpecialisation(((Doctor) user).getSpecialisation().toString());
+			userDTO.setPasswordChanged(((Doctor) user).isPasswordChanged());
 		}
 		else if (user instanceof ClinicalCenterAdmin) {
 			userDTO.setClinicId(((ClinicalCenterAdmin) user).getClinicalCenter().getId());
@@ -235,6 +237,7 @@ public class UserService implements UserDetailsService{
 		}
 		else {
 			userDTO.setClinicId(((Nurse) user).getClinic().getId());
+			userDTO.setPasswordChanged(((Nurse) user).isPasswordChanged());
 		}
 		
 		return userDTO;

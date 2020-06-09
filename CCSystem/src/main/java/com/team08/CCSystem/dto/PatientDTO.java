@@ -19,8 +19,8 @@ public class PatientDTO {
 	private String email;
 	private String phone;
 	private String password;
-	private String city;
 	private String country;
+	private String city;
 	private String street;
 	private String allergies;
 	private String blood_type;
@@ -31,7 +31,6 @@ public class PatientDTO {
 	private String clinical_center_id;
 	
 	public PatientDTO() {
-		
 	}
 
 	/**

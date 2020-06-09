@@ -28,6 +28,7 @@ import com.team08.CCSystem.dto.LoginDTO;
 import com.team08.CCSystem.dto.RegistrationRequestDTO;
 import com.team08.CCSystem.dto.UserTokenState;
 import com.team08.CCSystem.model.Authority;
+import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Patient;
 import com.team08.CCSystem.model.User;
 import com.team08.CCSystem.model.VerificationToken;
