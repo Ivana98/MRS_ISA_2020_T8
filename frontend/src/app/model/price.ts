@@ -26,6 +26,7 @@ export class FullPrice {
         public id: number,
         public clinic_id: number,
         public price: number,
+        public discount: number,
         
         // Examination type attributes, instead of examination_type_id
         public intervention_type: string,

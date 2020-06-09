@@ -14,6 +14,7 @@ public class FullPriceDTO {
 	private Long id;
 	private Long clinic_id;
 	private double price;
+	private float discount;
 	
 	// ExaminationType attributes
 	private String intervention_type;
@@ -28,12 +29,13 @@ public class FullPriceDTO {
 	 * @param specialisation
 	 * @param duration
 	 */
-	public FullPriceDTO(Long id, Long clinic_id, double price, String intervention_type, String specialisation,
+	public FullPriceDTO(Long id, Long clinic_id, double price, float discount, String intervention_type, String specialisation,
 			int duration) {
 		super();
 		this.id = id;
 		this.clinic_id = clinic_id;
 		this.price = price;
+		this.discount = discount;
 		this.intervention_type = intervention_type;
 		this.specialisation = specialisation;
 		this.duration = duration;
@@ -53,9 +55,18 @@ public class FullPriceDTO {
 		this.id = price.getId();
 		this.clinic_id = price.getClinic().getId();
 		this.price = price.getPrice();
+		this.discount = price.getDiscount();
 		this.intervention_type = price.getExaminationType().getInterventionType().name();
 		this.specialisation = price.getExaminationType().getSpecialisation().name();
 		this.duration = price.getExaminationType().getDuration();
+	}
+
+	public float getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(float discount) {
+		this.discount = discount;
 	}
 
 	public Long getId() {

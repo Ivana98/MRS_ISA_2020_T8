@@ -4,7 +4,6 @@
 package com.team08.CCSystem.controler;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +19,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team08.CCSystem.dto.DoctorDTO;
 import com.team08.CCSystem.dto.MedicalRoomDTO;
 import com.team08.CCSystem.dto.StartEndDateDTO;
 import com.team08.CCSystem.model.Clinic;
-import com.team08.CCSystem.model.Examination;
 import com.team08.CCSystem.model.MedicalRoom;
 import com.team08.CCSystem.model.enums.InterventionType;
 import com.team08.CCSystem.service.ClinicService;
 import com.team08.CCSystem.service.ExaminationService;
 import com.team08.CCSystem.service.MedicalRoomService;
-
-import net.bytebuddy.agent.builder.AgentBuilder.RawMatcher.Inversion;
 
 /**
  * @author Veljko

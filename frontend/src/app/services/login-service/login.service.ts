@@ -10,7 +10,6 @@ import { UserProfile } from 'src/app/model/userProfile';
 })
 export class LoginService {
 
-  //private _url: string = "http://localhost:8080/api/sessionController/login";
   private _getUserInfoUrl = "http://localhost:8080/api/users/returnCurrentUser";
   //private apiService: ApiService;
   currentUser;

@@ -44,7 +44,12 @@ export class LoginComponent implements OnInit {
       .subscribe(data => {
           this._loginService.getMyInfo().subscribe(
             data => {
-              this.router.navigate(['/user-page']);
+              if (this._loginService.currentUser.passwordChanged == false) {
+                this.router.navigate(['/change-password']);
+              } 
+              else {
+                this.router.navigate(['/user-page']);
+              }
             }
           );
         },

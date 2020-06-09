@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -36,6 +37,9 @@ public class ClinicAdmin extends User {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Clinic clinic;
 	
+	@Column(name = "isPasswordChanged", nullable = false)
+	private boolean isPasswordChanged;
+	
 	public ClinicAdmin() {}
 
 	/**
@@ -54,6 +58,7 @@ public class ClinicAdmin extends User {
 		super(id, email, name, surname, address, phone, password);
 		this.absences = absences;
 		this.clinic = clinic;
+		this.isPasswordChanged = false;
 	}
 	
 	/**
@@ -70,6 +75,15 @@ public class ClinicAdmin extends User {
 	public ClinicAdmin(Long id, String email, String name, String surname, Address address, String phone,
 			String password) {
 		super(id, email, name, surname, address, phone, password);
+		this.isPasswordChanged = false;
+	}
+
+	public boolean isPasswordChanged() {
+		return isPasswordChanged;
+	}
+
+	public void setPasswordChanged(boolean isPasswordChanged) {
+		this.isPasswordChanged = isPasswordChanged;
 	}
 
 	public Set<Absence> getAbsences() {

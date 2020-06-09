@@ -59,7 +59,7 @@ export class DisplayMedicalRoomsComponent implements OnInit, AfterViewInit {
   }
 
   pagination() {
-    this.mdbTablePagination.setMaxVisibleItemsNumberTo(6);
+    this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
     this.mdbTablePagination.calculateFirstItemIndex();
     this.mdbTablePagination.calculateLastItemIndex();
     this.cdRef.detectChanges();
