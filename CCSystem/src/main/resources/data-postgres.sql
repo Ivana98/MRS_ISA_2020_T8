@@ -17,7 +17,7 @@ insert into clinical_mark (mark, clinic_id, patient_id, deleted) values (0.0, 1,
 insert into disease (description, name, deleted) values ('Opis bolesti.', 'Migrena', false);
 
 insert into nurse (id, email, name, password, phone, surname, address_id, clinic_id, enabled, is_password_changed, deleted) values (nextval('cust_seq_user'), 'nurse@gmail.com', 'Dusica', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '064582', 'Vasic', 1, 1, true, true, false);
-insert into absence (absence_type, start_date, end_date, user_id, confirmed, deleted) values (1, '2020-04-15 10:00', '2020-04-24 10:00', 1, false, false);
+insert into absence (absence_type, start_date, end_date, user_id, confirmed, deleted) values (1, '2020-04-15 10:00', '2020-04-24 10:00', 1, null, false);
 
 insert into doctor (id, email, name, surname, phone, password, average_mark, specialisation, address_id, clinic_id, enabled, is_password_changed, deleted) values (nextval('cust_seq_user'), 'doctor@gmail.com', 'Dragan', 'Karanovic', '0619785', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 0, 0, 1, 1, true, true, false);
 

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.team08.CCSystem.dto.AbsenceDTO;
+import com.team08.CCSystem.dto.AbsenceUserDTO;
 import com.team08.CCSystem.model.Absence;
 import com.team08.CCSystem.model.User;
 import com.team08.CCSystem.model.enums.AbsenceType;
@@ -59,5 +60,54 @@ public class AbsenceService {
 		absence = save(absence);
 		
 		return new ResponseEntity<>(new AbsenceDTO(absence), HttpStatus.CREATED);
+	}
+
+	/**
+	 * Load all absences from clinic which are not confirmed or denied. 
+	 * 
+	 * @param clinicId is id of clinic
+	 * @return List of absences
+	 */
+	public ResponseEntity<List<AbsenceUserDTO>> getAllFromClinic(Long clinicId) {
+
+		List<AbsenceUserDTO> absences = absenceRepository.getAllFromClinic(clinicId);
+		
+		return new ResponseEntity<>(absences, HttpStatus.OK);
+	}
+
+	/**
+	 * Find and confirm absence.
+	 * 
+	 * @param absenceId is id of absence
+	 * @return confirmed absence
+	 */
+	public ResponseEntity<AbsenceUserDTO> confirm(Long id) {
+
+		Absence absence = findOne(id);
+ 		
+		if (absence == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
+		absence.setConfirmed(true);
+		
+		absence = save(absence);
+		
+		return new ResponseEntity<>(new AbsenceUserDTO(absence), HttpStatus.OK);
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public ResponseEntity<AbsenceUserDTO> deny(Long id) {
+
+		Absence absence = findOne(id);
+ 		
+		if (absence == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
+		absence.setConfirmed(false);
+		
+		absence = save(absence);
+		
+		return new ResponseEntity<>(new AbsenceUserDTO(absence), HttpStatus.OK);
 	}
 }

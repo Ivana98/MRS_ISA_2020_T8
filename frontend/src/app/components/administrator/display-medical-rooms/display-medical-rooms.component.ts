@@ -12,7 +12,7 @@ import { StartEndDate } from 'src/app/model/startEndDate';
 export class DisplayMedicalRoomsComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
-  @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective
+  @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
 
   previous: any = [];
   searchText: string = ''; 

@@ -17,7 +17,7 @@ public class AbsenceDTO {
 	private Date beginDate;
 	private Date endDate;
 	private String absenceType;
-	private boolean confirmed;
+	private Boolean confirmed;
 	private Long userId;
 	
 	/**
@@ -56,11 +56,11 @@ public class AbsenceDTO {
 		this.confirmed = absence.isConfirmed();
 	}
 
-	public boolean isConfirmed() {
+	public Boolean isConfirmed() {
 		return confirmed;
 	}
 
-	public void setConfirmed(boolean confirmed) {
+	public void setConfirmed(Boolean confirmed) {
 		this.confirmed = confirmed;
 	}
 

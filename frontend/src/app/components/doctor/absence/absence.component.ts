@@ -41,11 +41,9 @@ export class AbsenceComponent implements OnInit {
   }
 
   sendRequest() {
-    //TODO: uraditi slanje zahteva preko majela adminu, koji ce to kasnije da potvrdi.
-    console.log("TODO...");
     this._httpAbsenceService.sendAbsenceRequest(this.absence)
       .subscribe(response => {
-
+        alert("Request sended successfuly")
       });
       
   }

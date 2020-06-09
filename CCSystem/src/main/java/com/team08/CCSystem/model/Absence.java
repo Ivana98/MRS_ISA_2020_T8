@@ -55,8 +55,8 @@ public class Absence {
 	@Enumerated
 	private AbsenceType absenceType;
 	
-	@Column(name = "confirmed", nullable = false)
-	private boolean confirmed;
+	@Column(name = "confirmed", nullable = true)
+	private Boolean confirmed;
 	
 	@Column(nullable = false)
 	private Boolean deleted;
@@ -74,7 +74,6 @@ public class Absence {
 		this.endDate = endDate;
 		this.user = user;
 		this.absenceType = absenceType;
-		this.confirmed = false;
 		this.deleted = false;
 	}
 
@@ -83,15 +82,14 @@ public class Absence {
 	 */
 	public Absence() {
 		super();
-		this.confirmed = false;
 		this.deleted = false;
 	}
 
-	public boolean isConfirmed() {
+	public Boolean isConfirmed() {
 		return confirmed;
 	}
 
-	public void setConfirmed(boolean confirmed) {
+	public void setConfirmed(Boolean confirmed) {
 		this.confirmed = confirmed;
 	}
 
@@ -133,22 +131,6 @@ public class Absence {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Date getstartDate() {
-		return startDate;
-	}
-
-	public void setstartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Date getendDate() {
-		return endDate;
-	}
-
-	public void setendDate(Date endDate) {
-		this.endDate = endDate;
 	}
 
 	public AbsenceType getAbsenceType() {

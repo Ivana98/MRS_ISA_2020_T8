@@ -33,6 +33,8 @@ import { CalendarComponent } from './components/administrator/calendar/calendar.
 import { AbsenceComponent } from './components/doctor/absence/absence.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ChangePasswordGuard } from './guard/change-password.guard';
+import { AbsencesComponent } from './components/administrator/absences/absences.component';
+import { ClinicAdminGuard } from './guard/clinic-admin.guard';
 
 
 const routes: Routes = [
@@ -65,7 +67,8 @@ const routes: Routes = [
       { path: 'editClinicBasic', component: EditClinicBasicComponent },
       { path: 'displayReport', component: DisplayReportComponent },
       { path: 'displayCalendar', component: CalendarComponent },
-      { path: 'absence', component: AbsenceComponent }
+      { path: 'absence', component: AbsenceComponent },
+      { path: 'absences', component: AbsencesComponent, canActivate: [ClinicAdminGuard] }
     ]
   },
   { path: 'nurse', component: UserPageComponent ,
@@ -105,5 +108,6 @@ export const routingComponents = [
   TableOfPatientComponent,
   DisplayReportComponent,
   CalendarComponent,
-  AbsenceComponent
+  AbsenceComponent,
+  AbsencesComponent
 ]
