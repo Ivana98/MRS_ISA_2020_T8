@@ -36,7 +36,6 @@ export class DisplayClinicsComponent implements OnInit, AfterViewInit {
     this.cdRef.detectChanges();
   }
   setResponse(r) {
-    console.log(r);
     this.clinicList = r;
     this.mdbTable.setDataSource(this.clinicList);
     this.clinicList = this.mdbTable.getDataSource();
