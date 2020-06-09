@@ -23,7 +23,6 @@ export class AbsencesComponent implements OnInit {
 
   userName: string = "";
   abType: string = "";
-  abId: number = -1;
   choosenAbsence;
 
   absenceRequest: AbsenceRequest = new AbsenceRequest(-1, "");
@@ -127,7 +126,7 @@ export class AbsencesComponent implements OnInit {
    * Confirm absence.
    */
   confirm() {
-    this._httpAbsenceService.confirm(this.abId)
+    this._httpAbsenceService.confirm(this.absenceRequest)
       .subscribe(response => {
 
         // delete absence from table
@@ -178,16 +177,11 @@ export class AbsencesComponent implements OnInit {
     if (data.absenceType == "VACATION") this.abType = "vacation";
     else this.abType = "sick leave";
 
-    this.abId = data.id;
-
     this.absenceRequest.id = data.id;
 
     this.absences.forEach( (item, index) => {
       if(item.id === data.id) this.choosenAbsence = item;
     });
-
-    console.log("Ajmo sad: " + this.choosenAbsence.id);
-    
   }
 
 }

@@ -32,10 +32,10 @@ export class AbsenceService {
   /**
    * Confirm absence.
    * 
-   * @param id is absence id
+   * @param absenceRequest is absence id and deny description
    */
-  public confirm(id) {
-    return this._httpClient.post<AbsenceUser>(this._url + "confirm", id);
+  public confirm(absenceRequest) {
+    return this._httpClient.put<AbsenceUser>(this._url + "confirm", absenceRequest);
   }
 
   /**

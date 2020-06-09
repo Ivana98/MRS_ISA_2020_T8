@@ -82,9 +82,9 @@ public class AbsenceService {
 	 * @param absenceId is id of absence
 	 * @return confirmed absence
 	 */
-	public ResponseEntity<AbsenceUserDTO> confirm(Long id) {
+	public ResponseEntity<AbsenceUserDTO> confirm(AbsenceRequestDTO dto) {
 
-		Absence absence = findOne(id);
+		Absence absence = findOne(dto.getId());
  		
 		if (absence == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		

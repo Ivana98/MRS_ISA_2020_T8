@@ -49,10 +49,10 @@ public class AbsenceControler {
 	}
 	
 	@PreAuthorize("hasRole('CLINIC_ADMIN')")
-	@PostMapping(path = "/confirm", produces = "application/json")
-	public ResponseEntity<AbsenceUserDTO> confirm(@RequestBody Long id) {
-
-		return absenceService.confirm(id);
+	@PutMapping(path = "/confirm", produces = "application/json")
+	public ResponseEntity<AbsenceUserDTO> confirm(@RequestBody AbsenceRequestDTO dto) {
+		
+		return absenceService.confirm(dto);
 	}
 	
 	@PreAuthorize("hasRole('CLINIC_ADMIN')")
