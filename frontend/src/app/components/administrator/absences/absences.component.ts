@@ -5,6 +5,7 @@ import { Absence } from 'src/app/model/absence';
 import { loadavg } from 'os';
 import { AbsenceUser, AbsenceUserToDisplay } from 'src/app/model/absenceUser';
 import { formatDate } from '@angular/common';
+import { AbsenceRequest } from 'src/app/model/absenceRequest';
 
 @Component({
   selector: 'app-absences',
@@ -24,6 +25,8 @@ export class AbsencesComponent implements OnInit {
   abType: string = "";
   abId: number = -1;
   choosenAbsence;
+
+  absenceRequest: AbsenceRequest = new AbsenceRequest(-1, "");
 
   description: string = "";
 
@@ -136,6 +139,8 @@ export class AbsencesComponent implements OnInit {
           if(item.id === response.id) this.absences.splice(index,1);
         });
 
+        alert("You are successfuly confirmed absence.");
+
         this.setTable();
       });
   }
@@ -144,7 +149,7 @@ export class AbsencesComponent implements OnInit {
    * Deny absence, with description why is absence denied.
    */
   deny() {
-    this._httpAbsenceService.deny(this.abId)
+    this._httpAbsenceService.deny(this.absenceRequest)
       .subscribe(response => {
 
         // delete absence from table
@@ -155,6 +160,8 @@ export class AbsencesComponent implements OnInit {
         this.absencesToDisplay.forEach( (item, index) => {
           if(item.id === response.id) this.absences.splice(index,1);
         });
+
+        alert("You are successfuly denied absence.");
 
         this.setTable();
       });
@@ -172,6 +179,8 @@ export class AbsencesComponent implements OnInit {
     else this.abType = "sick leave";
 
     this.abId = data.id;
+
+    this.absenceRequest.id = data.id;
 
     this.absences.forEach( (item, index) => {
       if(item.id === data.id) this.choosenAbsence = item;

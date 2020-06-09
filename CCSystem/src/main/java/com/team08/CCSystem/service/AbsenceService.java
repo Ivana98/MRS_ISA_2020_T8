@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.team08.CCSystem.dto.AbsenceDTO;
+import com.team08.CCSystem.dto.AbsenceRequestDTO;
 import com.team08.CCSystem.dto.AbsenceUserDTO;
 import com.team08.CCSystem.model.Absence;
 import com.team08.CCSystem.model.User;
@@ -98,15 +99,18 @@ public class AbsenceService {
 	 * @param id
 	 * @return
 	 */
-	public ResponseEntity<AbsenceUserDTO> deny(Long id) {
+	public ResponseEntity<AbsenceUserDTO> deny(AbsenceRequestDTO dto) {
 
-		Absence absence = findOne(id);
+		Absence absence = findOne(dto.getId());
  		
 		if (absence == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		
 		absence.setConfirmed(false);
+		absence.setDescription(dto.getDescription());
 		
 		absence = save(absence);
+		
+		// TODO: send email
 		
 		return new ResponseEntity<>(new AbsenceUserDTO(absence), HttpStatus.OK);
 	}

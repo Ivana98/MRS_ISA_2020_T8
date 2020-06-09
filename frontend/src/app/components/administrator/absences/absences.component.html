@@ -38,7 +38,7 @@
                         <mat-icon>check</mat-icon>
                     </button>
                     <!-- DENY BUTTON -->
-                    <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon" data-toggle="modal" data-target="#deny">
+                    <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon" (click)="takeData(cl)" data-toggle="modal" data-target="#deny">
                         <mat-icon>close</mat-icon>
                     </button>
                 </td>
@@ -104,7 +104,8 @@
                             </mat-form-field> -->
                             <mat-form-field class="example-full-width">
                                 <mat-label>Why?</mat-label>
-                                <textarea matInput placeholder="Because of..." #name="ngModel" [(ngModel)]="description"></textarea>
+                                <!-- TODO: CANOT BE ENMPTY -->
+                                <textarea matInput placeholder="Because of..." #name="ngModel" [(ngModel)]="absenceRequest.description"></textarea>
                             </mat-form-field>
                         </div>
                     </div>

@@ -55,12 +55,33 @@ public class Absence {
 	@Enumerated
 	private AbsenceType absenceType;
 	
+	@Column(name = "description", nullable = true)
+	private String description;
+	
 	@Column(name = "confirmed", nullable = true)
 	private Boolean confirmed;
 	
 	@Column(nullable = false)
 	private Boolean deleted;
 
+	/**
+	 * @param id
+	 * @param startDate
+	 * @param endDate
+	 * @param absenceType
+	 * @param description
+	 */
+	public Absence(Long id, Date startDate, Date endDate, User user, AbsenceType absenceType, String description) {
+		super();
+		this.id = id;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.user = user;
+		this.absenceType = absenceType;
+		this.description = description;
+		this.deleted = false;
+	}
+	
 	/**
 	 * @param id
 	 * @param startDate
@@ -83,6 +104,18 @@ public class Absence {
 	public Absence() {
 		super();
 		this.deleted = false;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Boolean getConfirmed() {
+		return confirmed;
 	}
 
 	public Boolean isConfirmed() {

@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team08.CCSystem.dto.AbsenceDTO;
+import com.team08.CCSystem.dto.AbsenceRequestDTO;
 import com.team08.CCSystem.dto.AbsenceUserDTO;
 import com.team08.CCSystem.service.AbsenceService;
 
@@ -25,6 +27,7 @@ import com.team08.CCSystem.service.AbsenceService;
  *
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "api/absences")
 public class AbsenceControler {
 	
@@ -50,6 +53,13 @@ public class AbsenceControler {
 	public ResponseEntity<AbsenceUserDTO> confirm(@RequestBody Long id) {
 
 		return absenceService.confirm(id);
+	}
+	
+	@PreAuthorize("hasRole('CLINIC_ADMIN')")
+	@PutMapping(path = "/deny", produces = "application/json")
+	public ResponseEntity<AbsenceUserDTO> deny(@RequestBody AbsenceRequestDTO dto) {
+
+		return absenceService.deny(dto); 
 	}
 
 }

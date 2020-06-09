@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoginService } from '../login-service/login.service';
 import { Absence } from 'src/app/model/absence';
 import { AbsenceUser } from 'src/app/model/absenceUser';
+import { AbsenceRequest } from 'src/app/model/absenceRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -40,9 +41,10 @@ export class AbsenceService {
   /**
    * Deny absence.
    * 
-   * @param id is absence id
+   * @param absenceRequest is absence id and deny description
    */
-  public deny(id) {
-    return this._httpClient.post<AbsenceUser>(this._url + "deny", id);
+  public deny(absenceRequest) {
+    
+    return this._httpClient.put<AbsenceRequest>(this._url + "deny", absenceRequest);
   }
 }
