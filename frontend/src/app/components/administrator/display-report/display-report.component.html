@@ -88,8 +88,16 @@
         <mat-divider id="divider"></mat-divider>
     </div>
 
-    <!-- CHART -->
     <div class="row">
+        <div class="col">
+            <button style="padding-right: 0.5rem;" mat-raised-button color="primary" (click)="dailyReport()">Daily</button>
+            <button style="padding-right: 0.5rem;" mat-raised-button color="primary" (click)="weeklyReport()">Weekly</button>
+            <button mat-raised-button color="primary" (click)="annualReport()">Annual</button>
+        </div>
+    </div>
+
+    <!-- CHART -->
+    <div class="row" *ngIf="showChart">
         <div class="col">
             <div style="display: block">
                 <canvas mdbChart
@@ -102,7 +110,7 @@
                     (chartHover)="chartHovered($event)"
                     (chartClick)="chartClicked($event)">
                 </canvas>
-              </div>
+            </div>
         </div>
     </div>
 

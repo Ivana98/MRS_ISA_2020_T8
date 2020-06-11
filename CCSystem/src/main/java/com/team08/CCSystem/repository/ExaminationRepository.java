@@ -75,4 +75,5 @@ public interface ExaminationRepository extends JpaRepository<Examination, Long> 
 	@Query("SELECT e FROM Examination e "
 			+ "WHERE (e.patient.id IS ?1) ")
 	List<Examination> findExaminationsByPatientId(Long patientId);
+
 }

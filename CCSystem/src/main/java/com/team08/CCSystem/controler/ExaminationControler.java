@@ -92,6 +92,46 @@ public class ExaminationControler {
 		return examinationService.canDoctorExaminate(patientId, doctorId);
 	}
 	
+	@GetMapping(value = "/loadDailyExaminations/{clinicId}/{date}")
+	public ResponseEntity<List<Integer>> loadDailyExaminations(@PathVariable Long clinicId, @PathVariable Date date) {
+		
+		return examinationService.loadDailyExaminations(clinicId, date);
+	}
+	
+	
+	@GetMapping(value = "/get24HourList/{date}")
+	public ResponseEntity<List<String>> get24HourList(@PathVariable Date date) {
+		
+		return examinationService.get24HourList(date);
+	}
+	
+	@GetMapping(value = "/loadWeeklyExaminations/{clinicId}/{date}")
+	public ResponseEntity<List<Integer>> loadWeeklyExaminations(@PathVariable Long clinicId, @PathVariable Date date) {
+		
+		return examinationService.loadWeeklyExaminations(clinicId, date);
+	}
+	
+	
+	@GetMapping(value = "/get7DaysList/{date}")
+	public ResponseEntity<List<String>> get7DaysList(@PathVariable Date date) {
+		
+		return examinationService.get7DaysList(date);
+	}
+	
+	@GetMapping(value = "/loadAnnualExaminations/{clinicId}/{date}")
+	public ResponseEntity<List<Integer>> loadAnnualExaminations(@PathVariable Long clinicId, @PathVariable Date date) {
+		
+		return examinationService.loadAnnualExaminations(clinicId, date);
+	}
+	
+	
+	@GetMapping(value = "/get12MonthsList/{date}")
+	public ResponseEntity<List<String>> get12MonthsList(@PathVariable Date date) {
+		
+		return examinationService.get12MonthsList(date);
+	}
+	
+	
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		
