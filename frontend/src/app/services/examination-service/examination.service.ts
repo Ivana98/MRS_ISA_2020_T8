@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Examination } from 'src/app/model/examination';
 import { LoginService } from '../login-service/login.service';
+import { MedicalRecordExamination } from 'src/app/model/medicalRecordExamination';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,33 @@ export class ExaminationService {
    */
   public delete(id) {
     return this._httpClient.delete(this._url + "delete/" + id);
+  }
+
+  /**
+   * Return true if doctor had examinations in past with choosen patient.
+   * 
+   * @param patientId id patient id
+   */
+  public checkIfDoctorCanOpenMedicalRecord(patientId) {
+    return this._httpClient.get<Boolean>(this._url + "checkIfDoctorCanOpenMedicalRecord/" + patientId + "/" + this._loginService.currentUser.userId);
+  }
+
+  /**
+   * Load all examinations from patient.
+   * 
+   * @param patientId 
+   */
+  public loadPatientExaminations(patientId) {
+    return this._httpClient.get<Array<MedicalRecordExamination>>(this._url + "loadPatientExaminations/" + patientId);
+  }
+
+  /**
+   * Return true if current doctor is patient's doctor.
+   * 
+   * @param patientId is patient id
+   */
+  public canDoctorExaminate(patientId) {
+    return this._httpClient.get<boolean>(this._url + "canDoctorExaminate/" + patientId + "/" + this._loginService.currentUser.userId)
   }
 
 }

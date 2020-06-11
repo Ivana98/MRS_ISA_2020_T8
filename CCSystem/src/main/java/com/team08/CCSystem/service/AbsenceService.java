@@ -30,6 +30,9 @@ public class AbsenceService {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private EmailServiceImpl emailServiceImpl;
+	
 	public Absence findOne(Long id) {
 		return absenceRepository.findById(id).orElseGet(null);
 	}
@@ -59,6 +62,8 @@ public class AbsenceService {
 		Absence absence = new Absence(null, absenceDTO.getBeginDate(), absenceDTO.getEndDate(), user, AbsenceType.valueOf(absenceDTO.getAbsenceType().toUpperCase())); 
 		
 		absence = save(absence);
+		
+		emailServiceImpl.sendMail("mrsisa.t8@gmail.com", "Absence request", "You have absence request from: \n" + absence.getUser());
 		
 		return new ResponseEntity<>(new AbsenceDTO(absence), HttpStatus.CREATED);
 	}
@@ -92,8 +97,7 @@ public class AbsenceService {
 		
 		absence = save(absence);
 		
-		
-		//TODO: Send email
+		emailServiceImpl.sendMail("mrsisa.t8@gmail.com", "Absence response", "Your absence is confirmed.");
 		
 		return new ResponseEntity<>(new AbsenceUserDTO(absence), HttpStatus.OK);
 	}
@@ -113,7 +117,7 @@ public class AbsenceService {
 		
 		absence = save(absence);
 		
-		// TODO: send email
+		emailServiceImpl.sendMail("mrsisa.t8@gmail.com", "Absence response", "Your absence is denied.\n" + "Description: " + absence.getDescription());
 		
 		return new ResponseEntity<>(new AbsenceUserDTO(absence), HttpStatus.OK);
 	}

@@ -178,5 +178,17 @@ public class Doctor extends User {
 	public void setAverageMark(float averageMark) {
 		this.averageMark = averageMark;
 	}
+	
+	@Override
+	public String toString() {
+		return "Request for patient:" +
+				"\nName: " + this.getName() +
+				"\nSurname: " + this.getSurname() +
+				"\nEmail: " + this.getEmail() +
+				"\nStreet: " + this.getAddress().getStreet() +
+				"\nCity: " + this.getAddress().getCity() +
+				"\nCountry: " + this.getAddress().getCountry() +
+				"\nPhone number: " + this.getPhone();
+	}
 
 }

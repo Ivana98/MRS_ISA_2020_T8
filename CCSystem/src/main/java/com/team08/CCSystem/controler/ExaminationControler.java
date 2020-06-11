@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team08.CCSystem.dto.ExaminationDTO;
+import com.team08.CCSystem.dto.MedicalRecordExaminationDTO;
 import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Examination;
 import com.team08.CCSystem.model.ExaminationType;
@@ -70,6 +71,25 @@ public class ExaminationControler {
 		}
 		
 		return new ResponseEntity<List<ExaminationDTO>>(examinationsDTO, HttpStatus.OK);
+	}
+	
+	
+	@GetMapping(value = "/checkIfDoctorCanOpenMedicalRecord/{patientId}/{doctorId}")
+	public ResponseEntity<Boolean> checkIfDoctorCanOpenMedicalRecord(@PathVariable Long patientId, @PathVariable Long doctorId) {
+		
+		return examinationService.checkIfDoctorCanOpenMedicalRecord(patientId, doctorId);
+	}
+	
+	@GetMapping(value = "/loadPatientExaminations/{patientId}")
+	public ResponseEntity<List<MedicalRecordExaminationDTO>> loadPatientExaminations(@PathVariable Long patientId) {
+		
+		return examinationService.loadPatientExaminations(patientId);
+	}
+	
+	@GetMapping(value = "/canDoctorExaminate/{patientId}/{doctorId}")
+	public ResponseEntity<Boolean> canDoctorExaminate(@PathVariable Long patientId, @PathVariable Long doctorId) {
+		
+		return examinationService.canDoctorExaminate(patientId, doctorId);
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")

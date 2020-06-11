@@ -47,7 +47,7 @@ public interface ExaminationRepository extends JpaRepository<Examination, Long> 
 	List<Examination> findExaminationsBetweenDatesAndClinicId(Date startDate, Date endDate, Long clinicId);
 
 	/**
-	 * @param date is current date
+	 * @param date is current date  
 	 * @param id is clinic id
 	 * @return list of examinations
 	 */
@@ -56,4 +56,23 @@ public interface ExaminationRepository extends JpaRepository<Examination, Long> 
 			+ "AND (e.doctor.clinic.id IS ?2) "
 			+ "AND (e.price.id IS ?3) ")
 	List<Examination> findExaminationsAfterDateAndClinicIdAndPriceId(Date date, Long clinicId, Long priceId);
+
+	/**
+	 * @param patientId
+	 * @param doctorId
+	 * @return
+	 */
+	@Query("SELECT e FROM Examination e "
+			+ "WHERE (e.doctor.id IS ?2) "
+			+ "AND (e.patient.id IS ?1) "
+			+ "AND (e.date < ?3) ")
+	List<Examination> getDoctorPatientExaminations(Long patientId, Long doctorId, Date date);
+
+	/**
+	 * @param patientId
+	 * @return
+	 */ 
+	@Query("SELECT e FROM Examination e "
+			+ "WHERE (e.patient.id IS ?1) ")
+	List<Examination> findExaminationsByPatientId(Long patientId);
 }
