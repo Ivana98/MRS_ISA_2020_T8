@@ -7,7 +7,7 @@ import { SaveMark } from 'src/app/model/saveMark';
 })
 export class RatingService {
 
-  //private _ulrDoctorRate: string = "http://localhost:8080/api/clinics/sendListForTable";
+  private _ulrDoctorRate: string = "http://localhost:8080/api/clinics/saveDoctorMark";
   private _ulrClinicRate: string = "http://localhost:8080/api/clinics/saveClinicMark";
 
   constructor(private _apiService: ApiService) {  }
@@ -15,5 +15,10 @@ export class RatingService {
   setClinicRate(saveMark : SaveMark)
   {
     return this._apiService.post(this._ulrClinicRate, saveMark, this._apiService.headers);
+  }
+
+  setDoctorRate(saveMark : SaveMark)
+  {
+    return this._apiService.post(this._ulrDoctorRate, saveMark, this._apiService.headers);
   }
 }

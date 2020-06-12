@@ -23,6 +23,7 @@ export class ClinicInfoPageComponent implements OnInit, AfterViewInit {
 
   modalHeader = "";
   saveMark = new SaveMark(0, 0);
+  clinicModal = true; // modal is used to rate clinic - true; for rate doctor - false
 
   constructor(private _transferService: TransferClinicService, private _ratingService: RatingService,private cdRef: ChangeDetectorRef) { }
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
@@ -70,10 +71,31 @@ export class ClinicInfoPageComponent implements OnInit, AfterViewInit {
     this.modalHeader = "Please, rate clinic: " + this.clinic.name;
     this.saveMark.id = this.clinic.id;
     this.saveMark.mark = this.clinic.givenMark
+    this.clinicModal = true;
+  }
+
+  rateDoctor(dr : DoctorForClinicList){
+    this.modalHeader = "Please, rate your doctor: " + dr.firstName + " " + dr.lastName;
+    this.saveMark.id = dr.doctorId;
+    this.saveMark.mark = dr.givenMark;
+    this.clinicModal = false;
   }
 
   saveChanges(){
-    this._ratingService.setClinicRate(this.saveMark).subscribe(response => this.clinic = response);
+    if(this.clinicModal){
+      this._ratingService.setClinicRate(this.saveMark).subscribe(response => this.clinic = response);
+    }
+    else{
+      this._ratingService.setDoctorRate(this.saveMark).subscribe(response => {
+        if(response !== null){
+          this.clinic = response;
+          this.doctors = this.clinic.doctors;
+        }
+        else{
+          this.errorClinic = true;
+        }
+      });
+    }
   }
 
 }

@@ -90,6 +90,7 @@
                 <th [mdbTableSort]="examinationsList" sortBy="wasOnExamination">Was on examination&nbsp;<i class="fas fa-sort"></i> </th>
                 <th [mdbTableSort]="examinationsList" sortBy="clinicName">Clinic name&nbsp;<i class="fas fa-sort"></i></th>
                 <th [mdbTableSort]="examinationsList" sortBy="doctorsName">Doctor&nbsp;<i class="fas fa-sort"></i></th>
+                <th [mdbTableSort]="examinationsList" sortBy="examinationType">Examination type&nbsp;<i class="fas fa-sort"></i></th>
                 <th>More info</th>
             </tr>
         </thead>
@@ -100,6 +101,7 @@
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{examin.wasOnExamination ? "yes" : "no"}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{examin.clinicName}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{examin.doctorsName}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{examin.examinationType | lowercase}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
                     
                     <button mat-icon-button color="warn" (click)="rowSelected(examin)" (click)="infoModal.show()" mdbWavesEffect class="relative waves-light">
@@ -110,7 +112,7 @@
         </tbody>
         <tfoot class="grey lighten-5 w-100">
             <tr>
-                <td colspan="5">
+                <td colspan="7">
                     <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="examinationsList"></mdb-table-pagination>
                 </td>
             </tr>

@@ -7,11 +7,14 @@ public class DoctorForClinicListDTO {
     private Long clinic_id;
     private String specialisation;
     private float averageMark;
+    private boolean canRateDoctor;
+	private float givenMark;
+	private long doctorId;
     
     public DoctorForClinicListDTO() {}
-    
+	
 	public DoctorForClinicListDTO(String firstName, String lastName, String phone, Long clinic_id,
-			String specialisation, float averageMark) {
+			String specialisation, float averageMark, boolean canRateDoctor, float givenMark, long doctorId) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -19,6 +22,9 @@ public class DoctorForClinicListDTO {
 		this.clinic_id = clinic_id;
 		this.specialisation = specialisation;
 		this.averageMark = averageMark;
+		this.canRateDoctor = canRateDoctor;
+		this.givenMark = givenMark;
+		this.doctorId = doctorId;
 	}
 	
 	public String getFirstName() {
@@ -56,6 +62,24 @@ public class DoctorForClinicListDTO {
 	}
 	public void setAverageMark(float averageMark) {
 		this.averageMark = averageMark;
+	}
+	public boolean isCanRateDoctor() {
+		return canRateDoctor;
+	}
+	public void setCanRateDoctor(boolean canRateDoctor) {
+		this.canRateDoctor = canRateDoctor;
+	}
+	public float getGivenMark() {
+		return givenMark;
+	}
+	public void setGivenMark(float givenMark) {
+		this.givenMark = givenMark;
+	}
+	public long getDoctorId() {
+		return doctorId;
+	}
+	public void setDoctorId(long doctorId) {
+		this.doctorId = doctorId;
 	}
 
 }

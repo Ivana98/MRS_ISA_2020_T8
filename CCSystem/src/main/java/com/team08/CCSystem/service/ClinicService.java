@@ -19,11 +19,12 @@ import com.team08.CCSystem.dto.StartEndDateClinicIdDTO;
 import com.team08.CCSystem.model.Clinic;
 import com.team08.CCSystem.model.ClinicMark;
 import com.team08.CCSystem.model.Doctor;
+import com.team08.CCSystem.model.DoctorMark;
 import com.team08.CCSystem.model.Examination;
 import com.team08.CCSystem.model.Patient;
-import com.team08.CCSystem.model.User;
 import com.team08.CCSystem.repository.ClinicMarkRepository;
 import com.team08.CCSystem.repository.ClinicRepository;
+import com.team08.CCSystem.repository.DoctorMarkRepository;
 
 /**
  * @author Veljko
@@ -40,6 +41,12 @@ public class ClinicService {
 	
 	@Autowired
 	private ClinicMarkRepository clinicMarkRepository;
+	
+	@Autowired
+	private DoctorMarkRepository doctorMarkRepository;
+	
+	@Autowired
+	private DoctorService doctorService;
 	
 	public Clinic findOne(Long id) {
 		return clinicRepository.findById(id).orElseGet(null);
@@ -89,7 +96,7 @@ public class ClinicService {
 		dto.setAddressCity(cl.getAddress().getCity());
 		dto.setAverageMark(cl.getAverageMark());
 		if(!cl.getDoctors().isEmpty()) {
-			dto.setDoctors(this.convertClinicDoctors(cl));
+			dto.setDoctors(this.convertClinicDoctors(cl, patientId, patientsExaminations));
 		}
 		else {
 			dto.setDoctors(new HashSet<DoctorForClinicListDTO>());
@@ -103,7 +110,7 @@ public class ClinicService {
 		else {
 			dto.setGivenMark(0);
 			//check if patient had examination in this clinic
-			if(patientHadExamination(cl.getId(), patientsExaminations)) {
+			if(hadExaminationClinic(cl.getId(), patientsExaminations)) {
 				dto.setCanRateClinic(true);
 			}
 			else {
@@ -116,8 +123,9 @@ public class ClinicService {
 	 * Function for making Set<DoctorForClinicListDTO> of Clinic object
 	 * it extracts Doctor objects from Clinic and pack it to set of transferable objects
 	 * */
-	public Set<DoctorForClinicListDTO> convertClinicDoctors(Clinic cl){
+	public Set<DoctorForClinicListDTO> convertClinicDoctors(Clinic cl, Long patientId, Set<Examination> patientsExaminations){
 		Set<DoctorForClinicListDTO> doctorSet = new HashSet<DoctorForClinicListDTO>();
+		
 		for(Doctor d : cl.getDoctors()) {
 			DoctorForClinicListDTO dto = new DoctorForClinicListDTO();
 			dto.setFirstName(d.getName());
@@ -126,6 +134,24 @@ public class ClinicService {
 			dto.setAverageMark(d.getAverageMark());
 			dto.setPhone(d.getPhone());
 			dto.setSpecialisation(d.getSpecialisation().toString());
+			dto.setDoctorId(d.getId());
+			
+			DoctorMark mark = doctorMarkRepository.findDoctorMarkByIds(d.getId(), patientId);
+			if(mark != null) {
+				dto.setGivenMark(mark.getMark());
+				dto.setCanRateDoctor(true);
+			}
+			else {
+				dto.setGivenMark(0);
+				//check if patient had examination at this doctor
+				if(doctorService.hadExaminationDoctor(d.getId(), patientsExaminations)) {
+					dto.setCanRateDoctor(true);
+				}
+				else {
+					dto.setCanRateDoctor(false);
+				}
+			}
+			
 			doctorSet.add(dto);
 		}
 		return doctorSet;
@@ -135,7 +161,7 @@ public class ClinicService {
 	 * Function checks if patient was on examination in certain clinic and returns true
 	 * otherwise returns false, which means patient can not rate certain clinic 
 	 */
-	public boolean patientHadExamination(Long clinicId, Set<Examination> examinations) {
+	public boolean hadExaminationClinic(Long clinicId, Set<Examination> examinations) {
 		for(Examination e : examinations) {
 			if(e.getWasOnExamination() == true && e.getDoctor().getClinic().getId() == clinicId) 
 				return true;

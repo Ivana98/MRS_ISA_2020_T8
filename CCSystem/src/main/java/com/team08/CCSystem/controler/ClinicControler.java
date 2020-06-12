@@ -33,13 +33,16 @@ import com.team08.CCSystem.model.ClinicAdmin;
 import com.team08.CCSystem.model.ClinicMark;
 import com.team08.CCSystem.model.ClinicalCenter;
 import com.team08.CCSystem.model.Doctor;
+import com.team08.CCSystem.model.DoctorMark;
 import com.team08.CCSystem.model.MedicalRoom;
 import com.team08.CCSystem.model.Nurse;
 import com.team08.CCSystem.model.Patient;
 import com.team08.CCSystem.repository.ClinicMarkRepository;
 import com.team08.CCSystem.repository.ClinicRepository;
+import com.team08.CCSystem.repository.DoctorMarkRepository;
 import com.team08.CCSystem.service.ClinicService;
 import com.team08.CCSystem.service.ClinicalCenterService;
+import com.team08.CCSystem.service.DoctorService;
 import com.team08.CCSystem.service.UserService;
 
 @RestController
@@ -59,7 +62,13 @@ public class ClinicControler {
 	private ClinicMarkRepository clinicMarkRepository;
 	
 	@Autowired
+	private DoctorMarkRepository doctorMarkRepository;
+	
+	@Autowired
 	private ClinicRepository clinicRepository;
+	
+	@Autowired
+	private DoctorService doctorService;
 	
 	@GetMapping(value = "/getOne/{id}")
 	private ResponseEntity<ClinicDTO> getOne(@PathVariable Long id) {
@@ -159,7 +168,7 @@ public class ClinicControler {
 		Float mark = saveMarkDTO.getMark();
 		
 		//checks if new mark is valid
-		if(clinicService.patientHadExamination(saveMarkDTO.getId(), patient.getExaminations()) && ( 0 < mark && mark <= 5)) {
+		if(clinicService.hadExaminationClinic(saveMarkDTO.getId(), patient.getExaminations()) && ( 0 < mark && mark <= 5)) {
 			
 			Clinic clinic = clinicRepository.getOne(saveMarkDTO.getId());
 			
@@ -173,6 +182,41 @@ public class ClinicControler {
 			}
 			
 			clinicService.updateClinicAverageMark(clinic);
+			
+			//convert clinic to transferable object
+			ClinicForTableDTO dto = new ClinicForTableDTO();
+			clinicService.convertOneClinic(clinic, dto, patient.getId(), patient.getExaminations());
+			
+			return new ResponseEntity<>(dto, HttpStatus.OK);
+		}
+		//if patient can not rate this clinic return error
+		return new ResponseEntity<>(new ClinicForTableDTO(), HttpStatus.BAD_REQUEST);
+	}
+	
+	@PreAuthorize("hasRole('PATIENT')")
+	@PostMapping(path = "/saveDoctorMark")
+	public ResponseEntity<ClinicForTableDTO> saveDoctorMark(Principal user, @RequestBody SaveMarkDTO saveMarkDTO) {
+		
+		Patient patient = (Patient) userService.findByUsername(user.getName());
+		Float mark = saveMarkDTO.getMark();
+		
+		//checks if new mark is valid
+		if(doctorService.hadExaminationDoctor(saveMarkDTO.getId(), patient.getExaminations()) && ( 0 < mark && mark <= 5)) {
+			
+			Doctor doctor = doctorService.findOne(saveMarkDTO.getId());
+			Clinic clinic = clinicRepository.getOne(doctor.getClinic().getId());
+			
+			DoctorMark newMark = doctorMarkRepository.findDoctorMarkByIds(doctor.getId(), patient.getId());
+			if(newMark != null) {
+				newMark.setMark(mark);
+				doctorMarkRepository.save(newMark);
+			}
+			else {
+				doctorMarkRepository.save(new DoctorMark(null, mark, doctor, patient));
+			}
+			
+			doctorService.updateDoctorAverageMark(doctor);
+			clinicService.save(clinic);
 			
 			//convert clinic to transferable object
 			ClinicForTableDTO dto = new ClinicForTableDTO();
