@@ -3,6 +3,8 @@ import { TransferClinicService } from 'src/app/services/patient/clinics/transfer
 import { Clinic } from 'src/app/model/clinicToList';
 import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstrap-md';
 import { DoctorForClinicList } from 'src/app/model/doctorForClinicList';
+import { SaveMark } from 'src/app/model/saveMark';
+import { RatingService } from 'src/app/services/patient/rating/rating.service';
 
 @Component({
   selector: 'app-clinic-info-page',
@@ -19,7 +21,10 @@ export class ClinicInfoPageComponent implements OnInit, AfterViewInit {
   searchText: string = '';
   previousearch: string; //search variable
 
-  constructor(private _transferService: TransferClinicService, private cdRef: ChangeDetectorRef) { }
+  modalHeader = "";
+  saveMark = new SaveMark(0, 0);
+
+  constructor(private _transferService: TransferClinicService, private _ratingService: RatingService,private cdRef: ChangeDetectorRef) { }
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
   @HostListener('input') oninput() { this.searchItems(); }
@@ -59,6 +64,16 @@ export class ClinicInfoPageComponent implements OnInit, AfterViewInit {
       this.doctors = this.mdbTable.searchLocalDataBy(this.searchText);
       this.mdbTable.setDataSource(prev);
     }
+  }
+
+  rateClinic(){
+    this.modalHeader = "Please, rate clinic: " + this.clinic.name;
+    this.saveMark.id = this.clinic.id;
+    this.saveMark.mark = this.clinic.givenMark
+  }
+
+  saveChanges(){
+    this._ratingService.setClinicRate(this.saveMark).subscribe(response => this.clinic = response);
   }
 
 }

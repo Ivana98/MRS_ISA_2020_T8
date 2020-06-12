@@ -74,8 +74,7 @@ import { RequestService } from './services/request-service/request.service';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ChangePasswordGuard } from './guard/change-password.guard';
 import { AbsencesComponent } from './components/administrator/absences/absences.component';
-
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -119,7 +118,8 @@ import { AbsencesComponent } from './components/administrator/absences/absences.
     ReactiveFormsModule, MatIconModule, MatDialogModule, MatRippleModule,
     CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule,
     BrowserModule, ChartsModule,
-    MatSortModule
+    MatSortModule,
+    NgbModule
   ],
   providers: [
     {

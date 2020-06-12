@@ -162,7 +162,15 @@ public class ClinicControler {
 		if(clinicService.patientHadExamination(saveMarkDTO.getId(), patient.getExaminations()) && ( 0 < mark && mark <= 5)) {
 			
 			Clinic clinic = clinicRepository.getOne(saveMarkDTO.getId());
-			clinicMarkRepository.save(new ClinicMark(null, mark, patient, clinic));
+			
+			ClinicMark newMark = clinicMarkRepository.findClinicMarkByIds(clinic.getId(), patient.getId());
+			if(newMark != null) {
+				newMark.setMark(mark);
+				clinicMarkRepository.save(newMark);
+			}
+			else {
+				clinicMarkRepository.save(new ClinicMark(null, mark, patient, clinic));
+			}
 			
 			clinicService.updateClinicAverageMark(clinic);
 			
