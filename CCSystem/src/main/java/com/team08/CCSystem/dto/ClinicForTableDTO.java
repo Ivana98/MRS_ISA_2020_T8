@@ -9,13 +9,15 @@ public class ClinicForTableDTO {
 	private String addressCity;
 	private double averageMark;
 	private Set<DoctorForClinicListDTO> doctors;
+	private boolean canRateClinic;
+	private float givenMark;
 	
 	public ClinicForTableDTO() {
 		super();
 	}
 	
 	public ClinicForTableDTO(Long id, String name, String addressStreet, String addressCity, double averageMark,
-			Set<DoctorForClinicListDTO> doctors) {
+			Set<DoctorForClinicListDTO> doctors, boolean canRateClinic, float givenMark) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -23,6 +25,8 @@ public class ClinicForTableDTO {
 		this.addressCity = addressCity;
 		this.averageMark = averageMark;
 		this.doctors = doctors;
+		this.canRateClinic = canRateClinic;
+		this.givenMark = givenMark;
 	}
 	
 	public String getAddressCity() {
@@ -66,6 +70,22 @@ public class ClinicForTableDTO {
 	}
 	public void setAdressCity(String addressCity) {
 		this.addressCity = addressCity;
+	}
+
+	public boolean isCanRateClinic() {
+		return canRateClinic;
+	}
+
+	public void setCanRateClinic(boolean canRateClinic) {
+		this.canRateClinic = canRateClinic;
+	}
+
+	public float getGivenMark() {
+		return givenMark;
+	}
+
+	public void setGivenMark(float givenMark) {
+		this.givenMark = givenMark;
 	}
 	
 	
