@@ -1,0 +1,53 @@
+<p>start-examination works!</p>
+
+<!-- 
+    Biramo datum i satnicu za novi pregled ili operaciju
+    Kreira se zahtev koji se prosledjuje adminu klinike i salje mu se mejl sa obavestenjem da ima zahtev novi
+ -->
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>schedule an examination</h1>
+        </div>
+    </div>
+    
+    <!-- DATE -->
+    <div class="row">
+        <div class="col-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="date" disabled>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker touchUi #picker ngDefaultControl [(ngModel)]="date" (dateInput)="onDate($event)" disabled="false"></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <!-- TIME -->
+    <div class="row">
+        <div class="col-4">
+            <div class="md-form">
+                <input type="time" id="input" class="form-control" value="13:00" mdbInput [(ngModel)]="time" />
+                <label for="input">Choose time</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTERVENTION TYPE -->
+    <div class="row">
+        <div class="col">
+            <section class="example-section">
+                <mat-radio-group [(ngModel)]="examinationRequest.interventionType">
+                    <mat-radio-button (change)="onChange('EXAMINATION')" class="example-margin" value="EXAMINATION">Examination</mat-radio-button>
+                    <mat-radio-button (change)="onChange('OPERATION')" class="example-margin" value="OPERATION">Operation</mat-radio-button>
+                </mat-radio-group>
+            </section>
+        </div>
+    </div>
+
+    <!-- BUTTON TO SEND REQUEST -->
+    <button mat-raised-button color="primary" (click)="sendExaminationRequest()">
+        Send request
+    </button>
+</div>

@@ -15,9 +15,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.team08.CCSystem.dto.ExaminationRequestDTO;
 import com.team08.CCSystem.dto.MedicalRecordExaminationDTO;
+import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Examination;
 import com.team08.CCSystem.model.Patient;
+import com.team08.CCSystem.model.Price;
+import com.team08.CCSystem.model.enums.InterventionType;
 import com.team08.CCSystem.repository.ExaminationRepository;
 
 /**
@@ -32,6 +36,15 @@ public class ExaminationService {
 	
 	@Autowired
 	private PatientService patientService;
+	
+	@Autowired
+	private DoctorService doctorService;
+	
+	@Autowired
+	private PriceService priceService;
+	
+	@Autowired
+	private EmailServiceImpl emailService;
 	
 	
 	public Examination findOne(Long id) {
@@ -285,6 +298,33 @@ public class ExaminationService {
 		}
 		
 		return new ResponseEntity<>(months12, HttpStatus.OK);
+	}
+
+	/**
+	 * @param dto
+	 * @return
+	 */
+	public ResponseEntity<ExaminationRequestDTO> sendExaminationRequest(ExaminationRequestDTO dto) {
+		System.out.println(dto);
+
+		Examination examiantion = new Examination();
+		Doctor doctor = doctorService.findOne(dto.getDoctorId());
+		Patient patient = patientService.findOne(dto.getPatientId());
+		Price price = priceService.findByClinicIdInterventionTypeAndSpecialisation(dto.getClinicId(), InterventionType.valueOf(dto.getInterventionType().toUpperCase()), doctor.getSpecialisation());
+		
+		examiantion.setDate(dto.getDate());
+		examiantion.setDoctor(doctor);
+		examiantion.setPatient(patient);
+		examiantion.setPrice(price);
+		examiantion.setWasOnExamination(false);
+		examiantion.setStaticPrice(examiantion.countStaticPrice());
+		
+		save(examiantion);
+		
+		// send email notification to clinic admin
+		emailService.sendMail("mrsisa.t8@gmail.com", "Examination request", "You have one examination request to approve from: \n" + patient);
+		
+		return new ResponseEntity<>(new ExaminationRequestDTO(examiantion), HttpStatus.CREATED);
 	}
 
 }

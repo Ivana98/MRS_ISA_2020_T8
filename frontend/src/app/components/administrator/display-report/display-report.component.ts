@@ -41,7 +41,6 @@ export class DisplayReportComponent implements OnInit {
   ngOnInit(): void {
     this.loadClinicAverageMark();
     this.loadDoctors();
-    // this.dailyReportLoad();
   }
 
   private loadDoctors() {

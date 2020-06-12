@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team08.CCSystem.dto.ExaminationDTO;
+import com.team08.CCSystem.dto.ExaminationRequestDTO;
 import com.team08.CCSystem.dto.MedicalRecordExaminationDTO;
 import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Examination;
@@ -129,6 +130,12 @@ public class ExaminationControler {
 	public ResponseEntity<List<String>> get12MonthsList(@PathVariable Date date) {
 		
 		return examinationService.get12MonthsList(date);
+	}
+	
+	@PostMapping(path = "/sendExaminationRequest")
+	public ResponseEntity<ExaminationRequestDTO> sendExaminationRequest(@RequestBody ExaminationRequestDTO dto) {
+		
+		return examinationService.sendExaminationRequest(dto);
 	}
 	
 	

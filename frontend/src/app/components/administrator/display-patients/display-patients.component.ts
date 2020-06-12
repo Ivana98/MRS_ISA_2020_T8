@@ -4,6 +4,8 @@ import { Patient } from 'src/app/model/patient';
 import { PatientService } from 'src/app/services/patient-service/patient.service';
 import { MedicalRecordExamination } from 'src/app/model/medicalRecordExamination';
 import { ExaminationService } from 'src/app/services/examination-service/examination.service';
+import { TransferPatientService } from 'src/app/services/transfer-patient-service/transfer-patient.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-display-patients',
@@ -34,7 +36,9 @@ export class DisplayPatientsComponent implements OnInit {
   constructor(
     private cdRef: ChangeDetectorRef,
     private _httpPatientService: PatientService,
-    private _httpExaminationService: ExaminationService
+    private _httpExaminationService: ExaminationService,
+    private _transferService: TransferPatientService,
+    private _router: Router
   ) { }
 
   @HostListener('input') oninput() { this.searchItems(); } 
@@ -148,9 +152,12 @@ export class DisplayPatientsComponent implements OnInit {
     } 
   }
 
+  /**
+   * Send data to other component.
+   */
   startExamination() {
-    //TODO:
-
+    this._transferService.setPatient(this.patientDisplay);
+    this._router.navigate(['/user-page/start-examination']);
     
   }
 

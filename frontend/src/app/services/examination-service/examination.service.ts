@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Examination } from 'src/app/model/examination';
 import { LoginService } from '../login-service/login.service';
 import { MedicalRecordExamination } from 'src/app/model/medicalRecordExamination';
+import { ExaminationRequest } from 'src/app/model/examinationRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -112,6 +113,17 @@ export class ExaminationService {
    */
   public get12MonthsList(now) {
     return this._httpClient.get<Array<String>>(this._url + "get12MonthsList/" + now);
+  }
+
+  /**
+   * 
+   * @param examinationRequest 
+   */
+  public sendExaminationRequest(examinationRequest) {
+    examinationRequest.doctorId = this._loginService.currentUser.userId;
+    examinationRequest.clinicId = this._loginService.currentUser.clinicId;
+    
+    return this._httpClient.post<ExaminationRequest>(this._url + "sendExaminationRequest", examinationRequest)
   }
 
 }

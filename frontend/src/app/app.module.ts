@@ -74,6 +74,7 @@ import { RequestService } from './services/request-service/request.service';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ChangePasswordGuard } from './guard/change-password.guard';
 import { AbsencesComponent } from './components/administrator/absences/absences.component';
+import { StartExaminationComponent } from './components/doctor/start-examination/start-examination.component';
 
 
 @NgModule({
@@ -104,7 +105,8 @@ import { AbsencesComponent } from './components/administrator/absences/absences.
     CalendarComponent,
     AbsenceComponent,
     ChangePasswordComponent,
-    AbsencesComponent
+    AbsencesComponent,
+    StartExaminationComponent
   ],
   imports: [
     BrowserModule,

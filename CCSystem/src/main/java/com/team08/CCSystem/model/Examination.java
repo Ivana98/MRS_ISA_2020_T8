@@ -116,6 +116,16 @@ public class Examination {
 		super();
 		this.deleted = false;
 	}
+	
+	/*
+	 * Method to count price by current pricelist.
+	 */
+	public double countStaticPrice() {
+		double price = this.price.getPrice();
+		float discount = this.price.getDiscount();
+		
+		return price * (100.0 - discount) / 100.0;
+	}
 
 	public Boolean getDeleted() {
 		return deleted;
