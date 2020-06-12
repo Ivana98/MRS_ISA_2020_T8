@@ -4,7 +4,10 @@ export interface IDoctorForClinicList {
     phone: string,
     clinic_id: number,
     specialisation: string,
-    averageMark: number
+    averageMark: number,
+    canRateDoctor: boolean,
+    givenMark: number,
+    doctorId: number
 }
 
 export class DoctorForClinicList {
@@ -14,7 +17,10 @@ export class DoctorForClinicList {
         public phone: string,
         public clinic_id: number,
         public specialisation: string,
-        public averageMark: number
+        public averageMark: number,
+        public canRateDoctor: boolean,
+        public givenMark: number,
+        public doctorId: number
     ) {} 
 }
 

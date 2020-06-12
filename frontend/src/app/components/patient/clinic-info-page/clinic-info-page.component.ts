@@ -3,6 +3,8 @@ import { TransferClinicService } from 'src/app/services/patient/clinics/transfer
 import { Clinic } from 'src/app/model/clinicToList';
 import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstrap-md';
 import { DoctorForClinicList } from 'src/app/model/doctorForClinicList';
+import { SaveMark } from 'src/app/model/saveMark';
+import { RatingService } from 'src/app/services/patient/rating/rating.service';
 
 @Component({
   selector: 'app-clinic-info-page',
@@ -19,7 +21,11 @@ export class ClinicInfoPageComponent implements OnInit, AfterViewInit {
   searchText: string = '';
   previousearch: string; //search variable
 
-  constructor(private _transferService: TransferClinicService, private cdRef: ChangeDetectorRef) { }
+  modalHeader = "";
+  saveMark = new SaveMark(0, 0);
+  clinicModal = true; // modal is used to rate clinic - true; for rate doctor - false
+
+  constructor(private _transferService: TransferClinicService, private _ratingService: RatingService,private cdRef: ChangeDetectorRef) { }
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
   @HostListener('input') oninput() { this.searchItems(); }
@@ -58,6 +64,37 @@ export class ClinicInfoPageComponent implements OnInit, AfterViewInit {
     if (this.searchText) {
       this.doctors = this.mdbTable.searchLocalDataBy(this.searchText);
       this.mdbTable.setDataSource(prev);
+    }
+  }
+
+  rateClinic(){
+    this.modalHeader = "Please, rate clinic: " + this.clinic.name;
+    this.saveMark.id = this.clinic.id;
+    this.saveMark.mark = this.clinic.givenMark
+    this.clinicModal = true;
+  }
+
+  rateDoctor(dr : DoctorForClinicList){
+    this.modalHeader = "Please, rate your doctor: " + dr.firstName + " " + dr.lastName;
+    this.saveMark.id = dr.doctorId;
+    this.saveMark.mark = dr.givenMark;
+    this.clinicModal = false;
+  }
+
+  saveChanges(){
+    if(this.clinicModal){
+      this._ratingService.setClinicRate(this.saveMark).subscribe(response => this.clinic = response);
+    }
+    else{
+      this._ratingService.setDoctorRate(this.saveMark).subscribe(response => {
+        if(response !== null){
+          this.clinic = response;
+          this.doctors = this.clinic.doctors;
+        }
+        else{
+          this.errorClinic = true;
+        }
+      });
     }
   }
 
