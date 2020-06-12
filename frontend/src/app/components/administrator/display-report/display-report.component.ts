@@ -4,6 +4,7 @@ import { DoctorForClinicList2 } from 'src/app/model/doctorForClinicList';
 import { DoctorService } from 'src/app/services/doctor-service/doctor.service';
 import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstrap-md';
 import { StartEndDateClinicId } from 'src/app/model/StartEndDateClinicId';
+import { ExaminationService } from 'src/app/services/examination-service/examination.service';
 
 @Component({
   selector: 'app-display-report',
@@ -11,6 +12,8 @@ import { StartEndDateClinicId } from 'src/app/model/StartEndDateClinicId';
   styleUrls: ['./display-report.component.css']
 })
 export class DisplayReportComponent implements OnInit {
+
+  showChart: boolean = false;
 
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective
@@ -29,6 +32,7 @@ export class DisplayReportComponent implements OnInit {
   constructor(
     private _httpClinicService: ClinicService,
     private _httpDoctorService: DoctorService,
+    private _httpExaminaitonService: ExaminationService,
     private cdRef: ChangeDetectorRef,
   ) { }
 
@@ -48,6 +52,19 @@ export class DisplayReportComponent implements OnInit {
 
   ngAfterViewInit() {
     this.pagination();
+
+
+    // setTimeout(() => {
+
+    //   this.chartDatasets= [
+      
+    //   { data: this.data2, label: this.label2 },
+      
+    //   { data: [], label: '' },
+      
+    //   ];
+      
+    //   }, 3000);
   }
 
   private pagination() {
@@ -121,40 +138,106 @@ export class DisplayReportComponent implements OnInit {
       });
   }
 
-  public chartType: string = 'bar';
 
-  public chartDatasets: Array<any> = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'My First dataset' }
+  public dailyReportLoad() {
+   
+  }
+
+  /**
+   * 
+   */
+  public dailyReport() {
+
+    var now = new Date();
+
+    this._httpExaminaitonService.loadDailyExaminations(now)
+      .subscribe(data => {
+
+        // update chart
+        this.chartDatasets = [
+          { data: data, label: "Daily" },
+          // { data: [], label: '' },
+        ];
+
+          this.showChart = true;  // show chart
+      });
+
+    // load list of last 24 hours
+    this._httpExaminaitonService.get24HourList(now)
+      .subscribe(data => {
+        this.chartLabels = data;
+      });
+  }
+
+  /**
+   * 
+   */
+  public weeklyReport() {
+    
+    var now = new Date();
+
+    this._httpExaminaitonService.loadWeeklyExaminations(now)
+      .subscribe(data => {
+
+        // update chart
+        this.chartDatasets = [
+          { data: data, label: "Weekly" },
+          // { data: [], label: '' },
+        ];
+
+          this.showChart = true;  // show chart
+      });
+
+    // load list of last 7 days
+    this._httpExaminaitonService.get7DaysList(now)
+      .subscribe(data => {
+        this.chartLabels = data;
+      });
+  }
+
+  public annualReport() {
+    
+    var now = new Date();
+
+    this._httpExaminaitonService.loadAnnualExaminations(now)
+      .subscribe(data => {
+
+        // update chart
+        this.chartDatasets = [
+          { data: data, label: "Annual" },
+          // { data: [], label: '' },
+        ];
+
+          this.showChart = true;  // show chart
+      });
+
+    // load list of last 12 months
+    this._httpExaminaitonService.get12MonthsList(now)
+      .subscribe(data => {
+        this.chartLabels = data;
+      });
+  }
+
+  chartType: string = 'line';
+
+  chartDatasets: Array<any> = [
+    { data: [], label: 'My First dataset' }
   ];
 
-  public chartLabels: Array<any> = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
+  chartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-  public chartColors: Array<any> = [
+  chartColors: Array<any> = [
     {
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
+      backgroundColor: 'rgba(105, 0, 132, .2)',
+      borderColor: 'rgba(200, 99, 132, .7)',
       borderWidth: 2,
     }
   ];
 
-  public chartOptions: any = {
+  chartOptions: any = {
     responsive: true
   };
-  public chartClicked(e: any): void { }
-  public chartHovered(e: any): void { }
+  chartClicked(e: any): void { }
+  chartHovered(e: any): void { }
 
 }

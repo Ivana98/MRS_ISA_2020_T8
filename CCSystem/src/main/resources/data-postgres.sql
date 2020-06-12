@@ -65,6 +65,11 @@ insert into examination (date, description, static_price, was_on_examination, do
 
 insert into medication (description, name, deleted) values ('Za muskarce, ne i decake...', 'Johnnie Walker', false);
 
+insert into prescription (deleted, description, expiration_date, quantity, validated, medication_id, nurse_id) 
+	values (false, 'neki opis za recept', '2020-08-15 23:59', 2, true, 1, 3);
+
+insert into prescriptioning (prescription_id, examination_id) values (1, 1);
+
 --INSERT INTO patient_allergy (patient_id, allergy) VALUES (2, 'polen');
 --INSERT INTO patient_allergy (patient_id, allergy) VALUES (2, 'ambrozija');
 

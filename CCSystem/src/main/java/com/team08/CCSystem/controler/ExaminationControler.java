@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team08.CCSystem.dto.ExaminationDTO;
+import com.team08.CCSystem.dto.ExaminationRequestDTO;
+import com.team08.CCSystem.dto.MedicalRecordExaminationDTO;
 import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Examination;
 import com.team08.CCSystem.model.ExaminationType;
@@ -71,6 +73,71 @@ public class ExaminationControler {
 		
 		return new ResponseEntity<List<ExaminationDTO>>(examinationsDTO, HttpStatus.OK);
 	}
+	
+	
+	@GetMapping(value = "/checkIfDoctorCanOpenMedicalRecord/{patientId}/{doctorId}")
+	public ResponseEntity<Boolean> checkIfDoctorCanOpenMedicalRecord(@PathVariable Long patientId, @PathVariable Long doctorId) {
+		
+		return examinationService.checkIfDoctorCanOpenMedicalRecord(patientId, doctorId);
+	}
+	
+	@GetMapping(value = "/loadPatientExaminations/{patientId}")
+	public ResponseEntity<List<MedicalRecordExaminationDTO>> loadPatientExaminations(@PathVariable Long patientId) {
+		
+		return examinationService.loadPatientExaminations(patientId);
+	}
+	
+	@GetMapping(value = "/canDoctorExaminate/{patientId}/{doctorId}")
+	public ResponseEntity<Boolean> canDoctorExaminate(@PathVariable Long patientId, @PathVariable Long doctorId) {
+		
+		return examinationService.canDoctorExaminate(patientId, doctorId);
+	}
+	
+	@GetMapping(value = "/loadDailyExaminations/{clinicId}/{date}")
+	public ResponseEntity<List<Integer>> loadDailyExaminations(@PathVariable Long clinicId, @PathVariable Date date) {
+		
+		return examinationService.loadDailyExaminations(clinicId, date);
+	}
+	
+	
+	@GetMapping(value = "/get24HourList/{date}")
+	public ResponseEntity<List<String>> get24HourList(@PathVariable Date date) {
+		
+		return examinationService.get24HourList(date);
+	}
+	
+	@GetMapping(value = "/loadWeeklyExaminations/{clinicId}/{date}")
+	public ResponseEntity<List<Integer>> loadWeeklyExaminations(@PathVariable Long clinicId, @PathVariable Date date) {
+		
+		return examinationService.loadWeeklyExaminations(clinicId, date);
+	}
+	
+	
+	@GetMapping(value = "/get7DaysList/{date}")
+	public ResponseEntity<List<String>> get7DaysList(@PathVariable Date date) {
+		
+		return examinationService.get7DaysList(date);
+	}
+	
+	@GetMapping(value = "/loadAnnualExaminations/{clinicId}/{date}")
+	public ResponseEntity<List<Integer>> loadAnnualExaminations(@PathVariable Long clinicId, @PathVariable Date date) {
+		
+		return examinationService.loadAnnualExaminations(clinicId, date);
+	}
+	
+	
+	@GetMapping(value = "/get12MonthsList/{date}")
+	public ResponseEntity<List<String>> get12MonthsList(@PathVariable Date date) {
+		
+		return examinationService.get12MonthsList(date);
+	}
+	
+	@PostMapping(path = "/sendExaminationRequest")
+	public ResponseEntity<ExaminationRequestDTO> sendExaminationRequest(@RequestBody ExaminationRequestDTO dto) {
+		
+		return examinationService.sendExaminationRequest(dto);
+	}
+	
 	
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {

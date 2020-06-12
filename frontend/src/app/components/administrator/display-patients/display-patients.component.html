@@ -11,7 +11,7 @@
     </div>
 
     <!-- PATIENT TABLE -->
-    <table mdbTable #tableEl="mdbTable" hover="true" class="table text-position z-depth-1">
+    <table mdbTable #mdbTable="mdbTable" hover="true" class="table text-position z-depth-1">
         <thead class="black white-text">
             <tr>
                 <th></th>
@@ -39,7 +39,7 @@
         <tfoot class="grey lighten-5 w-100">
             <tr>
                 <td colspan="9">
-                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="patientsList"></mdb-table-pagination>
+                    <mdb-table-pagination #mdbTablePagination [tableEl]="mdbTable" [searchDataSource]="patientsList"></mdb-table-pagination>
                 </td>
             </tr>
         </tfoot>
@@ -49,7 +49,8 @@
     <div class="container" style="padding-top: 4rem;">
         <div class="row">
             <div class="col">
-    
+                <h2 style="padding-bottom: 1rem;">Patient data</h2>
+
                 <!-- content -->
                 <div class="row">
                     <div class="col">  <!-- style="background-color: rgba(223, 211, 211, 0.658);" -->
@@ -71,10 +72,7 @@
     
                 <div class="row">
                     <div class="col">
-                        <h4>Country: {{ patientDisplay.country }}</h4>
-                    </div>
-                    <div class="col">
-                        <h4>City: {{ patientDisplay.city }}</h4>
+                        <h4>City: {{ patientDisplay.city }}, {{ patientDisplay.country }}</h4>
                     </div>
                     <div class="col">
                         <h4>Street: {{ patientDisplay.street }}</h4>
@@ -104,23 +102,123 @@
                         <h4>Weight: {{ patientDisplay.weight }}</h4>
                     </div>
                 </div>
+                
                 <div class="row">
                     <div class="col">
                         <h4>Policyholder: {{ patientDisplay.policyholder }}</h4>
                     </div>
                 </div>
-            </div>
-    
-            <!-- ZDRAVSTVENI KARTON -->
-            <div class="col">
-    
+
+                <div class="row">
+                    <div class="col">
+                        <button mat-raised-button color="primary" (click)="openMedicalRecord()" [disabled]="canSeeMedicalRecord">
+                            {{ showMedRecButtonTxt }}
+                        </button>
+
+                        <button mat-raised-button color="primary" (click)="startExamination()" [disabled]="canDoExamination">
+                            Start examination
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    
-        <!--  -->
-        <div class="row">
-            <div class="col">
-    
+
+        <div *ngIf="isMedicalRecordShown">
+            <div class="row">
+                <div class="col">
+                    <h1 style="padding-top: 2rem;">Medical record</h1>
+                    <h3 style="padding-bottom: 0.3rem;">Examinations</h3>
+                </div>
+            </div>
+
+            <!-- EXAMINATIONS -->
+            <div class="row">
+                <div class="col">
+                    <table class="table table-hover table-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Specialisation</th>
+                                <th scope="col">Intervention type</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Doctor name</th>
+                                <th scope="col">Doctor surname</th>
+                                <th scope="col">Room number</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cl of examinations; let i = index;" (click)="getRow2(cl)">
+                                <th scope="row">{{i + 1}}</th>
+                                <td>{{cl.specialisation}}</td>
+                                <td>{{cl.interventionType}}</td>
+                                <td>{{cl.date}}</td>
+                                <td>{{cl.staticPrice}}</td>
+                                <td>{{cl.doctorName}}</td>
+                                <td>{{cl.doctorSurname}}</td>
+                                <td>{{cl.roomNumber}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> 
+            </div>
+
+            <!-- OTHERS EXAMINATION DETAILS -->
+            <div class="row">
+                <div class="col">
+                    <h3 style="padding-bottom: 0.3rem;padding-top: 1.8rem;">Prescriptions<br/>Click on examination row.</h3>
+                </div>
+                <div class="col">
+                    <h3 style="padding-bottom: 0.3rem;padding-top: 1.8rem;">Diseases</h3>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!-- PRESCRIPTIONS -->
+                <div class="col">
+                    <table class="table table-hover table-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Validated</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Nurse name</th>
+                                <th scope="col">Medication name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cl of medRecExam.prescriptions; let i = index;" (click)="getRow3(cl)">
+                                <th scope="row">{{i + 1}}</th>
+                                <td>{{cl.validated}}</td>
+                                <td>{{cl.date}}</td>
+                                <td>{{cl.nurse_name}}</td>
+                                <td>{{cl.medication_name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- DISEASES -->
+                <div class="col">
+                    <table class="table table-hover table-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Disease name</th>
+                                <th scope="col">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cl of medRecExam.diseases; let i = index;" (click)="getRow4(cl)">
+                                <th scope="row">{{i + 1}}</th>
+                                <td>{{cl.name}}</td>
+                                <td>{{cl.description}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

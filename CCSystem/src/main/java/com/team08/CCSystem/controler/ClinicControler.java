@@ -135,6 +135,7 @@ public class ClinicControler {
 		return new ResponseEntity<List<ClinicBasicDTO>>(clinicsDTO, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('CLINIC_ADMIN')")
 	@GetMapping(path = "/getIncome/{startDate}/{endDate}/{clinicId}")
 	public ResponseEntity<Double> getIncome(@PathVariable Date startDate, @PathVariable Date endDate, @PathVariable Long clinicId) {
 		System.out.println(startDate);

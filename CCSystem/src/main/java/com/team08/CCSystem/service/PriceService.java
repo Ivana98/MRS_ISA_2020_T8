@@ -125,4 +125,16 @@ public class PriceService {
 		return new ResponseEntity<>(fullPriceDTO, HttpStatus.OK);
 	}
 
+	/**
+	 * @param clinicId
+	 * @param valueOf
+	 * @param specialisation
+	 * @return
+	 */
+	public Price findByClinicIdInterventionTypeAndSpecialisation(Long clinicId, InterventionType it,
+			Specialisation specialisation) { 
+		
+		return priceRepository.findByClinicIdInterventionTypeAndSpecialisation(clinicId, it, specialisation);
+	}
+
 }

@@ -17,7 +17,7 @@ export class DisplayMedicalRoomsComponent implements OnInit, AfterViewInit {
   previous: any = [];
   searchText: string = ''; 
   previousearch: string;
-  medical_room: MedicalRoom = new MedicalRoom(null, "", "", 0);
+  medical_room: MedicalRoom = new MedicalRoom(null, "", "EXAMINATION", 0);
 
   rooms: Array<MedicalRoom> = [];
   interventionType: string;
