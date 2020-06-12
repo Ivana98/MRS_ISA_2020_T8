@@ -1,5 +1,6 @@
 package com.team08.CCSystem.model;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -57,6 +58,9 @@ public abstract class User implements UserDetails {
 	
 	@Column(name = "enabled")
     private boolean enabled;
+	
+	@Column(name = "last_password_reset_date")
+    private Timestamp lastPasswordResetDate;
 	
 	@Column(nullable = false)
 	 private Boolean deleted;
@@ -174,6 +178,14 @@ public abstract class User implements UserDetails {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	
+	public Timestamp getLastPasswordResetDate() {
+		return lastPasswordResetDate;
+	}
+
+	public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
+		this.lastPasswordResetDate = lastPasswordResetDate;
 	}
 
 	@JsonIgnore
