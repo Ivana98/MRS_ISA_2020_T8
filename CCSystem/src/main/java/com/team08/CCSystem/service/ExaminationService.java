@@ -399,8 +399,14 @@ public class ExaminationService {
 	 * @return true for approved examination
 	 */
 	public ResponseEntity<Boolean> approveExaminationRequest(ApprovedExaminationRequestDTO dto) {
-
+		
 		Examination examination = findOne(dto.getId());
+		
+		if (dto.getNewDate() != null) {
+			examination.setDate(dto.getNewDate());
+		}
+
+		
 		MedicalRoom room = medicalRoomService.findOne(dto.getMedicalRoomId());
 		
 		examination.setMedicalRoom(room);
@@ -409,7 +415,7 @@ public class ExaminationService {
 		
 		// mail for doctor who requested for examination
 		emailService.sendMail("mrsisa.t8@gmail.com", "Examination request", "Request for patient is approved: \n" + examination.getPatient());
-		//TODO: obavestiti i pacijenta
+		emailService.sendMail("mrsisa.t8@gmail.com", "Examination response", "Request for examination is approved. \n");
 		
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}

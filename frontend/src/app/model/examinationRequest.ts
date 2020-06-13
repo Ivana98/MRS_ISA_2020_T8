@@ -48,6 +48,7 @@ export class ApprovedExaminationRequest {
     constructor(
         public id: number,
         public medicalRoomId: number,
-        public clinicId: number
+        public clinicId: number,
+        public newDate: Date
     ) {} 
 }

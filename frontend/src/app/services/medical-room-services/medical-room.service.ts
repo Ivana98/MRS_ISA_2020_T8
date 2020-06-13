@@ -72,4 +72,13 @@ export class MedicalRoomService {
     return this._httpClient.get<Array<MedicalRoom>>(this._url + "findFreeRoomsForExaination/" + examinationId + "/" + this._loginService.currentUser.clinicId);
   }
 
+  /**
+   * 
+   * @param examinationId 
+   * @param newDate 
+   */
+  public findFreeRoomsForExainationAndNewDate(examinationId, newDate) {
+    return this._httpClient.get<Array<MedicalRoom>>(this._url + "findFreeRoomsForExainationAndNewDate/" + examinationId + "/" + newDate + "/" + this._loginService.currentUser.clinicId);
+  }
+
 }

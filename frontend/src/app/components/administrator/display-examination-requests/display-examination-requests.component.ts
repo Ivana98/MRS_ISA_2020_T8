@@ -23,7 +23,7 @@ export class DisplayExaminationRequestsComponent implements OnInit {
   examinations: Array<ExaminationRequestDisplay> = [];
   examinations2: Array<ExaminationRequestDisplay2> = [];
   choosenRequestedExamination: ExaminationRequestDisplay2 = new ExaminationRequestDisplay2(-1, -1, -1, "", "", "", -1, "", "", "", "");
-  approvedRequestedExamination: ApprovedExaminationRequest = new ApprovedExaminationRequest(-1, -1, -1);
+  approvedRequestedExamination: ApprovedExaminationRequest = new ApprovedExaminationRequest(-1, -1, -1, null);
 
   freeRooms: Array<MedicalRoom> = [];
   choosenRoom: MedicalRoom = new MedicalRoom(-1, "", "", -1);
@@ -31,6 +31,14 @@ export class DisplayExaminationRequestsComponent implements OnInit {
   showRooms: boolean = false;
   showDateAndTime: boolean = true;
   canApprove: boolean = false;
+
+  date = new Date();
+  time: string;
+  /*
+    this.date.setHours(Number(this.time.substring(0,2)));
+    this.date.setMinutes(Number(this.time.substring(3,5)));
+    this.date.setSeconds(0);
+   */
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -53,20 +61,50 @@ export class DisplayExaminationRequestsComponent implements OnInit {
   }
 
   /**
+   * Find free rooms
    * 
    * @param data is ExaminationRequestDisplay2
    */
   getRow(data) {
     this.choosenRequestedExamination = data;
+    this.approvedRequestedExamination.newDate = null;
+    
+    this.findFreeRooms();
+  }
 
-    this._httpMedicalRoomService.findFreeRoomsForExaination(data.id)
+  findFreeRooms() {
+    this._httpMedicalRoomService.findFreeRoomsForExaination(this.choosenRequestedExamination.id)
       .subscribe(data => {
         this.freeRooms = data;
-        if (data.length == 0) {
-          this.showDateAndTime = true;
-        }
+        if (data.length == 0) this.showDateAndTime = true;
+        else this.showDateAndTime = false;
       });
+
     this.showRooms = true;
+  }
+
+  /**
+   * 
+   */
+  changeDate() {
+    this.approvedRequestedExamination.newDate = this.date;
+    this.findFreeRoomsNewDate();
+  }
+
+  /**
+   * 
+   */
+  findFreeRoomsNewDate() {
+    this.date.setHours(Number(this.time.substring(0,2)));
+    this.date.setMinutes(Number(this.time.substring(3,5)));
+    this.date.setSeconds(0);
+
+    this._httpMedicalRoomService.findFreeRoomsForExainationAndNewDate(this.choosenRequestedExamination.id, this.date)
+      .subscribe(data => {
+        this.freeRooms = data;
+        if (data.length == 0) this.showDateAndTime = true;
+        else this.showDateAndTime = false;
+      });
   }
 
   /**
@@ -87,7 +125,7 @@ export class DisplayExaminationRequestsComponent implements OnInit {
 
     this._httpExaminationService.approveRequestedExamination(this.approvedRequestedExamination)
       .subscribe(response => {
-        if (response == true) alert("You successfuly denied examination request.");
+        if (response == true) alert("You successfuly approved examination request.");
         else alert("Something is wrong.");
       });
   }
