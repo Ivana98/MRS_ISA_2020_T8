@@ -3,8 +3,11 @@
  */
 package com.team08.CCSystem.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -54,6 +57,23 @@ public class HelperService {
 		cal.add(Calendar.MINUTE, duration);
 		
 		return new Date(cal.getTimeInMillis());
+	}
+
+	/**
+	 * @param startDate
+	 * @param days - plus or minus days on date
+	 * @return date
+	 */
+	public Date addDaysToDate(Date date, int days) {
+		Calendar calendar = GregorianCalendar.getInstance();
+		calendar.setTime(date);
+		
+		Date datePlusDays;
+		
+		calendar.add(Calendar.DATE, days);
+		datePlusDays = calendar.getTime();
+		
+		return datePlusDays;
 	}
 
 }

@@ -52,6 +52,9 @@ public class ExaminationService {
 	@Autowired
 	private MedicalRoomService medicalRoomService;
 	
+	@Autowired
+	private HelperService helperService;
+	
 	
 	public Examination findOne(Long id) {
 		return examinationRepository.findById(id).orElseGet(null);
@@ -327,12 +330,7 @@ public class ExaminationService {
 		
 		// check if doctor is bussy
 		Date startDate = dto.getDate();
-		
-		Calendar calendar = GregorianCalendar.getInstance();
-		calendar.setTime(startDate);
-		
-		calendar.add(Calendar.MINUTE, price.getExaminationType().getDuration());
-		Date endDate = calendar.getTime();
+		Date endDate = helperService.getDatePlusDuration(startDate, price.getExaminationType().getDuration());
 		
 		boolean isDoctorBussy = doctorService.isDoctorBussy(startDate, endDate, doctor.getId());
 		
