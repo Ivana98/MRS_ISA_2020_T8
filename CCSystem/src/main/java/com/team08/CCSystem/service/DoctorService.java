@@ -4,6 +4,9 @@
 package com.team08.CCSystem.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +28,13 @@ public class DoctorService {
 
 	@Autowired
 	private DoctorRepository doctorRepository;
+	
+	@Autowired
+	private ExaminationService examinationService;
+	
+	@Autowired
+	private HelperService helperService;
+	
 	
 	public Doctor findOne(Long id) {
 		return doctorRepository.findById(id).orElseGet(null);
@@ -88,6 +98,33 @@ public class DoctorService {
 		}
 		doctor.setAverageMark(sum/numberOfMarks);
 		doctorRepository.save(doctor);
+	}
+
+	/**
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public boolean isDoctorBussy(Date startDate, Date endDate, Long doctorId) {
+
+		List<Examination> examinations = new ArrayList<>();
+		
+		Date startSearchDate = helperService.addDaysToDate(startDate, -2);
+		Date endSearchDate = helperService.addDaysToDate(startDate, 2);
+		
+		examinations = examinationService.findExaminationsBetweenDatesAndDoctorId(startSearchDate, endSearchDate, doctorId);
+		
+		// iterate over examinations and check if doctor is busy
+		for (Examination examination : examinations) {
+			Date startExaminationDate = examination.getDate();
+			Date endExaminationDate = helperService.getDatePlusDuration(startExaminationDate, examination.getPrice().getExaminationType().getDuration());
+			
+			boolean isRoomTaken = helperService.areDatesOverlap(startExaminationDate, endExaminationDate, startDate, endDate);
+			
+			if (isRoomTaken) return true;
+		}
+		
+		return false;
 	}
 	
 }

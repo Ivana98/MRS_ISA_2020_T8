@@ -77,7 +77,7 @@ public class MedicalRecordExaminationDTO {
 		this.staticPrice = examination.getStaticPrice();
 		this.doctorName = examination.getDoctor().getName();
 		this.doctorSurname = examination.getDoctor().getSurname();
-		this.roomNumber = examination.getMedicalRoom().getRoomNumber();
+		try { this.roomNumber = examination.getMedicalRoom().getRoomNumber(); } catch (Exception e) {}
 		this.wasOnExamination = examination.getWasOnExamination();
 		this.diseases = createDiseaseDTOList(examination.getDiseases());
 		this.prescriptions = createPrescriptionsDTOList(examination.getPrescriptions());

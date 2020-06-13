@@ -65,7 +65,11 @@ export class MedicalRoomService {
    * @param id is room id
    */
   public getAllAppointmentsOfRoom(id) {
-    return this._httpClient.get<Array<StartEndDate>>(this._url + "getAllAppointmentsOfRoom/" + id)
+    return this._httpClient.get<Array<StartEndDate>>(this._url + "getAllAppointmentsOfRoom/" + id);
+  }
+
+  public findFreeRoomsForExaination(examinationId) {
+    return this._httpClient.get<Array<MedicalRoom>>(this._url + "findFreeRoomsForExaination/" + examinationId + "/" + this._loginService.currentUser.clinicId);
   }
 
 }

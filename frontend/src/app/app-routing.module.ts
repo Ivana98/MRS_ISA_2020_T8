@@ -37,6 +37,7 @@ import { AbsencesComponent } from './components/administrator/absences/absences.
 import { ClinicAdminGuard } from './guard/clinic-admin.guard';
 import { StartExaminationComponent } from './components/doctor/start-examination/start-examination.component';
 import { DoctorGuard } from './guard/doctor.guard';
+import { DisplayExaminationRequestsComponent } from './components/administrator/display-examination-requests/display-examination-requests.component';
 
 
 const routes: Routes = [
@@ -71,7 +72,8 @@ const routes: Routes = [
       { path: 'displayCalendar', component: CalendarComponent },
       { path: 'absence', component: AbsenceComponent },
       { path: 'absences', component: AbsencesComponent, canActivate: [ClinicAdminGuard] },
-      { path: 'start-examination', component: StartExaminationComponent, canActivate: [DoctorGuard] }
+      { path: 'start-examination', component: StartExaminationComponent, canActivate: [DoctorGuard] },
+      { path: 'displayExaminationRequests', component: DisplayExaminationRequestsComponent, canActivate: [ClinicAdminGuard] }
     ]
   },
   { path: 'nurse', component: UserPageComponent ,
@@ -113,5 +115,6 @@ export const routingComponents = [
   CalendarComponent,
   AbsenceComponent,
   AbsencesComponent,
-  StartExaminationComponent
+  StartExaminationComponent,
+  DisplayExaminationRequestsComponent
 ]

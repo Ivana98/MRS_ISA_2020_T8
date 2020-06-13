@@ -125,5 +125,12 @@ public class MedicalRoomControler {
 		
 		return medicalRoomService.getAllAppointments(id);
 	}
+	
+	
+	@GetMapping(value = "/findFreeRoomsForExaination/{examinationId}/{clinicId}")
+	public ResponseEntity<List<MedicalRoomDTO>> findFreeRoomsForExaination(@PathVariable Long examinationId, @PathVariable Long clinicId) {
+		
+		return medicalRoomService.findFreeRoomsForExaination(examinationId, clinicId);
+	}
 
 }
