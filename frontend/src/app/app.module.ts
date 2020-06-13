@@ -76,6 +76,7 @@ import { ChangePasswordGuard } from './guard/change-password.guard';
 import { AbsencesComponent } from './components/administrator/absences/absences.component';
 import { StartExaminationComponent } from './components/doctor/start-examination/start-examination.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FilterClinicsComponent } from './components/patient/filter-clinics/filter-clinics.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AbsenceComponent,
     ChangePasswordComponent,
     AbsencesComponent,
-    StartExaminationComponent
+    StartExaminationComponent,
+    FilterClinicsComponent
   ],
   imports: [
     BrowserModule,
