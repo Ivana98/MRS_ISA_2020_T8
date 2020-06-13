@@ -4,7 +4,9 @@
 package com.team08.CCSystem.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
 
@@ -106,19 +108,21 @@ public class DoctorService {
 	public boolean isDoctorBussy(Date startDate, Date endDate, Long doctorId) {
 
 		List<Examination> examinations = new ArrayList<>();
-		examinations = examinationService.findExaminationsBetweenDatesAndDoctorId(startDate, endDate, doctorId);
 		
-		/*
-		 * idem kroz preglede.
-		 * za svaki pregled proveravam
-		 */
+		Date startSearchDate = helperService.addDaysToDate(startDate, -2);
+		Date endSearchDate = helperService.addDaysToDate(startDate, 2);
 		
+		examinations = examinationService.findExaminationsBetweenDatesAndDoctorId(startSearchDate, endSearchDate, doctorId);
+		
+		// iterate over examinations and check if doctor is busy
 		for (Examination examination : examinations) {
 			Date startExaminationDate = examination.getDate();
 			Date endExaminationDate = helperService.getDatePlusDuration(startExaminationDate, examination.getPrice().getExaminationType().getDuration());
+			
 			boolean isRoomTaken = helperService.areDatesOverlap(startExaminationDate, endExaminationDate, startDate, endDate);
+			
+			if (isRoomTaken) return true;
 		}
-		
 		
 		return false;
 	}
