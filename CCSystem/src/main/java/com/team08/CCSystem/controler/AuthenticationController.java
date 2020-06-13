@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,29 +119,29 @@ public class AuthenticationController {
 	    }
 	     
 	    Patient patient = verificationToken.getPatient();
-	    Calendar cal = Calendar.getInstance();/*
+	    Calendar cal = Calendar.getInstance();
 	    if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-	        //auth.message.expired"
-	        return "redirect:/badUser.html?lang=" ;
-	    } */
+	    	result.put("result", "Verification token expired.");
+			return ResponseEntity.badRequest().body(result);
+	    } 
 	     
 	    patient.setEnabled(true); 
 	    Authority auth = authorityRepository.findByName("ROLE_PATIENT");
 	    patient.addAuthorityToUser(auth);
 	    patientService.save(patient); 
-	    System.out.println("stigao je dovde");
+	    
 	    result.put("result", "Successfull activation of your new profile. Now you can login.");
 		return ResponseEntity.badRequest().body(result);
 	}
 
-/*
+
 	// U slucaju isteka vazenja JWT tokena, endpoint koji se poziva da se token osvezi
 	@PostMapping(value = "/refresh")
 	public ResponseEntity<UserTokenState> refreshAuthenticationToken(HttpServletRequest request) {
 
 		String token = tokenUtils.getToken(request);
 		String username = this.tokenUtils.getUsernameFromToken(token);
-		User user = (User) this.userDetailsService.loadUserByUsername(username);
+		User user = (User) this.userService.loadUserByUsername(username);
 
 		if (this.tokenUtils.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
 			String refreshedToken = tokenUtils.refreshToken(token);
@@ -152,6 +153,6 @@ public class AuthenticationController {
 			return ResponseEntity.badRequest().body(userTokenState);
 		}
 	}
-*/
+
 
 }

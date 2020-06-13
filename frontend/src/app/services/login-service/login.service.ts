@@ -11,15 +11,11 @@ import { UserProfile } from 'src/app/model/userProfile';
 export class LoginService {
 
   private _getUserInfoUrl = "http://localhost:8080/api/users/returnCurrentUser";
-  //private apiService: ApiService;
+  private _refresh_token_url = "http://localhost:8080/auth/refresh";
+
   currentUser;
 
   constructor(private _apiService: ApiService) { }
-  /*
-  public userLogin(userData){
-    return this._httpClient.post<UserLogin>(this._url, userData);
-  }
-  */
 
   updateCurrentUser(name: string, surname: string){
     this.currentUser.name = name;
@@ -33,4 +29,23 @@ export class LoginService {
         return user;
       }));
   }
+
+  initUser() {
+    const promise = this._apiService.get(this._refresh_token_url).toPromise()
+      .then(res => {
+        if (res.access_token !== null) {
+          return this.getMyInfo().toPromise()
+            .then(user => {
+              this.currentUser = user;
+            });
+        }
+      })
+      .catch(() => null);
+    return promise;
+  }
+
+  setupUser(user) {
+    this.currentUser = user;
+  }
+
 }
