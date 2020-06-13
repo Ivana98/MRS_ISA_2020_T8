@@ -15,10 +15,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.team08.CCSystem.dto.ApprovedExaminationRequestDTO;
 import com.team08.CCSystem.dto.ExaminationRequestDTO;
+import com.team08.CCSystem.dto.ExaminationRequestDisplayDTO;
 import com.team08.CCSystem.dto.MedicalRecordExaminationDTO;
 import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Examination;
+import com.team08.CCSystem.model.MedicalRoom;
 import com.team08.CCSystem.model.Patient;
 import com.team08.CCSystem.model.Price;
 import com.team08.CCSystem.model.enums.InterventionType;
@@ -45,6 +48,9 @@ public class ExaminationService {
 	
 	@Autowired
 	private EmailServiceImpl emailService;
+	
+	@Autowired
+	private MedicalRoomService medicalRoomService;
 	
 	
 	public Examination findOne(Long id) {
@@ -319,12 +325,95 @@ public class ExaminationService {
 		examiantion.setWasOnExamination(false);
 		examiantion.setStaticPrice(examiantion.countStaticPrice());
 		
+		// check if doctor is bussy
+		Date startDate = dto.getDate();
+		
+		Calendar calendar = GregorianCalendar.getInstance();
+		calendar.setTime(startDate);
+		
+		calendar.add(Calendar.MINUTE, price.getExaminationType().getDuration());
+		Date endDate = calendar.getTime();
+		
+		boolean isDoctorBussy = doctorService.isDoctorBussy(startDate, endDate, doctor.getId());
+		
+		// return null if doctor is bussy
+		if (isDoctorBussy) return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+		
 		save(examiantion);
 		
 		// send email notification to clinic admin
-		emailService.sendMail("mrsisa.t8@gmail.com", "Examination request", "You have one examination request to approve from: \n" + patient);
+		emailService.sendMail("mrsisa.t8@gmail.com", "Examination request", "You have one examination request to approve for: \n" + patient);
 		
 		return new ResponseEntity<>(new ExaminationRequestDTO(examiantion), HttpStatus.CREATED);
+	}
+
+	/**
+	 * @param clinicId
+	 * @return
+	 */
+	public ResponseEntity<List<ExaminationRequestDisplayDTO>> loadAllExaminationRequest(Long clinicId) {
+
+		List<Examination> examinations = new ArrayList<>();
+		
+		examinations = examinationRepository.findExaminationRequestFromClinic(clinicId);
+		
+		// create list of dto
+		List<ExaminationRequestDisplayDTO> examinationsDTO = new ArrayList<>();
+		for (Examination examination : examinations) {
+			System.out.println(new ExaminationRequestDisplayDTO(examination));
+			examinationsDTO.add(new ExaminationRequestDisplayDTO(examination));
+		}
+		
+		return new ResponseEntity<>(examinationsDTO, HttpStatus.OK);
+	}
+
+	/**
+	 * @param startDate
+	 * @param endDate
+	 * @param clinicId
+	 * @return
+	 */
+	public List<Examination> findExaminationsBetweenDatesAndClinicIdAndMedicalRoomNull(Date startDate, Date endDate,
+			Long clinicId) {
+
+		return examinationRepository.findExaminationsBetweenDatesAndClinicIdAndMedicalRoomNull(startDate, endDate, clinicId);
+	}
+
+	/**
+	 * @param dto
+	 * @return true if examination request is deleted
+	 */
+	public ResponseEntity<Boolean> denyExaminationRequest(Long id) {
+
+		Examination examination = findOne(id);
+		
+		remove(id);
+		
+		// mail for doctor who requested for examination
+		emailService.sendMail("mrsisa.t8@gmail.com", "Examination request", "Request for patient is denied: \n" + examination.getPatient());
+		//TODO: obavestiti i pacijenta
+		
+		return new ResponseEntity<>(true, HttpStatus.OK);
+	}
+
+	/**
+	 * @param dto
+	 * @return true for approved examination
+	 */
+	public ResponseEntity<Boolean> approveExaminationRequest(ApprovedExaminationRequestDTO dto) {
+
+		Examination examination = findOne(dto.getId());
+		MedicalRoom room = medicalRoomService.findOne(dto.getMedicalRoomId());
+		
+		examination.setMedicalRoom(room);
+		
+		save(examination);
+		
+		// mail for doctor who requested for examination
+		emailService.sendMail("mrsisa.t8@gmail.com", "Examination request", "Request for patient is approved: \n" + examination.getPatient());
+		//TODO: obavestiti i pacijenta
+		
+		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 
 }
