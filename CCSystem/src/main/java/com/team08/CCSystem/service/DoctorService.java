@@ -4,6 +4,7 @@
 package com.team08.CCSystem.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +26,13 @@ public class DoctorService {
 
 	@Autowired
 	private DoctorRepository doctorRepository;
+	
+	@Autowired
+	private ExaminationService examinationService;
+	
+	@Autowired
+	private HelperService helperService;
+	
 	
 	public Doctor findOne(Long id) {
 		return doctorRepository.findById(id).orElseGet(null);
@@ -88,6 +96,31 @@ public class DoctorService {
 		}
 		doctor.setAverageMark(sum/numberOfMarks);
 		doctorRepository.save(doctor);
+	}
+
+	/**
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public boolean isDoctorBussy(Date startDate, Date endDate, Long doctorId) {
+
+		List<Examination> examinations = new ArrayList<>();
+		examinations = examinationService.findExaminationsBetweenDatesAndDoctorId(startDate, endDate, doctorId);
+		
+		/*
+		 * idem kroz preglede.
+		 * za svaki pregled proveravam
+		 */
+		
+		for (Examination examination : examinations) {
+			Date startExaminationDate = examination.getDate();
+			Date endExaminationDate = helperService.getDatePlusDuration(startExaminationDate, examination.getPrice().getExaminationType().getDuration());
+			boolean isRoomTaken = helperService.areDatesOverlap(startExaminationDate, endExaminationDate, startDate, endDate);
+		}
+		
+		
+		return false;
 	}
 	
 }

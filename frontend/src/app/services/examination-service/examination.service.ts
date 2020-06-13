@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Examination } from 'src/app/model/examination';
 import { LoginService } from '../login-service/login.service';
 import { MedicalRecordExamination } from 'src/app/model/medicalRecordExamination';
-import { ExaminationRequest } from 'src/app/model/examinationRequest';
+import { ExaminationRequest, ExaminationRequestDisplay } from 'src/app/model/examinationRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -124,6 +124,31 @@ export class ExaminationService {
     examinationRequest.clinicId = this._loginService.currentUser.clinicId;
     
     return this._httpClient.post<ExaminationRequest>(this._url + "sendExaminationRequest", examinationRequest)
+  }
+
+  /**
+   * Load all examination request from clinic.
+   */
+  public loadAllExaminationRequest() {
+    return this._httpClient.get<Array<ExaminationRequestDisplay>>(this._url + "loadAllExaminationRequest/" + this._loginService.currentUser.clinicId);
+  }
+
+  /**
+   * 
+   * @param examinationRequest
+   */
+  public denyRequestedExamination(examinationRequest) {
+    return this._httpClient.put<Boolean>(this._url + "denyExaminationRequest", examinationRequest.id);
+  }
+
+  /**
+   * 
+   * @param examinationRequest 
+   */
+  public approveRequestedExamination(approvedRequestedExamination) {
+    approvedRequestedExamination.clinicId = this._loginService.currentUser.clinicId;
+    
+    return this._httpClient.put<Boolean>(this._url + "approveExaminationRequest", approvedRequestedExamination);
   }
 
 }

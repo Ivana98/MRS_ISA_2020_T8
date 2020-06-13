@@ -1,0 +1,112 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+          <div class="md-form">
+            <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput/>
+            <label for="search">Search</label>
+          </div>
+        </div>
+    </div>
+
+    <table mdbTable #tableEl="mdbTable" hover="true" class="table text-position z-depth-1">
+        <thead class="black white-text">
+            <tr>
+                <th>#</th>
+                <th [mdbTableSort]="examinations2" sortBy="doctorName">Doctor name&nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinations2" sortBy="doctorSurname">Doc. surname &nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinations2" sortBy="doctorSpecialisation">D. specialisation &nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinations2" sortBy="patientName">Patient name &nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinations2" sortBy="patientSurname">Pat. surname &nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinations2" sortBy="date">Date &nbsp;<i class="fas fa-sort"></i> </th>
+                <th [mdbTableSort]="examinations2" sortBy="interventionType">Intervention type &nbsp;<i class="fas fa-sort"></i> </th>
+                <th>Actions</th>
+            </tr>
+        </thead>   
+        <tbody>
+            <tr mdbTableCol *ngFor="let cl of examinations2; let i = index;" (click)="getRow(cl)">
+                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i + 1}}</th>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.doctorName}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.doctorSurname}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.doctorSpecialisation}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.patientName}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.patientSurname}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.date}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.interventionType}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot class="grey lighten-5 w-100">
+            <tr>
+                <td colspan="9">
+                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="examinations2"></mdb-table-pagination>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- FREE MEDICAL ROOMS -->
+    <div class="row" *ngIf="showRooms" style="padding-top: 4rem;">
+        <div class="col">
+            <table class="table table-hover table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Room number</th>
+                        <th scope="col">Intervention type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cl of freeRooms; let i = index;" (click)="getRow2(cl)">
+                        <th scope="row">{{ i+1 }}</th>
+                        <td>{{ cl.room_number }}</td>
+                        <td>{{ cl.intervention_type }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="showRooms" style="padding-top: 1rem;">
+        <div class="col">
+            <h3>Choosen room: {{ choosenRoom.room_number }}</h3>
+        </div>
+    </div>
+
+    <!-- APPROVE OR DENY BUTTONS -->
+    <div class="row" *ngIf="showRooms" style="padding-top: 1.7rem;">
+        <div class="col">
+            <button mat-raised-button color="primary" (click)="approve()" [disabled]="!canApprove">
+                Approve
+            </button>
+            <button mat-raised-button color="primary" (click)="deny()">
+                Deny
+            </button>
+        </div>
+    </div>
+
+
+    <!-- 
+        Mozemo da menjamo termin za sobu. ako promenimo termin salje se novi zahtev sa novim, izabranim, datumom 
+        i dobijamo nove sobe za taj datum.
+     -->
+
+     <!-- 
+         Mozemo da odaberemo i novog lekara zadate specijalizacije.
+      -->
+
+
+    <!-- 
+        Prikazacemo i tabelu sa svim sobama i njihovim prvim slobodnim datumima. odatle mozemo takodje da odaberemo sobu 
+        i za nju potvrdimo zahtev.
+     -->
+    <div class="row">
+        <div class="col">
+
+        </div>
+    </div>
+</div>

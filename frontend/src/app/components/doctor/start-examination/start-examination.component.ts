@@ -63,9 +63,8 @@ export class StartExaminationComponent implements OnInit {
 
     this._httpExaminationService.sendExaminationRequest(this.examinationRequest)
       .subscribe(response => {
-        if (response != null) {
-          alert("You successfuly sent request.");
-        }
+        if (response != null) alert("You successfuly sent request.");
+        else alert("Doctor is bussy at this time.");
       });
   }
 
