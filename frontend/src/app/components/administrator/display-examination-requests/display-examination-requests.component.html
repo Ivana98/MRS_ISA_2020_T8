@@ -116,25 +116,10 @@
             <button mat-raised-button color="primary" (click)="approve()" [disabled]="!canApprove">
                 Approve
             </button>
-            <button mat-raised-button color="primary" (click)="deny()">
+            <button mat-raised-button color="primary" (click)="deny()" [disabled]="!canDeny">
                 Deny
             </button>
         </div>
     </div>
 
-
-    <!-- 
-        Mozemo da menjamo termin za sobu. ako promenimo termin salje se novi zahtev sa novim, izabranim, datumom 
-        i dobijamo nove sobe za taj datum.
-     -->
-
-    <!-- 
-        Prikazacemo i tabelu sa svim sobama i njihovim prvim slobodnim datumima. odatle mozemo takodje da odaberemo sobu 
-        i za nju potvrdimo zahtev.
-     -->
-    <div class="row">
-        <div class="col">
-
-        </div>
-    </div>
 </div>

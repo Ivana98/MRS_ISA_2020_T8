@@ -96,6 +96,8 @@ export class NewAppointmentComponent implements OnInit, AfterViewInit {
   //this will be current user when login done
   currentUser = new UserProfile(1, "", "", "", "", "", "", "", "");
 
+  isChangeHidden = true;
+
   constructor(
     private cdRef: ChangeDetectorRef,
     private _httpDoctorService: DoctorService,
@@ -523,8 +525,14 @@ export class NewAppointmentComponent implements OnInit, AfterViewInit {
    * @param examination is Examination
    */
   takeExamination(examination) {
-    this.examinationChange = examination
+    
+    // if click twice on edit, hide edit form
+    if (this.examinationChange.id == examination.id) this.isChangeHidden = (!this.isChangeHidden);
+    // show change form
+    else this.isChangeHidden = false;
 
+    this.examinationChange = examination
+  
     $('#doctorInputChange').val(examination.doctorName);
     $('#roomInputChange').val(examination.roomNumber);
     $('#dateInputChange').val(formatDate(examination.date, 'MM/dd/yyyy', 'en-US'));

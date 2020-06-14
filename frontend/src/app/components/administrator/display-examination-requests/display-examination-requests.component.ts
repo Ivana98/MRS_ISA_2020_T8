@@ -31,6 +31,7 @@ export class DisplayExaminationRequestsComponent implements OnInit {
   showRooms: boolean = false;
   showDateAndTime: boolean = true;
   canApprove: boolean = false;
+  canDeny: boolean = false;
 
   date = new Date();
   time: string;
@@ -114,6 +115,7 @@ export class DisplayExaminationRequestsComponent implements OnInit {
   getRow2(data) {
     this.choosenRoom = data;
     this.canApprove = true;
+    this.canDeny = true;
   }
 
   /**
@@ -125,7 +127,13 @@ export class DisplayExaminationRequestsComponent implements OnInit {
 
     this._httpExaminationService.approveRequestedExamination(this.approvedRequestedExamination)
       .subscribe(response => {
-        if (response == true) alert("You successfuly approved examination request.");
+        if (response == true) {
+          alert("You successfuly approved examination request.");
+
+          this.clearExaminationRequestAndFreeRooms();
+
+          this.disableButtons()
+        }
         else alert("Something is wrong.");
       });
   }
@@ -136,9 +144,37 @@ export class DisplayExaminationRequestsComponent implements OnInit {
   deny() {
     this._httpExaminationService.denyRequestedExamination(this.choosenRequestedExamination)
       .subscribe(response => {
-        if (response == true) alert("You successfuly denied examination request.");
+        if (response == true) {
+          alert("You successfuly denied examination request.");
+
+          this.clearExaminationRequestAndFreeRooms();
+
+          this.disableButtons();
+        }
         else alert("Something is wrong.");
       });
+  }
+
+  /**
+   * Disable approve and deny button.
+   */
+  disableButtons() {
+    this.canApprove = false;
+    this.canDeny = false;
+  }
+
+  /**
+   * 
+   */
+  clearExaminationRequestAndFreeRooms() {
+
+    // delete approved request from list
+    this.examinations2.forEach( (item, index) => {
+      if(item.id === this.choosenRequestedExamination.id) this.examinations2.splice(index,1);
+    });
+
+    // clear free rooms
+    this.freeRooms = [];
   }
 
   ngAfterViewInit() {

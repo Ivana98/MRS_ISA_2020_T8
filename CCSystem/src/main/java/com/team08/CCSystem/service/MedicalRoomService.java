@@ -78,13 +78,12 @@ public class MedicalRoomService {
 		List<Examination> examinations = examinationService.findExaminationWithRoomIdAndAfterDate(id, new Date());
 		System.out.println("Velicina liste: " + examinations.size());
 		
+		// If there isn't examinations in future, delete room. 
 		if (examinations.isEmpty() || examinations == null || examinations.size() == 0) {
-			// If there isn't examinations in future, delete room.
 			remove(id);
 			return new ResponseEntity<>(true, HttpStatus.OK);
 		} else {
-			System.out.println("Usao ovde haha");
-			return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(false, HttpStatus.OK);
 		}
 	}
 	

@@ -97,7 +97,7 @@ public class PriceService {
 			return new ResponseEntity<>(true, HttpStatus.OK);
 		} else {
 			System.out.println("Cannot delete price because there is examinations in future with this price.");
-			return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(false, HttpStatus.OK);
 		}
 	}
 

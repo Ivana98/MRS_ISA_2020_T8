@@ -153,8 +153,12 @@ export class DisplayExaminationTypesComponent implements OnInit {
    * @param et is FullPrice object selected from table
    */
   editET(et) {
+    
+    // if click twice on edit, hide edit form
+    if (this.priceToChange.id == et.id) this.isChangeHidden = (!this.isChangeHidden);
     // show change form
-    this.isChangeHidden = false;
+    else this.isChangeHidden = false;
+
     this.priceToChange = et;
 
     // hours
@@ -209,6 +213,8 @@ export class DisplayExaminationTypesComponent implements OnInit {
 
           // set row number in bottom of table (pagination)
           this.mdbTable.setDataSource(this.ETList);
+        } else {
+          alert("ET (price) is not deleted. There are examination/s with this examination type.")
         }
       });
   }

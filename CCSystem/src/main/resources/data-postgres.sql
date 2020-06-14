@@ -62,7 +62,7 @@ insert into price (price, discount, examination_type_id, clinic_id, deleted) val
 insert into price (price, discount, examination_type_id, clinic_id, deleted) values (65000, 0, 10, 1, false);
 
 insert into examination (date, description, static_price, was_on_examination, doctor_id, price_id, medical_room_id, patient_id, deleted) values ('2020-04-26 07:00', 'Obican rutinski pregled', 1250.0, true,  4, 1, 1, 2, false);
-insert into examination (date, description, static_price, was_on_examination, doctor_id, price_id, medical_room_id, patient_id, deleted) values ('2020-06-26 07:00', 'Obican rutinski pregled', 1250.0, false, 4, 1, 2, null, false);
+insert into examination (date, description, static_price, was_on_examination, doctor_id, price_id, medical_room_id, patient_id, deleted) values ('2020-06-26 07:00', 'Obican rutinski pregled', 1253.0, false, 4, 1, 2, null, false);
 insert into examination (date, description, static_price, was_on_examination, doctor_id, price_id, medical_room_id, patient_id, deleted) values ('2020-06-26 07:05', 'Obican rutinski pregled', 1250.0, false, 4, 1, null, 2, false);
 
 insert into medication (description, name, deleted) values ('Za muskarce, ne i decake...', 'Johnnie Walker', false);
