@@ -76,7 +76,7 @@ public class ExaminationControler {
 		
 		for (Examination examination : examinations) {
 			System.out.println(new ExaminationDTO(examination));
-			examinationsDTO.add(new ExaminationDTO(examination));//
+			examinationsDTO.add(new ExaminationDTO(examination)); 
 		}
 		
 		return new ResponseEntity<List<ExaminationDTO>>(examinationsDTO, HttpStatus.OK);

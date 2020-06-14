@@ -5,6 +5,7 @@ import { ICLinicToDisplay } from 'src/app/model/clinic';
 import { ClinicService } from 'src/app/services/clinic-service/clinic.service';
 import { EventEmitter } from 'protractor';
 import { NullTemplateVisitor } from '@angular/compiler';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class AddDoctorComponent implements OnInit {
 
   constructor(
     private httpDoctorService: DoctorService, 
-    private httpClinicService: ClinicService
+    private httpClinicService: ClinicService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -51,12 +53,12 @@ export class AddDoctorComponent implements OnInit {
       .subscribe(
         data => {
           alert("Doctor created successfully.");
+          this._router.navigate(['/user-page/displayDoctors']);
         }
       )
     } else {
       alert("Fill other inputs.");
     }
-
     
     
     /* clean input fields */

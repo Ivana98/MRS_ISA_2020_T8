@@ -3,6 +3,8 @@
  */
 package com.team08.CCSystem.dto;
 
+import java.util.Date;
+
 /**
  * @author Veljko
  *
@@ -12,16 +14,18 @@ public class ApprovedExaminationRequestDTO {
 	private Long id;
 	private Long medicalRoomId;
 	private Long clinicId;
+	private Date newDate;
 	
 	/**
 	 * @param id
 	 * @param medicalRoomId
 	 */
-	public ApprovedExaminationRequestDTO(Long id, Long medicalRoomId, Long clinicId) {
+	public ApprovedExaminationRequestDTO(Long id, Long medicalRoomId, Long clinicId, Date newDate) {
 		super();
 		this.id = id;
 		this.medicalRoomId = medicalRoomId;
 		this.clinicId = clinicId;
+		this.newDate = newDate;
 	}
 
 	/**
@@ -29,6 +33,14 @@ public class ApprovedExaminationRequestDTO {
 	 */
 	public ApprovedExaminationRequestDTO() {
 		super();
+	}
+
+	public Date getNewDate() {
+		return newDate;
+	}
+
+	public void setNewDate(Date newDate) {
+		this.newDate = newDate;
 	}
 
 	public Long getId() {

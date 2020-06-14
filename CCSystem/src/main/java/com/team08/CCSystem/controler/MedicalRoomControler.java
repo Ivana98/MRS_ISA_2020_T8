@@ -4,6 +4,7 @@
 package com.team08.CCSystem.controler;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,6 +132,12 @@ public class MedicalRoomControler {
 	public ResponseEntity<List<MedicalRoomDTO>> findFreeRoomsForExaination(@PathVariable Long examinationId, @PathVariable Long clinicId) {
 		
 		return medicalRoomService.findFreeRoomsForExaination(examinationId, clinicId);
+	}
+	
+	@GetMapping(value = "/findFreeRoomsForExainationAndNewDate/{examinationId}/{newDate}/{clinicId}")
+	public ResponseEntity<List<MedicalRoomDTO>> findFreeRoomsForExainationAndNewDate(@PathVariable Long examinationId, @PathVariable Date newDate, @PathVariable Long clinicId) {
+		
+		return medicalRoomService.findFreeRoomsForExainationAndNewDate(examinationId, newDate, clinicId);
 	}
 
 }

@@ -108,14 +108,14 @@ export class DisplayMedicalRoomsComponent implements OnInit, AfterViewInit {
   deleteRoom() {
     this._httpMedicalRoomService.deleteMedicalRoom(this.medical_room.id)
       .subscribe( data => {
-        console.log("Soba obrisana: " + data);
         if (data == true) {
+          alert("Room is deleted.");
 
           // delete room from table
           this.rooms.forEach( (item, index) => {
             if(item.id === this.medical_room.id) this.rooms.splice(index,1);
           });
-        }
+        } else alert("Thera are examinations in room, so you can not delete this room.");
       });
   }
 

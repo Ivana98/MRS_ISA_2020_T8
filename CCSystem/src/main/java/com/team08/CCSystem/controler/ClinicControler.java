@@ -72,9 +72,11 @@ public class ClinicControler {
 	@Autowired
 	private DoctorService doctorService;
 	
+	
 	@GetMapping(value = "/getOne/{id}")
-	private ResponseEntity<ClinicDTO> getOne(@PathVariable Long id) {
+	public ResponseEntity<ClinicDTO> getOne(@PathVariable Long id) {
 		
+		System.out.println(id);
 		Clinic clinic = clinicService.findOne(id);
 		
 		if (clinic == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -106,15 +108,15 @@ public class ClinicControler {
 		
 		ClinicalCenter clinicalCenter = clinicalCenterService.findOne(Long.valueOf(clinicDTO.getClinicalCenter_id()));
 		
-		Clinic clinic = new Clinic(null,clinicDTO.getName() , adr , clinicalCenter,new HashSet<MedicalRoom>() ,new HashSet<ClinicMark>(),new HashSet<Doctor>(),
-				new HashSet<Nurse>(),new HashSet<ClinicAdmin>(),0);
+//		Clinic clinic = new Clinic(null,clinicDTO.getName() , adr , clinicalCenter,new HashSet<MedicalRoom>() ,new HashSet<ClinicMark>(),new HashSet<Doctor>(),
+//				new HashSet<Nurse>(),new HashSet<ClinicAdmin>(),0);
 		
 		//Ovu liniju mozda staviti u metodu  serivsa.
-		clinicalCenter.getClinics().add(clinic);
+//		clinicalCenter.getClinics().add(clinic);
 		
 		clinicalCenterService.save(clinicalCenter);
 		
-		clinicService.save(clinic);
+//		clinicService.save(clinic);
 		
 		
 		return new ResponseEntity<>(clinicDTO , HttpStatus.CREATED);

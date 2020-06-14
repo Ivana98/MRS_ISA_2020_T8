@@ -68,6 +68,39 @@
                     </tr>
                 </tbody>
             </table>
+            <h3 *ngIf="showDateAndTime" style="padding-top: 1rem; padding-bottom: 1rem;">There is no free rooms for requested date. Choose another date or deny request.</h3>
+        </div>
+        <div class="col-4" *ngIf="showDateAndTime">
+            <div class="row">
+                <!-- DATE -->
+                <div class="col">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput [matDatepicker]="picker" [(ngModel)]="date" disabled>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi #picker ngDefaultControl [(ngModel)]="date" disabled="false"></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- TIME -->
+                <div class="col">
+                    <div class="md-form">
+                        <input type="time" id="input" class="form-control" value="13:00" mdbInput [(ngModel)]="time" />
+                        <label for="input">Choose time</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BUTTON TO CHANGE DATE -->
+            <div class="row">
+                <div class="col">
+                    <button mat-raised-button color="primary" (click)="changeDate()">
+                        Change date
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -83,30 +116,10 @@
             <button mat-raised-button color="primary" (click)="approve()" [disabled]="!canApprove">
                 Approve
             </button>
-            <button mat-raised-button color="primary" (click)="deny()">
+            <button mat-raised-button color="primary" (click)="deny()" [disabled]="!canDeny">
                 Deny
             </button>
         </div>
     </div>
 
-
-    <!-- 
-        Mozemo da menjamo termin za sobu. ako promenimo termin salje se novi zahtev sa novim, izabranim, datumom 
-        i dobijamo nove sobe za taj datum.
-     -->
-
-     <!-- 
-         Mozemo da odaberemo i novog lekara zadate specijalizacije.
-      -->
-
-
-    <!-- 
-        Prikazacemo i tabelu sa svim sobama i njihovim prvim slobodnim datumima. odatle mozemo takodje da odaberemo sobu 
-        i za nju potvrdimo zahtev.
-     -->
-    <div class="row">
-        <div class="col">
-
-        </div>
-    </div>
 </div>

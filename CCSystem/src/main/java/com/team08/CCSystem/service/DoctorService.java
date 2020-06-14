@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.team08.CCSystem.dto.DoctorAverageMarkDTO;
@@ -125,6 +127,52 @@ public class DoctorService {
 		}
 		
 		return false;
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public ResponseEntity<Void> deleteDoctorById(Long id) {
+		
+		if (id == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		boolean hasExamination = false;
+		
+		Doctor doctor = findOne(id);
+		
+		Date currentDate = new Date();
+
+		for (Examination examination : doctor.getExaminations()) {
+			if (examination.getDate().after(currentDate)) {
+				//doctor has examination in future so he cannot be deleted. 
+				hasExamination = true;
+			}
+		}
+		
+		if (doctor != null && !hasExamination) {
+			remove(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	} 
+
+	/**
+	 * @param doctorId
+	 * @return true if doctor has appointments in future
+	 */
+	public ResponseEntity<Boolean> checkIfDoctorHasAppointments(Long doctorId) {
+
+		List<Examination> examinations = new ArrayList<>();
+		examinations = examinationService.findAllExaminationsAfterDateAndDoctorId(new Date(), doctorId);
+		
+		if (examinations.size() == 0) 
+			return new ResponseEntity<>(false, HttpStatus.OK);
+		
+		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 	
 }

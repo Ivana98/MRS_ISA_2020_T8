@@ -6,6 +6,7 @@ import { MedicalRecordExamination } from 'src/app/model/medicalRecordExamination
 import { ExaminationService } from 'src/app/services/examination-service/examination.service';
 import { TransferPatientService } from 'src/app/services/transfer-patient-service/transfer-patient.service';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login-service/login.service';
 
 @Component({
   selector: 'app-display-patients',
@@ -38,7 +39,8 @@ export class DisplayPatientsComponent implements OnInit {
     private _httpPatientService: PatientService,
     private _httpExaminationService: ExaminationService,
     private _transferService: TransferPatientService,
-    private _router: Router
+    private _router: Router,
+    private _loginService: LoginService
   ) { }
 
   @HostListener('input') oninput() { this.searchItems(); } 
@@ -58,6 +60,8 @@ export class DisplayPatientsComponent implements OnInit {
    * @param data is choosen patient
    */
   getRow(data) {
+
+    // take clicked patient
     this.patientDisplay = data;
 
     this._httpExaminationService.checkIfDoctorCanOpenMedicalRecord(this.patientDisplay.id)
@@ -65,19 +69,41 @@ export class DisplayPatientsComponent implements OnInit {
         this.canSeeMedicalRecord = !data;
 
         if (data == true) {
-          this._httpExaminationService.loadPatientExaminations(this.patientDisplay.id)
-            .subscribe(response => {
-              this.examinations = response;
-            });
+          this.loadPatientExaminations();
+
+          this.canDoctorExaminatePatient();
 
           console.log("Moze da vidi karton.");
-        } else console.log("Ovaj doktor NE moze da vidi karton.");
+        } 
+        else if (this._loginService.currentUser.userAuthority == "ROLE_CLINIC_ADMIN") {
+          console.log("U pitanju je admin i moze da vidi karton");
+          this.loadPatientExaminations();
+          this.canSeeMedicalRecord = false;
+        } 
+        else console.log("Ovaj doktor NE moze da vidi karton.");
 
-        this._httpExaminationService.canDoctorExaminate(this.patientDisplay.id)
-          .subscribe(response => {
-            this.canDoExamination = !response;
-          });
+      });
+  }
 
+  /**
+   * Check if doctor can examinate chosen patient.
+   */
+  canDoctorExaminatePatient() {
+    this._httpExaminationService.canDoctorExaminate(this.patientDisplay.id)
+      .subscribe(response => {
+        this.canDoExamination = !response;
+      });
+  }
+
+  /**
+   * Load examinations of chosen patient.
+   * 
+   * @param patientId 
+   */
+  loadPatientExaminations() {
+    this._httpExaminationService.loadPatientExaminations(this.patientDisplay.id)
+      .subscribe(response => {
+        this.examinations = response;
       });
   }
 

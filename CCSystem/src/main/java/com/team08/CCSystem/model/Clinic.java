@@ -3,6 +3,8 @@
  */
 package com.team08.CCSystem.model;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -51,6 +53,12 @@ public class Clinic {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private ClinicalCenter clinicalCenter;
 	
+	@Column(name = "startTime", nullable = false)
+	private int startTime;
+	
+	@Column(name = "endTime", nullable = false)
+	private int endTime;
+	
 	@OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<MedicalRoom> rooms = new HashSet<>();
 	
@@ -87,13 +95,15 @@ public class Clinic {
 	 * @param admins
 	 * @param averageMark
 	 */
-	public Clinic(Long id, String name, Address address, ClinicalCenter clinicalCenter, Set<MedicalRoom> rooms,
+	public Clinic(Long id, String name, Address address, ClinicalCenter clinicalCenter, int startTime, int endTime, Set<MedicalRoom> rooms,
 			Set<ClinicMark> marks, Set<Doctor> doctors, Set<Nurse> nurses, Set<ClinicAdmin> admins, float averageMark) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.clinicalCenter = clinicalCenter;
+		this.startTime = startTime;
+		this.endTime = endTime;
 		this.rooms = rooms;
 		this.marks = marks;
 		this.doctors = doctors;
@@ -109,6 +119,28 @@ public class Clinic {
 	public Clinic() {
 		super();
 		this.deleted = true;
+	}
+	
+	public Date getTodayStartDateTime() {
+		Calendar cal = Calendar.getInstance();
+		
+    	cal.setTime(new Date());
+		cal.set(Calendar.HOUR_OF_DAY, this.startTime);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		
+		return cal.getTime();
+	}
+	
+	public Date getTodayEndDateTime() {
+		Calendar cal = Calendar.getInstance();
+		
+    	cal.setTime(new Date());
+		cal.set(Calendar.HOUR_OF_DAY, this.endTime);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		
+		return cal.getTime();
 	}
 
 	public Long getId() {
@@ -141,6 +173,22 @@ public class Clinic {
 
 	public void setClinicalCenter(ClinicalCenter clinicalCenter) {
 		this.clinicalCenter = clinicalCenter;
+	}
+
+	public int getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(int startTime) {
+		this.startTime = startTime;
+	}
+
+	public int getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(int endTime) {
+		this.endTime = endTime;
 	}
 
 	public Set<MedicalRoom> getRooms() {

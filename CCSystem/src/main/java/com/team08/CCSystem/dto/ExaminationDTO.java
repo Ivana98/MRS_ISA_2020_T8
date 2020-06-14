@@ -78,17 +78,17 @@ public class ExaminationDTO {
 		// description can be null if it is free examination
 		try { this.description = examination.getDescription(); } catch (Exception e) { }
 		
-//		this.discount = examination.getDiscount();
+		this.discount = examination.getPrice().getDiscount();
 		this.medicalRoomId = examination.getMedicalRoom().getId();
 		this.doctorId = examination.getDoctor().getId();
 		
-		// if it is free examination, then patient id is null
+		// if it is free examination, then patient id is null 
 		try { this.patientId = examination.getPatient().getId(); } catch (NullPointerException e) { }
 		
 		this.duration = examination.getPrice().getExaminationType().getDuration();
 		this.specialisation = examination.getPrice().getExaminationType().getSpecialisation().name();
 		this.interventionType = examination.getPrice().getExaminationType().getInterventionType().name();
-		this.price = examination.getPrice().getPrice();
+		this.price = examination.getStaticPrice();
 		this.priceId = examination.getPrice().getId();
 	}
 

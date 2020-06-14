@@ -10,11 +10,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Random;
+
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.team08.CCSystem.dto.ApprovedExaminationRequestDTO;
@@ -22,6 +25,7 @@ import com.team08.CCSystem.dto.ExaminationRequestDTO;
 import com.team08.CCSystem.dto.ExaminationRequestDisplayDTO;
 import com.team08.CCSystem.dto.MedicalRecordExaminationDTO;
 import com.team08.CCSystem.dto.OfferedAppointmentsDTO;
+import com.team08.CCSystem.model.Clinic;
 import com.team08.CCSystem.model.ClinicalCenterAdmin;
 import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Examination;
@@ -59,6 +63,9 @@ public class ExaminationService {
 	
 	@Autowired
 	private HelperService helperService;
+	
+	@Autowired
+	private ClinicService clinicService;
 	
 	@Autowired
 	private UserService userService;
@@ -117,7 +124,7 @@ public class ExaminationService {
 	}
 
 	/**
-	 * @param patientId
+	 * @param patientId  
 	 * @param doctorId
 	 * @return true if doctor did examination in past for patient
 	 */
@@ -417,8 +424,14 @@ public class ExaminationService {
 	 * @return true for approved examination
 	 */
 	public ResponseEntity<Boolean> approveExaminationRequest(ApprovedExaminationRequestDTO dto) {
-
+		
 		Examination examination = findOne(dto.getId());
+		
+		if (dto.getNewDate() != null) {
+			examination.setDate(dto.getNewDate());
+		}
+
+		
 		MedicalRoom room = medicalRoomService.findOne(dto.getMedicalRoomId());
 		
 		examination.setMedicalRoom(room);
@@ -427,7 +440,7 @@ public class ExaminationService {
 		
 		// mail for doctor who requested for examination
 		emailService.sendMail("mrsisa.t8@gmail.com", "Examination request", "Request for patient is approved: \n" + examination.getPatient());
-		//TODO: obavestiti i pacijenta
+		emailService.sendMail("mrsisa.t8@gmail.com", "Examination response", "Request for examination is approved. \n");
 		
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
@@ -485,6 +498,164 @@ public class ExaminationService {
 
 		
 		return new ResponseEntity<>(new OfferedAppointmentsDTO(), HttpStatus.CREATED);
+	}
+
+	// at 12:00 AM every day
+//    @Scheduled(cron="0 0 0 * * ?")
+    // at 30 seconds call to see what hapend
+//    @Scheduled(cron= "*/5 * * * * *")
+	/**
+	 * Automatsko dodeljivanje sale zahtevima za preglede u ponoc
+	 */
+	public void findExaminationsAndFreeRooms() {
+		
+    	List<Clinic> clinics = new ArrayList<Clinic>();
+    	clinics = clinicService.findAll();
+    	
+    	// unazad da bi prvo testirali kliniku 1
+    	for (int i = clinics.size() - 1; i >= 0; i--) {
+    		// because of some session error
+    		try { findExaminationsAndFreeRoomsFromClinic(clinics.get(i)); } catch (Exception e) {}
+    	}
+    	
+	}
+	
+	/**
+	 * @param id
+	 */
+	private void findExaminationsAndFreeRoomsFromClinic(Clinic clinic) {
+		
+		List<Examination> requestedExaminations = new ArrayList<Examination>();
+		requestedExaminations = examinationRepository.findAllRequestedExaminationsFromClinic(clinic.getId());
+		
+    	List<MedicalRoom> rooms = medicalRoomService.findAllByClinic(clinic.getId());
+    	
+    	Random rand = new Random();
+    	int rand_int1;
+    	
+    	List<Examination> allExaminations = new ArrayList<>();
+    	
+		Date startDateClinicTime = clinic.getTodayStartDateTime();  // start date time of clinic
+
+		for (Examination examination : requestedExaminations) {
+			
+			// assign random room for requested examination
+			rand_int1 = rand.nextInt(rooms.size());
+	    	MedicalRoom medicalRoom = rooms.get(rand_int1);
+	    	
+	    	// find all examinations with chosen room
+			allExaminations = examinationRepository.findAllExaminationsFromClinicAndRoomIdAfterDate(clinic.getId(), medicalRoom.getId(), startDateClinicTime);
+			
+			takeFreeTime(examination, medicalRoom, allExaminations, clinic);
+		}
+    	
+	}
+
+	/**
+	 * Prvo proveravamo sve preglede. kada u pregledima nadjemo slobodnu sobu, proveravamo da li je doktor zauzet.
+	 * Ako smo dosli do kraja liste pregleda, onda samo trazimo pregled kada je doktor slobodan.
+	 * 
+	 * @param examination to save with date and medical room
+	 * @param medicalRoom
+	 * @param allExaminations
+	 */
+	private void takeFreeTime(Examination examination, MedicalRoom medicalRoom, List<Examination> allExaminations, Clinic clinic) {
+		
+		Date startExaminationDate;
+		Date endExaminationDate;
+		
+		if (allExaminations.size() == 0) {
+			
+			startExaminationDate = findDoctorFirstFreeTimeAfterDate(clinic.getTodayStartDateTime());
+			
+			saveExaminationRoomAndStartDate(startExaminationDate, medicalRoom);
+		} else if (allExaminations.size() == 1) {
+			Date startClinicDate = clinic.getTodayStartDateTime();
+			Date startFirstExaminationDate = allExaminations.get(0).getDate();
+			Date endFirstExaminationDate = helperService.getDatePlusDuration(startFirstExaminationDate, allExaminations.get(0).getPrice().getExaminationType().getDuration());                      
+			
+			startExaminationDate = findDoctorFirstFreeTimeBetweenDates(startClinicDate, startFirstExaminationDate);
+			
+			if (startExaminationDate == null) {
+				startExaminationDate = findDoctorFirstFreeTimeAfterDate(endFirstExaminationDate);
+			}
+			
+			
+		} else {
+			
+			// look between these two dates
+			Date date1; Date date2;
+			
+			date1 = clinic.getTodayStartDateTime();
+			
+			for (Examination exam : allExaminations) {
+				date2 = exam.getDate();
+				
+				startExaminationDate = findDoctorFirstFreeTimeBetweenDates(date1, date2);
+				
+				if (startExaminationDate != null) {
+					saveExaminationRoomAndStartDate(startExaminationDate, medicalRoom);
+					break;
+				}
+				
+				date1 = helperService.getDatePlusDuration(date2, exam.getPrice().getExaminationType().getDuration());
+			}
+			
+			startExaminationDate = findDoctorFirstFreeTimeAfterDate(date1);
+			
+			saveExaminationRoomAndStartDate(startExaminationDate, medicalRoom);
+		}
+		
+	}
+
+	/**
+	 * @param startDate 
+	 * @param endDate
+	 * @return
+	 */
+	private Date findDoctorFirstFreeTimeBetweenDates(Date startDate, Date endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * @param startExaminationDate
+	 * @param medicalRoom
+	 */
+	private void saveExaminationRoomAndStartDate(Date startExaminationDate, MedicalRoom medicalRoom) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * @param date
+	 * @return
+	 */
+	private Date findDoctorFirstFreeTimeAfterDate(Date date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	// every second
+    @Scheduled(cron= "*/5 * * * * *")
+    public void printEverySecond() {
+    	
+    }
+    
+ // every minut
+    @Scheduled(cron= "0 * * * * *")
+    public void printEveryMinute() {
+    	
+    }
+
+	/**
+	 * @param date
+	 * @param doctorId
+	 * @return
+	 */
+	public List<Examination> findAllExaminationsAfterDateAndDoctorId(Date date, Long doctorId) {
+		
+		return examinationRepository.findAllExaminationsAfterDateAndDoctorId(date, doctorId);
 	}
 
 }

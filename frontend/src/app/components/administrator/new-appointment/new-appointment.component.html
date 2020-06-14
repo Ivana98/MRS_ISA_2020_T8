@@ -86,7 +86,7 @@
 
                     <!-- SPECIALISATION -->
                     <div class="row">
-                        <div class="col-4" style="padding-top: 0.1rem;">
+                        <div class="col-6" style="padding-top: 0.1rem;">
                             <div class="md-form">
                                 <mat-form-field>
                                     <mat-label>Specialisation</mat-label>
@@ -100,7 +100,7 @@
 
                     <!-- DOCTOR -->
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-6">
                             <form class="example-form">
                                 <mat-form-field class="example-full-width">
                                     <input type="text" id="doctorInput"
@@ -121,7 +121,7 @@
 
                     <!-- ROOM -->
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-6">
                             <form class="example-form">
                                 <mat-form-field class="example-full-width">
                                     <input type="text"
@@ -142,7 +142,7 @@
 
                     <!-- DATE -->
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-6">
                             <mat-form-field class="example-full-width">
                                 <mat-label>Choose a date</mat-label>
                                 <input matInput [matDatepicker]="picker" [(ngModel)]="date" disabled>
@@ -154,7 +154,7 @@
 
                     <!-- TIME -->
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="md-form">
                                 <input type="time" id="input" class="form-control" value="13:00" mdbInput [(ngModel)]="time" />
                                 <label for="input">Choose time</label>
@@ -173,10 +173,10 @@
         
             <!-- MODIFY FREE APPOINTMENT DIALOG -->
             <div class="col">
-                <div class="container">
+                <div class="container" *ngIf="!isChangeHidden">
                     <!-- SPECIALISATION -->
                     <div class="row">
-                        <div class="col-4" style="padding-top: 0.1rem;">
+                        <div class="col-6" style="padding-top: 0.1rem;">
                             <div class="md-form">
                                 <mat-form-field>
                                     <mat-label>Specialisation</mat-label>
@@ -190,7 +190,7 @@
 
                     <!-- DOCTOR -->
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-6">
                             <form class="example-form">
                                 <mat-form-field class="example-full-width">
                                     <input type="text" id="doctorInputChange"
@@ -211,7 +211,7 @@
 
                     <!-- ROOM -->
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-6">
                             <form class="example-form">
                                 <mat-form-field class="example-full-width">
                                     <input type="text" id="roomInputChange"
@@ -232,7 +232,7 @@
 
                      <!-- DATE -->
                      <div class="row">
-                        <div class="col-4">
+                        <div class="col-6">
                             <mat-form-field class="example-full-width">
                                 <mat-label>Choose a date</mat-label>
                                 <input id="dateInputChange" matInput [matDatepicker]="pickerChange" [(ngModel)]="dateChange" disabled>
