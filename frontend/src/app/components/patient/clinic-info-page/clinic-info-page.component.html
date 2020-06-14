@@ -75,7 +75,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr mdbTableCol *ngFor="let dr of doctors; let i = index;" (click)="rowSelected(dr)" (click)="confirmModal.show()">
+      <tr mdbTableCol *ngFor="let dr of doctors; let i = index;" (click)="rowSelected(dr)" >
+        <div (click)="confirmModal.show()">
         <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">
           {{i + 1}}</th>
         <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{dr.firstName}}
@@ -90,6 +91,7 @@
         <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
           <div *ngIf="clinic.examinationPrice">{{clinic.examinationPrice}}</div>
         </td>
+      </div>
         <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
           <button type="button" mdbBtn (click)="rateDoctor(dr)" (click)="rateModal.show()" mdbWavesEffect
             class="bg-gradient-warning text-black relative waves-light btn-sm doctor-btn-position"
