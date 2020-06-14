@@ -7,7 +7,7 @@ public class OfferedAppointmentsDTO {
     private String examinationRoom;
     public String doctorsName; // name and surname
     public String examinationType; 
-    public double price;
+    public double price; //with discount
     public float discount;
 	public Date getDateOfExamination() {
 		return dateOfExamination;

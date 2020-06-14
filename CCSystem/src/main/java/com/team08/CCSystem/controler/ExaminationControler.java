@@ -32,6 +32,7 @@ import com.team08.CCSystem.dto.ExaminationDTO;
 import com.team08.CCSystem.dto.ExaminationRequestDTO;
 import com.team08.CCSystem.dto.ExaminationRequestDisplayDTO;
 import com.team08.CCSystem.dto.MedicalRecordExaminationDTO;
+import com.team08.CCSystem.dto.OfferedAppointmentsDTO;
 import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Examination;
 import com.team08.CCSystem.model.ExaminationType;
@@ -292,6 +293,15 @@ public class ExaminationControler {
 		int minutes = Integer.parseInt(duration.substring(3, 5));
 		int durationToReturn = hours * 60 + minutes;
 		return durationToReturn;
+	}
+	
+	@PreAuthorize("hasRole('PATIENT')")
+	@PostMapping(path = "/offeredAppointments") 
+	public ResponseEntity<List<OfferedAppointmentsDTO>> getOfferedAppointments(@RequestBody Long clinicId){
+		
+		List<OfferedAppointmentsDTO> list = new ArrayList<OfferedAppointmentsDTO>();
+		examinationService.converExaminToAppointment(list, clinicId);
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
 }

@@ -26,6 +26,7 @@ import com.team08.CCSystem.dto.ClinicDTO;
 import com.team08.CCSystem.dto.ClinicForTableDTO;
 import com.team08.CCSystem.dto.ClinicRegistrationDTO;
 import com.team08.CCSystem.dto.FilterClinicsDTO;
+import com.team08.CCSystem.dto.OfferedAppointmentsDTO;
 import com.team08.CCSystem.dto.SaveMarkDTO;
 import com.team08.CCSystem.dto.StartEndDateClinicIdDTO;
 import com.team08.CCSystem.model.Address;

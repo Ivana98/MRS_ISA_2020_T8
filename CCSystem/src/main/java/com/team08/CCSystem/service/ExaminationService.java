@@ -19,8 +19,10 @@ import com.team08.CCSystem.dto.ApprovedExaminationRequestDTO;
 import com.team08.CCSystem.dto.ExaminationRequestDTO;
 import com.team08.CCSystem.dto.ExaminationRequestDisplayDTO;
 import com.team08.CCSystem.dto.MedicalRecordExaminationDTO;
+import com.team08.CCSystem.dto.OfferedAppointmentsDTO;
 import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Examination;
+import com.team08.CCSystem.model.ExaminationType;
 import com.team08.CCSystem.model.MedicalRoom;
 import com.team08.CCSystem.model.Patient;
 import com.team08.CCSystem.model.Price;
@@ -412,6 +414,25 @@ public class ExaminationService {
 		//TODO: obavestiti i pacijenta
 		
 		return new ResponseEntity<>(true, HttpStatus.OK);
+	}
+	
+	public void converExaminToAppointment(List<OfferedAppointmentsDTO> list, Long clinicId) {
+		Date date = new Date(); //this is current date
+		List<Examination> examinations = examinationRepository.findAllFreeFromClinic(clinicId, date);
+		for(Examination e : examinations) {
+			OfferedAppointmentsDTO dto = new OfferedAppointmentsDTO();
+			double price = e.getPrice().getPrice();
+			float discount = e.getPrice().getDiscount();
+			ExaminationType examinType = e.getPrice().getExaminationType();
+			
+			dto.setDateOfExamination(e.getDate());
+			dto.setDiscount(discount);
+			dto.setDoctorsName(e.getDoctor().getName() + " " + e.getDoctor().getSurname());
+			dto.setExaminationRoom(e.getMedicalRoom().getRoomNumber());
+			dto.setExaminationType(examinType.getSpecialisation().toString() + " " + examinType.getInterventionType().toString());
+			dto.setPrice(price - price*discount);
+			list.add(dto);
+		}
 	}
 
 }

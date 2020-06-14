@@ -11,7 +11,7 @@ export class ListClinicsService {
   
   private _ulrListForTable: string = "http://localhost:8080/api/clinics/sendListForTable";
   private _ulrFilterClinics: string = "http://localhost:8080/api/clinics/filterClinics";
-  private _urlOfferedAppointments = "http://localhost:8080/api/clinics/offeredAppointments";
+  private _urlOfferedAppointments = "http://localhost:8080/api/examinations/offeredAppointments";
 
   constructor(private _httpClient:HttpClient, private _apiService: ApiService) {  }
 
