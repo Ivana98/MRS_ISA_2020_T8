@@ -1,5 +1,16 @@
+<!--search by examination date, time and examination type (doctor specialisation)-->
+<app-filter-clinics></app-filter-clinics>
 <!-- Table of clinics with sort options for each column and pagination-->
 <div class="container">
+    <div class="row d-flex justify-content-between">
+        <h2 class="padding-16">
+            <i class="fas fa-hospital"></i>&nbsp;<b>Table of clinics</b>
+        </h2>
+        <h2 data-toggle="tooltip" data-placement="bottom" title="Select clinic row for more details about it. Clinics with prices have available doctors according to the criteria you have searched for."> 
+        <i class="far fa-question-circle"></i>
+        </h2>
+    </div>
+
     <div class="row">
         <div class="col-md-12 mx-auto">
           <div class="md-form">
@@ -16,20 +27,24 @@
                 <th [mdbTableSort]="clinicList" sortBy="addressStreet">Street&nbsp;<i class="fas fa-sort"></i> </th>
                 <th [mdbTableSort]="clinicList" sortBy="addressCity">City&nbsp;<i class="fas fa-sort"></i></th>
                 <th [mdbTableSort]="clinicList" sortBy="averageMark">Average Mark&nbsp;<i class="fas fa-sort"></i></th>
+                <th [mdbTableSort]="clinicList" sortBy="examinationPrice">Examination price&nbsp;<i class="fas fa-sort"></i></th>
             </tr>
         </thead>
         <tbody>
-            <tr mdbTableCol *ngFor="let cl of clinicList; let i = index;" (click)="rowSelected(cl)">
+            <tr mdbTableCol *ngFor="let cl of clinicList; let i = index;" (click)="rowSelected(cl, i)">
                 <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{i + 1}}</th>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.name}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.addressStreet}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.addressCity}}</td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{cl.averageMark}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    <div *ngIf="cl.examinationPrice">{{cl.examinationPrice}}</div>
+                </td>
             </tr>
         </tbody>
         <tfoot class="grey lighten-5 w-100">
             <tr>
-                <td colspan="5">
+                <td colspan="6">
                     <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="clinicList"></mdb-table-pagination>
                 </td>
             </tr>

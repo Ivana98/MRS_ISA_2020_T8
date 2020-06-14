@@ -22,7 +22,7 @@ import lombok.Data;
 @Entity
 @SQLDelete(sql = "UPDATE clinical_center SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "deleted <> true")
-@Data
+//@Data
 @Table(name = "ClinicalCenter")
 public class ClinicalCenter {
 	

@@ -31,7 +31,7 @@ import lombok.Data;
 @Entity
 @SQLDelete(sql = "UPDATE clinic SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "deleted <> true")
-@Data
+//@Data
 @Table(name = "Clinic")
 public class Clinic {
 	
@@ -57,7 +57,7 @@ public class Clinic {
 	@OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ClinicMark> marks = new HashSet<>();
 	
-	@OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY)//, cascade = CascadeType.ALL)
 	private Set<Doctor> doctors = new HashSet<>();
 	
 	@OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

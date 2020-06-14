@@ -8,7 +8,8 @@ export interface IClinic {
     averageMark:number,
     doctors: DoctorForClinicList[],
     canRateClinic: boolean,
-    givenMark: number
+    givenMark: number,
+    examinationPrice: number
 }
 
 export class Clinic{
@@ -20,6 +21,7 @@ export class Clinic{
         public averageMark: number,
         public doctors: DoctorForClinicList[],
         public canRateClinic: boolean,
-        public givenMark: number
+        public givenMark: number,
+        public examinationPrice: number
     ) {} 
 }
