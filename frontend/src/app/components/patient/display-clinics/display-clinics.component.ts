@@ -36,7 +36,16 @@ export class DisplayClinicsComponent implements OnInit, AfterViewInit {
     this.cdRef.detectChanges();
   }
   setResponse(r) {
-    this.clinicList = r;
+    this._transferService.setClinicList(r);
+    //binding clinicList to observable variable because of searching examinations
+    this._transferService.clinicList$.subscribe(
+      data => {
+        if(data !== null){
+          this.clinicList = data;
+        }
+      },
+      error => {}
+    );
     this.mdbTable.setDataSource(this.clinicList);
     this.clinicList = this.mdbTable.getDataSource();
     this.previous = this.mdbTable.getDataSource();
@@ -56,8 +65,9 @@ export class DisplayClinicsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  rowSelected(cl: Clinic) {
+  rowSelected(cl: Clinic, rowNum : number) {
     this._transferService.setClinic(cl);
+    this._transferService.setClinicRow(rowNum);
     this._router.navigate(['/user-page/clinicsTable/clinic']);
   }
 

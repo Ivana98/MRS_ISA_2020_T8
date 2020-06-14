@@ -14,6 +14,7 @@ import { RatingService } from 'src/app/services/patient/rating/rating.service';
 export class ClinicInfoPageComponent implements OnInit, AfterViewInit {
 
   clinic: Clinic;
+  clinicList : any = [];
   doctors : any = [];
   errorClinic: boolean;
 
@@ -45,6 +46,15 @@ export class ClinicInfoPageComponent implements OnInit, AfterViewInit {
         this.errorClinic = true;
       }
     });
+
+    this._transferService.clinicList$.subscribe(
+      data => {
+        //uzmi red i postavi kliniku novu iz liste klinika
+        //this.clinicList = data;
+        var index : number = this._transferService.clinicRow$;
+        this._transferService.setClinic(data[index]);
+      }
+    );
   }
 
   ngAfterViewInit() {

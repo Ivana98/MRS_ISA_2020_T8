@@ -5,7 +5,7 @@
             <mdb-card-body class="elegant-color white-text">
 
                 <mdb-card-title>
-                    <h2 class="padding-16">Search examinations</h2>
+                    <h3 class="padding-16">Search for available examinations</h3>
                 </mdb-card-title>
 
                 <hr class="hr-light">
@@ -17,22 +17,18 @@
                             <div class="col">
                                 <div class="container">
                                     
-                                    <!-- SPECIALISATION -->
                                     <div class="row">
                                         <div class="col-4" style="padding-top: 0.1rem;">
                                             <div class="md-form">
                                                 <mat-form-field>
                                                     <mat-label>Specialisation</mat-label>
-                                                    <mat-select [(ngModel)]="examination.specialisation"> 
-                                                        <mat-option *ngFor="let spec of specialisations" [value]="spec" (click)="setDoctors(spec)">{{spec}}</mat-option>
+                                                    <mat-select [(ngModel)]="filterCl.specialisation"> 
+                                                        <mat-option *ngFor="let spec of specialisations" [value]="spec" >{{spec}}</mat-option>
                                                     </mat-select>
                                                 </mat-form-field>
                                             </div>
                                         </div>
-                                    </div>
-                
-                                    <!-- DATE -->
-                                    <div class="row">
+
                                         <div class="col-4">
                                             <mat-form-field class="example-full-width">
                                                 <mat-label>Choose a date</mat-label>
@@ -41,10 +37,7 @@
                                                 <mat-datepicker touchUi #picker ngDefaultControl [(ngModel)]="date" (dateInput)="onDate($event)" disabled="false"></mat-datepicker>
                                             </mat-form-field>
                                         </div>
-                                    </div>
-                
-                                    <!-- TIME -->
-                                    <div class="row">
+
                                         <div class="col-4">
                                             <div class="md-form">
                                                 <input type="time" id="input" class="form-control" value="13:00" mdbInput [(ngModel)]="time" />
@@ -53,15 +46,15 @@
                                         </div>
                                     </div>
                 
-                                    <!-- SEARCH BUTTON -->
                                     <div class="row">
                                         <div class="col-4">
-                                            <button type="button" mdbBtn col-4or="light" mdbWavesEffect (click)="filter()">Add</button>
+                                            <button type="button" mdbBtn col-4or="light" mdbWavesEffect (click)="filter()">Search</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
+                    </div>
 
                 </mdb-card-text>
             </mdb-card-body>
