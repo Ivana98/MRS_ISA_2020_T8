@@ -5,6 +5,7 @@ import { LoginService } from '../login-service/login.service';
 import { MedicalRecordExamination } from 'src/app/model/medicalRecordExamination';
 import { ExaminationRequest, ExaminationRequestDisplay } from 'src/app/model/examinationRequest';
 import { ApiService } from '../api-services/api.service';
+import { OfferedAppointmentClass } from 'src/app/model/offeredAppointments';
 
 @Injectable({
   providedIn: 'root'
@@ -155,6 +156,10 @@ export class ExaminationService {
   //patient send request for eamination
   public patientSendExaminRequest(examin : ExaminationRequest){
     return this._apiService.post(this._url + "sendExaminationRequest", examin, this._apiService.headers);
+  }
+
+  public patientSendOneClickRequest(examin : OfferedAppointmentClass){
+    return this._apiService.post(this._url + "sendOneClickExaminationRequest", examin, this._apiService.headers);
   }
 
 }

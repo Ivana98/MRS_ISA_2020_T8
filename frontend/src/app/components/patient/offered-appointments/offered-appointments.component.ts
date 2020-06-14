@@ -5,6 +5,7 @@ import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstra
 import { ExaminationRequest } from 'src/app/model/examinationRequest';
 import { LoginService } from 'src/app/services/login-service/login.service';
 import { ExaminationService } from 'src/app/services/examination-service/examination.service';
+import { OfferedAppointmentClass } from 'src/app/model/offeredAppointments';
 
 @Component({
   selector: 'app-offered-appointments',
@@ -14,9 +15,9 @@ import { ExaminationService } from 'src/app/services/examination-service/examina
 export class OfferedAppointmentsComponent implements OnInit {
 
   clinic: any;
-  examinationReq : ExaminationRequest = new ExaminationRequest(0, 0, 0, "", new Date());
   clinicName = "";
   examinationsList : any = [];
+  examinReq : OfferedAppointmentClass;
 
   previous: any = []; //pagination variable
   previousearch: string;
@@ -54,15 +55,25 @@ export class OfferedAppointmentsComponent implements OnInit {
   }
 
   saveChanges(){
-    this._examinationService.patientSendExaminRequest(this.examinationReq).subscribe();
+    this._examinationService.patientSendOneClickRequest(this.examinReq).subscribe(
+      request => {
+        //set table again
+        this._clinicService.getClinicAppointments(this.clinic.id).subscribe(
+          data =>{
+            this.examinationsList = data;
+            this.mdbTable.setDataSource(this.examinationsList);
+            this.examinationsList = this.mdbTable.getDataSource();
+            this.previous = this.mdbTable.getDataSource();
+            this.previousearch = this.mdbTable.getDataSource();
+          }
+        );
+      }
+    );
   }
 
-  makeAppointment(examin : any){
-    this.examinationReq.clinicId = examin.clinicId;
-    this.examinationReq.doctorId = examin.doctorId;
-    this.examinationReq.date = examin.dateOfExamination;
-    this.examinationReq.interventionType = 'EXAMINATION';
-    this.examinationReq.patientId = this._loginService.currentUser.userId;
+  makeAppointment(examin : OfferedAppointmentClass){
+    examin.patientId = this._loginService.currentUser.userId;
+    this.examinReq = examin;
   }
 
 }

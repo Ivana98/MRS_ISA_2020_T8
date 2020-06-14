@@ -11,6 +11,8 @@ public class OfferedAppointmentsDTO {
     public float discount;
     public Long doctorId;
     public Long clinicId;
+    public Long examinationId;
+    public Long patientId;
     
     public OfferedAppointmentsDTO() {}
     
@@ -61,6 +63,22 @@ public class OfferedAppointmentsDTO {
 	}
 	public void setClinicId(Long clinicId) {
 		this.clinicId = clinicId;
+	}
+
+	public Long getExaminationId() {
+		return examinationId;
+	}
+
+	public void setExaminationId(Long examinationId) {
+		this.examinationId = examinationId;
+	}
+
+	public Long getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(Long patientId) {
+		this.patientId = patientId;
 	}
     
 }

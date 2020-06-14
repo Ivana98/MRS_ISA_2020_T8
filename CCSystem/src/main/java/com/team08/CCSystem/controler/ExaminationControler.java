@@ -3,6 +3,7 @@
  */
 package com.team08.CCSystem.controler;
 
+import java.security.Principal;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -303,6 +304,14 @@ public class ExaminationControler {
 		List<OfferedAppointmentsDTO> list = new ArrayList<OfferedAppointmentsDTO>();
 		examinationService.converExaminToAppointment(list, clinicId);
 		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	//request for one click appointment
+	@PreAuthorize("hasAnyRole('PATIENT')")
+	@PostMapping(path = "/sendOneClickExaminationRequest")
+	public ResponseEntity<OfferedAppointmentsDTO> sendOneClickExaminationRequest(Principal user, @RequestBody OfferedAppointmentsDTO dto) {
+		return examinationService.sendOneClickExaminationRequest(user, dto);
+		 
 	}
 
 }
