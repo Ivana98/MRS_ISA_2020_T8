@@ -38,6 +38,7 @@ export class FilterClinicsComponent implements OnInit {
     this.date.setSeconds(0);
     this.filterCl.searchedDate = this.date;
     //call endpoint and update clinicList observable
+    this._transferClinicService.setSelectedDate(this.date);
     this._listClinicsService.getFilteredClinics(this.filterCl).subscribe(
       response => {
         if(response != null){

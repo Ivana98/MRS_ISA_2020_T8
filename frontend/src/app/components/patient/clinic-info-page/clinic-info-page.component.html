@@ -75,7 +75,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr mdbTableCol *ngFor="let dr of doctors; let i = index;">
+      <tr mdbTableCol *ngFor="let dr of doctors; let i = index;" (click)="rowSelected(dr)" (click)="confirmModal.show()">
         <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">
           {{i + 1}}</th>
         <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{dr.firstName}}
@@ -135,6 +135,42 @@
           class="relative waves-light" mdbWavesEffect>Save changes</button>
         <button type="button" mdbBtn aria-label="Close" (click)="rateModal.hide()" color="primary"
           class="relative waves-light" mdbWavesEffect>Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Confirmation modal for appointment-->
+<div mdbModal #confirmModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myconfirmModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="confirmModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">
+          Confirmation dialogue
+        </h4>
+      </div>
+
+      <div class="modal-body">
+
+        <p>Are you sure you want to schedule this examination?</p>
+        <p>Clinic: {{clinic.name}}</p>
+        <p>Doctor: {{doctor.firstName}} {{doctor.lastName}}</p>
+        <p>Examination type: {{doctor.specialisation}}</p>
+        <p>Price: {{clinic.examinationPrice}}</p>
+        <p>Price: {{date | date: 'd.M.yyyy. HH:mm'}}</p>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" mdbBtn (click)="confirmModal.hide()" (click)="yes()" color="primary" [disabled] = "!isDateSelected"
+          class="relative waves-light" mdbWavesEffect>Yes</button>
+        <button type="button" mdbBtn aria-label="Close" (click)="confirmModal.hide()" color="primary"
+          class="relative waves-light" mdbWavesEffect>Cancel</button>
       </div>
     </div>
   </div>

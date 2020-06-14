@@ -17,6 +17,9 @@ export class TransferClinicService {
   private clinicRow : number = 0;
   clinicRow$ = this.clinicRow;
 
+  private selectedDate : Date = new Date();
+  selectedDate$ = this.selectedDate;
+
   setClinic(cl: Clinic) {
     this.clinic$.next(cl);
   }
@@ -27,6 +30,10 @@ export class TransferClinicService {
 
   setClinicRow(rowNum: number){
     this.clinicRow$ = rowNum;
+  }
+
+  setSelectedDate(d: Date){
+    this.selectedDate$ = d;
   }
 
   constructor() { }

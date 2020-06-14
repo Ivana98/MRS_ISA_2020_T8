@@ -6,6 +6,9 @@ import { DoctorForClinicList } from 'src/app/model/doctorForClinicList';
 import { SaveMark } from 'src/app/model/saveMark';
 import { RatingService } from 'src/app/services/patient/rating/rating.service';
 import { Router } from '@angular/router';
+import { ExaminationRequest } from 'src/app/model/examinationRequest';
+import { LoginService } from 'src/app/services/login-service/login.service';
+import { ExaminationService } from 'src/app/services/examination-service/examination.service';
 
 @Component({
   selector: 'app-clinic-info-page',
@@ -18,6 +21,10 @@ export class ClinicInfoPageComponent implements OnInit, AfterViewInit {
   clinicList : any = [];
   doctors : any = [];
   errorClinic: boolean;
+  doctor = new DoctorForClinicList("", "", "", 0, "", 0, false, 0, 0);
+  examinationReq : ExaminationRequest = new ExaminationRequest(0, 0, 0, "", new Date());
+  date = new Date();
+  isDateSelected : boolean = false;
 
   previous: any = []; //pagination variable
   searchText: string = '';
@@ -27,7 +34,8 @@ export class ClinicInfoPageComponent implements OnInit, AfterViewInit {
   saveMark = new SaveMark(0, 0);
   clinicModal = true; // modal is used to rate clinic - true; for rate doctor - false
 
-  constructor(private _transferService: TransferClinicService, private _ratingService: RatingService,private cdRef: ChangeDetectorRef, private _router: Router) { }
+  constructor(private _transferService: TransferClinicService, private _ratingService: RatingService,private cdRef: ChangeDetectorRef,
+     private _router: Router, private _loginService : LoginService, private _examinationService : ExaminationService) { }
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
   @HostListener('input') oninput() { this.searchItems(); }
@@ -56,6 +64,8 @@ export class ClinicInfoPageComponent implements OnInit, AfterViewInit {
         this._transferService.setClinic(data[index]);
       }
     );
+
+    this.date = this._transferService.selectedDate$;
   }
 
   ngAfterViewInit() {
@@ -111,6 +121,27 @@ export class ClinicInfoPageComponent implements OnInit, AfterViewInit {
 
   quickAppointment(){
     this._router.navigate(['/user-page/clinicsTable/clinic/offeredAppointments']);
+  }
+
+  rowSelected(dr : DoctorForClinicList){
+    this.doctor = dr;
+    if(this.clinic.id === 0 || this.doctor.doctorId === 0 || this.clinic.examinationPrice === 0){
+      this.isDateSelected = false;
+      return;
+    }
+    this.isDateSelected = true;
+  }
+
+  //sending patient request for examination
+  yes(){
+    this.examinationReq.clinicId = this.clinic.id;
+    this.examinationReq.doctorId = this.doctor.doctorId;
+    this.examinationReq.date = this.date;
+    this.examinationReq.interventionType = 'EXAMINATION';
+    this.examinationReq.patientId = this._loginService.currentUser.userId;
+
+    this._examinationService.patientSendExaminRequest(this.examinationReq).subscribe();
+
   }
 
 }
