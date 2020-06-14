@@ -13,12 +13,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.team08.CCSystem.dto.ApprovedExaminationRequestDTO;
 import com.team08.CCSystem.dto.ExaminationRequestDTO;
 import com.team08.CCSystem.dto.ExaminationRequestDisplayDTO;
 import com.team08.CCSystem.dto.MedicalRecordExaminationDTO;
+import com.team08.CCSystem.model.Clinic;
 import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Examination;
 import com.team08.CCSystem.model.MedicalRoom;
@@ -54,6 +56,9 @@ public class ExaminationService {
 	
 	@Autowired
 	private HelperService helperService;
+	
+	@Autowired
+	private ClinicService clinicService;
 	
 	
 	public Examination findOne(Long id) {
@@ -419,5 +424,30 @@ public class ExaminationService {
 		
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
+
+	// at 12:00 AM every day
+    @Scheduled(cron="0 0 0 * * ?")
+	public void findExaminationsAndFreeRooms() {
+		
+    	// TODO: uraditi ovo. napisao sam korake
+    	
+    	
+	}
+	
+	
+	
+	
+	
+	// every second
+    @Scheduled(cron= "*/5 * * * * *")
+    public void printEverySecond() {
+    	System.out.println("Printujemooo na sekund*5");
+    }
+    
+ // every minut
+    @Scheduled(cron= "0 * * * * *")
+    public void printEveryMinute() {
+    	System.out.println("Printujemooo na minut");
+    }
 
 }
