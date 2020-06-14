@@ -456,13 +456,15 @@ public class ExaminationService {
 //    @Scheduled(cron="0 0 0 * * ?")
     // at 30 seconds call to see what hapend
 //    @Scheduled(cron= "*/5 * * * * *")
+	/**
+	 * Automatsko dodeljivanje sale zahtevima za preglede u ponoc
+	 */
 	public void findExaminationsAndFreeRooms() {
 		
     	List<Clinic> clinics = new ArrayList<Clinic>();
     	clinics = clinicService.findAll();
     	
-    	
-    	// unazad da bih prvo testirali kliniku 1
+    	// unazad da bi prvo testirali kliniku 1
     	for (int i = clinics.size() - 1; i >= 0; i--) {
     		// because of some session error
     		try { findExaminationsAndFreeRoomsFromClinic(clinics.get(i)); } catch (Exception e) {}
@@ -487,7 +489,6 @@ public class ExaminationService {
     	
 		Date startDateClinicTime = clinic.getTodayStartDateTime();  // start date time of clinic
 
-		//TODO: proveriti i da li je doktor u to vreme slobodan
 		for (Examination examination : requestedExaminations) {
 			
 			// assign random room for requested examination
