@@ -154,7 +154,7 @@ public class PatientService {
 		if(!approved) {
 			//delete patient from database and send explanation by email
 			remove(patient.getId());
-			emailService.sendMail("mrsisa.t8@gmail.com", "Registration response", explanation);
+			emailService.sendMail(userEmail, "Registration response", explanation);
 			return;
 		}
 		
@@ -168,7 +168,7 @@ public class PatientService {
         		+ "Our Clinical Center approve your registration request.\n" +
         		"Here is your activation link:\n" + confirmationUrl;
         
-        emailService.sendMail("mrsisa.t8@gmail.com", "Registration Confirmation", message);
+        emailService.sendMail(userEmail, "Registration Confirmation", message);
 	}
 	
 	public Patient getUser(String verificationToken) {

@@ -3,6 +3,7 @@
  */
 package com.team08.CCSystem.service;
 
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,7 +12,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
-import javax.persistence.Tuple;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import com.team08.CCSystem.dto.ExaminationRequestDisplayDTO;
 import com.team08.CCSystem.dto.MedicalRecordExaminationDTO;
 import com.team08.CCSystem.dto.OfferedAppointmentsDTO;
 import com.team08.CCSystem.model.Clinic;
+import com.team08.CCSystem.model.ClinicalCenterAdmin;
 import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Examination;
 import com.team08.CCSystem.model.ExaminationType;
@@ -64,6 +66,9 @@ public class ExaminationService {
 	
 	@Autowired
 	private ClinicService clinicService;
+	
+	@Autowired
+	private UserService userService;
 	
 	
 	public Examination findOne(Long id) {
@@ -349,8 +354,18 @@ public class ExaminationService {
 		
 		save(examiantion);
 		
-		// send email notification to clinic admin
-		emailService.sendMail("mrsisa.t8@gmail.com", "Examination request", "You have one examination request to approve for: \n" + patient);
+		//get clinical center admin email
+		Set<ClinicalCenterAdmin> ccaSet = doctor.getClinic().getClinicalCenter().getAdmins();
+		for(ClinicalCenterAdmin ccadmin : ccaSet) {
+			// send email notification to clinic admin
+			emailService.sendMail(ccadmin.getEmail(), "Examination request", "You have one examination request to approve for: \n" + patient);
+		}
+		
+		// send email notification to patient
+		emailService.sendMail(patient.getEmail(), "Examination request", "You have requested for examination in clinic: "
+				+ doctor.getClinic().getName() +"."
+				+ " Please wait for our admin to approve it.");
+
 		
 		return new ResponseEntity<>(new ExaminationRequestDTO(examiantion), HttpStatus.CREATED);
 	}
@@ -440,6 +455,7 @@ public class ExaminationService {
 			float discount = e.getPrice().getDiscount();
 			ExaminationType examinType = e.getPrice().getExaminationType();
 			
+			dto.setExaminationId(e.getId());
 			dto.setDateOfExamination(e.getDate());
 			dto.setDiscount(discount);
 			dto.setDoctorsName(e.getDoctor().getName() + " " + e.getDoctor().getSurname());
@@ -450,6 +466,38 @@ public class ExaminationService {
 			dto.setClinicId(e.getDoctor().getClinic().getId());
 			list.add(dto);
 		}
+	}
+	
+	public ResponseEntity<OfferedAppointmentsDTO> sendOneClickExaminationRequest(Principal user, OfferedAppointmentsDTO dto) {
+		System.out.println(dto);
+
+		Examination examination = examinationRepository.getOne(dto.getExaminationId());
+		Patient patient = (Patient) userService.findByUsername(user.getName());
+
+		if(examination == null || dto.getPatientId() != patient.getId())
+			return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+
+		Doctor doctor = doctorService.findOne(dto.getDoctorId());
+		examination.setPatient(patient);
+		examination.setWasOnExamination(false);
+		examination.setStaticPrice(examination.countStaticPrice());
+		
+		save(examination);
+		
+		//get clinical center admin email
+		Set<ClinicalCenterAdmin> ccaSet = doctor.getClinic().getClinicalCenter().getAdmins();
+		for(ClinicalCenterAdmin ccadmin : ccaSet) {
+			// send email notification to clinic admin
+			emailService.sendMail(ccadmin.getEmail(), "Examination request", "You have one examination request to approve for: \n" + patient);
+		}
+		
+		// send email notification to patient
+		emailService.sendMail(patient.getEmail(), "Examination request", "You have requested for examination in clinic: "
+				+ doctor.getClinic().getName() +"."
+				+ " Please wait for our admin to approve it.");
+
+		
+		return new ResponseEntity<>(new OfferedAppointmentsDTO(), HttpStatus.CREATED);
 	}
 
 	// at 12:00 AM every day
