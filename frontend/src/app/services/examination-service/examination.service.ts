@@ -4,6 +4,7 @@ import { Examination } from 'src/app/model/examination';
 import { LoginService } from '../login-service/login.service';
 import { MedicalRecordExamination } from 'src/app/model/medicalRecordExamination';
 import { ExaminationRequest, ExaminationRequestDisplay } from 'src/app/model/examinationRequest';
+import { ApiService } from '../api-services/api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ExaminationService {
 
   private _url: string = "http://localhost:8080/api/examinations/";
 
-  constructor(private _httpClient: HttpClient, private _loginService: LoginService) { }
+  constructor(private _httpClient: HttpClient, private _loginService: LoginService, private _apiService : ApiService) { }
 
   /**
    * Adding one click free examination.
@@ -149,6 +150,11 @@ export class ExaminationService {
     approvedRequestedExamination.clinicId = this._loginService.currentUser.clinicId;
     
     return this._httpClient.put<Boolean>(this._url + "approveExaminationRequest", approvedRequestedExamination);
+  }
+
+  //patient send request for eamination
+  public patientSendExaminRequest(examin : ExaminationRequest){
+    return this._apiService.post(this._url + "sendExaminationRequest", examin, this._apiService.headers);
   }
 
 }

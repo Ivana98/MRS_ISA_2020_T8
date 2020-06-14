@@ -9,6 +9,11 @@ public class OfferedAppointmentsDTO {
     public String examinationType; 
     public double price; //with discount
     public float discount;
+    public Long doctorId;
+    public Long clinicId;
+    
+    public OfferedAppointmentsDTO() {}
+    
 	public Date getDateOfExamination() {
 		return dateOfExamination;
 	}
@@ -44,6 +49,18 @@ public class OfferedAppointmentsDTO {
 	}
 	public void setDiscount(float discount) {
 		this.discount = discount;
+	}
+	public Long getDoctorId() {
+		return doctorId;
+	}
+	public void setDoctorId(Long doctorId) {
+		this.doctorId = doctorId;
+	}
+	public Long getClinicId() {
+		return clinicId;
+	}
+	public void setClinicId(Long clinicId) {
+		this.clinicId = clinicId;
 	}
     
 }

@@ -335,7 +335,7 @@ public class ExaminationService {
 		Date endDate = helperService.getDatePlusDuration(startDate, price.getExaminationType().getDuration());
 		
 		boolean isDoctorBussy = doctorService.isDoctorBussy(startDate, endDate, doctor.getId());
-		
+		System.out.println(isDoctorBussy);
 		// return null if doctor is bussy
 		if (isDoctorBussy) return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
 		
@@ -418,6 +418,7 @@ public class ExaminationService {
 	
 	public void converExaminToAppointment(List<OfferedAppointmentsDTO> list, Long clinicId) {
 		Date date = new Date(); //this is current date
+		//Date date = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
 		List<Examination> examinations = examinationRepository.findAllFreeFromClinic(clinicId, date);
 		for(Examination e : examinations) {
 			OfferedAppointmentsDTO dto = new OfferedAppointmentsDTO();
@@ -431,6 +432,8 @@ public class ExaminationService {
 			dto.setExaminationRoom(e.getMedicalRoom().getRoomNumber());
 			dto.setExaminationType(examinType.getSpecialisation().toString() + " " + examinType.getInterventionType().toString());
 			dto.setPrice(price - price*discount);
+			dto.setDoctorId(e.getDoctor().getId());
+			dto.setClinicId(e.getDoctor().getClinic().getId());
 			list.add(dto);
 		}
 	}

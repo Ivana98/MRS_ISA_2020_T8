@@ -2,6 +2,9 @@ import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { TransferClinicService } from 'src/app/services/patient/clinics/transfer-clinic.service';
 import { ListClinicsService } from 'src/app/services/patient/clinics/list-clinics.service';
 import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstrap-md';
+import { ExaminationRequest } from 'src/app/model/examinationRequest';
+import { LoginService } from 'src/app/services/login-service/login.service';
+import { ExaminationService } from 'src/app/services/examination-service/examination.service';
 
 @Component({
   selector: 'app-offered-appointments',
@@ -11,13 +14,15 @@ import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstra
 export class OfferedAppointmentsComponent implements OnInit {
 
   clinic: any;
+  examinationReq : ExaminationRequest = new ExaminationRequest(0, 0, 0, "", new Date());
   clinicName = "";
   examinationsList : any = [];
 
   previous: any = []; //pagination variable
   previousearch: string;
 
-  constructor(private _transferService: TransferClinicService, private cdRef: ChangeDetectorRef, private _clinicService: ListClinicsService) { }
+  constructor(private _transferService: TransferClinicService, private cdRef: ChangeDetectorRef, 
+    private _clinicService: ListClinicsService, private _loginService : LoginService, private _examinationService : ExaminationService) { }
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
 
@@ -49,11 +54,15 @@ export class OfferedAppointmentsComponent implements OnInit {
   }
 
   saveChanges(){
-    
+    this._examinationService.patientSendExaminRequest(this.examinationReq).subscribe();
   }
 
   makeAppointment(examin : any){
-
+    this.examinationReq.clinicId = examin.clinicId;
+    this.examinationReq.doctorId = examin.doctorId;
+    this.examinationReq.date = examin.dateOfExamination;
+    this.examinationReq.interventionType = 'EXAMINATION';
+    this.examinationReq.patientId = this._loginService.currentUser.userId;
   }
 
 }

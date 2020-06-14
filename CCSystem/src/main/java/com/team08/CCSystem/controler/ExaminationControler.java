@@ -139,6 +139,7 @@ public class ExaminationControler {
 		return examinationService.get12MonthsList(date);
 	}
 	
+	@PreAuthorize("hasAnyRole('DOCTOR', 'PATIENT')")
 	@PostMapping(path = "/sendExaminationRequest")
 	public ResponseEntity<ExaminationRequestDTO> sendExaminationRequest(@RequestBody ExaminationRequestDTO dto) {
 		
