@@ -100,25 +100,7 @@ public class DoctorControler {
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Void> deleteDoctor(@PathVariable Long id) {
 		
-		boolean hasExamination = false;
-		
-		Doctor doctor = doctorService.findOne(id);
-		
-		Date currentDate = new Date();
-
-		for (Examination examination : doctor.getExaminations()) {
-			if (examination.getDate().after(currentDate)) {
-				//doctor has examination in future so he cannot be deleted. 
-				hasExamination = true;
-			}
-		}
-		
-		if (doctor != null && !hasExamination) {
-			doctorService.remove(id);
-			return new ResponseEntity<>(HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		return doctorService.deleteDoctorById(id);
 	}
 	
 	@GetMapping(value = "/getAllByClinic/{clinicId}")
@@ -139,6 +121,12 @@ public class DoctorControler {
 		
 		List<DoctorAverageMarkDTO> doctors = doctorService.getAllByClinicForAverageMark(clinicId);
 		return new ResponseEntity<>(doctors, HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/checkIfDoctorHasAppointments/{doctorId}")
+	public ResponseEntity<Boolean> checkIfDoctorHasAppointments(@PathVariable Long doctorId) {
+		
+		return doctorService.checkIfDoctorHasAppointments(doctorId);
 	}
 	
 }

@@ -2,11 +2,12 @@ insert into address (city, country, street, deleted) values ('Novi Sad', 'Srbija
 insert into address (city, country, street, deleted) values ('Novi Sad', 'Srbija', 'Futoski Put 56b', false);
 insert into address (city, country, street, deleted) values ('Novi Sad', 'Srbija', 'Dusana radovica 2', false);
 insert into address (city, country, street, deleted) values ('Novi Sad', 'Srbija', 'Katarine Grujic 1', false);
+insert into address (city, country, street, deleted) values ('Novi Sad', 'Srbija', 'Katarine Grujic 13', false);
 
 insert into clinical_center (name, deleted) values ('Clinical Center of Vojvodina', false);
 
-insert into clinic (average_mark, name, description, address_id, clinical_center_id, deleted) values (0, 'klinika 1', 'Neki opis za kliniku 1', 1, 1, false);
-insert into clinic (average_mark, name, description, address_id, clinical_center_id, deleted) values (0, 'klinika 2', 'Neki opis za kliniku 2', 2, 1, false);
+insert into clinic (average_mark, name, description, address_id, clinical_center_id, start_time, end_time, deleted) values (0, 'klinika 1', 'Neki opis za kliniku 1', 1, 1, 6, 16, false);
+insert into clinic (average_mark, name, description, address_id, clinical_center_id, start_time, end_time, deleted) values (0, 'klinika 2', 'Neki opis za kliniku 2', 2, 1, 6, 16, false);
 
 insert into clinic_admin (id, email, name, password, phone, surname, address_id, clinic_id, enabled, last_password_reset_date, is_password_changed, deleted) values (nextval('cust_seq_user'), 'clinic.admin@gmail.com', 'Nikola', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0653355', 'Plecas', 1, 1, true, '2017-10-01 21:58:58.508-07', true, false);
 

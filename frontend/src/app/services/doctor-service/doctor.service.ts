@@ -11,16 +11,29 @@ export class DoctorService {
 
   private _url: string = "http://localhost:8080/api/doctors/";
 
-  constructor(private _httpClient: HttpClient, private _loginService: LoginService) { }
+  constructor(
+    private _httpClient: HttpClient, 
+    private _loginService: LoginService
+  ) { }
 
+  /**
+   * 
+   * @param doctor 
+   */
   public addDoctor(doctor) {
     return this._httpClient.post<Doctor>(this._url + "save", doctor);
   }
 
+  /**
+   * 
+   */
   public getDoctors() {
     return this._httpClient.get<Array<Doctor>>(this._url + "getAll");
   }
 
+  /**
+   * 
+   */
   public getAllByClinic() {
     return this._httpClient.get<Array<Doctor>>(this._url + "getAllByClinic/" + this._loginService.currentUser.clinicId);
   }
@@ -48,5 +61,14 @@ export class DoctorService {
    */
   public deleteDoctor(id) {
     return this._httpClient.delete<Number>(this._url + "delete/" + id);
+  }
+
+  /**
+   * Return true if doctor has appointments in future.
+   * 
+   * @param doctorId 
+   */
+  public checkIfDoctorHasAppointments(doctorId) {
+    return this._httpClient.get<boolean>(this._url + "checkIfDoctorHasAppointments/" + doctorId);
   }
 }

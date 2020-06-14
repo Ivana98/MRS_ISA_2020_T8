@@ -1,6 +1,20 @@
 
 <div class="container">
     <div class="row">
+        <div class="col">
+            <h1>Doctors</h1>
+        </div>
+        <div class="col align-self-end">
+            <div class="float-right">
+                <button mat-raised-button color="primary" (click)="goToAddDoctorPage()">
+                    Add new&nbsp;<mat-icon style="font-size: 21px;">add</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="row">
         <div class="col-md-12 mx-auto">
           <div class="md-form">
             <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput/>

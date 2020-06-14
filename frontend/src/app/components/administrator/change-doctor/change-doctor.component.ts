@@ -16,9 +16,11 @@ export class ChangeDoctorComponent implements OnInit {
   doctor = new Doctor(null, "", "", "", "", "", "", "", "", "", "");
   doctorsList: Array<Doctor> = [];
   userPassword = new UserPassword("", "", "");
+
   currentPasswordMatched : boolean = true;
   passwordConfirmed : boolean = true;
   doctorHasAppointment: boolean = false;
+
   changeDoctorSuccess: any; //boolean
   changePasswordSuccess:any; //boolean
   mmm: string;
@@ -35,6 +37,8 @@ export class ChangeDoctorComponent implements OnInit {
     'INTERNIST'
   ];
 
+  enableDeleteButton: boolean = false;
+
   constructor(
     private _someLogic: DoctorShareService,
     private _httpDoctorService: DoctorService
@@ -43,12 +47,21 @@ export class ChangeDoctorComponent implements OnInit {
   ngOnInit(): void {
     this._someLogic._userDoc$.subscribe(
       message => { 
-        this.doctor = message 
+        this.doctor = message
+        this.enableDeleteButton = true;
+        this.doctorHasAppointmentMethod();
       });
 
     this._someLogic._userLoad$.subscribe(
       message => { 
         this.doctorsList = message; 
+      });
+  }
+
+  doctorHasAppointmentMethod() {
+    this._httpDoctorService.checkIfDoctorHasAppointments(this.doctor.id)
+      .subscribe(response => {
+        this.doctorHasAppointment = response;
       });
   }
 

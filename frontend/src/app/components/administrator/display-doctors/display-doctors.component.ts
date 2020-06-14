@@ -18,16 +18,20 @@ export class DisplayDoctorsComponent implements OnInit {
 
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective
+
   doctorsList: Array<Doctor> = [];
   previous: any = [];
 
   searchText: string = ''; 
   previousearch: string; //search variable
 
+  showChangeDoctor: boolean = false;
+
   constructor(
     private cdRef: ChangeDetectorRef, public router: Router,
     private _httpDoctorService: DoctorService,
-    private _someLogic: DoctorShareService
+    private _someLogic: DoctorShareService,
+    private _router: Router
     ) 
   { }
 
@@ -41,9 +45,14 @@ export class DisplayDoctorsComponent implements OnInit {
     this._httpDoctorService.getAllByClinic().subscribe(response => this.setResponse(response))
   }
 
+  goToAddDoctorPage() {
+    this._router.navigate(['/user-page/addDoctor']);
+  }
+
   getRow(data) {
     this._someLogic.sendDoctor(data);
     this._someLogic.loadDoctorsAgain(this.doctorsList);
+    this.showChangeDoctor = true;
   }
 
   ngAfterViewInit() {
