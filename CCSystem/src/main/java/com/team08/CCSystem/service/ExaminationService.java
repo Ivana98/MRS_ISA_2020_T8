@@ -501,7 +501,7 @@ public class ExaminationService {
 	}
 
 	// at 12:00 AM every day
-//    @Scheduled(cron="0 0 0 * * ?")
+    @Scheduled(cron="0 0 0 * * ?")
     // at 30 seconds call to see what hapend
 //    @Scheduled(cron= "*/5 * * * * *")
 	/**
@@ -563,21 +563,22 @@ public class ExaminationService {
 		
 		Date startExaminationDate;
 		Date endExaminationDate;
+		Doctor doctor = examination.getDoctor();
 		
 		if (allExaminations.size() == 0) {
 			
-			startExaminationDate = findDoctorFirstFreeTimeAfterDate(clinic.getTodayStartDateTime());
+			startExaminationDate = findDoctorFirstFreeTimeAfterDate(clinic.getTodayStartDateTime(), examination);
 			
-			saveExaminationRoomAndStartDate(startExaminationDate, medicalRoom);
+			saveExaminationRoomAndStartDate(startExaminationDate, medicalRoom, examination);
 		} else if (allExaminations.size() == 1) {
 			Date startClinicDate = clinic.getTodayStartDateTime();
 			Date startFirstExaminationDate = allExaminations.get(0).getDate();
 			Date endFirstExaminationDate = helperService.getDatePlusDuration(startFirstExaminationDate, allExaminations.get(0).getPrice().getExaminationType().getDuration());                      
 			
-			startExaminationDate = findDoctorFirstFreeTimeBetweenDates(startClinicDate, startFirstExaminationDate);
+			startExaminationDate = findDoctorFirstFreeTimeBetweenDates(startClinicDate, startFirstExaminationDate, doctor.getId(), examination);
 			
 			if (startExaminationDate == null) {
-				startExaminationDate = findDoctorFirstFreeTimeAfterDate(endFirstExaminationDate);
+				startExaminationDate = findDoctorFirstFreeTimeAfterDate(endFirstExaminationDate, examination);
 			}
 			
 			
@@ -591,49 +592,120 @@ public class ExaminationService {
 			for (Examination exam : allExaminations) {
 				date2 = exam.getDate();
 				
-				startExaminationDate = findDoctorFirstFreeTimeBetweenDates(date1, date2);
+				startExaminationDate = findDoctorFirstFreeTimeBetweenDates(date1, date2, doctor.getId(), examination);
 				
 				if (startExaminationDate != null) {
-					saveExaminationRoomAndStartDate(startExaminationDate, medicalRoom);
+					saveExaminationRoomAndStartDate(startExaminationDate, medicalRoom, examination);
 					break;
 				}
 				
 				date1 = helperService.getDatePlusDuration(date2, exam.getPrice().getExaminationType().getDuration());
 			}
 			
-			startExaminationDate = findDoctorFirstFreeTimeAfterDate(date1);
+			startExaminationDate = findDoctorFirstFreeTimeAfterDate(date1, examination);
 			
-			saveExaminationRoomAndStartDate(startExaminationDate, medicalRoom);
+			saveExaminationRoomAndStartDate(startExaminationDate, medicalRoom, examination);
 		}
 		
 	}
 
 	/**
+	 * Not done.
+	 * 
 	 * @param startDate 
 	 * @param endDate
+	 * @param examination 
 	 * @return
 	 */
-	private Date findDoctorFirstFreeTimeBetweenDates(Date startDate, Date endDate) {
-		// TODO Auto-generated method stub
-		return null;
+	private Date findDoctorFirstFreeTimeBetweenDates(Date startDate, Date endDate, Long doctorId, Examination examination) {
+		
+		List<Examination> examinations = new ArrayList<Examination>();
+		examinations = examinationRepository.findExaminationsBetweenDatesAndDoctorId(startDate, endDate, doctorId);
+		
+		int duration = examination.getPrice().getExaminationType().getDuration();
+		
+		Date myStartDate = startDate;
+		Date myEndDate = helperService.getDatePlusDuration(myStartDate, duration);
+		
+		if (examinations.size() == 0) {
+			if ( (myStartDate.after(startDate) || myStartDate.equals(startDate)) && 
+					(myEndDate.before(endDate) || myEndDate.equals(endDate)) ) {
+				return myStartDate;
+			}
+			
+			return null;
+		} else {
+			
+			Date exam2StartDate;
+			Date exam2EndDate;
+			
+			for (Examination exam2 : examinations) {
+				exam2StartDate = exam2.getDate();
+				exam2EndDate = helperService.getDatePlusDuration(exam2StartDate, exam2.getPrice().getExaminationType().getDuration());
+				
+				if ( (myStartDate.after(exam2StartDate) || myStartDate.equals(exam2StartDate)) && 
+						(myEndDate.before(exam2EndDate) || myEndDate.equals(exam2EndDate)) ) {
+					return myStartDate;
+				}
+				
+				myStartDate = helperService.getDatePlusDuration(exam2.getDate(), duration);
+				myEndDate = helperService.getDatePlusDuration(myStartDate, duration);
+			}
+			
+			return myEndDate;
+		}
 	}
 
 	/**
 	 * @param startExaminationDate
 	 * @param medicalRoom
+	 * @param examination 
 	 */
-	private void saveExaminationRoomAndStartDate(Date startExaminationDate, MedicalRoom medicalRoom) {
-		// TODO Auto-generated method stub
+	private void saveExaminationRoomAndStartDate(Date startExaminationDate, MedicalRoom medicalRoom, Examination examination) {
+		Examination exam = findOne(examination.getId());
 		
+		exam.setMedicalRoom(medicalRoom);
+		exam.setDate(startExaminationDate);
+		
+		save(exam);
 	}
 
 	/**
 	 * @param date
 	 * @return
 	 */
-	private Date findDoctorFirstFreeTimeAfterDate(Date date) {
-		// TODO Auto-generated method stub
-		return null;
+	private Date findDoctorFirstFreeTimeAfterDate(Date date, Examination examination) {
+		
+		List<Examination> examinations = new ArrayList<>();
+		
+		examinations = examinationRepository.findAllExaminationsAfterDateAndDoctorId(date, examination.getDoctor().getId());
+		int duration = examination.getPrice().getExaminationType().getDuration();
+		
+		if (examinations.size() == 0) {
+			return date;
+		} else {
+			Date myStartDate = date;
+			Date myEndDate = helperService.getDatePlusDuration(myStartDate, duration);
+			Date exam2StartDate;
+			Date exam2EndDate;
+			
+			for (Examination exam2 : examinations) {
+				exam2StartDate = exam2.getDate();
+				exam2EndDate = helperService.getDatePlusDuration(exam2StartDate, exam2.getPrice().getExaminationType().getDuration());
+				
+				if ( (myStartDate.after(exam2StartDate) || myStartDate.equals(exam2StartDate)) && 
+						(myEndDate.before(exam2EndDate) || myEndDate.equals(exam2EndDate)) ) {
+					return myStartDate;
+				}
+				
+				myStartDate = helperService.getDatePlusDuration(exam2.getDate(), duration);
+				myEndDate = helperService.getDatePlusDuration(myStartDate, duration);
+			}
+			
+			return myEndDate;
+			
+		}
+		
 	}
 
 	// every second

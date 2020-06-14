@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +46,10 @@ public class DoctorControler {
 	@Autowired
 	private ClinicService clinicService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	
 	@PostMapping(path = "/save", consumes = "application/json")
 	public ResponseEntity<DoctorDTO> saveDoctor(@RequestBody DoctorDTO doctorDTO) {
 		
@@ -52,7 +57,7 @@ public class DoctorControler {
 		Clinic clinic = clinicService.findOne(Long.valueOf(doctorDTO.getClinic_id()));
 		Specialisation specialisation = Specialisation.valueOf(doctorDTO.getSpecialisation());
 		
-		Doctor doctor = new Doctor(doctorDTO.getId(), doctorDTO.getEmail(), doctorDTO.getFirstName(), doctorDTO.getLastName(), address, doctorDTO.getPhone(), doctorDTO.getPassword(), clinic, specialisation, 0);
+		Doctor doctor = new Doctor(doctorDTO.getId(), doctorDTO.getEmail(), doctorDTO.getFirstName(), doctorDTO.getLastName(), address, doctorDTO.getPhone(), passwordEncoder.encode(doctorDTO.getPassword()), clinic, specialisation, 0);
 		
 		doctor = doctorService.save(doctor);
 		

@@ -145,11 +145,11 @@
                                 <th scope="col">Doctor name</th>
                                 <th scope="col">Doctor surname</th>
                                 <th scope="col">Room number</th>
-                                <th scope="col">Actions</th>
+                                <!-- <th scope="col">Actions</th> -->
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let cl of examinations; let i = index;" (click)="getRow2(cl)">
+                            <tr *ngFor="let cl of examinations2; let i = index;" (click)="getRow2(cl)">
                                 <th scope="row">{{i + 1}}</th>
                                 <td>{{cl.specialisation}}</td>
                                 <td>{{cl.interventionType}}</td>
