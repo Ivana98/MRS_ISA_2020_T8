@@ -36,7 +36,7 @@ import lombok.Data;
 @Entity
 @SQLDelete(sql = "UPDATE examination SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "deleted <> true")
-@Data
+//@Data
 @Table(name = "Examination")
 public class Examination {
 	
@@ -69,10 +69,10 @@ public class Examination {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private MedicalRoom medicalRoom;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER) //cascade = CascadeType.PERSIST, 
 	private Doctor doctor;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER) //cascade = CascadeType.PERSIST, 
 	private Patient patient;
 	
 	@Column(nullable = false)

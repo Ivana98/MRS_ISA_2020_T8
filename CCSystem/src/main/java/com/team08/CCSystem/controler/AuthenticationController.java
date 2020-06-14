@@ -100,7 +100,7 @@ public class AuthenticationController {
 		
 		//save new patient and send email to clinic admin
 		Patient patient = patientService.addNewPatient(userRequest);
-		emailService.sendMail("mrsisa.t8@gmail.com", "Registration request", patient.toString());
+		emailService.sendMail(patient.getEmail(), "Registration request", patient.toString());
 		
 		patientService.registrationApproval(true, patient.getEmail(), null);
 		

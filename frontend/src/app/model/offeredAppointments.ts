@@ -7,6 +7,8 @@ export class OfferedAppointmentClass {
         public price: number,
         public discount: number,
         public doctorId: number,
-        public clinicId: number
+        public clinicId: number,
+        public examinationId: number,
+        public patientId: number
     ) {} 
 }
