@@ -11,6 +11,7 @@ export class ListClinicsService {
   
   private _ulrListForTable: string = "http://localhost:8080/api/clinics/sendListForTable";
   private _ulrFilterClinics: string = "http://localhost:8080/api/clinics/filterClinics";
+  private _urlOfferedAppointments = "http://localhost:8080/api/clinics/offeredAppointments";
 
   constructor(private _httpClient:HttpClient, private _apiService: ApiService) {  }
 
@@ -22,5 +23,9 @@ export class ListClinicsService {
   getFilteredClinics(filterCl : FilterClinicsClass)
   {
     return this._apiService.post(this._ulrFilterClinics, filterCl, this._apiService.headers);
+  }
+
+  getClinicAppointments(clinicId : number){
+    return this._apiService.post(this._urlOfferedAppointments, JSON.stringify(clinicId), this._apiService.headers);
   }
 }

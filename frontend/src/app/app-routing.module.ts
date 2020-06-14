@@ -38,6 +38,7 @@ import { ClinicAdminGuard } from './guard/clinic-admin.guard';
 import { StartExaminationComponent } from './components/doctor/start-examination/start-examination.component';
 import { DoctorGuard } from './guard/doctor.guard';
 import { DisplayExaminationRequestsComponent } from './components/administrator/display-examination-requests/display-examination-requests.component';
+import { OfferedAppointmentsComponent } from './components/patient/offered-appointments/offered-appointments.component';
 
 
 const routes: Routes = [
@@ -53,6 +54,7 @@ const routes: Routes = [
       { path: 'clinicsTable', component: DisplayClinicsComponent, canActivate: [PatientGuard] },
       { path: 'registrationClinicAdmin', component: RegistrationClinicAdminComponent },
       { path: 'clinicsTable/clinic', component: ClinicInfoPageComponent, canActivate: [PatientGuard]},
+      { path: 'clinicsTable/clinic/offeredAppointments', component: OfferedAppointmentsComponent, canActivate: [PatientGuard]},
       { path: 'registrationClinicAdmin', component: RegistrationClinicAdminComponent, canActivate: [ClinicCenterAdminGuard] },
       { path: 'myProfile', component: UserProfileComponent, canActivate: [LoginGuard] },
       { path: 'medicalRecords', component: MedicalRecordsComponent, canActivate: [PatientGuard] },
@@ -116,5 +118,6 @@ export const routingComponents = [
   AbsenceComponent,
   AbsencesComponent,
   StartExaminationComponent,
-  DisplayExaminationRequestsComponent
+  DisplayExaminationRequestsComponent,
+  OfferedAppointmentsComponent
 ]

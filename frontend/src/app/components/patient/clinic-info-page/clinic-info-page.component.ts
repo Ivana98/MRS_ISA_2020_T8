@@ -5,6 +5,7 @@ import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstra
 import { DoctorForClinicList } from 'src/app/model/doctorForClinicList';
 import { SaveMark } from 'src/app/model/saveMark';
 import { RatingService } from 'src/app/services/patient/rating/rating.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clinic-info-page',
@@ -26,7 +27,7 @@ export class ClinicInfoPageComponent implements OnInit, AfterViewInit {
   saveMark = new SaveMark(0, 0);
   clinicModal = true; // modal is used to rate clinic - true; for rate doctor - false
 
-  constructor(private _transferService: TransferClinicService, private _ratingService: RatingService,private cdRef: ChangeDetectorRef) { }
+  constructor(private _transferService: TransferClinicService, private _ratingService: RatingService,private cdRef: ChangeDetectorRef, private _router: Router) { }
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
   @HostListener('input') oninput() { this.searchItems(); }
@@ -106,6 +107,10 @@ export class ClinicInfoPageComponent implements OnInit, AfterViewInit {
         }
       });
     }
+  }
+
+  quickAppointment(){
+    this._router.navigate(['/user-page/clinicsTable/clinic/offeredAppointments']);
   }
 
 }
