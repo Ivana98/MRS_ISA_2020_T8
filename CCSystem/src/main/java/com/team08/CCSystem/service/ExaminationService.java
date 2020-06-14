@@ -20,9 +20,10 @@ import com.team08.CCSystem.dto.ApprovedExaminationRequestDTO;
 import com.team08.CCSystem.dto.ExaminationRequestDTO;
 import com.team08.CCSystem.dto.ExaminationRequestDisplayDTO;
 import com.team08.CCSystem.dto.MedicalRecordExaminationDTO;
-import com.team08.CCSystem.model.Clinic;
+import com.team08.CCSystem.dto.OfferedAppointmentsDTO;
 import com.team08.CCSystem.model.Doctor;
 import com.team08.CCSystem.model.Examination;
+import com.team08.CCSystem.model.ExaminationType;
 import com.team08.CCSystem.model.MedicalRoom;
 import com.team08.CCSystem.model.Patient;
 import com.team08.CCSystem.model.Price;
@@ -338,7 +339,7 @@ public class ExaminationService {
 		Date endDate = helperService.getDatePlusDuration(startDate, price.getExaminationType().getDuration());
 		
 		boolean isDoctorBussy = doctorService.isDoctorBussy(startDate, endDate, doctor.getId());
-		
+		System.out.println(isDoctorBussy);
 		// return null if doctor is bussy
 		if (isDoctorBussy) return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
 		
@@ -423,6 +424,28 @@ public class ExaminationService {
 		emailService.sendMail("mrsisa.t8@gmail.com", "Examination response", "Request for examination is approved. \n");
 		
 		return new ResponseEntity<>(true, HttpStatus.OK);
+	}
+	
+	public void converExaminToAppointment(List<OfferedAppointmentsDTO> list, Long clinicId) {
+		Date date = new Date(); //this is current date
+		//Date date = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
+		List<Examination> examinations = examinationRepository.findAllFreeFromClinic(clinicId, date);
+		for(Examination e : examinations) {
+			OfferedAppointmentsDTO dto = new OfferedAppointmentsDTO();
+			double price = e.getPrice().getPrice();
+			float discount = e.getPrice().getDiscount();
+			ExaminationType examinType = e.getPrice().getExaminationType();
+			
+			dto.setDateOfExamination(e.getDate());
+			dto.setDiscount(discount);
+			dto.setDoctorsName(e.getDoctor().getName() + " " + e.getDoctor().getSurname());
+			dto.setExaminationRoom(e.getMedicalRoom().getRoomNumber());
+			dto.setExaminationType(examinType.getSpecialisation().toString() + " " + examinType.getInterventionType().toString());
+			dto.setPrice(price - price*discount);
+			dto.setDoctorId(e.getDoctor().getId());
+			dto.setClinicId(e.getDoctor().getClinic().getId());
+			list.add(dto);
+		}
 	}
 
 	// at 12:00 AM every day

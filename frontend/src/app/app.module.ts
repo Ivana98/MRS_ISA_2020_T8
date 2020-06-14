@@ -76,6 +76,7 @@ import { ChangePasswordGuard } from './guard/change-password.guard';
 import { AbsencesComponent } from './components/administrator/absences/absences.component';
 import { StartExaminationComponent } from './components/doctor/start-examination/start-examination.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FilterClinicsComponent } from './components/patient/filter-clinics/filter-clinics.component';
 import { DisplayExaminationRequestsComponent } from './components/administrator/display-examination-requests/display-examination-requests.component';
 
 @NgModule({
@@ -108,6 +109,7 @@ import { DisplayExaminationRequestsComponent } from './components/administrator/
     ChangePasswordComponent,
     AbsencesComponent,
     StartExaminationComponent,
+    FilterClinicsComponent,
     DisplayExaminationRequestsComponent
   ],
   imports: [

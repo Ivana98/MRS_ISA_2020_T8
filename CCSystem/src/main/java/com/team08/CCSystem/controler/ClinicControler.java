@@ -25,6 +25,8 @@ import com.team08.CCSystem.dto.ClinicBasicDTO;
 import com.team08.CCSystem.dto.ClinicDTO;
 import com.team08.CCSystem.dto.ClinicForTableDTO;
 import com.team08.CCSystem.dto.ClinicRegistrationDTO;
+import com.team08.CCSystem.dto.FilterClinicsDTO;
+import com.team08.CCSystem.dto.OfferedAppointmentsDTO;
 import com.team08.CCSystem.dto.SaveMarkDTO;
 import com.team08.CCSystem.dto.StartEndDateClinicIdDTO;
 import com.team08.CCSystem.model.Address;
@@ -186,7 +188,7 @@ public class ClinicControler {
 			
 			//convert clinic to transferable object
 			ClinicForTableDTO dto = new ClinicForTableDTO();
-			clinicService.convertOneClinic(clinic, dto, patient.getId(), patient.getExaminations());
+			clinicService.convertOneClinic(clinic, dto, patient.getId(), patient.getExaminations(), null);
 			
 			return new ResponseEntity<>(dto, HttpStatus.OK);
 		}
@@ -221,12 +223,23 @@ public class ClinicControler {
 			
 			//convert clinic to transferable object
 			ClinicForTableDTO dto = new ClinicForTableDTO();
-			clinicService.convertOneClinic(clinic, dto, patient.getId(), patient.getExaminations());
+			clinicService.convertOneClinic(clinic, dto, patient.getId(), patient.getExaminations(), null);
 			
 			return new ResponseEntity<>(dto, HttpStatus.OK);
 		}
 		//if patient can not rate this clinic return error
 		return new ResponseEntity<>(new ClinicForTableDTO(), HttpStatus.BAD_REQUEST);
+	}
+	
+	@PreAuthorize("hasRole('PATIENT')")
+	@PostMapping(path = "/filterClinics") 
+	public ResponseEntity<List<ClinicForTableDTO>> FilterClinics(Principal user, @RequestBody FilterClinicsDTO filterDTO){
+		
+		//find current user by email, this should be patient
+		Patient p = (Patient) this.userService.findByUsername(user.getName());
+		//proveriti da li je dr zauzet ako jeste baciti error ako nije isfiltrirati pa konvertovati
+		List<ClinicForTableDTO> clinics = clinicService.convertFilteredClinics(p, filterDTO);
+		return new ResponseEntity<>(clinics, HttpStatus.OK);
 	}
 		
 }

@@ -7,12 +7,33 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class TransferClinicService {
 
-  private clinic: Clinic = new Clinic(0, '', '', '', 0, [], false, 0);
+  private clinic: Clinic = new Clinic(0, '', '', '', 0, [], false, 0, 0);
       //This is the key the Subject to transfer
   clinic$ = new BehaviorSubject<Clinic>(this.clinic);
 
+  private clinicList : any = [];
+  clinicList$ = new BehaviorSubject<[]>(this.clinicList);
+
+  private clinicRow : number = 0;
+  clinicRow$ = this.clinicRow;
+
+  private selectedDate : Date = new Date();
+  selectedDate$ = this.selectedDate;
+
   setClinic(cl: Clinic) {
     this.clinic$.next(cl);
+  }
+
+  setClinicList(clList: []){
+    this.clinicList$.next(clList);
+  }
+
+  setClinicRow(rowNum: number){
+    this.clinicRow$ = rowNum;
+  }
+
+  setSelectedDate(d: Date){
+    this.selectedDate$ = d;
   }
 
   constructor() { }
