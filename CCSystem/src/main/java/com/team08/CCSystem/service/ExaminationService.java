@@ -124,7 +124,7 @@ public class ExaminationService {
 	}
 
 	/**
-	 * @param patientId
+	 * @param patientId  
 	 * @param doctorId
 	 * @return true if doctor did examination in past for patient
 	 */

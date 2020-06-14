@@ -72,9 +72,11 @@ public class ClinicControler {
 	@Autowired
 	private DoctorService doctorService;
 	
+	
 	@GetMapping(value = "/getOne/{id}")
-	private ResponseEntity<ClinicDTO> getOne(@PathVariable Long id) {
+	public ResponseEntity<ClinicDTO> getOne(@PathVariable Long id) {
 		
+		System.out.println(id);
 		Clinic clinic = clinicService.findOne(id);
 		
 		if (clinic == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

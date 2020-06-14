@@ -4,6 +4,7 @@ import { HomePageComponent } from '../home-page/home-page.component';
 import { MdbTableDirective } from 'angular-bootstrap-md';
 import { SomeLogicService } from 'src/app/some-logic.service';
 import { AuthService } from 'src/app/services/authService/auth.service';
+import { LoginService } from 'src/app/services/login-service/login.service';
 declare var $: any;
 // import $ from 'jquery';
 
@@ -18,9 +19,18 @@ export class UserPageComponent implements OnInit {
   sub:string;
   role: string;
 
-constructor( private _someLogic: SomeLogicService, private _authService: AuthService) { } 
+  userRole: string = "";
+
+constructor(
+  private _someLogic: SomeLogicService, 
+  private _authService: AuthService,
+  private _loginService: LoginService
+  ) { } 
+
 @HostListener('input') oninput() { } 
+
 ngOnInit() {
+  this.userRole = this._loginService.currentUser.userAuthority;
   this._someLogic._user$.subscribe(
     message => {
       if (message === 'PACIJENT') {

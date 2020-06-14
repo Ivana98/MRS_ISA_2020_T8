@@ -13,7 +13,10 @@ export class ClinicService {
 
   private _url: string = "http://localhost:8080/api/clinics/";
 
-  constructor(private _httpClient: HttpClient, private _loginService: LoginService) { }
+  constructor(
+    private _httpClient: HttpClient, 
+    private _loginService: LoginService
+    ) { }
 
   /*
     return list of id and name of all clinics
@@ -23,8 +26,8 @@ export class ClinicService {
     return this._httpClient.get<Array<ICLinicToDisplay>>(this._url + "getAll");
   }
 
-  public getOne(id) {
-    return this._httpClient.get<ClinicBasic>(this._url + "getOne/" + id);
+  public getOne() {
+    return this._httpClient.get<ClinicBasic>(this._url + "getOne/" + this._loginService.currentUser.clinicId);
   }
 
   public modify(clinic) {
