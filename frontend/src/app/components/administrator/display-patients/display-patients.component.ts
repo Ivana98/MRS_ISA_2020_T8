@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef, HostListener, ElementR
 import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstrap-md';
 import { Patient } from 'src/app/model/patient';
 import { PatientService } from 'src/app/services/patient-service/patient.service';
-import { MedicalRecordExamination } from 'src/app/model/medicalRecordExamination';
+import { MedicalRecordExamination, MedicalRecordExamination2 } from 'src/app/model/medicalRecordExamination';
 import { ExaminationService } from 'src/app/services/examination-service/examination.service';
 import { TransferPatientService } from 'src/app/services/transfer-patient-service/transfer-patient.service';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login-service/login.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-display-patients',
@@ -30,6 +31,7 @@ export class DisplayPatientsComponent implements OnInit {
 
   patientsList: Array<Patient> = [];
   examinations: Array<MedicalRecordExamination> = [];
+  examinations2: Array<MedicalRecordExamination2> = [];
 
   patientDisplay: Patient = new Patient(-1, "","","","","","","","","","","","","","","");
   medRecExam: MedicalRecordExamination = new MedicalRecordExamination(-1, null, "", "", -1 ,"", "", "", null, null, null);
@@ -104,7 +106,36 @@ export class DisplayPatientsComponent implements OnInit {
     this._httpExaminationService.loadPatientExaminations(this.patientDisplay.id)
       .subscribe(response => {
         this.examinations = response;
+        this.setExaminations2(response);
       });
+  }
+
+  /**
+   * 
+   * @param exams 
+   */
+  setExaminations2(exams) {
+    // napravi examinations 2.
+
+    exams.forEach(exam => {
+      var dateB = exam.date;  // begin date
+
+      var formattedDate = formatDate(dateB, 'dd.MM.yyyy. HH:mm', 'en-US');  // begin formatted date
+
+      var bioNaPregledu = "";
+
+      if (exam.wasOnExamination) {
+        bioNaPregledu = "Yes";
+      } else {
+        bioNaPregledu = "No";
+      }
+      
+      // create new absence and add to other list
+      var examDisplay = new MedicalRecordExamination2(exam.id, formattedDate, exam.specialisation, exam.interventionType, exam.staticPrice, exam.doctorName, exam.doctorSurname, exam.roomNumber, bioNaPregledu, exam.diseases, exam.prescriptions);
+      this.examinations2.push(examDisplay);
+    });
+
+
   }
 
   /**
