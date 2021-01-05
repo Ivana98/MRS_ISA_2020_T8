@@ -66,6 +66,6 @@ Nakon toga u pretraživaču možemo kucati http://localhost:4200 što će nas od
 
 ## Dodatne napomene
 
-* Šifra svakog gorisnika iz baze je 123
+* Šifra svakog korisnika iz baze je 123
 * Tamo gde se koristi slanje mejla je nekad podrebno sačekati određeni period da bi se dobio odgovor od sistema.
 
