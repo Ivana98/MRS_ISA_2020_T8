@@ -16,13 +16,16 @@ pacijentima i njihovim zdravstvenim kartonima, kao i zakazivanje pregleda.
 
 > Veljko Plećaš
 
-> Filip Vasić
+> ~~Filip Vasić~~ (*odustao od projekta*)
 
 ## Korišćene tehnologije
 
 * [Spring Boot](https://spring.io/) - The web framework 
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [Angular](https://angular.io/) - The web framework
+
+## Trello board
+[Link](https://trello.com/b/nJnKKQdS/mrsisa2020t8) do Trello table.
 
 ## Pokretanje projekta
 
@@ -66,6 +69,5 @@ Nakon toga u pretraživaču možemo kucati http://localhost:4200 što će nas od
 
 ## Dodatne napomene
 
-* Šifra svakog gorisnika iz baze je 123
+* Šifra svakog korisnika iz baze je 123
 * Tamo gde se koristi slanje mejla je nekad podrebno sačekati određeni period da bi se dobio odgovor od sistema.
-
